@@ -47,6 +47,12 @@ namespace LinqX.Core.XCore
             var Obj = Exp.Member.GetCustomAttributes(typeof(DescriptionAttribute), true).FirstOrDefault();
             return (Obj as DescriptionAttribute).Description;
         }
+        public static Int64 ToLong<T>(this T Param, Expression<Func<T, object>> Express)
+        {
+            String Str = ((Express.Body as MemberExpression).Member as PropertyInfo).GetValue(Param).ToString();
+            Int64.TryParse(Str, out Int64 Value);
+            return Value;
+        }
         public static void ToSet<T>(this T Param, Expression<Func<T, object>> Expres, Object Value)
         {
             var Property = ((Expres.Body as MemberExpression).Member as PropertyInfo);
