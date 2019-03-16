@@ -4,9 +4,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace LinqX.Core
+namespace LinqX.Core.ExpresCore
 {
-    public interface ILinqX
+    public interface IExpres
     {
         /// <summary>
         /// 获取特性
@@ -16,13 +16,6 @@ namespace LinqX.Core
         /// <param name="Express"></param>
         /// <returns></returns>
         T GetAttributeType<T, K>(Expression<Func<K, Object>> Express);
-        /// <summary>
-        /// 获取属性的名称和值
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="Param"></param>
-        /// <returns></returns>
-        IDictionary<String, Object> GetPropertiesNameAndValue<T>(T Param) where T : class, new();
         /// <summary>
         /// 设置属性的名称和值
         /// </summary>

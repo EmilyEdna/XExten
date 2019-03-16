@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
 
-namespace LinqX.Core.LinqXCore
+namespace LinqX.Core.ExpresCore
 {
-    sealed class LinqX : ILinqX
+    sealed class Expres : IExpres
     {
         public T GetAttributeType<T, K>(Expression<Func<K, object>> Express)
         {
@@ -29,20 +28,6 @@ namespace LinqX.Core.LinqXCore
                 Exps.Add(ConvterExpress);
             });
             return Expression.Lambda<Func<T, object>>(Expression.New(Constructor, Exps), Parameter);
-        }
-
-        public IDictionary<string, object> GetPropertiesNameAndValue<T>(T Param) where T : class, new()
-        {
-            ParameterExpression Parameter = Expression.Parameter(Param.GetType(), "t");
-            Dictionary<String, Object> Map = new Dictionary<String, Object>();
-            Param.GetType().GetProperties().ToList().ForEach(item =>
-            {
-                MemberExpression PropertyExpress = Expression.Property(Parameter, item);
-                UnaryExpression ConvterExpress = Expression.Convert(PropertyExpress, typeof(object));
-                Func<T, Object> GetValueFunc = Expression.Lambda<Func<T, object>>(ConvterExpress, Parameter).Compile();
-                Map.Add(item.Name, GetValueFunc(Param));
-            });
-            return Map;
         }
 
         public void SetProptertiesValue<T>(Dictionary<String, Object> JsonValue, T Param) where T : class, new()
