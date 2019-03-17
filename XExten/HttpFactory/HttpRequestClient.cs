@@ -7,7 +7,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinqX.Core.HttpFactory
+namespace XExten.HttpFactory
 {
     public class HttpRequestClient
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace LinqX.Core.ExpresCore
+namespace XExten.ExpresCore
 {
     public interface IExpres
     {

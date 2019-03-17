@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace LinqX.Core.DynamicType
+namespace XExten.DynamicType
 {
     public class DynamicPropertyValue
     {

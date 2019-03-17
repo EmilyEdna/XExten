@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace LinqX.Core.XCore
+namespace XExten.XCore
 {
     public class Page<T>
     {

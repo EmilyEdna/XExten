@@ -1,9 +1,9 @@
-﻿using LinqX.Core.XCore;
+﻿using XExten.XCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LinqX.Core
+namespace XExten
 {
     public class Program
     {

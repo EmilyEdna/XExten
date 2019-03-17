@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace LinqX.Core.DynamicType
+namespace XExten.DynamicType
 {
     public class DynamicClass
     {

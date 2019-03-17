@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace LinqX.Core.XCore
+namespace XExten.XCore
 {
     public static class LinqX
     {

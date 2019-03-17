@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace LinqX.Core.ExpresCore
+namespace XExten.ExpresCore
 {
     sealed class Expres : IExpres
     {
