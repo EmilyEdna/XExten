@@ -12,7 +12,7 @@ namespace LinqX.Core.HttpFactory
     public class HttpRequestClient
     {
         /// <summary>
-        /// 将数据制作表单数据
+        /// Making form data to KeyValuePairs
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Entity"></param>
@@ -36,7 +36,7 @@ namespace LinqX.Core.HttpFactory
             return keyValuePairs;
         }
         /// <summary>
-        /// Post异步请求
+        /// Http by post
         /// </summary>
         /// <param name="url"></param>
         /// <param name="data"></param>
@@ -66,7 +66,7 @@ namespace LinqX.Core.HttpFactory
             }
         }
         /// <summary>
-        /// Get异步请求
+        /// Http by get
         /// </summary>
         /// <param name="url"></param>
         /// <param name="headers"></param>
