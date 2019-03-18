@@ -13,8 +13,9 @@ namespace XExten
             TestA t1 = new TestA();
             t1.Id = 1;
             t1.Name = "2";
+           var pp1= t1.ByMap<TestA, TestB>();
             ta.Add(t1);
-            var pp = ta.ByMap<TestA,TestB>();
+            var pp = ta.ByMaps<TestA,TestB>();
         }
 
     }

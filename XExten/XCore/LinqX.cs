@@ -15,7 +15,106 @@ namespace XExten.XCore
 {
     public static class LinqX
     {
-        #region SyncByMap
+
+        #region Func
+        private static Func<T, K> Funcs<T, K>()
+        {
+            var SType = typeof(T);
+            var TType = typeof(K);
+            if (IsEnumerable(SType) || IsEnumerable(TType))
+                throw new NotSupportedException("Enumerable types are not supported,please use ByMaps method.");
+            ParameterExpression Parameter = Expression.Parameter(SType, "p");
+            List<MemberBinding> Bindings = new List<MemberBinding>();
+            var TTypes = TType.GetProperties().Where(x => x.PropertyType.IsPublic && x.CanWrite);
+            foreach (var TItem in TTypes)
+            {
+                PropertyInfo SItem = SType.GetProperty(TItem.Name);
+                //check Model can write or read
+                if (SItem == null || !SItem.CanRead || SItem.PropertyType.IsNotPublic)
+                    continue;
+                //ignore map 
+                if (SItem.GetCustomAttribute<NotMappedAttribute>() != null)
+                    continue;
+                MemberExpression SProperty = Expression.Property(Parameter, SItem);
+                if (!SItem.PropertyType.IsValueType && SItem.PropertyType != SItem.PropertyType)
+                {
+                    //is not GenericType and Array
+                    if (SItem.PropertyType.IsClass && TItem.PropertyType.IsClass
+                        && !SItem.PropertyType.IsArray && !TItem.PropertyType.IsArray
+                        && !SItem.PropertyType.IsGenericType && !TItem.PropertyType.IsGenericType)
+                    {
+                        Expression Exp = GetClassExpression(SProperty, SItem.PropertyType, TItem.PropertyType);
+                        Bindings.Add(Expression.Bind(TItem, Exp));
+                    }
+                    //IEnumerable Convter
+                    if (typeof(IEnumerable).IsAssignableFrom(SItem.PropertyType) && typeof(IEnumerable).IsAssignableFrom(TItem.PropertyType))
+                    {
+                        Expression Exp = GetListExpression(SProperty, SItem.PropertyType, TItem.PropertyType);
+                        Bindings.Add(Expression.Bind(TItem, Exp));
+                    }
+                    continue;
+                }
+                //可空类型转换到非可空类型，当可空类型值为null时，用默认值赋给目标属性；不为null就直接转换
+                if (IsNullableType(SItem.PropertyType) && !IsNullableType(TItem.PropertyType))
+                {
+                    BinaryExpression BinaryItem = Expression.Equal(Expression.Property(SProperty, "HasValue"), Expression.Constant(true));
+                    ConditionalExpression CItem = Expression.Condition(BinaryItem, Expression.Convert(SProperty, TItem.PropertyType), Expression.Default(TItem.PropertyType));
+                    Bindings.Add(Expression.Bind(TItem, CItem));
+                    continue;
+                }
+                //非可空类型转换到可空类型，直接转换
+                if (!IsNullableType(SItem.PropertyType) && IsNullableType(TItem.PropertyType))
+                {
+                    UnaryExpression Unary = Expression.Convert(SProperty, TItem.PropertyType);
+                    Bindings.Add(Expression.Bind(TItem, Unary));
+                    continue;
+                }
+                if (TItem.PropertyType != SItem.PropertyType)
+                    continue;
+                Bindings.Add(Expression.Bind(TItem, SProperty));
+            }
+            //创建一个if条件表达式
+            BinaryExpression Binary = Expression.NotEqual(Parameter, Expression.Constant(null, SType));// p==null;
+            MemberInitExpression Member = Expression.MemberInit(Expression.New(TType), Bindings);
+            ConditionalExpression Condition = Expression.Condition(Binary, Member, Expression.Constant(null, TType));
+            return Expression.Lambda<Func<T, K>>(Condition, Parameter).Compile();
+        }
+        private static Expression GetClassExpression(Expression SProperty, Type SType, Type TType)
+        {
+            var Item = Expression.NotEqual(SProperty, Expression.Constant(null, SType));
+            //构造回调 Mapper<TSource, TTarget>.Map()
+            var MType = typeof(LinqX).GetMethod("ByMap", new[] { SType });
+            var Call = Expression.Call(MType, SProperty);
+            return Expression.Condition(Item, Call, Expression.Constant(null, TType));
+        }
+        private static Expression GetListExpression(Expression SProperty, Type SType, Type TType)
+        {
+            //条件p.Item!=null
+            var Item = Expression.NotEqual(SProperty, Expression.Constant(null, SType));
+            var MType = typeof(LinqX).GetMethod("ByMaps", new[] { SType });
+            var Call = Expression.Call(MType, SProperty);
+            Expression Exp;
+            if (TType == Call.Type)
+                Exp = Call;
+            else if (TType.IsArray)//数组类型调用ToArray()方法
+                Exp = Expression.Call(typeof(Enumerable), nameof(Enumerable.ToArray), new[] { Call.Type.GenericTypeArguments[0] }, Call);
+            else if (typeof(IDictionary).IsAssignableFrom(TType))
+                Exp = Expression.Constant(null, TType);//字典类型不转换
+            else
+                Exp = Expression.Convert(Call, TType);
+            return Expression.Condition(Item, Exp, Expression.Constant(null, TType));
+        }
+        private static bool IsNullableType(Type type)
+        {
+            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
+        }
+        private static bool IsEnumerable(Type type)
+        {
+            return type.IsArray || type.GetInterfaces().Any(x => x == typeof(ICollection) || x == typeof(IEnumerable));
+        }
+        #endregion
+
+        #region Sync
         /// <summary>
         ///  return a unicode string
         /// </summary>
@@ -100,82 +199,20 @@ namespace XExten.XCore
         /// <typeparam name="K"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static Func<T, K> Funcs<T, K>() where T : new() where K :new()
-        {
-            var SourceType = typeof(T);
-            var TargetType = typeof(K);
-            ParameterExpression parameter = Expression.Parameter(SourceType, "t");
-            List<MemberBinding> members = new List<MemberBinding>();
-            foreach (var sourceItem in SourceType.GetProperties())
-            {
-                var targetItem = TargetType.GetProperty(sourceItem.Name);
-                if (targetItem == null || sourceItem.PropertyType != targetItem.PropertyType)
-                    continue;
-                if (sourceItem == null || !sourceItem.CanRead || sourceItem.PropertyType.IsNotPublic)
-                    continue;
-                if (sourceItem.GetCustomAttribute<NotMappedAttribute>() != null)
-                    continue;
-                var property = Expression.Property(parameter, sourceItem);
-                //当非值类型且类型不相同时
-                if (!sourceItem.PropertyType.IsValueType && sourceItem.PropertyType != targetItem.PropertyType)
-                {
-                    //判断都是(非泛型、非数组)class
-                    if (sourceItem.PropertyType.IsClass && targetItem.PropertyType.IsClass
-                        && !sourceItem.PropertyType.IsArray && !targetItem.PropertyType.IsArray
-                        && !sourceItem.PropertyType.IsGenericType && !targetItem.PropertyType.IsGenericType)
-                    {
-                        var expression = GetClassExpression(property, sourceItem.PropertyType, targetItem.PropertyType);
-                        members.Add(Expression.Bind(targetItem, expression));
-                    }
-
-                    //集合数组类型的转换
-                    if (typeof(IEnumerable).IsAssignableFrom(sourceItem.PropertyType) && typeof(IEnumerable).IsAssignableFrom(targetItem.PropertyType))
-                    {
-                        var expression = GetListExpression(property, sourceItem.PropertyType, targetItem.PropertyType);
-                        members.Add(Expression.Bind(targetItem, expression));
-                    }
-                    continue;
-                }
-                //可空类型转换到非可空类型，当可空类型值为null时，用默认值赋给目标属性；不为null就直接转换
-                if (IsNullableType(sourceItem.PropertyType) && !IsNullableType(targetItem.PropertyType))
-                {
-                    var hasValueExpression = Expression.Equal(Expression.Property(property, "HasValue"), Expression.Constant(true));
-                    var conditionItem = Expression.Condition(hasValueExpression, Expression.Convert(property, targetItem.PropertyType), Expression.Default(targetItem.PropertyType));
-                    members.Add(Expression.Bind(targetItem, conditionItem));
-                    continue;
-                }
-
-                //非可空类型转换到可空类型，直接转换
-                if (!IsNullableType(sourceItem.PropertyType) && IsNullableType(targetItem.PropertyType))
-                {
-                    var memberExpression = Expression.Convert(property, targetItem.PropertyType);
-                    members.Add(Expression.Bind(targetItem, memberExpression));
-                    continue;
-                }
-
-                if (targetItem.PropertyType != sourceItem.PropertyType)
-                    continue;
-
-
-                var memberBinding = Expression.Bind(targetItem, property);
-                members.Add(memberBinding);
-            }
-            //创建一个if条件表达式
-            var test = Expression.NotEqual(parameter, Expression.Constant(null, SourceType));// p==null;
-            var ifTrue = Expression.MemberInit(Expression.New(SourceType), members);
-            var condition = Expression.Condition(test, ifTrue, Expression.Constant(null, SourceType));
-            var lambda=  Expression.Lambda<Func<T, K>>(condition, parameter);
-            return lambda.Compile();
-        }
         public static K ByMap<T, K>(this T Param) where T : new() where K : new()
         {
-            var p = Funcs<T, K>();
-            return p(Param);
+            return (Funcs<T, K>())(Param);
         }
+        /// <summary>
+        ///  return another type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="K"></typeparam>
+        /// <param name="queryable"></param>
+        /// <returns></returns>
         public static IEnumerable<K> ByMaps<T, K>(this IEnumerable<T> queryable) where T : new() where K : new()
         {
-            var p = Funcs<T, K>();
-            return queryable.Select(p);
+            return queryable.Select(Funcs<T, K>());
         }
         /// <summary>
         ///  return  a list with this T's PropertyName
@@ -397,10 +434,21 @@ namespace XExten.XCore
         /// <typeparam name="K"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        //public static async  Task<K> ByMapAsync<T, K>(this T Param) where T : new()
-        //{
-        //    return await Task.Run(() => ByMap<T, K>(Param));
-        //}
+        public static async Task<K> ByMapAsync<T, K>(this T Param) where T : new() where K : new()
+        {
+            return await Task.Run(() => ByMap<T, K>(Param));
+        }
+        /// <summary>
+        ///  return another type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="K"></typeparam>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static async Task<IEnumerable<K>> ByMapsAsync<T, K>(this IEnumerable<T> queryable) where T : new() where K : new()
+        {
+            return await Task.Run(() => ByMaps<T, K>(queryable));
+        }
         /// <summary>
         /// return  a list with this T's PropertyName
         /// </summary>
@@ -511,73 +559,5 @@ namespace XExten.XCore
             return await Task.Run(() => BySend(queryable, MapForm));
         }
         #endregion
-
-        /// <summary>
-        /// 类型是clas时赋值
-        /// </summary>
-        /// <param name="sourceProperty"></param>
-        /// <param name="targetProperty"></param>
-        /// <param name="sourceType"></param>
-        /// <param name="targetType"></param>
-        /// <returns></returns>
-        private static Expression GetClassExpression(Expression sourceProperty, Type sourceType, Type targetType)
-        {
-            //条件p.Item!=null
-            var testItem = Expression.NotEqual(sourceProperty, Expression.Constant(null, sourceType));
-
-            //构造回调 Mapper<TSource, TTarget>.Map()
-            var mapperType = typeof(LinqX).GetMethod("ByMap", new[] { sourceType });
-            var iftrue = Expression.Call(mapperType, sourceProperty);
-
-            var conditionItem = Expression.Condition(testItem, iftrue, Expression.Constant(null, targetType));
-
-            return conditionItem;
-        }
-        /// <summary>
-        /// 类型为集合时赋值
-        /// </summary>
-        /// <param name="sourceProperty"></param>
-        /// <param name="targetProperty"></param>
-        /// <param name="sourceType"></param>
-        /// <param name="targetType"></param>
-        /// <returns></returns>
-        private static Expression GetListExpression(Expression sourceProperty, Type sourceType, Type targetType)
-        {
-            //条件p.Item!=null
-            var testItem = Expression.NotEqual(sourceProperty, Expression.Constant(null, sourceType));
-
-            //构造回调 Mapper<TSource, TTarget>.MapList()
-            var sourceArg = sourceType.IsArray ? sourceType.GetElementType() : sourceType.GetGenericArguments()[0];
-            var targetArg = targetType.IsArray ? targetType.GetElementType() : targetType.GetGenericArguments()[0];
-            var mapperType = typeof(LinqX).GetMethod("ByMaps", new[] { sourceType });
-
-            var mapperExecMap = Expression.Call(mapperType, sourceProperty);
-
-            Expression iftrue;
-            if (targetType == mapperExecMap.Type)
-            {
-                iftrue = mapperExecMap;
-            }
-            else if (targetType.IsArray)//数组类型调用ToArray()方法
-            {
-                iftrue = Expression.Call(typeof(Enumerable), nameof(Enumerable.ToArray), new[] { mapperExecMap.Type.GenericTypeArguments[0] }, mapperExecMap);
-            }
-            else if (typeof(IDictionary).IsAssignableFrom(targetType))
-            {
-                iftrue = Expression.Constant(null, targetType);//字典类型不转换
-            }
-            else
-            {
-                iftrue = Expression.Convert(mapperExecMap, targetType);
-            }
-
-            var conditionItem = Expression.Condition(testItem, iftrue, Expression.Constant(null, targetType));
-
-            return conditionItem;
-        }
-        private static bool IsNullableType(Type type)
-        {
-            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
-        }
     }
 }
