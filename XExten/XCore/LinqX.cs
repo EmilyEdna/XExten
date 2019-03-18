@@ -15,7 +15,6 @@ namespace XExten.XCore
 {
     public static class LinqX
     {
-
         #region Func
         private static Func<T, K> Funcs<T, K>()
         {
@@ -204,15 +203,15 @@ namespace XExten.XCore
             return (Funcs<T, K>())(Param);
         }
         /// <summary>
-        ///  return another type
+        ///  Foreach the array
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <typeparam name="K"></typeparam>
-        /// <param name="queryable"></param>
-        /// <returns></returns>
-        public static IEnumerable<K> ByMaps<T, K>(this IEnumerable<T> queryable) where T : new() where K : new()
+        /// <param name="Param"></param>
+        /// <param name="Selector"></param>
+        public static void ByEach<T>(this Array Param, Action<T> Selector)
         {
-            return queryable.Select(Funcs<T, K>());
+            foreach (var item in Param)
+                Selector((T)item);
         }
         /// <summary>
         ///  return  a list with this T's PropertyName
@@ -245,6 +244,17 @@ namespace XExten.XCore
             return Values;
         }
         /// <summary>
+        ///  return another type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="K"></typeparam>
+        /// <param name="queryable"></param>
+        /// <returns></returns>
+        public static IEnumerable<K> ByMaps<T, K>(this IEnumerable<T> queryable) where T : new() where K : new()
+        {
+            return queryable.Select(Funcs<T, K>());
+        }
+        /// <summary>
         /// return a Dictionary with this T's PropertyName and PropertyValue
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -264,7 +274,7 @@ namespace XExten.XCore
             return Map;
         }
         /// <summary>
-        ///  return bool
+        ///  Check IEnumerable is nullable and return true or false
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
@@ -340,7 +350,7 @@ namespace XExten.XCore
             };
         }
         /// <summary>
-        ///  return  table
+        ///  return table
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
@@ -439,15 +449,15 @@ namespace XExten.XCore
             return await Task.Run(() => ByMap<T, K>(Param));
         }
         /// <summary>
-        ///  return another type
+        /// Foreach the array
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <typeparam name="K"></typeparam>
         /// <param name="Param"></param>
+        /// <param name="Selector"></param>
         /// <returns></returns>
-        public static async Task<IEnumerable<K>> ByMapsAsync<T, K>(this IEnumerable<T> queryable) where T : new() where K : new()
+        public static async Task ByEachAsync<T>(this Array Param, Action<T> Selector)
         {
-            return await Task.Run(() => ByMaps<T, K>(queryable));
+            await Task.Run(() => ByEach(Param, Selector));
         }
         /// <summary>
         /// return  a list with this T's PropertyName
@@ -470,7 +480,18 @@ namespace XExten.XCore
             return await Task.Run(() => ByValues(Param));
         }
         /// <summary>
-        /// return bool
+        ///  return another type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="K"></typeparam>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static async Task<IEnumerable<K>> ByMapsAsync<T, K>(this IEnumerable<T> queryable) where T : new() where K : new()
+        {
+            return await Task.Run(() => ByMaps<T, K>(queryable));
+        }
+        /// <summary>
+        /// Check IEnumerable is nullable and return true or false
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
@@ -535,7 +556,7 @@ namespace XExten.XCore
             return await Task.Run(() => ByPage(queryable, PageIndex, PageSize));
         }
         /// <summary>
-        ///  return  table
+        ///  return table
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>

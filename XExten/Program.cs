@@ -9,8 +9,6 @@ namespace XExten
     {
         public static void Main(string[] args)
         {
-
         }
-
     }
 }
