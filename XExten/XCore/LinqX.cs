@@ -8,11 +8,13 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace XExten.XCore
 {
     public static class LinqX
     {
+        #region Sync
         /// <summary>
         ///  return a unicode string
         /// </summary>
@@ -144,11 +146,11 @@ namespace XExten.XCore
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
-        /// <param name="Express"></param>
+        /// <param name="Expres"></param>
         /// <returns></returns>
-        public static String ByDes<T>(this T Param, Expression<Func<T, object>> Express) where T : new()
+        public static String ByDes<T>(this T Param, Expression<Func<T, object>> Expres) where T : new()
         {
-            MemberExpression Exp = (MemberExpression)Express.Body;
+            MemberExpression Exp = (MemberExpression)Expres.Body;
             var Obj = Exp.Member.GetCustomAttributes(typeof(DescriptionAttribute), true).FirstOrDefault();
             return (Obj as DescriptionAttribute).Description;
         }
@@ -157,11 +159,11 @@ namespace XExten.XCore
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
-        /// <param name="Express"></param>
+        /// <param name="Expres"></param>
         /// <returns></returns>
-        public static Int64 ByLong<T>(this T Param, Expression<Func<T, object>> Express) where T : new()
+        public static Int64 ByLong<T>(this T Param, Expression<Func<T, object>> Expres) where T : new()
         {
-            String Str = ((Express.Body as MemberExpression).Member as PropertyInfo).GetValue(Param).ToString();
+            String Str = ((Expres.Body as MemberExpression).Member as PropertyInfo).GetValue(Param).ToString();
             Int64.TryParse(Str, out Int64 Value);
             return Value;
         }
@@ -235,5 +237,134 @@ namespace XExten.XCore
             }
             return dt;
         }
+        #endregion
+
+        #region Async
+        /// <summary>
+        /// return a unicode string
+        /// </summary>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static async Task<String> ByUnicAsync(this String Param)
+        {
+            return await Task.Run(() => ByUnic(Param));
+        }
+        /// <summary>
+        /// return a uft8 string
+        /// </summary>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static async Task<String> ByUTF8Async(this String Param)
+        {
+            return await Task.Run(() => ByUTF8(Param));
+        }
+        /// <summary>
+        /// return this T with replace value
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static async Task<T> ByUnicAsync<T>(this T Param) where T : new()
+        {
+            return await Task.Run(() => ByUnic(Param));
+        }
+        /// <summary>
+        /// return this T with replace value
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static async Task<T> ByUTF8Async<T>(this T Param) where T : new()
+        {
+            return await Task.Run(() => ByUTF8(Param));
+        }
+        /// <summary>
+        /// return  a list with this T's PropertyName
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static async Task<List<String>> ByNamesAsync<T>(this T Param) where T : new()
+        {
+            return await Task.Run(() => ByNames(Param));
+        }
+        /// <summary>
+        /// return a List with this T's PropertyValue
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static async Task<List<Object>> ByValuesAsync<T>(this T Param) where T : new()
+        {
+            return await Task.Run(() => ByValues(Param));
+        }
+        /// <summary>
+        /// return a Dictionary with this T's PropertyName and PropertyValue
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static async Task<IDictionary<String, Object>> ByDicAsync<T>(this T Param) where T : new()
+        {
+            return await Task.Run(() => ByDic(Param));
+        }
+        /// <summary>
+        /// return DescriptionAttribute value
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <param name="Expres"></param>
+        /// <returns></returns>
+        public static async Task<String> ByDesAsync<T>(this T Param, Expression<Func<T, object>> Expres) where T : new()
+        {
+            return await Task.Run(() => ByDes(Param, Expres));
+        }
+        /// <summary>
+        ///  return Long type with Convert
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <param name="Expres"></param>
+        /// <returns></returns>
+        public static async Task<Int64>  ByLongAsync<T>(this T Param, Expression<Func<T, object>> Expres) where T : new()
+        {
+            return await Task.Run(() => ByLong(Param, Expres));
+        }
+        /// <summary>
+        ///  set a value for T's Property which choose
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <param name="Expres"></param>
+        /// <param name="Value"></param>
+        public static async Task BySetAsync<T>(this T Param, Expression<Func<T, object>> Expres, Object Value) where T : new()
+        {
+             await Task.Run(() => BySet(Param, Expres,Value));
+        }
+        /// <summary>
+        ///  return pagination
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="queryable"></param>
+        /// <param name="PageIndex"></param>
+        /// <param name="PageSize"></param>
+        /// <returns></returns>
+        public static async Task<Page<T>> ByPageAsync<T>(this IEnumerable<T> queryable, int PageIndex, int PageSize)
+        {
+            return await Task.Run(() => ByPage(queryable, PageIndex, PageSize));
+        }
+        /// <summary>
+        ///  return  table
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="queryable"></param>
+        /// <param name="PageIndex"></param>
+        /// <param name="PageSize"></param>
+        /// <returns></returns>
+        public static async Task<DataTable> ByTableAsync<T>(this IEnumerable<T> queryable, int PageIndex, int PageSize)
+        {
+            return await Task.Run(() => ByTable(queryable, PageIndex, PageSize));
+        }
+        #endregion
     }
 }
