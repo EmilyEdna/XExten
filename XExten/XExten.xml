@@ -15,7 +15,19 @@
         </member>
         <member name="M:XExten.HttpFactory.HttpRequestClient.HttpPostAsync(System.String,System.Collections.Generic.IList{System.Collections.Generic.KeyValuePair{System.String,System.String}},System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Int32,System.Text.Encoding)">
             <summary>
-            Http by post
+            Http by post default UTF8
+            </summary>
+            <param name="url"></param>
+            <param name="data"></param>
+            <param name="headers"></param>
+            <param name="contentType"></param>
+            <param name="timeout"></param>
+            <param name="encoding"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.HttpRequestClient.HttpPostBytesAsync(System.String,System.Collections.Generic.IList{System.Collections.Generic.KeyValuePair{System.String,System.String}},System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Int32,System.Text.Encoding)">
+            <summary>
+            Http by post default Bytes
             </summary>
             <param name="url"></param>
             <param name="data"></param>
@@ -27,7 +39,16 @@
         </member>
         <member name="M:XExten.HttpFactory.HttpRequestClient.HttpGetAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Int32)">
             <summary>
-            Http by get
+            Http by get default UTF8
+            </summary>
+            <param name="url"></param>
+            <param name="headers"></param>
+            <param name="timeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.HttpRequestClient.HttpGetBytesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Int32)">
+            <summary>
+            Http by get default Bytes
             </summary>
             <param name="url"></param>
             <param name="headers"></param>
@@ -366,6 +387,16 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="PropertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.GetExpression``1(System.String,System.Object,XExten.XCore.QType)">
+            <summary>
+             return a bool expression
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Property"></param>
+            <param name="Data"></param>
+            <param name="QueryType"></param>
             <returns></returns>
         </member>
     </members>

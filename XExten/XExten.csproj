@@ -10,10 +10,11 @@
     <PackageTags>linq</PackageTags>
     <RepositoryUrl>https://github.com/EmilyEdna/XExten</RepositoryUrl>
     <PackageReleaseNotes>https://github.com/EmilyEdna/XExten</PackageReleaseNotes>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
-    <Reference Include="System.Net.Http"/>
+    <Reference Include="System.Net.Http" />
   </ItemGroup>
   
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
