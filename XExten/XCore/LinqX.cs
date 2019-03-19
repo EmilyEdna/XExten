@@ -677,7 +677,7 @@ namespace XExten.XCore
             ParameterExpression Parameter = Expression.Parameter(typeof(T), "t");
             if (typeof(T).GetProperty(Property) == null)
             {
-                throw new Exception("字段名不存在，请检查！");
+                throw new MissingFieldException("Field not found,please Check");
             }
             MemberExpression Left = Expression.Property(Parameter, typeof(T).GetProperty(Property));
             ConstantExpression Right = Expression.Constant(Data, Data.GetType());
