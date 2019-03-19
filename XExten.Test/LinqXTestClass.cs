@@ -106,5 +106,10 @@ namespace XExten.Test
             TestA A = new TestA();
             LinqX.SetProptertiesValue<TestA>(keyValues, A);
         }
+        [Fact]
+        public void GetGetExpression_Test2()
+        {
+            LinqX.GetExpression<TestA>("Id", 1,QType.NotLike);
+        }
     }
 }

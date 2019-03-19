@@ -1,21 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <Authors>EmilyEdna</Authors>
     <Product />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>This package extends LINQ and produces anonymous expressions. For example: new {t1 = xx, T2 = xx}
-projectUrl:https://github.com/EmilyEdna/XExten</Description>
+    <Description>This package extends LINQ and produces anonymous expressions. For example: new {t1 = xx, t2 = xx} and projectUrl:https://github.com/EmilyEdna/XExten</Description>
     <PackageProjectUrl>https://github.com/EmilyEdna/XExten</PackageProjectUrl>
     <PackageTags>linq</PackageTags>
     <RepositoryUrl>https://github.com/EmilyEdna/XExten</RepositoryUrl>
     <PackageReleaseNotes>https://github.com/EmilyEdna/XExten</PackageReleaseNotes>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
-  </PropertyGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+    <Reference Include="System.Net.Http"/>
+  </ItemGroup>
+  
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+  </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>D:\Project\XExten\XExten\XExten.xml</DocumentationFile>

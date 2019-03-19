@@ -234,7 +234,7 @@ namespace XExten.XCore
         /// <param name="Param"></param>
         /// <returns></returns>
         public static List<Object> ByValues<T>(this T Param)
-        { 
+        {
             List<Object> Values = new List<Object>();
             Param.GetType().GetProperties().ToList().ForEach(t =>
             {
@@ -302,7 +302,7 @@ namespace XExten.XCore
         /// <param name="Param"></param>
         /// <param name="Expres"></param>
         /// <returns></returns>
-        public static Int64 ByLong<T>(this T Param, Expression<Func<T, object>> Expres) 
+        public static Int64 ByLong<T>(this T Param, Expression<Func<T, object>> Expres)
         {
             String Str = ((Expres.Body as MemberExpression).Member as PropertyInfo).GetValue(Param).ToString();
             Int64.TryParse(Str, out Int64 Value);
@@ -315,7 +315,7 @@ namespace XExten.XCore
         /// <param name="Param"></param>
         /// <param name="Expres"></param>
         /// <param name="Value"></param>
-        public static void BySet<T>(this T Param, Expression<Func<T, object>> Expres, Object Value) 
+        public static void BySet<T>(this T Param, Expression<Func<T, object>> Expres, Object Value)
         {
             var Property = ((Expres.Body as MemberExpression).Member as PropertyInfo);
 
@@ -404,7 +404,7 @@ namespace XExten.XCore
         /// <param name="Selector"></param>
         public static void ByDicEach<T, K>(this IDictionary<T, K> Param, Action<T, K> Selector)
         {
-            foreach (KeyValuePair<T,K> item in Param)
+            foreach (KeyValuePair<T, K> item in Param)
                 Selector(item.Key, item.Value);
         }
         #endregion
@@ -611,7 +611,7 @@ namespace XExten.XCore
         /// <typeparam name="K"></typeparam>
         /// <param name="Express"></param>
         /// <returns></returns>
-        public static T GetAttributeType<T, K>(Expression<Func<K, object>> Express)
+        public static T GetAttributeType<T, K>(Expression<Func<K, Object>> Express)
         {
             if (Express == null) return default(T);
             MemberExpression Exp = (MemberExpression)Express.Body;
@@ -631,15 +631,15 @@ namespace XExten.XCore
             {
                 var property = type.GetProperty(NameValue.Key);
 
-                var objectParameterExpression = Expression.Parameter(typeof(object), "obj");
+                var objectParameterExpression = Expression.Parameter(typeof(Object), "obj");
                 var objectUnaryExpression = Expression.Convert(objectParameterExpression, type);
 
-                var valueParameterExpression = Expression.Parameter(typeof(object), "val");
+                var valueParameterExpression = Expression.Parameter(typeof(Object), "val");
                 var valueUnaryExpression = Expression.Convert(valueParameterExpression, property.PropertyType);
 
                 // 调用给属性赋值的方法
                 var body = Expression.Call(objectUnaryExpression, property.GetSetMethod(), valueUnaryExpression);
-                var expression = Expression.Lambda<Action<T, object>>(body, objectParameterExpression, valueParameterExpression);
+                var expression = Expression.Lambda<Action<T, Object>>(body, objectParameterExpression, valueParameterExpression);
 
                 var Actions = expression.Compile();
                 Actions(Param, NameValue.Value);
@@ -651,7 +651,7 @@ namespace XExten.XCore
         /// <typeparam name="T"></typeparam>
         /// <param name="PropertyName"></param>
         /// <returns></returns>
-        public static Expression<Func<T, object>> GetExpression<T>(params string[] PropertyName) where T : class, new()
+        public static Expression<Func<T, Object>> GetExpression<T>(params string[] PropertyName) where T : class, new()
         {
             List<MemberBinding> Exps = new List<MemberBinding>();
             ParameterExpression Parameter = Expression.Parameter(typeof(T), "t");
@@ -662,7 +662,57 @@ namespace XExten.XCore
                 Exps.Add(Expression.Bind(typeof(T).GetProperty(Item), PropertyExpress));
             });
             MemberInitExpression Member = Expression.MemberInit(Expression.New(typeof(T)), Exps);
-            return Expression.Lambda<Func<T, object>>(Member, Parameter);
+            return Expression.Lambda<Func<T, Object>>(Member, Parameter);
+        }
+        /// <summary>
+        ///  return a bool expression
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Property"></param>
+        /// <param name="Data"></param>
+        /// <param name="QueryType"></param>
+        /// <returns></returns>
+        public static Expression<Func<T, Boolean>> GetExpression<T>(String Property, Object Data, QType QueryType)
+        {
+            ParameterExpression Parameter = Expression.Parameter(typeof(T), "t");
+            if (typeof(T).GetProperty(Property) == null)
+            {
+                throw new Exception("字段名不存在，请检查！");
+            }
+            MemberExpression Left = Expression.Property(Parameter, typeof(T).GetProperty(Property));
+            ConstantExpression Right = Expression.Constant(Data, Data.GetType());
+            Expression Filter = null;
+            switch (QueryType)
+            {
+                case QType.Like:
+                    Filter = Expression.Call(Left, typeof(String).GetMethod("Contains", new Type[] { typeof(String) }), Right);
+                    break;
+                case QType.NotLike:
+                    Filter = Expression.Not(Expression.Call(Left, typeof(String).GetMethod("Contains", new Type[] { typeof(String) }), Right));
+                    break;
+                case QType.Equals:
+                    Filter = Expression.Equal(Left, Right);
+                    break;
+                case QType.NotEquals:
+                    Filter = Expression.NotEqual(Left, Right);
+                    break;
+                case QType.GreaterThan:
+                    Filter = Expression.GreaterThan(Left, Right);
+                    break;
+                case QType.GreaterThanOrEqual:
+                    Filter = Expression.GreaterThanOrEqual(Left, Right);
+                    break;
+                case QType.LessThan:
+                    Filter = Expression.LessThan(Left, Right);
+                    break;
+                case QType.LessThanOrEqual:
+                    Filter = Expression.LessThanOrEqual(Left, Right);
+                    break;
+                default:
+                    Filter = Expression.Equal(Left, Right);
+                    break;
+            }
+            return Expression.Lambda<Func<T, bool>>(Filter, Parameter);
         }
         #endregion
     }
