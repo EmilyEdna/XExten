@@ -102,4 +102,10 @@
             TestA A = new TestA();
             LinqX.SetProptertiesValue<TestA>(keyValues, A);
         }
+        [Fact]
+        public void GetGetExpression_Test2()
+        {
+            TestA A = new TestA { Id = 10, Name = "测试" };
+            LinqX.GetExpression<TestA>("Name", "123", QType.NotLike);
+        }
 ```
