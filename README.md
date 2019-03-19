@@ -1,7 +1,7 @@
 # XExten
 #### This package extends LINQ and produces anonymous expressions. For example: new {t1 = xx, t2 = xx}
 [![](https://img.shields.io/badge/build-success-brightgreen.svg)](https://github.com/EmilyEdna/XExten)
-[![](https://img.shields.io/badge/nuget-1.0.0-blue.svg)](https://www.nuget.org/packages/XExten/)
+[![](https://img.shields.io/badge/nuget-1.0.1-blue.svg)](https://www.nuget.org/packages/XExten/1.0.1)
 ## Here is some demo
 ```C#
         [Fact]
@@ -101,5 +101,11 @@
             };
             TestA A = new TestA();
             LinqX.SetProptertiesValue<TestA>(keyValues, A);
+        }
+        [Fact]
+        public void GetGetExpression_Test2()
+        {
+            TestA A = new TestA { Id = 10, Name = "测试" };
+            LinqX.GetExpression<TestA>("Name", "123", QType.NotLike);
         }
 ```
