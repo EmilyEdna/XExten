@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XExten", "XExten\XExten.csproj", "{6B44A99B-0B09-4F85-B400-F7D21FB838FA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XExten.Test", "XExten.Test\XExten.Test.csproj", "{42A63F0A-13D5-4708-82EB-D1AC0B0FEF87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{6B44A99B-0B09-4F85-B400-F7D21FB838FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B44A99B-0B09-4F85-B400-F7D21FB838FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B44A99B-0B09-4F85-B400-F7D21FB838FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42A63F0A-13D5-4708-82EB-D1AC0B0FEF87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42A63F0A-13D5-4708-82EB-D1AC0B0FEF87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42A63F0A-13D5-4708-82EB-D1AC0B0FEF87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42A63F0A-13D5-4708-82EB-D1AC0B0FEF87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

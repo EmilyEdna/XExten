@@ -22,7 +22,7 @@ namespace XExten.XCore
             var TType = typeof(K);
             if (IsEnumerable(SType) || IsEnumerable(TType))
                 throw new NotSupportedException("Enumerable types are not supported,please use ByMaps method.");
-            ParameterExpression Parameter = Expression.Parameter(SType, "p");
+            ParameterExpression Parameter = Expression.Parameter(SType, "t");
             List<MemberBinding> Bindings = new List<MemberBinding>();
             var TTypes = TType.GetProperties().Where(x => x.PropertyType.IsPublic && x.CanWrite);
             foreach (var TItem in TTypes)
@@ -73,7 +73,7 @@ namespace XExten.XCore
                 Bindings.Add(Expression.Bind(TItem, SProperty));
             }
             //创建一个if条件表达式
-            BinaryExpression Binary = Expression.NotEqual(Parameter, Expression.Constant(null, SType));// p==null;
+            BinaryExpression Binary = Expression.NotEqual(Parameter, Expression.Constant(null, SType));
             MemberInitExpression Member = Expression.MemberInit(Expression.New(TType), Bindings);
             ConditionalExpression Condition = Expression.Condition(Binary, Member, Expression.Constant(null, TType));
             return Expression.Lambda<Func<T, K>>(Condition, Parameter).Compile();
@@ -153,7 +153,7 @@ namespace XExten.XCore
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static T ByUnic<T>(this T Param) where T : new()
+        public static T ByUnic<T>(this T Param)
         {
             Param.GetType().GetProperties().ToList().ForEach(t =>
             {
@@ -177,7 +177,7 @@ namespace XExten.XCore
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static T ByUTF8<T>(this T Param) where T : new()
+        public static T ByUTF8<T>(this T Param)
         {
             Param.GetType().GetProperties().ToList().ForEach(t =>
             {
@@ -198,7 +198,7 @@ namespace XExten.XCore
         /// <typeparam name="K"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static K ByMap<T, K>(this T Param) where T : new() where K : new()
+        public static K ByMap<T, K>(this T Param)
         {
             return (Funcs<T, K>())(Param);
         }
@@ -219,7 +219,7 @@ namespace XExten.XCore
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static List<String> ByNames<T>(this T Param) where T : new()
+        public static List<String> ByNames<T>(this T Param)
         {
             List<String> Names = new List<String>();
             Param.GetType().GetProperties().ToList().ForEach(t =>
@@ -234,8 +234,8 @@ namespace XExten.XCore
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static List<Object> ByValues<T>(this T Param) where T : new()
-        {
+        public static List<Object> ByValues<T>(this T Param)
+        { 
             List<Object> Values = new List<Object>();
             Param.GetType().GetProperties().ToList().ForEach(t =>
             {
@@ -250,7 +250,7 @@ namespace XExten.XCore
         /// <typeparam name="K"></typeparam>
         /// <param name="queryable"></param>
         /// <returns></returns>
-        public static IEnumerable<K> ByMaps<T, K>(this IEnumerable<T> queryable) where T : new() where K : new()
+        public static IEnumerable<K> ByMaps<T, K>(this IEnumerable<T> queryable)
         {
             return queryable.Select(Funcs<T, K>());
         }
@@ -260,7 +260,7 @@ namespace XExten.XCore
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static IDictionary<String, Object> ByDic<T>(this T Param) where T : new()
+        public static IDictionary<String, Object> ByDic<T>(this T Param)
         {
             ParameterExpression Parameter = Expression.Parameter(Param.GetType(), "t");
             Dictionary<String, Object> Map = new Dictionary<String, Object>();
@@ -290,7 +290,7 @@ namespace XExten.XCore
         /// <param name="Param"></param>
         /// <param name="Expres"></param>
         /// <returns></returns>
-        public static String ByDes<T>(this T Param, Expression<Func<T, object>> Expres) where T : new()
+        public static String ByDes<T>(this T Param, Expression<Func<T, object>> Expres)
         {
             MemberExpression Exp = (MemberExpression)Expres.Body;
             var Obj = Exp.Member.GetCustomAttributes(typeof(DescriptionAttribute), true).FirstOrDefault();
@@ -303,7 +303,7 @@ namespace XExten.XCore
         /// <param name="Param"></param>
         /// <param name="Expres"></param>
         /// <returns></returns>
-        public static Int64 ByLong<T>(this T Param, Expression<Func<T, object>> Expres) where T : new()
+        public static Int64 ByLong<T>(this T Param, Expression<Func<T, object>> Expres) 
         {
             String Str = ((Expres.Body as MemberExpression).Member as PropertyInfo).GetValue(Param).ToString();
             Int64.TryParse(Str, out Int64 Value);
@@ -316,7 +316,7 @@ namespace XExten.XCore
         /// <param name="Param"></param>
         /// <param name="Expres"></param>
         /// <param name="Value"></param>
-        public static void BySet<T>(this T Param, Expression<Func<T, object>> Expres, Object Value) where T : new()
+        public static void BySet<T>(this T Param, Expression<Func<T, object>> Expres, Object Value) 
         {
             var Property = ((Expres.Body as MemberExpression).Member as PropertyInfo);
 
@@ -396,6 +396,18 @@ namespace XExten.XCore
                 yield return MapForm(iterator.Current);
             }
         }
+        /// <summary>
+        ///  foreach the dictionary
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="K"></typeparam>
+        /// <param name="Param"></param>
+        /// <param name="Selector"></param>
+        public static void ByDicEach<T, K>(this IDictionary<T, K> Param, Action<T, K> Selector)
+        {
+            foreach (KeyValuePair<T,K> item in Param)
+                Selector(item.Key, item.Value);
+        }
         #endregion
 
         #region Async
@@ -423,7 +435,7 @@ namespace XExten.XCore
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static async Task<T> ByUnicAsync<T>(this T Param) where T : new()
+        public static async Task<T> ByUnicAsync<T>(this T Param)
         {
             return await Task.Run(() => ByUnic(Param));
         }
@@ -433,7 +445,7 @@ namespace XExten.XCore
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static async Task<T> ByUTF8Async<T>(this T Param) where T : new()
+        public static async Task<T> ByUTF8Async<T>(this T Param)
         {
             return await Task.Run(() => ByUTF8(Param));
         }
@@ -444,7 +456,7 @@ namespace XExten.XCore
         /// <typeparam name="K"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static async Task<K> ByMapAsync<T, K>(this T Param) where T : new() where K : new()
+        public static async Task<K> ByMapAsync<T, K>(this T Param)
         {
             return await Task.Run(() => ByMap<T, K>(Param));
         }
@@ -465,7 +477,7 @@ namespace XExten.XCore
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static async Task<List<String>> ByNamesAsync<T>(this T Param) where T : new()
+        public static async Task<List<String>> ByNamesAsync<T>(this T Param)
         {
             return await Task.Run(() => ByNames(Param));
         }
@@ -475,7 +487,7 @@ namespace XExten.XCore
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static async Task<List<Object>> ByValuesAsync<T>(this T Param) where T : new()
+        public static async Task<List<Object>> ByValuesAsync<T>(this T Param)
         {
             return await Task.Run(() => ByValues(Param));
         }
@@ -486,7 +498,7 @@ namespace XExten.XCore
         /// <typeparam name="K"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static async Task<IEnumerable<K>> ByMapsAsync<T, K>(this IEnumerable<T> queryable) where T : new() where K : new()
+        public static async Task<IEnumerable<K>> ByMapsAsync<T, K>(this IEnumerable<T> queryable)
         {
             return await Task.Run(() => ByMaps<T, K>(queryable));
         }
@@ -506,7 +518,7 @@ namespace XExten.XCore
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static async Task<IDictionary<String, Object>> ByDicAsync<T>(this T Param) where T : new()
+        public static async Task<IDictionary<String, Object>> ByDicAsync<T>(this T Param)
         {
             return await Task.Run(() => ByDic(Param));
         }
@@ -517,7 +529,7 @@ namespace XExten.XCore
         /// <param name="Param"></param>
         /// <param name="Expres"></param>
         /// <returns></returns>
-        public static async Task<String> ByDesAsync<T>(this T Param, Expression<Func<T, object>> Expres) where T : new()
+        public static async Task<String> ByDesAsync<T>(this T Param, Expression<Func<T, object>> Expres)
         {
             return await Task.Run(() => ByDes(Param, Expres));
         }
@@ -528,7 +540,7 @@ namespace XExten.XCore
         /// <param name="Param"></param>
         /// <param name="Expres"></param>
         /// <returns></returns>
-        public static async Task<Int64> ByLongAsync<T>(this T Param, Expression<Func<T, object>> Expres) where T : new()
+        public static async Task<Int64> ByLongAsync<T>(this T Param, Expression<Func<T, object>> Expres)
         {
             return await Task.Run(() => ByLong(Param, Expres));
         }
@@ -539,7 +551,7 @@ namespace XExten.XCore
         /// <param name="Param"></param>
         /// <param name="Expres"></param>
         /// <param name="Value"></param>
-        public static async Task BySetAsync<T>(this T Param, Expression<Func<T, object>> Expres, Object Value) where T : new()
+        public static async Task BySetAsync<T>(this T Param, Expression<Func<T, object>> Expres, Object Value)
         {
             await Task.Run(() => BySet(Param, Expres, Value));
         }
@@ -578,6 +590,80 @@ namespace XExten.XCore
         public static async Task<IEnumerable<K>> BySendAsync<T, K>(this IEnumerable<T> queryable, Func<T, K> MapForm)
         {
             return await Task.Run(() => BySend(queryable, MapForm));
+        }
+        /// <summary>
+        ///  foreach the dictionary
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="K"></typeparam>
+        /// <param name="Param"></param>
+        /// <param name="Selector"></param>
+        public static async Task ByDicEachAsync<T, K>(this IDictionary<T, K> Param, Action<T, K> Selector)
+        {
+            await Task.Run(() => ByDicEach(Param, Selector));
+        }
+        #endregion
+
+        #region Expres
+        /// <summary>
+        ///  Return AttributeType
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="K"></typeparam>
+        /// <param name="Express"></param>
+        /// <returns></returns>
+        public static T GetAttributeType<T, K>(Expression<Func<K, object>> Express)
+        {
+            if (Express == null) return default(T);
+            MemberExpression Exp = (MemberExpression)Express.Body;
+            var Attribute = (T)Exp.Member.GetCustomAttributes(typeof(T), true).FirstOrDefault();
+            return Attribute;
+        }
+        /// <summary>
+        /// Set Properties Value
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="JsonValue"></param>
+        /// <param name="Param"></param>
+        public static void SetProptertiesValue<T>(Dictionary<String, Object> JsonValue, T Param) where T : class, new()
+        {
+            var type = typeof(T);
+            foreach (var NameValue in JsonValue)
+            {
+                var property = type.GetProperty(NameValue.Key);
+
+                var objectParameterExpression = Expression.Parameter(typeof(object), "obj");
+                var objectUnaryExpression = Expression.Convert(objectParameterExpression, type);
+
+                var valueParameterExpression = Expression.Parameter(typeof(object), "val");
+                var valueUnaryExpression = Expression.Convert(valueParameterExpression, property.PropertyType);
+
+                // 调用给属性赋值的方法
+                var body = Expression.Call(objectUnaryExpression, property.GetSetMethod(), valueUnaryExpression);
+                var expression = Expression.Lambda<Action<T, object>>(body, objectParameterExpression, valueParameterExpression);
+
+                var Actions = expression.Compile();
+                Actions(Param, NameValue.Value);
+            };
+        }
+        /// <summary>
+        ///  Return a new expression
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="PropertyName"></param>
+        /// <returns></returns>
+        public static Expression<Func<T, object>> GetExpression<T>(params string[] PropertyName) where T : class, new()
+        {
+            List<MemberBinding> Exps = new List<MemberBinding>();
+            ParameterExpression Parameter = Expression.Parameter(typeof(T), "t");
+            PropertyName.ByEach<String>(Item =>
+            {
+                MemberExpression PropertyExpress = Expression.Property(Parameter, Item);
+                UnaryExpression ConvterExpress = Expression.Convert(PropertyExpress, typeof(T).GetProperty(Item).PropertyType);
+                Exps.Add(Expression.Bind(typeof(T).GetProperty(Item), PropertyExpress));
+            });
+            MemberInitExpression Member = Expression.MemberInit(Expression.New(typeof(T)), Exps);
+            return Expression.Lambda<Func<T, object>>(Member, Parameter);
         }
         #endregion
     }
