@@ -1,0 +1,372 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>XExten</name>
+    </assembly>
+    <members>
+        <member name="M:XExten.HttpFactory.HttpRequestClient.KeyValuePairs``1(``0,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Making form data to KeyValuePairs
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Entity"></param>
+            <param name="Map"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.HttpRequestClient.HttpPostAsync(System.String,System.Collections.Generic.IList{System.Collections.Generic.KeyValuePair{System.String,System.String}},System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Int32,System.Text.Encoding)">
+            <summary>
+            Http by post
+            </summary>
+            <param name="url"></param>
+            <param name="data"></param>
+            <param name="headers"></param>
+            <param name="contentType"></param>
+            <param name="timeout"></param>
+            <param name="encoding"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.HttpRequestClient.HttpGetAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Int32)">
+            <summary>
+            Http by get
+            </summary>
+            <param name="url"></param>
+            <param name="headers"></param>
+            <param name="timeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByUnic(System.String)">
+            <summary>
+             return a unicode string
+            </summary>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByUTF8(System.String)">
+            <summary>
+             return a uft8 string
+            </summary>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByUnic``1(``0)">
+            <summary>
+            return this T with replace value
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByUTF8``1(``0)">
+            <summary>
+             return this T with replace value
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByMap``2(``0)">
+            <summary>
+            return another type
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="K"></typeparam>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByEach``1(System.Array,System.Action{``0})">
+            <summary>
+             Foreach the array
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <param name="Selector"></param>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByNames``1(``0)">
+            <summary>
+             return  a list with this T's PropertyName
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByValues``1(``0)">
+            <summary>
+             return a List with this T's PropertyValue
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByMaps``2(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+             return another type
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="K"></typeparam>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByDic``1(``0)">
+            <summary>
+            return a Dictionary with this T's PropertyName and PropertyValue
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.IsNullOrEmpty``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+             Check IEnumerable is nullable and return true or false
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByDes``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
+            <summary>
+             return DescriptionAttribute value
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <param name="Expres"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByLong``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
+            <summary>
+             return Long type with Convert
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <param name="Expres"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.BySet``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Object)">
+            <summary>
+             set a value for T's Property which choose
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <param name="Expres"></param>
+            <param name="Value"></param>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByPage``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Int32)">
+            <summary>
+             return pagination
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="queryable"></param>
+            <param name="PageIndex"></param>
+            <param name="PageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByTable``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Int32)">
+            <summary>
+             return table
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="queryable"></param>
+            <param name="PageIndex"></param>
+            <param name="PageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.BySend``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+            Transform your shit into some other shit.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="K"></typeparam>
+            <param name="queryable"></param>
+            <param name="transform"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByDicEach``2(System.Collections.Generic.IDictionary{``0,``1},System.Action{``0,``1})">
+            <summary>
+             foreach the dictionary
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="K"></typeparam>
+            <param name="Param"></param>
+            <param name="Selector"></param>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByUnicAsync(System.String)">
+            <summary>
+            return a unicode string
+            </summary>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByUTF8Async(System.String)">
+            <summary>
+            return a uft8 string
+            </summary>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByUnicAsync``1(``0)">
+            <summary>
+            return this T with replace value
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByUTF8Async``1(``0)">
+            <summary>
+            return this T with replace value
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByMapAsync``2(``0)">
+            <summary>
+             return another type
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="K"></typeparam>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByEachAsync``1(System.Array,System.Action{``0})">
+            <summary>
+            Foreach the array
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <param name="Selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByNamesAsync``1(``0)">
+            <summary>
+            return  a list with this T's PropertyName
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByValuesAsync``1(``0)">
+            <summary>
+            return a List with this T's PropertyValue
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByMapsAsync``2(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+             return another type
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="K"></typeparam>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.IsNullOrEmptyAsync``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Check IEnumerable is nullable and return true or false
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByDicAsync``1(``0)">
+            <summary>
+            return a Dictionary with this T's PropertyName and PropertyValue
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByDesAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
+            <summary>
+            return DescriptionAttribute value
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <param name="Expres"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByLongAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
+            <summary>
+             return Long type with Convert
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <param name="Expres"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.BySetAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Object)">
+            <summary>
+             set a value for T's Property which choose
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <param name="Expres"></param>
+            <param name="Value"></param>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByPageAsync``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Int32)">
+            <summary>
+             return pagination
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="queryable"></param>
+            <param name="PageIndex"></param>
+            <param name="PageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByTableAsync``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Int32)">
+            <summary>
+             return table
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="queryable"></param>
+            <param name="PageIndex"></param>
+            <param name="PageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.BySendAsync``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+            Transform your shit into some other shit.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="K"></typeparam>
+            <param name="queryable"></param>
+            <param name="MapForm"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByDicEachAsync``2(System.Collections.Generic.IDictionary{``0,``1},System.Action{``0,``1})">
+            <summary>
+             foreach the dictionary
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="K"></typeparam>
+            <param name="Param"></param>
+            <param name="Selector"></param>
+        </member>
+        <member name="M:XExten.XCore.LinqX.GetAttributeType``2(System.Linq.Expressions.Expression{System.Func{``1,System.Object}})">
+            <summary>
+             Return AttributeType
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="K"></typeparam>
+            <param name="Express"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.SetProptertiesValue``1(System.Collections.Generic.Dictionary{System.String,System.Object},``0)">
+            <summary>
+            Set Properties Value
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="JsonValue"></param>
+            <param name="Param"></param>
+        </member>
+        <member name="M:XExten.XCore.LinqX.GetExpression``1(System.String[])">
+            <summary>
+             Return a new expression
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="PropertyName"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
