@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
@@ -32,7 +31,7 @@ namespace XExten.XCore
                 if (SItem == null || !SItem.CanRead || SItem.PropertyType.IsNotPublic)
                     continue;
                 //ignore map 
-                if (SItem.GetCustomAttribute<NotMappedAttribute>() != null)
+                if (SItem.GetCustomAttribute<IgnoreMappedAttribute>() != null)
                     continue;
                 MemberExpression SProperty = Expression.Property(Parameter, SItem);
                 if (!SItem.PropertyType.IsValueType && SItem.PropertyType != SItem.PropertyType)

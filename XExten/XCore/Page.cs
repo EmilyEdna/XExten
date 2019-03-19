@@ -12,4 +12,8 @@ namespace XExten.XCore
         public int CurrentPage { get; set; }
         public IQueryable<T> Queryable { get; set; }
     }
+    public class IgnoreMappedAttribute : Attribute
+    {
+
+    }
 }
