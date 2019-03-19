@@ -5,10 +5,12 @@
     <Authors>EmilyEdna</Authors>
     <Product />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>This package extends LINQ and produces anonymous expressions. For example: new {t1 = xx, T2 = xx}</Description>
+    <Description>This package extends LINQ and produces anonymous expressions. For example: new {t1 = xx, T2 = xx}
+projectUrl:https://github.com/EmilyEdna/XExten</Description>
     <PackageProjectUrl>https://github.com/EmilyEdna/XExten</PackageProjectUrl>
     <PackageTags>linq</PackageTags>
     <RepositoryUrl>https://github.com/EmilyEdna/XExten</RepositoryUrl>
+    <PackageReleaseNotes>https://github.com/EmilyEdna/XExten</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
