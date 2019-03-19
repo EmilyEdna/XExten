@@ -109,7 +109,8 @@ namespace XExten.Test
         [Fact]
         public void GetGetExpression_Test2()
         {
-            LinqX.GetExpression<TestA>("Id", 1,QType.NotLike);
+            TestA A = new TestA { Id = 10, Name = "≤‚ ‘" };
+            LinqX.GetExpression<TestA>("Name", "123", QType.NotLike);
         }
     }
 }
