@@ -23,11 +23,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>D:\Project\XExten\XExten\XExten.xml</DocumentationFile>
   </PropertyGroup>
-  <ItemGroup>
+  <!--<ItemGroup>
     <Compile Remove="DynamicType\**" />
     <EmbeddedResource Remove="DynamicType\**" />
     <None Remove="DynamicType\**" />
-  </ItemGroup>
+  </ItemGroup>-->
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
