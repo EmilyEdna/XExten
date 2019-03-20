@@ -23,6 +23,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>D:\Project\XExten\XExten\XExten.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="DynamicType\**" />
+    <EmbeddedResource Remove="DynamicType\**" />
+    <None Remove="DynamicType\**" />
+  </ItemGroup>
   <!--<ItemGroup>
     <Compile Remove="DynamicType\**" />
     <EmbeddedResource Remove="DynamicType\**" />

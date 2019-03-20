@@ -213,6 +213,17 @@ namespace XExten.XCore
                 Selector((T)item);
         }
         /// <summary>
+        ///  Foreach the IEnumerable
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <param name="Selector"></param>
+        public static void ByEachs<T>(this IEnumerable<T> queryable, Action<T> Selector)
+        {
+            foreach (var item in queryable)
+                Selector((T)item);
+        }
+        /// <summary>
         ///  return  a list with this T's PropertyName
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -289,7 +300,7 @@ namespace XExten.XCore
         /// <param name="Param"></param>
         /// <param name="Expres"></param>
         /// <returns></returns>
-        public static String ByDes<T>(this T Param, Expression<Func<T, object>> Expres)
+        public static String ByDes<T>(this T Param, Expression<Func<T, Object>> Expres)
         {
             MemberExpression Exp = (MemberExpression)Expres.Body;
             var Obj = Exp.Member.GetCustomAttributes(typeof(DescriptionAttribute), true).FirstOrDefault();
@@ -302,7 +313,7 @@ namespace XExten.XCore
         /// <param name="Param"></param>
         /// <param name="Expres"></param>
         /// <returns></returns>
-        public static Int64 ByLong<T>(this T Param, Expression<Func<T, object>> Expres)
+        public static Int64 ByLong<T>(this T Param, Expression<Func<T, Object>> Expres)
         {
             String Str = ((Expres.Body as MemberExpression).Member as PropertyInfo).GetValue(Param).ToString();
             Int64.TryParse(Str, out Int64 Value);
@@ -315,7 +326,7 @@ namespace XExten.XCore
         /// <param name="Param"></param>
         /// <param name="Expres"></param>
         /// <param name="Value"></param>
-        public static void BySet<T>(this T Param, Expression<Func<T, object>> Expres, Object Value)
+        public static void BySet<T>(this T Param, Expression<Func<T, Object>> Expres, Object Value)
         {
             var Property = ((Expres.Body as MemberExpression).Member as PropertyInfo);
 
@@ -407,6 +418,24 @@ namespace XExten.XCore
             foreach (KeyValuePair<T, K> item in Param)
                 Selector(item.Key, item.Value);
         }
+        /// <summary>
+        /// return a list property value list for this T
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="queryable"></param>
+        /// <param name="Expres"></param>
+        /// <returns></returns>
+        public static IEnumerable<Object> ByOver<T>(this IEnumerable<T> queryable, Expression<Func<T, Object>> Expres)
+        {
+            PropertyInfo property = (Expres.Body as MemberExpression).Member as PropertyInfo;
+            IList<Object> Data = new List<Object>();
+            queryable.ByEachs(t =>
+            {
+                Object value = t.GetType().GetProperty(property.Name).GetValue(t);
+                Data.Add(value);
+            });
+            return Data;
+        }
         #endregion
 
         #region Async
@@ -469,6 +498,16 @@ namespace XExten.XCore
         public static async Task ByEachAsync<T>(this Array Param, Action<T> Selector)
         {
             await Task.Run(() => ByEach(Param, Selector));
+        }
+        /// <summary>
+        ///  Foreach the IEnumerable
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <param name="Selector"></param>
+        public static async Task ByEachsAsync<T>(this IEnumerable<T> queryable, Action<T> Selector)
+        {
+            await Task.Run(() => ByEachs(queryable, Selector));
         }
         /// <summary>
         /// return  a list with this T's PropertyName
@@ -600,6 +639,17 @@ namespace XExten.XCore
         public static async Task ByDicEachAsync<T, K>(this IDictionary<T, K> Param, Action<T, K> Selector)
         {
             await Task.Run(() => ByDicEach(Param, Selector));
+        }
+        /// <summary>
+        /// return a list property value list for this T
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="queryable"></param>
+        /// <param name="Expres"></param>
+        /// <returns></returns>
+        public static async Task<IEnumerable<Object>> ByOverAsync<T>(this IEnumerable<T> queryable, Expression<Func<T, Object>> Expres)
+        {
+            return await Task.Run(() => ByOver(queryable, Expres));
         }
         #endregion
 

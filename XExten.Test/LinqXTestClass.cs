@@ -47,7 +47,7 @@ namespace XExten.Test
         [Fact]
         public void Null_Test()
         {
-            List<int> Li = new List<int>();
+            List<TestA> Li = new List<TestA>();
             Li.IsNullOrEmpty();
         }
         [Fact]
@@ -111,6 +111,12 @@ namespace XExten.Test
         {
             TestA A = new TestA { Id = 10, Name = "≤‚ ‘" };
             LinqX.GetExpression<TestA>("Name", "123", QType.NotLike);
+        }
+        [Fact]
+        public void ByOver_Test()
+        {
+            List<TestA> Li = new List<TestA>();
+            Li.ByOver(t => t.Name);
         }
     }
 }
