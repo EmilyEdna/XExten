@@ -29,14 +29,9 @@ namespace XExten.Test
             var res = XPlusEx.XCheckMatch("你好", "嗯嗯额");
         }
         [Fact]
-        public void XConvertCh_Test()
-        {
-            var res = XPlusEx.XConvertCh("你好");
-        }
-        [Fact]
-        public void XConvertChFirst_Test()
-        {
-            var res = XPlusEx.XConvertChFirst("你好");
+        public void XConvertCHN_Test() {
+            decimal data = 4.85M;
+            var res = XPlusEx.XConvertCHN(data);
         }
     }
 }

@@ -118,5 +118,18 @@ namespace XExten.Test
             List<TestA> Li = new List<TestA>();
             Li.ByOver(t => t.Name);
         }
+        [Fact]
+        public void ByTable_Test()
+        {
+            TestA A = new TestA { Id = 1, Name = "уехЩ" };
+            List<TestA> Li = new List<TestA>
+            {
+                A
+            };
+            var dt = A.ByTable();
+            var dts = Li.ByTables();
+            TestA A1 = dt.ByEntity<TestA>();
+            IList<TestA> A1s = dts.ByEntities<TestA>();
+        }
     }
 }

@@ -114,7 +114,7 @@ namespace XExten.XCore
 
         #region Sync
         /// <summary>
-        ///  return a unicode string
+        /// Return Unicode string
         /// </summary>
         /// <param name="Param"></param>
         /// <returns></returns>
@@ -134,7 +134,7 @@ namespace XExten.XCore
             }
         }
         /// <summary>
-        ///  return a uft8 string
+        ///  Return UTF8 string
         /// </summary>
         /// <param name="Param"></param>
         /// <returns></returns>
@@ -147,7 +147,7 @@ namespace XExten.XCore
                       .Replace(Param, x => String.Empty + Convert.ToChar(Convert.ToUInt16(x.Result("$1"), 16)));
         }
         /// <summary>
-        /// return this T with replace value
+        /// Replace the data in the entity and return it as Unicode
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
@@ -171,7 +171,7 @@ namespace XExten.XCore
             return Param;
         }
         /// <summary>
-        ///  return this T with replace value
+        ///  Replace the data in the entity and return it as UTF8
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
@@ -191,7 +191,7 @@ namespace XExten.XCore
             return Param;
         }
         /// <summary>
-        /// return another type
+        /// Map an entity to another entity and return the entity
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="K"></typeparam>
@@ -202,7 +202,7 @@ namespace XExten.XCore
             return (Funcs<T, K>())(Param);
         }
         /// <summary>
-        ///  Foreach the array
+        /// Traversing the array
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
@@ -213,7 +213,7 @@ namespace XExten.XCore
                 Selector((T)item);
         }
         /// <summary>
-        ///  Foreach the IEnumerable
+        ///  Traverse collection
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
@@ -224,7 +224,7 @@ namespace XExten.XCore
                 Selector((T)item);
         }
         /// <summary>
-        ///  return  a list with this T's PropertyName
+        ///  Returns all Property names in an entity
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
@@ -239,7 +239,7 @@ namespace XExten.XCore
             return Names;
         }
         /// <summary>
-        ///  return a List with this T's PropertyValue
+        ///  Returns all Property Values in an entity
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
@@ -254,7 +254,63 @@ namespace XExten.XCore
             return Values;
         }
         /// <summary>
-        ///  return another type
+        /// Convert the collection to a data table and return the data table
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="queryable"></param>
+        /// <returns></returns>
+        public static DataTable ByTables<T>(this IList<T> queryable)
+        {
+            DataTable dt = new DataTable();
+            foreach (PropertyInfo item in typeof(T).GetProperties())
+            {
+                Type property = item.PropertyType;
+                if ((property.IsGenericType) && (property.GetGenericTypeDefinition() == typeof(Nullable<>)))
+                {
+                    property = property.GetGenericArguments()[0];
+                }
+                dt.Columns.Add(new DataColumn(item.Name, property));
+            }
+            //创建数据行
+            if (queryable.Count > 0)
+            {
+                for (int i = 0; i < queryable.Count; i++)
+                {
+                    ArrayList tempList = new ArrayList();
+                    foreach (PropertyInfo item in typeof(T).GetProperties())
+                    {
+                        object obj = item.GetValue(queryable[i], null);
+                        tempList.Add(obj);
+                    }
+                    object[] array = tempList.ToArray();
+                    dt.LoadDataRow(array, true);
+                }
+            }
+            return dt;
+        }
+        /// <summary>
+        /// Convert the entity to a data table and return the data table
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static DataTable ByTable<T>(this T Param)
+        {
+            DataTable dt = new DataTable();
+            ArrayList Temp = new ArrayList();
+            Param.GetType().GetProperties().ByEach<PropertyInfo>(t =>
+            {
+                Type type = t.PropertyType;
+                if (type.IsGenericType && (type.GetGenericTypeDefinition() == typeof(Nullable<>)))
+                    type = type.GetGenericArguments()[0];
+                dt.Columns.Add(new DataColumn(t.Name, type));
+                Temp.Add(t.GetValue(Param));
+                dt.LoadDataRow(Temp.ToArray(), true);
+            });
+            return dt;
+        }
+        /// <summary>
+        ///  Map a collection to another collection and return the collection
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="K"></typeparam>
@@ -265,7 +321,7 @@ namespace XExten.XCore
             return queryable.Select(Funcs<T, K>());
         }
         /// <summary>
-        /// return a Dictionary with this T's PropertyName and PropertyValue
+        /// Wraps an entity's property name and property value traversal into the dictionary and returns the dictionary
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
@@ -284,7 +340,7 @@ namespace XExten.XCore
             return Map;
         }
         /// <summary>
-        ///  Check IEnumerable is nullable and return true or false
+        ///  Determine if the collection is empty
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
@@ -294,7 +350,7 @@ namespace XExten.XCore
             return queryable == null || !queryable.Any();
         }
         /// <summary>
-        ///  return DescriptionAttribute value
+        ///  Returns an entity with a property value marked to describe the property field
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
@@ -307,7 +363,7 @@ namespace XExten.XCore
             return (Obj as DescriptionAttribute).Description;
         }
         /// <summary>
-        ///  return Long type with Convert
+        ///  Convert a field type to a long integer
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
@@ -342,7 +398,7 @@ namespace XExten.XCore
             Actions(Param, Value);
         }
         /// <summary>
-        ///  return pagination
+        ///  Return paging data
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
@@ -360,7 +416,7 @@ namespace XExten.XCore
             };
         }
         /// <summary>
-        ///  return table
+        ///  return  data table
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
@@ -407,7 +463,7 @@ namespace XExten.XCore
             }
         }
         /// <summary>
-        ///  foreach the dictionary
+        ///  Traversing the dictionary
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="K"></typeparam>
@@ -419,7 +475,7 @@ namespace XExten.XCore
                 Selector(item.Key, item.Value);
         }
         /// <summary>
-        /// return a list property value list for this T
+        /// Returns all values of a field in a collection
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
@@ -436,11 +492,71 @@ namespace XExten.XCore
             });
             return Data;
         }
+        /// <summary>
+        /// Convert a data table to an entity
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static T ByEntity<T>(this DataTable Param) where T : new()
+        {
+            T entity = new T();
+            foreach (DataRow row in Param.Rows)
+            {
+                foreach (var item in entity.GetType().GetProperties())
+                {
+                    if (row.Table.Columns.Contains(item.Name))
+                        if (DBNull.Value != row[item.Name])
+                        {
+                            Type newType = item.PropertyType;
+                            if (newType.IsGenericType && newType.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
+                            {
+                                NullableConverter nullableConverter = new NullableConverter(newType);
+                                newType = nullableConverter.UnderlyingType;
+                            }
+                            item.SetValue(entity, Convert.ChangeType(row[item.Name], newType), null);
+                        }
+                }
+            }
+            return entity;
+        }
+        /// <summary>
+        /// Convert a data table to entities
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static IList<T> ByEntities<T>(this DataTable Param) where T : new()
+        {
+            IList<T> entities = new List<T>();
+            if (Param == null)
+                return null;
+            foreach (DataRow row in Param.Rows)
+            {
+                T entity = new T();
+                foreach (var item in entity.GetType().GetProperties())
+                {
+                    if (Param.Columns.Contains(item.Name))
+                        if (DBNull.Value != row[item.Name])
+                        {
+                            Type newType = item.PropertyType;
+                            if (newType.IsGenericType && newType.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
+                            {
+                                NullableConverter nullableConverter = new NullableConverter(newType);
+                                newType = nullableConverter.UnderlyingType;
+                            }
+                            item.SetValue(entity, Convert.ChangeType(row[item.Name], newType), null);
+                        }
+                }
+                entities.Add(entity);
+            }
+            return entities;
+        }
         #endregion
 
         #region Async
         /// <summary>
-        /// return a unicode string
+        /// Return Unicode string
         /// </summary>
         /// <param name="Param"></param>
         /// <returns></returns>
@@ -449,7 +565,7 @@ namespace XExten.XCore
             return await Task.Run(() => ByUnic(Param));
         }
         /// <summary>
-        /// return a uft8 string
+        ///  Return UTF8 string
         /// </summary>
         /// <param name="Param"></param>
         /// <returns></returns>
@@ -458,7 +574,7 @@ namespace XExten.XCore
             return await Task.Run(() => ByUTF8(Param));
         }
         /// <summary>
-        /// return this T with replace value
+        /// Replace the data in the entity and return it as Unicode
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
@@ -468,7 +584,7 @@ namespace XExten.XCore
             return await Task.Run(() => ByUnic(Param));
         }
         /// <summary>
-        /// return this T with replace value
+        ///  Replace the data in the entity and return it as UTF8
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
@@ -478,7 +594,7 @@ namespace XExten.XCore
             return await Task.Run(() => ByUTF8(Param));
         }
         /// <summary>
-        ///  return another type
+        /// Map an entity to another entity and return the entity
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="K"></typeparam>
@@ -489,18 +605,17 @@ namespace XExten.XCore
             return await Task.Run(() => ByMap<T, K>(Param));
         }
         /// <summary>
-        /// Foreach the array
+        /// Traversing the array
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <param name="Selector"></param>
-        /// <returns></returns>
         public static async Task ByEachAsync<T>(this Array Param, Action<T> Selector)
         {
             await Task.Run(() => ByEach(Param, Selector));
         }
         /// <summary>
-        ///  Foreach the IEnumerable
+        ///  Traverse collection
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
@@ -510,7 +625,7 @@ namespace XExten.XCore
             await Task.Run(() => ByEachs(queryable, Selector));
         }
         /// <summary>
-        /// return  a list with this T's PropertyName
+        ///  Returns all Property names in an entity
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
@@ -520,7 +635,7 @@ namespace XExten.XCore
             return await Task.Run(() => ByNames(Param));
         }
         /// <summary>
-        /// return a List with this T's PropertyValue
+        ///  Returns all Property Values in an entity
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
@@ -530,28 +645,38 @@ namespace XExten.XCore
             return await Task.Run(() => ByValues(Param));
         }
         /// <summary>
-        ///  return another type
+        /// Convert the collection to a data table and return the data table
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="queryable"></param>
+        /// <returns></returns>
+        public static async Task<DataTable> ByTablesAsync<T>(this IList<T> queryable)
+        {
+            return await Task.Run(() => ByTables(queryable));
+        }
+        /// <summary>
+        /// Convert the entity to a data table and return the data table
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="queryable"></param>
+        /// <returns></returns>
+        public static async Task<DataTable> ByTableAsync<T>(this T Param)
+        {
+            return await Task.Run(() => ByTable(Param));
+        }
+        /// <summary>
+        ///  Map a collection to another collection and return the collection
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="K"></typeparam>
-        /// <param name="Param"></param>
+        /// <param name="queryable"></param>
         /// <returns></returns>
         public static async Task<IEnumerable<K>> ByMapsAsync<T, K>(this IEnumerable<T> queryable)
         {
             return await Task.Run(() => ByMaps<T, K>(queryable));
         }
         /// <summary>
-        /// Check IEnumerable is nullable and return true or false
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="queryable"></param>
-        /// <returns></returns>
-        public static async Task<Boolean> IsNullOrEmptyAsync<T>(this IEnumerable<T> queryable)
-        {
-            return await Task.Run(() => IsNullOrEmpty(queryable));
-        }
-        /// <summary>
-        /// return a Dictionary with this T's PropertyName and PropertyValue
+        /// Wraps an entity's property name and property value traversal into the dictionary and returns the dictionary
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
@@ -561,7 +686,17 @@ namespace XExten.XCore
             return await Task.Run(() => ByDic(Param));
         }
         /// <summary>
-        /// return DescriptionAttribute value
+        ///  Determine if the collection is empty
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="queryable"></param>
+        /// <returns></returns>
+        public static async Task<Boolean> IsNullOrEmptyAsync<T>(this IEnumerable<T> queryable)
+        {
+            return await Task.Run(() => IsNullOrEmpty(queryable));
+        }
+        /// <summary>
+        ///  Returns an entity with a property value marked to describe the property field
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
@@ -572,7 +707,7 @@ namespace XExten.XCore
             return await Task.Run(() => ByDes(Param, Expres));
         }
         /// <summary>
-        ///  return Long type with Convert
+        ///  Convert a field type to a long integer
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
@@ -594,7 +729,7 @@ namespace XExten.XCore
             await Task.Run(() => BySet(Param, Expres, Value));
         }
         /// <summary>
-        ///  return pagination
+        ///  Return paging data
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
@@ -606,7 +741,7 @@ namespace XExten.XCore
             return await Task.Run(() => ByPage(queryable, PageIndex, PageSize));
         }
         /// <summary>
-        ///  return table
+        ///  return  data table
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
@@ -630,7 +765,7 @@ namespace XExten.XCore
             return await Task.Run(() => BySend(queryable, MapForm));
         }
         /// <summary>
-        ///  foreach the dictionary
+        ///  Traversing the dictionary
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="K"></typeparam>
@@ -641,7 +776,7 @@ namespace XExten.XCore
             await Task.Run(() => ByDicEach(Param, Selector));
         }
         /// <summary>
-        /// return a list property value list for this T
+        /// Returns all values of a field in a collection
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
@@ -650,6 +785,26 @@ namespace XExten.XCore
         public static async Task<IEnumerable<Object>> ByOverAsync<T>(this IEnumerable<T> queryable, Expression<Func<T, Object>> Expres)
         {
             return await Task.Run(() => ByOver(queryable, Expres));
+        }
+        /// <summary>
+        /// Convert a data table to an entity
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static async  Task<T> ByEntityAsync<T>(this DataTable Param) where T : new()
+        {
+            return await Task.Run(() => ByEntity<T>(Param));
+        }
+        /// <summary>
+        /// Convert a data table to entities
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static async Task<IList<T>> ByEntitiesAsync<T>(this DataTable Param) where T : new()
+        {
+            return await Task.Run(() => ByEntities<T>(Param));
         }
         #endregion
 
