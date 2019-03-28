@@ -29,11 +29,6 @@
     <EmbeddedResource Remove="DynamicType\**" />
     <None Remove="DynamicType\**" />
   </ItemGroup>
-  <!--<ItemGroup>
-    <Compile Remove="DynamicType\**" />
-    <EmbeddedResource Remove="DynamicType\**" />
-    <None Remove="DynamicType\**" />
-  </ItemGroup>-->
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
