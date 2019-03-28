@@ -89,30 +89,6 @@ namespace XExten.Test
             });
         }
         [Fact]
-        public void GetExpression_Test()
-        {
-            string[] arr = new[] { "Id", "Name" };
-            LinqX.GetExpression<TestA>(arr);
-
-        }
-        [Fact]
-        public void SetProptertiesValue_Test()
-        {
-            Dictionary<string, Object> keyValues = new Dictionary<string, Object>
-            {
-                {"Id" , 1 },
-                { "Name", "¿ÓÀƒ" }
-            };
-            TestA A = new TestA();
-            LinqX.SetProptertiesValue<TestA>(keyValues, A);
-        }
-        [Fact]
-        public void GetGetExpression_Test2()
-        {
-            TestA A = new TestA { Id = 10, Name = "≤‚ ‘" };
-            LinqX.GetExpression<TestA>("Name", "123", QType.NotLike);
-        }
-        [Fact]
         public void ByOver_Test()
         {
             List<TestA> Li = new List<TestA>();
