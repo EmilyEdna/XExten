@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Dynamic;
 using XExten.XCore;
+using XExten.DynamicType;
 
 namespace XExten.XExpres
 {
@@ -122,17 +123,27 @@ namespace XExten.XExpres
             }
             return Expression.Lambda<Func<T, bool>>(Filter, Parameter);
         }
-        public static Object GetExpression<T, K>(Expression<Func<T, K, Object>> Express)
+        /// <summary>
+        /// Combine two classes into one class
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="K"></typeparam>
+        /// <param name="Express"></param>
+        /// <returns></returns>
+        public static Type GetExpression<T, K>(Expression<Func<T, K, Object>> Express)
         {
+            List<DynamicProperty> dynamics = new List<DynamicProperty>();
             (Express.Body as NewExpression).Arguments.ByEachs(item =>
             {
                 var type = (item as ParameterExpression).Type;
                 type.GetProperties().ByEachs(t =>
                 {
-
+                    DynamicProperty dynamic = new DynamicProperty(t.Name, t.PropertyType);
+                    if (!dynamics.Contains(dynamic))
+                        dynamics.Add(dynamic);
                 });
             });
-            return null;
+          return  DynamicClassBuilder.Instance.GetDynamicClass(dynamics);
         }
         #endregion
     }

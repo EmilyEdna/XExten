@@ -9,11 +9,18 @@ namespace XExten.Test.TestModel
     {
         [Description("Test")]
         public int Id { get; set; }
+        [Description("Test")]
         public string Name { get; set; }
+        [Description("Test")]
+        public string PassWord { get; set; }
     }
     public class TestB
     {
+        [Description("Test")]
         public int Id { get; set; }
+        [Description("Test")]
         public string Name { get; set; }
+        [Description("Test")]
+        public string Account { get; set; }
     }
 }

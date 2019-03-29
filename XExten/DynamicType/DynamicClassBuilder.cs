@@ -24,7 +24,11 @@ namespace XExten.DynamicType
         private DynamicClassBuilder()
         {
             AssemblyName name = new AssemblyName("DynamicClasses");
+#if NETSTANDARD2_0
+            AssemblyBuilder assembly = AssemblyBuilder.DefineDynamicAssembly(name, AssemblyBuilderAccess.Run);
+#elif NET45
             AssemblyBuilder assembly = AppDomain.CurrentDomain.DefineDynamicAssembly(name, AssemblyBuilderAccess.Run);
+#endif
             try
             {
                 module = assembly.DefineDynamicModule("Module");
@@ -76,7 +80,11 @@ namespace XExten.DynamicType
                     FieldInfo[] fields = GenerateProperties(tb, properties);
                     GenerateEquals(tb, fields);
                     GenerateGetHashCode(tb, fields);
+#if NETSTANDARD2_0
+                    Type result = tb.CreateTypeInfo();
+#elif NET45
                     Type result = tb.CreateType();
+#endif
                     classCount++;
                     return result;
                 }

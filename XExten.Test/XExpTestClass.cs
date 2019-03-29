@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using XExten.DynamicType;
 using XExten.Test.TestModel;
 using XExten.XExpres;
 using Xunit;

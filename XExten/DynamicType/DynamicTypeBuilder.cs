@@ -31,7 +31,11 @@ namespace XExten.DynamicType
 
             // Create the nw assembly
             _assemblyName = new AssemblyName(moduleName);
+#if NETSTANDARD2_0
+            _asssemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(_assemblyName, AssemblyBuilderAccess.Run);
+#elif NET45
             _asssemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(_assemblyName, AssemblyBuilderAccess.Run);
+#endif
 
             // Create only one module, therefor the
             // modile name is the assembly name.
@@ -213,7 +217,11 @@ namespace XExten.DynamicType
                         GenerateMethods(_typeBuilder, methods);
 
                     // Create the type, return the type.
+#if NETSTANDARD2_0
+                    Type result = _typeBuilder.CreateTypeInfo();
+#elif NET45
                     Type result = _typeBuilder.CreateType();
+#endif
                     return result;
                 }
                 finally { }
