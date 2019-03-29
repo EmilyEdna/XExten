@@ -5,12 +5,12 @@
     <Authors>EmilyEdna</Authors>
     <Product />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>This package extends LINQ and produces anonymous expressions. For example: new {t1 = xx, t2 = xx}</Description>
+    <Description>Expanded on linq, added tool classes, and some common expressions as well as creating dynamic classes via emit.(对linq进行了拓展，添加了工具类，和一些常用的表达式以及通过emit创建动态类。)</Description>
     <PackageProjectUrl>https://github.com/EmilyEdna/XExten</PackageProjectUrl>
     <PackageTags>linq</PackageTags>
     <RepositoryUrl>https://github.com/EmilyEdna/XExten</RepositoryUrl>
     <PackageReleaseNotes>https://github.com/EmilyEdna/XExten</PackageReleaseNotes>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
