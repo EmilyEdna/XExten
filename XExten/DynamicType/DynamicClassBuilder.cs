@@ -10,17 +10,12 @@ namespace XExten.DynamicType
 {
     public class DynamicClassBuilder
     {
-
         public static readonly DynamicClassBuilder Instance = new DynamicClassBuilder();
-
-
-        static DynamicClassBuilder() { }  
-
+        static DynamicClassBuilder() { }
         ModuleBuilder module;
         Dictionary<Signature, Type> classes;
         int classCount;
         ReaderWriterLock rwLock;
-
         private DynamicClassBuilder()
         {
             AssemblyName name = new AssemblyName("DynamicClasses");
@@ -40,13 +35,13 @@ namespace XExten.DynamicType
             classes = new Dictionary<Signature, Type>();
             rwLock = new ReaderWriterLock();
         }
-
         /// <summary>
-        /// 
+        ///  Create DynamicClass
         /// </summary>
         /// <param name="properties"></param>
+        /// <param name="ClassName"></param>
         /// <returns></returns>
-        public Type GetDynamicClass(IEnumerable<DynamicProperty> properties)
+        public Type GetDynamicClass(IEnumerable<DynamicProperty> properties, String ClassName = null)
         {
             rwLock.AcquireReaderLock(Timeout.Infinite);
             try
@@ -55,7 +50,7 @@ namespace XExten.DynamicType
                 Type type;
                 if (!classes.TryGetValue(signature, out type))
                 {
-                    type = CreateDynamicClass(signature.properties);
+                    type = CreateDynamicClass(signature.properties, ClassName);
                     classes.Add(signature, type);
                 }
                 return type;
@@ -65,14 +60,12 @@ namespace XExten.DynamicType
                 rwLock.ReleaseReaderLock();
             }
         }
-
-
-        Type CreateDynamicClass(DynamicProperty[] properties)
+        Type CreateDynamicClass(DynamicProperty[] properties, String ClassName = null)
         {
             LockCookie cookie = rwLock.UpgradeToWriterLock(Timeout.Infinite);
             try
             {
-                string typeName = "DynamicClass" + (classCount + 1);
+                string typeName = !String.IsNullOrEmpty(ClassName) ? ClassName : "DynamicClass" + (classCount + 1);
                 try
                 {
                     TypeBuilder tb = this.module.DefineType(typeName, TypeAttributes.Class |
@@ -98,8 +91,6 @@ namespace XExten.DynamicType
                 rwLock.DowngradeFromWriterLock(ref cookie);
             }
         }
-
-
         FieldInfo[] GenerateProperties(TypeBuilder tb, DynamicProperty[] properties)
         {
             FieldInfo[] fields = new FieldBuilder[properties.Length];
@@ -165,8 +156,6 @@ namespace XExten.DynamicType
             gen.Emit(OpCodes.Ldc_I4_1);
             gen.Emit(OpCodes.Ret);
         }
-
-
         void GenerateGetHashCode(TypeBuilder tb, FieldInfo[] fields)
         {
             MethodBuilder mb = tb.DefineMethod("GetHashCode",

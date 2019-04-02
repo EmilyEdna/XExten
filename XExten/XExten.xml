@@ -4,11 +4,12 @@
         <name>XExten</name>
     </assembly>
     <members>
-        <member name="M:XExten.DynamicType.DynamicClassBuilder.GetDynamicClass(System.Collections.Generic.IEnumerable{XExten.DynamicType.DynamicProperty})">
+        <member name="M:XExten.DynamicType.DynamicClassBuilder.GetDynamicClass(System.Collections.Generic.IEnumerable{XExten.DynamicType.DynamicProperty},System.String)">
             <summary>
-            
+             Create DynamicClass
             </summary>
             <param name="properties"></param>
+            <param name="ClassName"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.DynamicType.DynamicTypeBuilder.#ctor(System.String)">
@@ -248,7 +249,7 @@
              Traverse collection
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="Param"></param>
+            <param name="queryable"></param>
             <param name="Selector"></param>
         </member>
         <member name="M:XExten.XCore.LinqX.ByNames``1(``0)">
@@ -362,7 +363,7 @@
             <typeparam name="T"></typeparam>
             <typeparam name="K"></typeparam>
             <param name="queryable"></param>
-            <param name="transform"></param>
+            <param name="MapForm"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.XCore.LinqX.ByDicEach``2(System.Collections.Generic.IDictionary{``0,``1},System.Action{``0,``1})">
@@ -451,7 +452,7 @@
              Traverse collection
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="Param"></param>
+            <param name="queryable"></param>
             <param name="Selector"></param>
         </member>
         <member name="M:XExten.XCore.LinqX.ByNamesAsync``1(``0)">
@@ -483,7 +484,7 @@
             Convert the entity to a data table and return the data table
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="queryable"></param>
+            <param name="Param"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.XCore.LinqX.ByMapsAsync``2(System.Collections.Generic.IEnumerable{``0})">
@@ -637,7 +638,7 @@
             <param name="QueryType"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XExpres.XExp.GetExpression``2(System.Linq.Expressions.Expression{System.Func{``0,``1,System.Object}})">
+        <member name="M:XExten.XExpres.XExp.CombineClass``2(System.Linq.Expressions.Expression{System.Func{``0,``1,System.Object}})">
             <summary>
             Combine two classes into one class
             </summary>
@@ -645,6 +646,15 @@
             <typeparam name="K"></typeparam>
             <param name="Express"></param>
             <returns></returns>
+        </member>
+        <member name="M:XExten.XExpres.XExp.CombineClassWithValue``2(System.Linq.Expressions.Expression{System.Func{``0,``1,System.Object}},System.Collections.Generic.List{XExten.DynamicType.DynamicPropertyValue})">
+            <summary>
+            Combine two classes into one class with value
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="K"></typeparam>
+            <param name="Express"></param>
+            <param name="dynamics"></param>
         </member>
         <member name="M:XExten.XPlus.XPlusEx.XTel">
             <summary>

@@ -5,6 +5,7 @@ using XExten.DynamicType;
 using XExten.Test.TestModel;
 using XExten.XExpres;
 using Xunit;
+using XExten.XCore;
 
 namespace XExten.Test
 {
@@ -34,9 +35,19 @@ namespace XExten.Test
             XExp.GetExpression<TestA>("Name", "123", QType.NotLike);
         }
         [Fact]
-        public void GetExpression_Test2()
+        public void GetCombineClass_Test()
         {
-            var res = XExp.GetExpression<TestA, TestB>((t, x) => new { t, x });
+            var res = XExp.CombineClass<TestA, TestB>((t, x) => new { t, x });
+            //Instantiate first and assign later
+        }
+        [Fact]
+        public void GetCombineClassValue_Test()
+        {
+            List<DynamicPropertyValue> dynamics = new List<DynamicPropertyValue>
+            {
+               new DynamicPropertyValue("Id",typeof(int),1)
+            };
+            var res = XExp.CombineClassWithValue<TestA, TestB>((t, x) => new { t, x }, dynamics);
         }
     }
 }

@@ -216,7 +216,7 @@ namespace XExten.XCore
         ///  Traverse collection
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="Param"></param>
+        /// <param name="queryable"></param>
         /// <param name="Selector"></param>
         public static void ByEachs<T>(this IEnumerable<T> queryable, Action<T> Selector)
         {
@@ -451,7 +451,7 @@ namespace XExten.XCore
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="K"></typeparam>
         /// <param name="queryable"></param>
-        /// <param name="transform"></param>
+        /// <param name="MapForm"></param>
         /// <returns></returns>
         public static IEnumerable<K> BySend<T, K>(this IEnumerable<T> queryable, Func<T, K> MapForm)
         {
@@ -618,7 +618,7 @@ namespace XExten.XCore
         ///  Traverse collection
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="Param"></param>
+        /// <param name="queryable"></param>
         /// <param name="Selector"></param>
         public static async Task ByEachsAsync<T>(this IEnumerable<T> queryable, Action<T> Selector)
         {
@@ -658,7 +658,7 @@ namespace XExten.XCore
         /// Convert the entity to a data table and return the data table
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="queryable"></param>
+        /// <param name="Param"></param>
         /// <returns></returns>
         public static async Task<DataTable> ByTableAsync<T>(this T Param)
         {

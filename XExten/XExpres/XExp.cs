@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Dynamic;
 using XExten.XCore;
 using XExten.DynamicType;
+using System.Reflection;
 
 namespace XExten.XExpres
 {
@@ -130,7 +131,7 @@ namespace XExten.XExpres
         /// <typeparam name="K"></typeparam>
         /// <param name="Express"></param>
         /// <returns></returns>
-        public static Type GetExpression<T, K>(Expression<Func<T, K, Object>> Express)
+        public static Type CombineClass<T, K>(Expression<Func<T, K, Object>> Express)
         {
             List<DynamicProperty> dynamics = new List<DynamicProperty>();
             (Express.Body as NewExpression).Arguments.ByEachs(item =>
@@ -143,7 +144,24 @@ namespace XExten.XExpres
                         dynamics.Add(dynamic);
                 });
             });
-          return  DynamicClassBuilder.Instance.GetDynamicClass(dynamics);
+            return DynamicClassBuilder.Instance.GetDynamicClass(dynamics, "DynamicClass");
+        }
+        /// <summary>
+        /// Combine two classes into one class with value
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="K"></typeparam>
+        /// <param name="Express"></param>
+        /// <param name="dynamics"></param>
+        public static Object CombineClassWithValue<T, K>(Expression<Func<T, K, Object>> Express, List<DynamicPropertyValue> dynamics)
+        {
+            var DynamicType = Activator.CreateInstance(CombineClass(Express));
+            dynamics.ForEach(item =>
+            {
+                if (item.Type == DynamicType.GetType().GetProperty(item.Name).PropertyType)
+                    DynamicType.GetType().GetProperty(item.Name).SetValue(DynamicType, item.Value);
+            });
+            return DynamicType;
         }
         #endregion
     }
