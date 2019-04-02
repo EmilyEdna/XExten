@@ -26,13 +26,22 @@ namespace XExten.Test
         public void GetExpression_Test()
         {
             string[] arr = new[] { "Id", "Name" };
-            XExp.GetExpression<TestA>(arr);
+            var res = XExp.GetExpression<TestA>(arr);
         }
         [Fact]
         public void GetExpression_Test1()
         {
             TestA A = new TestA { Id = 10, Name = "测试" };
             XExp.GetExpression<TestA>("Name", "123", QType.NotLike);
+        }
+        [Fact]
+        public void GetExpression_Test2()
+        {
+            List<DynamicPropertyValue> dynamics = new List<DynamicPropertyValue>
+            {
+               new DynamicPropertyValue("Id",typeof(int),1)
+            };
+            var res = XExp.GetExpression(dynamics);
         }
         [Fact]
         public void GetCombineClass_Test()
