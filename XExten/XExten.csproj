@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Expanded on linq, added tool classes, and some common expressions as well as creating dynamic classes via emit.(对linq进行了拓展，添加了工具类，和一些常用的表达式以及通过emit创建动态类。)</Description>
     <PackageProjectUrl>https://github.com/EmilyEdna/XExten</PackageProjectUrl>
-    <PackageTags>linq</PackageTags>
+    <PackageTags>Linq Expression</PackageTags>
     <RepositoryUrl>https://github.com/EmilyEdna/XExten</RepositoryUrl>
     <PackageReleaseNotes>https://github.com/EmilyEdna/XExten</PackageReleaseNotes>
     <Version>1.0.3</Version>

@@ -35,15 +35,6 @@ namespace XExten.Test
             XExp.GetExpression<TestA>("Name", "123", QType.NotLike);
         }
         [Fact]
-        public void GetExpression_Test2()
-        {
-            List<DynamicPropertyValue> dynamics = new List<DynamicPropertyValue>
-            {
-               new DynamicPropertyValue("Id",typeof(int),1)
-            };
-            var res = XExp.GetExpression(dynamics);
-        }
-        [Fact]
         public void GetCombineClass_Test()
         {
             var res = XExp.CombineClass<TestA, TestB>((t, x) => new { t, x });
@@ -57,6 +48,10 @@ namespace XExten.Test
                new DynamicPropertyValue("Id",typeof(int),1)
             };
             var res = XExp.CombineClassWithValue<TestA, TestB>((t, x) => new { t, x }, dynamics);
+        }
+        [Fact]
+        public void SlitBetween_Test()
+        {
         }
     }
 }

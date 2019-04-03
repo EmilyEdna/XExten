@@ -75,30 +75,6 @@ namespace XExten.XExpres
             return Expression.Lambda<Func<T, Object>>(Member, Parameter);
         }
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="dynamics"></param>
-        /// <returns></returns>
-        public static Expression<Func<Object, Object>> GetExpression(List<DynamicPropertyValue> dynamics)
-        {
-            List<DynamicProperty> DynamicProperties = new List<DynamicProperty>();
-            List<MemberBinding> Exps = new List<MemberBinding>();
-            dynamics.ForEach(Item =>
-            {
-                DynamicProperties.Add(new DynamicProperty(Item.Name, Item.Type));
-            });
-            Type Dynamic = DynamicClassBuilder.Instance.GetDynamicClass(DynamicProperties, "DynamicClass");
-            ParameterExpression Parameter = Expression.Parameter(Dynamic, "t");
-            dynamics.ForEach(Item =>
-            {
-                MemberExpression PropertyExpress = Expression.Property(Parameter, Item.Name);
-                UnaryExpression ConvterExpress = Expression.Convert(PropertyExpress, Item.Type);
-                Exps.Add(Expression.Bind(Dynamic.GetProperty(Item.Name), PropertyExpress));
-            });
-            MemberInitExpression Member = Expression.MemberInit(Expression.New(Dynamic), Exps);
-            return Expression.Lambda<Func<Object, Object>>(Member, Parameter);
-        }
-        /// <summary>
         ///  return a bool expression
         /// </summary>
         /// <typeparam name="T"></typeparam>

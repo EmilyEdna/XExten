@@ -628,13 +628,6 @@
             <param name="PropertyName"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XExpres.XExp.GetExpression(System.Collections.Generic.List{XExten.DynamicType.DynamicPropertyValue})">
-            <summary>
-            
-            </summary>
-            <param name="dynamics"></param>
-            <returns></returns>
-        </member>
         <member name="M:XExten.XExpres.XExp.GetExpression``1(System.String,System.Object,XExten.XExpres.QType)">
             <summary>
              return a bool expression
@@ -662,6 +655,14 @@
             <typeparam name="K"></typeparam>
             <param name="Express"></param>
             <param name="dynamics"></param>
+        </member>
+        <member name="M:XExten.XExpres.XExp.SlitBetween``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Express"></param>
+            <returns></returns>
         </member>
         <member name="M:XExten.XPlus.XPlusEx.XTel">
             <summary>
