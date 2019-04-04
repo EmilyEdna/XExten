@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace XExten.XPlus
 {
+    /// <summary>
+    /// Common Extension Class
+    /// </summary>
     public class XPlusEx
     {
         #region Func

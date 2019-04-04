@@ -49,9 +49,5 @@ namespace XExten.Test
             };
             var res = XExp.CombineClassWithValue<TestA, TestB>((t, x) => new { t, x }, dynamics);
         }
-        [Fact]
-        public void SlitBetween_Test()
-        {
-        }
     }
 }

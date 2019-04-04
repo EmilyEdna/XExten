@@ -11,6 +11,9 @@ using System.Reflection;
 
 namespace XExten.XExpres
 {
+    /// <summary>
+    /// Expression Extension Class
+    /// </summary>
     public class XExp
     {
         #region Func

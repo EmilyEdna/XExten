@@ -9,9 +9,13 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace XExten.XCore
 {
+    /// <summary>
+    /// Linq Extension Class
+    /// </summary>
     public static class LinqX
     {
         #region Func
@@ -552,6 +556,26 @@ namespace XExten.XCore
             }
             return entities;
         }
+        /// <summary>
+        /// SerializeObject
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static String ByJson<T>(this T Param)
+        {
+            return JsonConvert.SerializeObject(Param);
+        }
+        /// <summary>
+        /// DeserializeObject
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static T ByModel<T>(this String Param)
+        {
+            return JsonConvert.DeserializeObject<T>(Param);
+        }
         #endregion
 
         #region Async
@@ -792,7 +816,7 @@ namespace XExten.XCore
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static async  Task<T> ByEntityAsync<T>(this DataTable Param) where T : new()
+        public static async Task<T> ByEntityAsync<T>(this DataTable Param) where T : new()
         {
             return await Task.Run(() => ByEntity<T>(Param));
         }
@@ -805,6 +829,26 @@ namespace XExten.XCore
         public static async Task<IList<T>> ByEntitiesAsync<T>(this DataTable Param) where T : new()
         {
             return await Task.Run(() => ByEntities<T>(Param));
+        }
+        /// <summary>
+        /// SerializeObject
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static async  Task<String> ByJsonAsync<T>(this T Param)
+        {
+            return await Task.Run(() => ByJson(Param));
+        }
+        /// <summary>
+        /// DeserializeObject
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static async Task<T> ByModelAsync<T>(this String Param)
+        {
+            return await Task.Run(() => ByModel<T>(Param));
         }
         #endregion
     }

@@ -104,8 +104,15 @@ namespace XExten.Test
             };
             var dt = A.ByTable();
             var dts = Li.ByTables();
-            TestA A1 = dt.ByEntity<TestA>();
-            IList<TestA> A1s = dts.ByEntities<TestA>();
+            var A1 = dt.ByEntity<TestA>();
+            var As = dts.ByEntities<TestA>();
+        }
+        [Fact]
+        public void ByJsonAndObject_Test()
+        {
+            TestA A = new TestA { Id = 1, Name = "mike" };
+            var res = A.ByJson();
+            var data = res.ByModel<TestA>();
         }
     }
 }

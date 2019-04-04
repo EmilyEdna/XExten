@@ -400,6 +400,22 @@
             <param name="Param"></param>
             <returns></returns>
         </member>
+        <member name="M:XExten.XCore.LinqX.ByJson``1(``0)">
+            <summary>
+            SerializeObject
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByModel``1(System.String)">
+            <summary>
+            DeserializeObject
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
         <member name="M:XExten.XCore.LinqX.ByUnicAsync(System.String)">
             <summary>
             Return Unicode string
@@ -603,6 +619,22 @@
             <param name="Param"></param>
             <returns></returns>
         </member>
+        <member name="M:XExten.XCore.LinqX.ByJsonAsync``1(``0)">
+            <summary>
+            SerializeObject
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByModelAsync``1(System.String)">
+            <summary>
+            DeserializeObject
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
         <member name="M:XExten.XExpres.XExp.GetAttributeType``2(System.Linq.Expressions.Expression{System.Func{``1,System.Object}})">
             <summary>
              Return AttributeType
@@ -655,14 +687,6 @@
             <typeparam name="K"></typeparam>
             <param name="Express"></param>
             <param name="dynamics"></param>
-        </member>
-        <member name="M:XExten.XExpres.XExp.SlitBetween``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
-            <summary>
-            
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="Express"></param>
-            <returns></returns>
         </member>
         <member name="M:XExten.XPlus.XPlusEx.XTel">
             <summary>
