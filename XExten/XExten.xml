@@ -197,6 +197,11 @@
             <param name="timeout"></param>
             <returns></returns>
         </member>
+        <member name="T:XExten.XCore.LinqX">
+            <summary>
+            Linq Extension Class
+            </summary>
+        </member>
         <member name="M:XExten.XCore.LinqX.ByUnic(System.String)">
             <summary>
             Return Unicode string
@@ -635,6 +640,42 @@
             <param name="Param"></param>
             <returns></returns>
         </member>
+        <member name="T:XExten.XCore.Page`1">
+            <summary>
+            paging
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:XExten.XCore.Page`1.Total">
+            <summary>
+            Total
+            </summary>
+        </member>
+        <member name="P:XExten.XCore.Page`1.TotalPage">
+            <summary>
+            TotalPage
+            </summary>
+        </member>
+        <member name="P:XExten.XCore.Page`1.CurrentPage">
+            <summary>
+            CurrentPage
+            </summary>
+        </member>
+        <member name="P:XExten.XCore.Page`1.Queryable">
+            <summary>
+             Result
+            </summary>
+        </member>
+        <member name="T:XExten.XCore.IgnoreMappedAttribute">
+            <summary>
+            Not Map
+            </summary>
+        </member>
+        <member name="T:XExten.XExpres.XExp">
+            <summary>
+            Expression Extension Class
+            </summary>
+        </member>
         <member name="M:XExten.XExpres.XExp.GetAttributeType``2(System.Linq.Expressions.Expression{System.Func{``1,System.Object}})">
             <summary>
              Return AttributeType
@@ -687,6 +728,31 @@
             <typeparam name="K"></typeparam>
             <param name="Express"></param>
             <param name="dynamics"></param>
+        </member>
+        <member name="M:XExten.XExpres.XExp.CreateTable``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.String}},System.Linq.Expressions.Expression{System.Func{``0,System.Double}}[])">
+            <summary>
+            Creating data reports through expressions
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Queryable"></param>
+            <param name="GroupName"></param>
+            <param name="Express"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XExpres.XExp.CacheExpression``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,System.Int32)">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Express"></param>
+            <param name="CacheKey"></param>
+            <param name="CacheSeconds"></param>
+            <returns></returns>
+        </member>
+        <member name="T:XExten.XPlus.XPlusEx">
+            <summary>
+            Common Extension Class
+            </summary>
         </member>
         <member name="M:XExten.XPlus.XPlusEx.XTel">
             <summary>
