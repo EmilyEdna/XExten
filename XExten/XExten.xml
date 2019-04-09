@@ -202,6 +202,17 @@
             Linq Extension Class
             </summary>
         </member>
+        <member name="M:XExten.XCore.LinqX.ClearCache">
+            <summary>
+            ClearCache
+            </summary>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ClearCache(System.String)">
+            <summary>
+            Clear specified cache
+            </summary>
+            <param name="Key"></param>
+        </member>
         <member name="M:XExten.XCore.LinqX.ByUnic(System.String)">
             <summary>
             Return Unicode string
@@ -416,6 +427,21 @@
         <member name="M:XExten.XCore.LinqX.ByModel``1(System.String)">
             <summary>
             DeserializeObject
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByCache``1(``0)">
+            <summary>
+            Base cache, the default key is your cache object name
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByCacheData``1(``0)">
+            <summary>
+            Get cache object
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
@@ -640,6 +666,22 @@
             <param name="Param"></param>
             <returns></returns>
         </member>
+        <member name="M:XExten.XCore.LinqX.ByCacheAsync``1(``0)">
+            <summary>
+            Base cache, the default key is your cache object name
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ByCacheDataAsync``1(``0)">
+            <summary>
+            Get cache object
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
         <member name="T:XExten.XCore.Page`1">
             <summary>
             paging
@@ -729,24 +771,39 @@
             <param name="Express"></param>
             <param name="dynamics"></param>
         </member>
-        <member name="M:XExten.XExpres.XExp.CreateTable``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.String}},System.Linq.Expressions.Expression{System.Func{``0,System.Double}}[])">
-            <summary>
-            Creating data reports through expressions
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="Queryable"></param>
-            <param name="GroupName"></param>
-            <param name="Express"></param>
-            <returns></returns>
-        </member>
         <member name="M:XExten.XExpres.XExp.CacheExpression``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,System.Int32)">
             <summary>
-            
+             Cache Object Expression 
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Express"></param>
             <param name="CacheKey"></param>
             <param name="CacheSeconds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XExpres.XExp.CacheExpression``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.String,System.Int32)">
+            <summary>
+            Cache bool Expression 
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Express"></param>
+            <param name="CacheKey"></param>
+            <param name="CacheSeconds"></param>
+        </member>
+        <member name="M:XExten.XExpres.XExp.GetObjectCache``1(System.String)">
+            <summary>
+             Get Object Expression Cache 
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="CacheKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XExpres.XExp.GetBoolCache``1(System.String)">
+            <summary>
+            Get Bool Expression Cache 
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="CacheKey"></param>
             <returns></returns>
         </member>
         <member name="T:XExten.XPlus.XPlusEx">

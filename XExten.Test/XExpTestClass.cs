@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using XExten.DynamicType;
 using XExten.Test.TestModel;
 using XExten.XExpres;
 using Xunit;
-using XExten.XCore;
 
 namespace XExten.Test
 {
@@ -48,6 +48,20 @@ namespace XExten.Test
                new DynamicPropertyValue("Id",typeof(int),1)
             };
             var res = XExp.CombineClassWithValue<TestA, TestB>((t, x) => new { t, x }, dynamics);
+        }
+        [Fact]
+        public void CacheExpression_Test1()
+        {
+            Expression<Func<TestA, Object>> exp = t => new { t };
+            XExp.CacheExpression(exp, "A");
+            var res = XExp.GetObjectCache<TestA>("A");
+        }
+        [Fact]
+        public void CacheExpression_Test2()
+        {
+            Expression<Func<TestA, bool>> exp = t => t.Name!=null;
+            XExp.CacheExpression(exp, "A");
+            var res = XExp.GetBoolCache<TestA>("A");
         }
     }
 }

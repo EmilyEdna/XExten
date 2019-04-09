@@ -19,9 +19,10 @@ namespace XExten.XExpres
     public class XExp
     {
         #region Func
-        private static readonly Dictionary<DateTime, Object> CacheData = new Dictionary<DateTime, Object>();
-        private static readonly IDictionary<String, Dictionary<DateTime, Object>> CacheObject = new Dictionary<String, Dictionary<DateTime, Object>>();
-        private static readonly IDictionary<String, Dictionary<DateTime, Object>> CacheBool = new Dictionary<String, Dictionary<DateTime, Object>>();
+        private static  Dictionary<DateTime, Object> CacheDataObject = new Dictionary<DateTime, Object>();
+        private static  Dictionary<DateTime, Object> CacheDataBool = new Dictionary<DateTime, Object>();
+        private static  IDictionary<String, Dictionary<DateTime, Object>> CacheObject = new Dictionary<String, Dictionary<DateTime, Object>>();
+        private static  IDictionary<String, Dictionary<DateTime, Object>> CacheBool = new Dictionary<String, Dictionary<DateTime, Object>>();
         /// <summary>
         ///  Return AttributeType
         /// </summary>
@@ -172,57 +173,20 @@ namespace XExten.XExpres
             return DynamicType;
         }
         /// <summary>
-        /// Creating data reports through expressions
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="Queryable"></param>
-        /// <param name="GroupName"></param>
-        /// <param name="Express"></param>
-        /// <returns></returns>
-        public static DataTable CreateTable<T>(IQueryable<T> Queryable, Expression<Func<T, String>> GroupName, params Expression<Func<T, double>>[] Express)
-        {
-            DataTable table = new DataTable();
-            MemberExpression memberExpression = GroupName.Body as MemberExpression;
-            var displayName = (memberExpression.Member.GetCustomAttributes(false).FirstOrDefault() as DescriptionAttribute).Description;
-            table.Columns.Add(new DataColumn(displayName));
-            foreach (var expression in Express)
-            {
-                memberExpression = expression.Body as MemberExpression;
-                displayName = (memberExpression.Member.GetCustomAttributes(false).FirstOrDefault() as DescriptionAttribute).Description;
-                table.Columns.Add(new DataColumn(displayName));
-            }
-            var groups = Queryable.GroupBy(GroupName);
-            foreach (var group in groups)
-            {
-                //  Message：设置分组列头
-                DataRow dataRow = table.NewRow();
-                dataRow[0] = group.Key;
-                //  Message：设置分组汇总数据
-                for (int i = 0; i < Express.Length; i++)
-                {
-                    var expression = Express[i];
-                    Func<T, double> fun = expression.Compile();
-                    dataRow[i + 1] = group.Sum(fun);
-                }
-                table.Rows.Add(dataRow);
-            }
-            return table;
-        }
-        /// <summary>
         ///  Cache Object Expression 
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Express"></param>
         /// <param name="CacheKey"></param>
-        /// <param name="CacheMilliseconds"></param>
+        /// <param name="CacheSeconds"></param>
         /// <returns></returns>
-        public static void CacheExpression<T>(Expression<Func<T, Object>> Express, String CacheKey, int CacheMilliseconds = 0)
+        public static void CacheExpression<T>(Expression<Func<T, Object>> Express, String CacheKey, int CacheSeconds = 0)
         {
-            if (CacheMilliseconds == 0)
-                CacheData.Add(DateTime.Parse(DateTime.Now.ToShortDateString()), Express);
+            if (CacheSeconds == 0)
+                CacheDataObject.Add(DateTime.Parse(DateTime.Now.ToShortDateString()), Express);
             else
-                CacheData.Add(DateTime.Now.AddMilliseconds(CacheMilliseconds), Express);
-            CacheObject.Add(CacheKey, CacheData);
+                CacheDataObject.Add(DateTime.Now.AddSeconds(CacheSeconds), Express);
+            CacheObject.Add(CacheKey, CacheDataObject);
         }
         /// <summary>
         /// Cache bool Expression 
@@ -230,14 +194,14 @@ namespace XExten.XExpres
         /// <typeparam name="T"></typeparam>
         /// <param name="Express"></param>
         /// <param name="CacheKey"></param>
-        /// <param name="CacheMilliseconds"></param>
-        public static void CacheExpression<T>(Expression<Func<T, bool>> Express, String CacheKey, int CacheMilliseconds = 0)
+        /// <param name="CacheSeconds"></param>
+        public static void CacheExpression<T>(Expression<Func<T, bool>> Express, String CacheKey, int CacheSeconds = 0)
         {
-            if (CacheMilliseconds == 0)
-                CacheData.Add(DateTime.Parse(DateTime.Now.ToShortDateString()), Express);
+            if (CacheSeconds == 0)
+                CacheDataBool.Add(DateTime.Parse(DateTime.Now.ToShortDateString()), Express);
             else
-                CacheData.Add(DateTime.Now.AddMilliseconds(CacheMilliseconds), Express);
-            CacheBool.Add(CacheKey, CacheData);
+                CacheDataBool.Add(DateTime.Now.AddSeconds(CacheSeconds), Express);
+            CacheBool.Add(CacheKey, CacheDataBool);
         }
         /// <summary>
         ///  Get Object Expression Cache 
@@ -255,18 +219,22 @@ namespace XExten.XExpres
                     {
                         Item.Value.Remove(Keys.Key);
                         CacheObject.Remove(Item.Key);
+                        if (Keys.Key < DateTime.Now)
+                        {
+                            Item.Value.Remove(Keys.Key);
+                            CacheObject.Remove(Item.Key);
+                        }
                     }
-                    else if(Keys.Key < DateTime.Now)
-                    {
-                        Item.Value.Remove(Keys.Key);
-                        CacheObject.Remove(Item.Key);
-                    }
+                    if (Item.Value.Count == 0)
+                        break;
                 }
+                if (CacheObject.Count == 0)
+                    break;
             }
             return (Expression<Func<T, Object>>)CacheObject[CacheKey].Values.FirstOrDefault();
         }
         /// <summary>
-        /// 
+        /// Get Bool Expression Cache 
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="CacheKey"></param>
@@ -280,14 +248,18 @@ namespace XExten.XExpres
                     if (Keys.Key < DateTime.Parse(DateTime.Now.ToShortDateString()))
                     {
                         Item.Value.Remove(Keys.Key);
-                        CacheBool.Remove(Item.Key);
+                        CacheObject.Remove(Item.Key);
+                        if (Keys.Key < DateTime.Now)
+                        {
+                            Item.Value.Remove(Keys.Key);
+                            CacheObject.Remove(Item.Key);
+                        }
                     }
-                    else if (Keys.Key < DateTime.Now)
-                    {
-                        Item.Value.Remove(Keys.Key);
-                        CacheBool.Remove(Item.Key);
-                    }
+                    if (Item.Value.Count == 0)
+                        break;
                 }
+                if (Item.Value.Count == 0)
+                    break;
             }
             return (Expression<Func<T, bool>>)CacheBool[CacheKey].Values.FirstOrDefault();
         }

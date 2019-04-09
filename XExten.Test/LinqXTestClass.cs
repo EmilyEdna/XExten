@@ -114,5 +114,18 @@ namespace XExten.Test
             var res = A.ByJson();
             var data = res.ByModel<TestA>();
         }
+        [Fact]
+        public void ByCache_Test()
+        {
+            TestA A = new TestA
+            {
+                Id = 1,
+                Name = "123",
+                PassWord = "123"
+            };
+            A.ByCache();
+            var res = A.ByCacheData();
+            LinqX.ClearCache();
+        }
     }
 }

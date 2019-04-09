@@ -7,11 +7,11 @@ namespace XExten.Test.TestModel
 {
     public class TestA
     {
-        [Description("Test")]
+        [Description("标识")]
         public int Id { get; set; }
-        [Description("Test")]
+        [Description("姓名")]
         public string Name { get; set; }
-        [Description("Test")]
+        [Description("密码")]
         public string PassWord { get; set; }
     }
     public class TestB

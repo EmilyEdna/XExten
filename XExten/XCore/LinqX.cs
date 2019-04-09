@@ -19,6 +19,7 @@ namespace XExten.XCore
     public static class LinqX
     {
         #region Func
+        private static IDictionary<String, Object> Cache = new Dictionary<String, Object>();
         private static Func<T, K> Funcs<T, K>()
         {
             var SType = typeof(T);
@@ -113,6 +114,28 @@ namespace XExten.XCore
         private static bool IsEnumerable(Type type)
         {
             return type.IsArray || type.GetInterfaces().Any(x => x == typeof(ICollection) || x == typeof(IEnumerable));
+        }
+        /// <summary>
+        /// ClearCache
+        /// </summary>
+        public static bool ClearCache()
+        {
+            Cache.Clear();
+            return true;
+        }
+        /// <summary>
+        /// Clear specified cache
+        /// </summary>
+        /// <param name="Key"></param>
+        public static bool ClearCache(string Key)
+        {
+            if (Cache.ContainsKey(Key))
+            {
+                Cache.Remove(Key);
+                return true;
+            }
+            else
+                return false;
         }
         #endregion
 
@@ -576,6 +599,36 @@ namespace XExten.XCore
         {
             return JsonConvert.DeserializeObject<T>(Param);
         }
+        /// <summary>
+        /// Base cache, the default key is your cache object name
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        public static void ByCache<T>(this T Param) where T : class, new()
+        {
+            var Key = Param.GetType().Name;
+            if (Cache.ContainsKey(Key))
+            {
+                Cache.Remove(Key);
+                Cache.Add(Key, Param);
+            }
+            else
+                Cache.Add(Key, Param);
+        }
+        /// <summary>
+        /// Get cache object
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static T ByCacheData<T>(this T Param)
+        {
+            var Key = Param.GetType().Name;
+            if (Cache.ContainsKey(Key))
+                return (T)Cache[Key];
+            else
+                return default(T);
+        }
         #endregion
 
         #region Async
@@ -836,7 +889,7 @@ namespace XExten.XCore
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static async  Task<String> ByJsonAsync<T>(this T Param)
+        public static async Task<String> ByJsonAsync<T>(this T Param)
         {
             return await Task.Run(() => ByJson(Param));
         }
@@ -849,6 +902,26 @@ namespace XExten.XCore
         public static async Task<T> ByModelAsync<T>(this String Param)
         {
             return await Task.Run(() => ByModel<T>(Param));
+        }
+        /// <summary>
+        /// Base cache, the default key is your cache object name
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static async Task ByCacheAsync<T>(this T Param) where T : class, new()
+        {
+            await Task.Run(() => ByCache(Param));
+        }
+        /// <summary>
+        /// Get cache object
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static async Task<T> ByCacheDataAsync<T>(this T Param)
+        {
+            return await Task.Run(() => ByCacheData(Param));
         }
         #endregion
     }
