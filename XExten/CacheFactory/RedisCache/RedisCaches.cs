@@ -6,14 +6,19 @@ using Newtonsoft.Json;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XExten.CacheFactory.RedisCoche
+namespace XExten.CacheFactory.RedisCache
 {
-    public class Redis
+    public class RedisCaches
     {
         #region Redis
-        private static readonly ConfigurationOptions options = new ConfigurationOptions() { EndPoints = { BaseConfig.RedisConnectionString }, AllowAdmin = true };
+        private static readonly ConfigurationOptions options = new ConfigurationOptions()
+        {
+            EndPoints = { RedisConnectionString },
+            AllowAdmin = true
+        };
         private static readonly object locker = new object();
         private static ConnectionMultiplexer instance;
+        public static string RedisConnectionString { get; set; }
         public static ConnectionMultiplexer Instance
         {
             get
@@ -51,14 +56,14 @@ namespace XExten.CacheFactory.RedisCoche
         /// </summary>
         public static void DeleteRedisDataBase()
         {
-            Instance.GetServer(BaseConfig.RedisConnectionString).FlushAllDatabases();
+            Instance.GetServer(RedisConnectionString).FlushAllDatabases();
         }
         /// <summary>
         /// 异步删除所有redis库
         /// </summary>
         public static async Task DeleteRedisDataBaseAsync()
         {
-            await Instance.GetServer(BaseConfig.RedisConnectionString).FlushAllDatabasesAsync();
+            await Instance.GetServer(RedisConnectionString).FlushAllDatabasesAsync();
         }
         #endregion
 

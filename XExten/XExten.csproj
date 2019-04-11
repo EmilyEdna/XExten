@@ -27,20 +27,13 @@
     <DocumentationFile>D:\Project\XExten\XExten\XExten.xml</DocumentationFile>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net461|AnyCPU'">
-    <DocumentationFile>D:\项目\XExten\XExten\XExten.xml</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net461|netstandard2.0|AnyCPU'">
     <DocumentationFile>D:\项目\XExten\XExten\XExten.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.8.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-    <PackageReference Include="StackExchange.Redis" Version="2.0.600"/>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="CacheFactory\MongoDbCache\" />
-    <Folder Include="CacheFactory\MemoryCache\" />
+    <PackageReference Include="StackExchange.Redis" Version="2.0.600" />
   </ItemGroup>
 </Project>
