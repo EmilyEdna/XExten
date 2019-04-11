@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-
+#if NET45
+using System.Web;
+using System.Web.Caching;
+#elif NETSTANDARD2_0
+using Microsoft.Extensions.Caching.Memory;
+#endif
 namespace XExten.XPlus
 {
     /// <summary>
@@ -13,9 +14,12 @@ namespace XExten.XPlus
     /// </summary>
     public class XPlusEx
     {
+        #if NETSTANDARD2_0
+        public static MemoryCache Cache = new MemoryCache(new MemoryCacheOptions());
+        #endif
         #region Func
         /// <summary>
-        /// Return a random phone number
+        /// 取一个随机手机号(Return a random phone number)
         /// </summary>
         /// <returns></returns>
         public static String XTel()
@@ -26,7 +30,7 @@ namespace XExten.XPlus
             return PhonesHost[index] + (random.Next(100, 888) + 10000).ToString().Substring(1) + (random.Next(1, 9100) + 10000).ToString().Substring(1);
         }
         /// <summary>
-        /// Create a verification code
+        /// 创建一个验证吗(Create a verification code)
         /// </summary>
         /// <returns></returns>
         public static String XVerifyCode()
@@ -56,7 +60,7 @@ namespace XExten.XPlus
             return randomNum;
         }
         /// <summary>
-        ///  Return barcode
+        ///  返回条形码(Return barcode)
         /// </summary>
         /// <param name="Param"></param>
         /// <param name="Width"></param>
@@ -123,7 +127,7 @@ namespace XExten.XPlus
             }
             catch { return "not supported char!"; }
             string Html = "";
-            string Color = "";
+            string Color;
             foreach (char res in Result)
             {
                 Color = res == '0' ? "#FFFFFF" : "#000000";
@@ -139,17 +143,7 @@ namespace XExten.XPlus
             return $"<div style=\"background:#FFFFFF;padding:5px;font-size:{(Width * 5)}px;font-family:楷体;\">{Html}</div>";
         }
         /// <summary>
-        /// return bool and check string is match
-        /// </summary>
-        /// <param name="Param"></param>
-        /// <param name="Template"></param>
-        /// <returns></returns>
-        public static Boolean XCheckMatch(String Param, String Template)
-        {
-            return Regex.IsMatch(Param, Template, RegexOptions.IgnoreCase);
-        }
-        /// <summary>
-        /// Convert money into Chinese characters
+        /// 将小写的金钱转换成大写的金钱(Convert money into Chinese characters)
         /// </summary>
         /// <param name="Param"></param>
         /// <returns></returns>
@@ -191,6 +185,60 @@ namespace XExten.XPlus
                 strMoney.Append("整");
             return strMoney.ToString();
         }
+        /// <summary>
+        /// 添加缓存
+        /// </summary>
+        public static void AddCache<T>(String Key, T Value, int Time)
+        {
+
+            #if NET45
+            HttpRuntime.Cache.Insert(Key, Value, null, DateTime.Now.AddSeconds(Time), Cache.NoSlidingExpiration, CacheItemPriority.Default, null);
+            #elif NETSTANDARD2_0
+            Cache.Set(Key, Value, new DateTimeOffset(DateTime.Now.AddSeconds(Time)));
+            #endif
+        }
+        /// <summary>
+        /// 获取缓存数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Key"></param>
+        /// <returns></returns>
+        public static T GetCache<T>(String Key)
+        {
+            #if NET45
+            return HttpRuntime.Cache.Get(Key) == null ? default(T) : (T)HttpRuntime.Cache.Get(Key);
+            #elif NETSTANDARD2_0
+            return Cache.Get(Key) == null ? default(T) : (T)Cache.Get(Key);
+            #endif
+        }
+        /// <summary>
+        /// 删除指定缓存
+        /// </summary>
+        /// <param name="Key"></param>
+        public static void RemoveCache(String Key)
+        {
+            #if NET45
+            HttpRuntime.Cache.Remove(Key);
+            #elif NETSTANDARD2_0
+            Cache.Remove(Key);
+            #endif
+        }
+        #if NET45
+        public static void RemoveAllCache()
+        {
+
+            var CacheEnum = HttpRuntime.Cache.GetEnumerator();
+            ArrayList arr = new ArrayList();
+            while (CacheEnum.MoveNext())
+            {
+                arr.Add(CacheEnum.Key);
+            }
+            foreach (string key in arr)
+            {
+                HttpRuntime.Cache.Remove(key);
+            }
+         }
+        #endif
         #endregion
     }
 }

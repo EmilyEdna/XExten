@@ -29,7 +29,7 @@ namespace XExten.XCore
         public IQueryable<T> Queryable { get; set; }
     }
     /// <summary>
-    /// Not Map
+    /// 忽略映射(Not Map)
     /// </summary>
     public class IgnoreMappedAttribute : Attribute
     {

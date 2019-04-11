@@ -24,11 +24,6 @@ namespace XExten.Test
             var res = XPlusEx.XBarHtml("ABC", 3, 50);
         }
         [Fact]
-        public void XCheckMatch_Test()
-        {
-            var res = XPlusEx.XCheckMatch("你好", "嗯嗯额");
-        }
-        [Fact]
         public void XConvertCHN_Test() {
             decimal data = 4.85M;
             var res = XPlusEx.XConvertCHN(data);

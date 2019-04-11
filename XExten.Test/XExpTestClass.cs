@@ -49,19 +49,5 @@ namespace XExten.Test
             };
             var res = XExp.CombineClassWithValue<TestA, TestB>((t, x) => new { t, x }, dynamics);
         }
-        [Fact]
-        public void CacheExpression_Test1()
-        {
-            Expression<Func<TestA, Object>> exp = t => new { t };
-            XExp.CacheExpression(exp, "A");
-            var res = XExp.GetObjectCache<TestA>("A");
-        }
-        [Fact]
-        public void CacheExpression_Test2()
-        {
-            Expression<Func<TestA, bool>> exp = t => t.Name!=null;
-            XExp.CacheExpression(exp, "A");
-            var res = XExp.GetBoolCache<TestA>("A");
-        }
     }
 }

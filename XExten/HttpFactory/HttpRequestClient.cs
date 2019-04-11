@@ -17,7 +17,7 @@ namespace XExten.HttpFactory
     public class HttpRequestClient
     {
         /// <summary>
-        /// Making form data to KeyValuePairs
+        /// 创建一个key-value格式的表单数据(Making form data to KeyValuePairs)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Entity"></param>

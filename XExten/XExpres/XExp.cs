@@ -19,12 +19,8 @@ namespace XExten.XExpres
     public class XExp
     {
         #region Func
-        private static  Dictionary<DateTime, Object> CacheDataObject = new Dictionary<DateTime, Object>();
-        private static  Dictionary<DateTime, Object> CacheDataBool = new Dictionary<DateTime, Object>();
-        private static  IDictionary<String, Dictionary<DateTime, Object>> CacheObject = new Dictionary<String, Dictionary<DateTime, Object>>();
-        private static  IDictionary<String, Dictionary<DateTime, Object>> CacheBool = new Dictionary<String, Dictionary<DateTime, Object>>();
         /// <summary>
-        ///  Return AttributeType
+        ///  返回一个属性类(Return AttributeType)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="K"></typeparam>
@@ -38,7 +34,7 @@ namespace XExten.XExpres
             return Attribute;
         }
         /// <summary>
-        /// Set Properties Value
+        /// 设置属性值(Set Properties Value)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="JsonValue"></param>
@@ -65,7 +61,7 @@ namespace XExten.XExpres
             };
         }
         /// <summary>
-        ///  Return a new expression
+        ///  返回一个new表达式(Return a new expression)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="PropertyName"></param>
@@ -74,7 +70,7 @@ namespace XExten.XExpres
         {
             List<MemberBinding> Exps = new List<MemberBinding>();
             ParameterExpression Parameter = Expression.Parameter(typeof(T), "t");
-            PropertyName.ByEach<String>(Item =>
+            PropertyName.ToEach<String>(Item =>
             {
                 MemberExpression PropertyExpress = Expression.Property(Parameter, Item);
                 UnaryExpression ConvterExpress = Expression.Convert(PropertyExpress, typeof(T).GetProperty(Item).PropertyType);
@@ -84,7 +80,7 @@ namespace XExten.XExpres
             return Expression.Lambda<Func<T, Object>>(Member, Parameter);
         }
         /// <summary>
-        ///  return a bool expression
+        ///  返回一个bool表达式(return a bool expression)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Property"></param>
@@ -134,7 +130,7 @@ namespace XExten.XExpres
             return Expression.Lambda<Func<T, bool>>(Filter, Parameter);
         }
         /// <summary>
-        /// Combine two classes into one class
+        /// 将两个类合并为一个类(Combine two classes into one class)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="K"></typeparam>
@@ -143,10 +139,10 @@ namespace XExten.XExpres
         public static Type CombineClass<T, K>(Expression<Func<T, K, Object>> Express)
         {
             List<DynamicProperty> dynamics = new List<DynamicProperty>();
-            (Express.Body as NewExpression).Arguments.ByEachs(item =>
+            (Express.Body as NewExpression).Arguments.ToEachs(item =>
             {
                 var type = (item as ParameterExpression).Type;
-                type.GetProperties().ByEachs(t =>
+                type.GetProperties().ToEachs(t =>
                 {
                     DynamicProperty dynamic = new DynamicProperty(t.Name, t.PropertyType);
                     if (!dynamics.Contains(dynamic))
@@ -156,7 +152,7 @@ namespace XExten.XExpres
             return DynamicClassBuilder.Instance.GetDynamicClass(dynamics, "DynamicClass");
         }
         /// <summary>
-        /// Combine two classes into one class with value
+        /// 将两个类合并为一个类并设值(Combine two classes into one class with value)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="K"></typeparam>
@@ -171,97 +167,6 @@ namespace XExten.XExpres
                     DynamicType.GetType().GetProperty(item.Name).SetValue(DynamicType, item.Value);
             });
             return DynamicType;
-        }
-        /// <summary>
-        ///  Cache Object Expression 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="Express"></param>
-        /// <param name="CacheKey"></param>
-        /// <param name="CacheSeconds"></param>
-        /// <returns></returns>
-        public static void CacheExpression<T>(Expression<Func<T, Object>> Express, String CacheKey, int CacheSeconds = 0)
-        {
-            if (CacheSeconds == 0)
-                CacheDataObject.Add(DateTime.Parse(DateTime.Now.ToShortDateString()), Express);
-            else
-                CacheDataObject.Add(DateTime.Now.AddSeconds(CacheSeconds), Express);
-            CacheObject.Add(CacheKey, CacheDataObject);
-        }
-        /// <summary>
-        /// Cache bool Expression 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="Express"></param>
-        /// <param name="CacheKey"></param>
-        /// <param name="CacheSeconds"></param>
-        public static void CacheExpression<T>(Expression<Func<T, bool>> Express, String CacheKey, int CacheSeconds = 0)
-        {
-            if (CacheSeconds == 0)
-                CacheDataBool.Add(DateTime.Parse(DateTime.Now.ToShortDateString()), Express);
-            else
-                CacheDataBool.Add(DateTime.Now.AddSeconds(CacheSeconds), Express);
-            CacheBool.Add(CacheKey, CacheDataBool);
-        }
-        /// <summary>
-        ///  Get Object Expression Cache 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="CacheKey"></param>
-        /// <returns></returns>
-        public static Expression<Func<T, Object>> GetObjectCache<T>(String CacheKey)
-        {
-            foreach (var Item in CacheObject)
-            {
-                foreach (var Keys in Item.Value)
-                {
-                    if (Keys.Key < DateTime.Parse(DateTime.Now.ToShortDateString()))
-                    {
-                        Item.Value.Remove(Keys.Key);
-                        CacheObject.Remove(Item.Key);
-                        if (Keys.Key < DateTime.Now)
-                        {
-                            Item.Value.Remove(Keys.Key);
-                            CacheObject.Remove(Item.Key);
-                        }
-                    }
-                    if (Item.Value.Count == 0)
-                        break;
-                }
-                if (CacheObject.Count == 0)
-                    break;
-            }
-            return (Expression<Func<T, Object>>)CacheObject[CacheKey].Values.FirstOrDefault();
-        }
-        /// <summary>
-        /// Get Bool Expression Cache 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="CacheKey"></param>
-        /// <returns></returns>
-        public static Expression<Func<T, bool>> GetBoolCache<T>(String CacheKey)
-        {
-            foreach (var Item in CacheBool)
-            {
-                foreach (var Keys in Item.Value)
-                {
-                    if (Keys.Key < DateTime.Parse(DateTime.Now.ToShortDateString()))
-                    {
-                        Item.Value.Remove(Keys.Key);
-                        CacheObject.Remove(Item.Key);
-                        if (Keys.Key < DateTime.Now)
-                        {
-                            Item.Value.Remove(Keys.Key);
-                            CacheObject.Remove(Item.Key);
-                        }
-                    }
-                    if (Item.Value.Count == 0)
-                        break;
-                }
-                if (Item.Value.Count == 0)
-                    break;
-            }
-            return (Expression<Func<T, bool>>)CacheBool[CacheKey].Values.FirstOrDefault();
         }
         #endregion
     }

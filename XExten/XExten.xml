@@ -4,6 +4,12 @@
         <name>XExten</name>
     </assembly>
     <members>
+        <member name="M:XExten.DynamicType.DynamicClass.ToString">
+            <summary>
+            转字符
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:XExten.DynamicType.DynamicClassBuilder.GetDynamicClass(System.Collections.Generic.IEnumerable{XExten.DynamicType.DynamicProperty},System.String)">
             <summary>
              Create DynamicClass
@@ -148,7 +154,7 @@
         </member>
         <member name="M:XExten.HttpFactory.HttpRequestClient.KeyValuePairs``1(``0,System.Collections.Generic.IDictionary{System.String,System.String})">
             <summary>
-            Making form data to KeyValuePairs
+            创建一个key-value格式的表单数据(Making form data to KeyValuePairs)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Entity"></param>
@@ -202,159 +208,133 @@
             Linq Extension Class
             </summary>
         </member>
-        <member name="M:XExten.XCore.LinqX.ClearCache">
+        <member name="M:XExten.XCore.LinqX.ToUnicode(System.String)">
             <summary>
-            ClearCache
-            </summary>
-        </member>
-        <member name="M:XExten.XCore.LinqX.ClearCache(System.String)">
-            <summary>
-            Clear specified cache
-            </summary>
-            <param name="Key"></param>
-        </member>
-        <member name="M:XExten.XCore.LinqX.ByUnic(System.String)">
-            <summary>
-            Return Unicode string
+            转换成Unicode(Return Unicode string)
             </summary>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByUTF8(System.String)">
+        <member name="M:XExten.XCore.LinqX.ToUTF8(System.String)">
             <summary>
-             Return UTF8 string
+            转换成UTF8(Return UTF8 string)
             </summary>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByUnic``1(``0)">
+        <member name="M:XExten.XCore.LinqX.ToUnicode``1(``0)">
             <summary>
-            Replace the data in the entity and return it as Unicode
+            替换实体中的数据并将其作为Unicode返回(Replace the data in the entity and return it as Unicode)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByUTF8``1(``0)">
+        <member name="M:XExten.XCore.LinqX.ToUTF8``1(``0)">
             <summary>
-             Replace the data in the entity and return it as UTF8
+             替换实体中的数据并将其作为UTF8返回(Replace the data in the entity and return it as UTF8)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByMap``2(``0)">
+        <member name="M:XExten.XCore.LinqX.ToMapper``2(``0)">
             <summary>
-            Map an entity to another entity and return the entity
+            (将实体映射到另一个实体并返回该实体)Map an entity to another entity and return the entity
             </summary>
             <typeparam name="T"></typeparam>
             <typeparam name="K"></typeparam>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByEach``1(System.Array,System.Action{``0})">
+        <member name="M:XExten.XCore.LinqX.ToEach``1(System.Array,System.Action{``0})">
             <summary>
-            Traversing the array
+            循环数组(Traversing the array)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <param name="Selector"></param>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByEachs``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+        <member name="M:XExten.XCore.LinqX.ToEachs``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
             <summary>
-             Traverse collection
+             循环集合(Traverse collection)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="queryable"></param>
             <param name="Selector"></param>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByNames``1(``0)">
+        <member name="M:XExten.XCore.LinqX.ToNames``1(``0)">
             <summary>
-             Returns all Property names in an entity
+             返回实体中所有的字段名(Returns all Property names in an entity)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByValues``1(``0)">
+        <member name="M:XExten.XCore.LinqX.ToValues``1(``0)">
             <summary>
-             Returns all Property Values in an entity
+            返回实体中所有的字段值(Returns all Property Values in an entity)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByTables``1(System.Collections.Generic.IList{``0})">
+        <member name="M:XExten.XCore.LinqX.ToTables``1(System.Collections.Generic.IList{``0})">
             <summary>
-            Convert the collection to a data table and return the data table
+            将集合转换为数据表并返回数据表(Convert the collection to a data table and return the data table)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="queryable"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByTable``1(``0)">
+        <member name="M:XExten.XCore.LinqX.ToTable``1(``0)">
             <summary>
-            Convert the entity to a data table and return the data table
+            将实体转换为数据表并返回数据表(Convert the entity to a data table and return the data table)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByMaps``2(System.Collections.Generic.IEnumerable{``0})">
+        <member name="M:XExten.XCore.LinqX.ToMappers``2(System.Collections.Generic.IEnumerable{``0})">
             <summary>
-             Map a collection to another collection and return the collection
+             将集合映射到另一个集合并返回该集合(Map a collection to another collection and return the collection)
             </summary>
             <typeparam name="T"></typeparam>
             <typeparam name="K"></typeparam>
             <param name="queryable"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByDic``1(``0)">
+        <member name="M:XExten.XCore.LinqX.ToDic``1(``0)">
             <summary>
-            Wraps an entity's property name and property value traversal into the dictionary and returns the dictionary
+            将实体的属性名称和属性值遍历包含到字典中并返回字典
+            (Wraps an entity's property name and property value traversal into the dictionary and returns the dictionary)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.IsNullOrEmpty``1(System.Collections.Generic.IEnumerable{``0})">
+        <member name="M:XExten.XCore.LinqX.ToDes``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
             <summary>
-             Determine if the collection is empty
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="queryable"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XCore.LinqX.ByDes``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
-            <summary>
-             Returns an entity with a property value marked to describe the property field
+             返回具有标记为描述属性字段的属性值的实体
+             (Returns an entity with a property value marked to describe the property field)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <param name="Expres"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByLong``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
+        <member name="M:XExten.XCore.LinqX.ToSet``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Object)">
             <summary>
-             Convert a field type to a long integer
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="Param"></param>
-            <param name="Expres"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XCore.LinqX.BySet``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Object)">
-            <summary>
-             set a value for T's Property which choose
+             为选择的T的属性设置一个值(set a value for T's Property which choose)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <param name="Expres"></param>
             <param name="Value"></param>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByPage``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Int32)">
+        <member name="M:XExten.XCore.LinqX.ToPage``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Int32)">
             <summary>
-             Return paging data
+             返回分页数据(Return paging data)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="queryable"></param>
@@ -362,9 +342,9 @@
             <param name="PageSize"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByTable``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Int32)">
+        <member name="M:XExten.XCore.LinqX.ToTable``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Int32)">
             <summary>
-             return  data table
+             返回数据表(return data table)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="queryable"></param>
@@ -372,223 +352,183 @@
             <param name="PageSize"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.BySend``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+        <member name="M:XExten.XCore.LinqX.ToDicEach``2(System.Collections.Generic.IDictionary{``0,``1},System.Action{``0,``1})">
             <summary>
-            Transform your shit into some other shit.
-            </summary>
-            <typeparam name="T"></typeparam>
-            <typeparam name="K"></typeparam>
-            <param name="queryable"></param>
-            <param name="MapForm"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XCore.LinqX.ByDicEach``2(System.Collections.Generic.IDictionary{``0,``1},System.Action{``0,``1})">
-            <summary>
-             Traversing the dictionary
+             循环字典(Traversing the dictionary)
             </summary>
             <typeparam name="T"></typeparam>
             <typeparam name="K"></typeparam>
             <param name="Param"></param>
             <param name="Selector"></param>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByOver``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
+        <member name="M:XExten.XCore.LinqX.ToOver``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
             <summary>
-            Returns all values of a field in a collection
+            返回集合中字段的所有值(Returns all values of a field in a collection)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="queryable"></param>
             <param name="Expres"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByEntity``1(System.Data.DataTable)">
+        <member name="M:XExten.XCore.LinqX.ToEntity``1(System.Data.DataTable)">
             <summary>
-            Convert a data table to an entity
+            将数据表转换为实体(Convert a data table to an entity)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByEntities``1(System.Data.DataTable)">
+        <member name="M:XExten.XCore.LinqX.ToEntities``1(System.Data.DataTable)">
             <summary>
-            Convert a data table to entities
+            将数据表转换为实体(Convert a data table to entities)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByJson``1(``0)">
+        <member name="M:XExten.XCore.LinqX.ToJson``1(``0)">
             <summary>
-            SerializeObject
+            序列化(SerializeObject)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByModel``1(System.String)">
+        <member name="M:XExten.XCore.LinqX.ToModel``1(System.String)">
             <summary>
-            DeserializeObject
+            返序列化(DeserializeObject)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByCache``1(``0)">
+        <member name="M:XExten.XCore.LinqX.ToUnicAsync(System.String)">
             <summary>
-            Base cache, the default key is your cache object name
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="Param"></param>
-        </member>
-        <member name="M:XExten.XCore.LinqX.ByCacheData``1(``0)">
-            <summary>
-            Get cache object
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="Param"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XCore.LinqX.ByUnicAsync(System.String)">
-            <summary>
-            Return Unicode string
+            转换成Unicode(Return Unicode string)
             </summary>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByUTF8Async(System.String)">
+        <member name="M:XExten.XCore.LinqX.ToUTF8Async(System.String)">
             <summary>
-             Return UTF8 string
+            转换成UTF8(Return UTF8 string)
             </summary>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByUnicAsync``1(``0)">
+        <member name="M:XExten.XCore.LinqX.ToUnicAsync``1(``0)">
             <summary>
-            Replace the data in the entity and return it as Unicode
+            替换实体中的数据并将其作为Unicode返回(Replace the data in the entity and return it as Unicode)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByUTF8Async``1(``0)">
+        <member name="M:XExten.XCore.LinqX.ToUTF8Async``1(``0)">
             <summary>
-             Replace the data in the entity and return it as UTF8
+             替换实体中的数据并将其作为UTF8返回(Replace the data in the entity and return it as UTF8)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByMapAsync``2(``0)">
+        <member name="M:XExten.XCore.LinqX.ToMapAsync``2(``0)">
             <summary>
-            Map an entity to another entity and return the entity
+            (将实体映射到另一个实体并返回该实体)Map an entity to another entity and return the entity
             </summary>
             <typeparam name="T"></typeparam>
             <typeparam name="K"></typeparam>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByEachAsync``1(System.Array,System.Action{``0})">
+        <member name="M:XExten.XCore.LinqX.ToEachAsync``1(System.Array,System.Action{``0})">
             <summary>
-            Traversing the array
+            循环数组(Traversing the array)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <param name="Selector"></param>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByEachsAsync``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+        <member name="M:XExten.XCore.LinqX.ToEachsAsync``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
             <summary>
-             Traverse collection
+             循环集合(Traverse collection)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="queryable"></param>
             <param name="Selector"></param>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByNamesAsync``1(``0)">
+        <member name="M:XExten.XCore.LinqX.ToNamesAsync``1(``0)">
             <summary>
-             Returns all Property names in an entity
+             返回实体中所有的字段名(Returns all Property names in an entity)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByValuesAsync``1(``0)">
+        <member name="M:XExten.XCore.LinqX.ToValuesAsync``1(``0)">
             <summary>
-             Returns all Property Values in an entity
+            返回实体中所有的字段值(Returns all Property Values in an entity)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByTablesAsync``1(System.Collections.Generic.IList{``0})">
+        <member name="M:XExten.XCore.LinqX.ToTablesAsync``1(System.Collections.Generic.IList{``0})">
             <summary>
-            Convert the collection to a data table and return the data table
+            将集合转换为数据表并返回数据表(Convert the collection to a data table and return the data table)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="queryable"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByTableAsync``1(``0)">
+        <member name="M:XExten.XCore.LinqX.ToTableAsync``1(``0)">
             <summary>
-            Convert the entity to a data table and return the data table
+            将实体转换为数据表并返回数据表(Convert the entity to a data table and return the data table)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByMapsAsync``2(System.Collections.Generic.IEnumerable{``0})">
+        <member name="M:XExten.XCore.LinqX.ToMapsAsync``2(System.Collections.Generic.IEnumerable{``0})">
             <summary>
-             Map a collection to another collection and return the collection
+             将集合映射到另一个集合并返回该集合(Map a collection to another collection and return the collection)
             </summary>
             <typeparam name="T"></typeparam>
             <typeparam name="K"></typeparam>
             <param name="queryable"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByDicAsync``1(``0)">
+        <member name="M:XExten.XCore.LinqX.ToDicAsync``1(``0)">
             <summary>
-            Wraps an entity's property name and property value traversal into the dictionary and returns the dictionary
+            将实体的属性名称和属性值遍历包含到字典中并返回字典
+            (Wraps an entity's property name and property value traversal into the dictionary and returns the dictionary)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.IsNullOrEmptyAsync``1(System.Collections.Generic.IEnumerable{``0})">
+        <member name="M:XExten.XCore.LinqX.ToDesAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
             <summary>
-             Determine if the collection is empty
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="queryable"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XCore.LinqX.ByDesAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
-            <summary>
-             Returns an entity with a property value marked to describe the property field
+             返回具有标记为描述属性字段的属性值的实体
+             (Returns an entity with a property value marked to describe the property field)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <param name="Expres"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByLongAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
+        <member name="M:XExten.XCore.LinqX.ToSetAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Object)">
             <summary>
-             Convert a field type to a long integer
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="Param"></param>
-            <param name="Expres"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XCore.LinqX.BySetAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Object)">
-            <summary>
-             set a value for T's Property which choose
+             为选择的T的属性设置一个值(set a value for T's Property which choose)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <param name="Expres"></param>
             <param name="Value"></param>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByPageAsync``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Int32)">
+        <member name="M:XExten.XCore.LinqX.ToPageAsync``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Int32)">
             <summary>
-             Return paging data
+             返回分页数据(Return paging data)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="queryable"></param>
@@ -596,9 +536,9 @@
             <param name="PageSize"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByTableAsync``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Int32)">
+        <member name="M:XExten.XCore.LinqX.ToTableAsync``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Int32)">
             <summary>
-             return  data table
+             返回数据表(return data table)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="queryable"></param>
@@ -606,80 +546,176 @@
             <param name="PageSize"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.BySendAsync``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+        <member name="M:XExten.XCore.LinqX.ToDicEachAsync``2(System.Collections.Generic.IDictionary{``0,``1},System.Action{``0,``1})">
             <summary>
-            Transform your shit into some other shit.
-            </summary>
-            <typeparam name="T"></typeparam>
-            <typeparam name="K"></typeparam>
-            <param name="queryable"></param>
-            <param name="MapForm"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XCore.LinqX.ByDicEachAsync``2(System.Collections.Generic.IDictionary{``0,``1},System.Action{``0,``1})">
-            <summary>
-             Traversing the dictionary
+             循环字典(Traversing the dictionary)
             </summary>
             <typeparam name="T"></typeparam>
             <typeparam name="K"></typeparam>
             <param name="Param"></param>
             <param name="Selector"></param>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByOverAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
+        <member name="M:XExten.XCore.LinqX.ToOverAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
             <summary>
-            Returns all values of a field in a collection
+            返回集合中字段的所有值(Returns all values of a field in a collection)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="queryable"></param>
             <param name="Expres"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByEntityAsync``1(System.Data.DataTable)">
+        <member name="M:XExten.XCore.LinqX.ToEntityAsync``1(System.Data.DataTable)">
             <summary>
-            Convert a data table to an entity
+            将数据表转换为实体(Convert a data table to an entity)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByEntitiesAsync``1(System.Data.DataTable)">
+        <member name="M:XExten.XCore.LinqX.ToEntitiesAsync``1(System.Data.DataTable)">
             <summary>
-            Convert a data table to entities
+            将数据表转换为实体(Convert a data table to entities)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByJsonAsync``1(``0)">
+        <member name="M:XExten.XCore.LinqX.ToJsonAsync``1(``0)">
             <summary>
-            SerializeObject
+            序列化(SerializeObject)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByModelAsync``1(System.String)">
+        <member name="M:XExten.XCore.LinqX.ToModelAsync``1(System.String)">
             <summary>
-            DeserializeObject
+            返序列化(DeserializeObject)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByCacheAsync``1(``0)">
+        <member name="M:XExten.XCore.LinqX.IsInRange(System.Int32,System.Int32,System.Int32)">
             <summary>
-            Base cache, the default key is your cache object name
+            值所的范围(Range of values)
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="Param"></param>
+            <param name="thisValue"></param>
+            <param name="begin"></param>
+            <param name="end"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ByCacheDataAsync``1(``0)">
+        <member name="M:XExten.XCore.LinqX.IsInRange(System.DateTime,System.DateTime,System.DateTime)">
             <summary>
-            Get cache object
+            时间值所的范围(Range of datetime values)
+            </summary>
+            <param name="thisValue"></param>
+            <param name="begin"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.IsIn``1(``0,``0[])">
+            <summary>
+            是否在里面(Is it inside)
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="Param"></param>
+            <param name="thisValue"></param>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.IsContainsIn(System.String,System.String[])">
+            <summary>
+            是否在里面(Is it inside)
+            </summary>
+            <param name="thisValue"></param>
+            <param name="inValues"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.IsNullOrEmpty(System.Object)">
+            <summary>
+            是null或""(Is null or "")
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.IsNullOrEmpty(System.Nullable{System.Guid})">
+            <summary>
+            是null或""(Is null or "")
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.IsNullOrEmpty(System.Collections.Generic.IEnumerable{System.Object})">
+            <summary>
+             确定集合是否为空(Determine if the collection is empty)
+            </summary>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.IsValuable(System.Object)">
+            <summary>
+            有值?(has value)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.IsValuable(System.Collections.Generic.IEnumerable{System.Object})">
+            <summary>
+            有值?(has value)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.IsZero(System.Object)">
+            <summary>
+            是零(IsZero)
+            </summary>
+            <param name="thisValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.IsInt(System.Object)">
+            <summary>
+            Is INT
+            </summary>
+            <param name="thisValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.IsNoInt(System.Object)">
+            <summary>
+            Is Not INT?
+            </summary>
+            <param name="thisValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.IsEamil(System.Object)">
+            <summary>
+            是邮箱(Is Email)
+            </summary>
+            <param name="thisValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.IsMobile(System.Object)">
+            <summary>
+            是手机(Is Phone)
+            </summary>
+            <param name="thisValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.IsTelephone(System.Object)">
+            <summary>
+            是座机(Is Tel Phone)
+            </summary>
+            <param name="thisValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.IsIDcard(System.Object)">
+            <summary>
+            是身份证(Is IdCard)
+            </summary>
+            <param name="thisValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.IsFax(System.Object)">
+            <summary>
+            是传真(Is Fax)
+            </summary>
+            <param name="thisValue"></param>
             <returns></returns>
         </member>
         <member name="T:XExten.XCore.Page`1">
@@ -710,7 +746,7 @@
         </member>
         <member name="T:XExten.XCore.IgnoreMappedAttribute">
             <summary>
-            Not Map
+            忽略映射(Not Map)
             </summary>
         </member>
         <member name="T:XExten.XExpres.XExp">
@@ -720,7 +756,7 @@
         </member>
         <member name="M:XExten.XExpres.XExp.GetAttributeType``2(System.Linq.Expressions.Expression{System.Func{``1,System.Object}})">
             <summary>
-             Return AttributeType
+             返回一个属性类(Return AttributeType)
             </summary>
             <typeparam name="T"></typeparam>
             <typeparam name="K"></typeparam>
@@ -729,7 +765,7 @@
         </member>
         <member name="M:XExten.XExpres.XExp.SetProptertiesValue``1(System.Collections.Generic.Dictionary{System.String,System.Object},``0)">
             <summary>
-            Set Properties Value
+            设置属性值(Set Properties Value)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="JsonValue"></param>
@@ -737,7 +773,7 @@
         </member>
         <member name="M:XExten.XExpres.XExp.GetExpression``1(System.String[])">
             <summary>
-             Return a new expression
+             返回一个new表达式(Return a new expression)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="PropertyName"></param>
@@ -745,7 +781,7 @@
         </member>
         <member name="M:XExten.XExpres.XExp.GetExpression``1(System.String,System.Object,XExten.XExpres.QType)">
             <summary>
-             return a bool expression
+             返回一个bool表达式(return a bool expression)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Property"></param>
@@ -755,7 +791,7 @@
         </member>
         <member name="M:XExten.XExpres.XExp.CombineClass``2(System.Linq.Expressions.Expression{System.Func{``0,``1,System.Object}})">
             <summary>
-            Combine two classes into one class
+            将两个类合并为一个类(Combine two classes into one class)
             </summary>
             <typeparam name="T"></typeparam>
             <typeparam name="K"></typeparam>
@@ -764,47 +800,12 @@
         </member>
         <member name="M:XExten.XExpres.XExp.CombineClassWithValue``2(System.Linq.Expressions.Expression{System.Func{``0,``1,System.Object}},System.Collections.Generic.List{XExten.DynamicType.DynamicPropertyValue})">
             <summary>
-            Combine two classes into one class with value
+            将两个类合并为一个类并设值(Combine two classes into one class with value)
             </summary>
             <typeparam name="T"></typeparam>
             <typeparam name="K"></typeparam>
             <param name="Express"></param>
             <param name="dynamics"></param>
-        </member>
-        <member name="M:XExten.XExpres.XExp.CacheExpression``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,System.Int32)">
-            <summary>
-             Cache Object Expression 
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="Express"></param>
-            <param name="CacheKey"></param>
-            <param name="CacheSeconds"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XExpres.XExp.CacheExpression``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.String,System.Int32)">
-            <summary>
-            Cache bool Expression 
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="Express"></param>
-            <param name="CacheKey"></param>
-            <param name="CacheSeconds"></param>
-        </member>
-        <member name="M:XExten.XExpres.XExp.GetObjectCache``1(System.String)">
-            <summary>
-             Get Object Expression Cache 
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="CacheKey"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XExpres.XExp.GetBoolCache``1(System.String)">
-            <summary>
-            Get Bool Expression Cache 
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="CacheKey"></param>
-            <returns></returns>
         </member>
         <member name="T:XExten.XPlus.XPlusEx">
             <summary>
@@ -813,36 +814,28 @@
         </member>
         <member name="M:XExten.XPlus.XPlusEx.XTel">
             <summary>
-            Return a random phone number
+            取一个随机手机号(Return a random phone number)
             </summary>
             <returns></returns>
         </member>
         <member name="M:XExten.XPlus.XPlusEx.XVerifyCode">
             <summary>
-            Create a verification code
+            创建一个验证吗(Create a verification code)
             </summary>
             <returns></returns>
         </member>
         <member name="M:XExten.XPlus.XPlusEx.XBarHtml(System.String,System.Int32,System.Int32)">
             <summary>
-             Return barcode
+             返回条形码(Return barcode)
             </summary>
             <param name="Param"></param>
             <param name="Width"></param>
             <param name="Height"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XPlus.XPlusEx.XCheckMatch(System.String,System.String)">
-            <summary>
-            return bool and check string is match
-            </summary>
-            <param name="Param"></param>
-            <param name="Template"></param>
-            <returns></returns>
-        </member>
         <member name="M:XExten.XPlus.XPlusEx.XConvertCHN(System.Decimal)">
             <summary>
-            Convert money into Chinese characters
+            将小写的金钱转换成大写的金钱(Convert money into Chinese characters)
             </summary>
             <param name="Param"></param>
             <returns></returns>

@@ -19,13 +19,12 @@ namespace XExten.XCore
     public static class LinqX
     {
         #region Func
-        private static IDictionary<String, Object> Cache = new Dictionary<String, Object>();
         private static Func<T, K> Funcs<T, K>()
         {
             var SType = typeof(T);
             var TType = typeof(K);
             if (IsEnumerable(SType) || IsEnumerable(TType))
-                throw new NotSupportedException("Enumerable types are not supported,please use ByMaps method.");
+                throw new NotSupportedException("Enumerable types are not supported,please use ToMaps method.");
             ParameterExpression Parameter = Expression.Parameter(SType, "t");
             List<MemberBinding> Bindings = new List<MemberBinding>();
             var TTypes = TType.GetProperties().Where(x => x.PropertyType.IsPublic && x.CanWrite);
@@ -86,7 +85,7 @@ namespace XExten.XCore
         {
             var Item = Expression.NotEqual(SProperty, Expression.Constant(null, SType));
             //构造回调 Mapper<TSource, TTarget>.Map()
-            var MType = typeof(LinqX).GetMethod("ByMap", new[] { SType });
+            var MType = typeof(LinqX).GetMethod("ToMap", new[] { SType });
             var Call = Expression.Call(MType, SProperty);
             return Expression.Condition(Item, Call, Expression.Constant(null, TType));
         }
@@ -94,7 +93,7 @@ namespace XExten.XCore
         {
             //条件p.Item!=null
             var Item = Expression.NotEqual(SProperty, Expression.Constant(null, SType));
-            var MType = typeof(LinqX).GetMethod("ByMaps", new[] { SType });
+            var MType = typeof(LinqX).GetMethod("ToMaps", new[] { SType });
             var Call = Expression.Call(MType, SProperty);
             Expression Exp;
             if (TType == Call.Type)
@@ -115,57 +114,35 @@ namespace XExten.XCore
         {
             return type.IsArray || type.GetInterfaces().Any(x => x == typeof(ICollection) || x == typeof(IEnumerable));
         }
-        /// <summary>
-        /// ClearCache
-        /// </summary>
-        public static bool ClearCache()
-        {
-            Cache.Clear();
-            return true;
-        }
-        /// <summary>
-        /// Clear specified cache
-        /// </summary>
-        /// <param name="Key"></param>
-        public static bool ClearCache(string Key)
-        {
-            if (Cache.ContainsKey(Key))
-            {
-                Cache.Remove(Key);
-                return true;
-            }
-            else
-                return false;
-        }
         #endregion
 
         #region Sync
         /// <summary>
-        /// Return Unicode string
+        /// 转换成Unicode(Return Unicode string)
         /// </summary>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static String ByUnic(this String Param)
+        public static String ToUnicode(this String Param)
         {
             if (String.IsNullOrEmpty(Param))
                 return String.Empty;
             else
             {
-                var bytes = Encoding.Unicode.GetBytes(Param);
+                var Totes = Encoding.Unicode.GetBytes(Param);
                 StringBuilder str = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i += 2)
+                for (int i = 0; i < Totes.Length; i += 2)
                 {
-                    str.AppendFormat("\\u{0}{1}", bytes[i + 1].ToString("x").PadLeft(2, '0'), bytes[i].ToString("x").PadLeft(2, '0'));
+                    str.AppendFormat("\\u{0}{1}", Totes[i + 1].ToString("x").PadLeft(2, '0'), Totes[i].ToString("x").PadLeft(2, '0'));
                 }
                 return str.ToString();
             }
         }
         /// <summary>
-        ///  Return UTF8 string
+        /// 转换成UTF8(Return UTF8 string)
         /// </summary>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static String ByUTF8(this String Param)
+        public static String ToUTF8(this String Param)
         {
             if (String.IsNullOrEmpty(Param))
                 return String.Empty;
@@ -174,23 +151,23 @@ namespace XExten.XCore
                       .Replace(Param, x => String.Empty + Convert.ToChar(Convert.ToUInt16(x.Result("$1"), 16)));
         }
         /// <summary>
-        /// Replace the data in the entity and return it as Unicode
+        /// 替换实体中的数据并将其作为Unicode返回(Replace the data in the entity and return it as Unicode)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static T ByUnic<T>(this T Param)
+        public static T ToUnicode<T>(this T Param)
         {
             Param.GetType().GetProperties().ToList().ForEach(t =>
             {
                 var data = t.GetValue(Param).ToString();
                 if (!String.IsNullOrEmpty(data))
                 {
-                    var bytes = Encoding.Unicode.GetBytes(data);
+                    var Totes = Encoding.Unicode.GetBytes(data);
                     StringBuilder str = new StringBuilder();
-                    for (int i = 0; i < bytes.Length; i += 2)
+                    for (int i = 0; i < Totes.Length; i += 2)
                     {
-                        str.AppendFormat("\\u{0}{1}", bytes[i + 1].ToString("x").PadLeft(2, '0'), bytes[i].ToString("x").PadLeft(2, '0'));
+                        str.AppendFormat("\\u{0}{1}", Totes[i + 1].ToString("x").PadLeft(2, '0'), Totes[i].ToString("x").PadLeft(2, '0'));
                     }
                     t.SetValue(Param, str.ToString());
                 }
@@ -198,12 +175,12 @@ namespace XExten.XCore
             return Param;
         }
         /// <summary>
-        ///  Replace the data in the entity and return it as UTF8
+        ///  替换实体中的数据并将其作为UTF8返回(Replace the data in the entity and return it as UTF8)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static T ByUTF8<T>(this T Param)
+        public static T ToUTF8<T>(this T Param)
         {
             Param.GetType().GetProperties().ToList().ForEach(t =>
             {
@@ -218,45 +195,45 @@ namespace XExten.XCore
             return Param;
         }
         /// <summary>
-        /// Map an entity to another entity and return the entity
+        /// (将实体映射到另一个实体并返回该实体)Map an entity to another entity and return the entity
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="K"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static K ByMap<T, K>(this T Param)
+        public static K ToMapper<T, K>(this T Param)
         {
             return (Funcs<T, K>())(Param);
         }
         /// <summary>
-        /// Traversing the array
+        /// 循环数组(Traversing the array)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <param name="Selector"></param>
-        public static void ByEach<T>(this Array Param, Action<T> Selector)
+        public static void ToEach<T>(this Array Param, Action<T> Selector)
         {
             foreach (var item in Param)
                 Selector((T)item);
         }
         /// <summary>
-        ///  Traverse collection
+        ///  循环集合(Traverse collection)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
         /// <param name="Selector"></param>
-        public static void ByEachs<T>(this IEnumerable<T> queryable, Action<T> Selector)
+        public static void ToEachs<T>(this IEnumerable<T> queryable, Action<T> Selector)
         {
             foreach (var item in queryable)
                 Selector((T)item);
         }
         /// <summary>
-        ///  Returns all Property names in an entity
+        ///  返回实体中所有的字段名(Returns all Property names in an entity)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static List<String> ByNames<T>(this T Param)
+        public static List<String> ToNames<T>(this T Param)
         {
             List<String> Names = new List<String>();
             Param.GetType().GetProperties().ToList().ForEach(t =>
@@ -266,12 +243,12 @@ namespace XExten.XCore
             return Names;
         }
         /// <summary>
-        ///  Returns all Property Values in an entity
+        /// 返回实体中所有的字段值(Returns all Property Values in an entity)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static List<Object> ByValues<T>(this T Param)
+        public static List<Object> ToValues<T>(this T Param)
         {
             List<Object> Values = new List<Object>();
             Param.GetType().GetProperties().ToList().ForEach(t =>
@@ -281,12 +258,12 @@ namespace XExten.XCore
             return Values;
         }
         /// <summary>
-        /// Convert the collection to a data table and return the data table
+        /// 将集合转换为数据表并返回数据表(Convert the collection to a data table and return the data table)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
         /// <returns></returns>
-        public static DataTable ByTables<T>(this IList<T> queryable)
+        public static DataTable ToTables<T>(this IList<T> queryable)
         {
             DataTable dt = new DataTable();
             foreach (PropertyInfo item in typeof(T).GetProperties())
@@ -316,16 +293,16 @@ namespace XExten.XCore
             return dt;
         }
         /// <summary>
-        /// Convert the entity to a data table and return the data table
+        /// 将实体转换为数据表并返回数据表(Convert the entity to a data table and return the data table)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static DataTable ByTable<T>(this T Param)
+        public static DataTable ToTable<T>(this T Param)
         {
             DataTable dt = new DataTable();
             ArrayList Temp = new ArrayList();
-            Param.GetType().GetProperties().ByEach<PropertyInfo>(t =>
+            Param.GetType().GetProperties().ToEach<PropertyInfo>(t =>
             {
                 Type type = t.PropertyType;
                 if (type.IsGenericType && (type.GetGenericTypeDefinition() == typeof(Nullable<>)))
@@ -337,23 +314,24 @@ namespace XExten.XCore
             return dt;
         }
         /// <summary>
-        ///  Map a collection to another collection and return the collection
+        ///  将集合映射到另一个集合并返回该集合(Map a collection to another collection and return the collection)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="K"></typeparam>
         /// <param name="queryable"></param>
         /// <returns></returns>
-        public static IEnumerable<K> ByMaps<T, K>(this IEnumerable<T> queryable)
+        public static IEnumerable<K> ToMappers<T, K>(this IEnumerable<T> queryable)
         {
             return queryable.Select(Funcs<T, K>());
         }
         /// <summary>
-        /// Wraps an entity's property name and property value traversal into the dictionary and returns the dictionary
+        /// 将实体的属性名称和属性值遍历包含到字典中并返回字典
+        /// (Wraps an entity's property name and property value traversal into the dictionary and returns the dictionary)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static IDictionary<String, Object> ByDic<T>(this T Param)
+        public static IDictionary<String, Object> ToDic<T>(this T Param)
         {
             ParameterExpression Parameter = Expression.Parameter(Param.GetType(), "t");
             Dictionary<String, Object> Map = new Dictionary<String, Object>();
@@ -367,49 +345,27 @@ namespace XExten.XCore
             return Map;
         }
         /// <summary>
-        ///  Determine if the collection is empty
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="queryable"></param>
-        /// <returns></returns>
-        public static Boolean IsNullOrEmpty<T>(this IEnumerable<T> queryable)
-        {
-            return queryable == null || !queryable.Any();
-        }
-        /// <summary>
-        ///  Returns an entity with a property value marked to describe the property field
+        ///  返回具有标记为描述属性字段的属性值的实体
+        ///  (Returns an entity with a property value marked to describe the property field)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <param name="Expres"></param>
         /// <returns></returns>
-        public static String ByDes<T>(this T Param, Expression<Func<T, Object>> Expres)
+        public static String ToDes<T>(this T Param, Expression<Func<T, Object>> Expres)
         {
             MemberExpression Exp = (MemberExpression)Expres.Body;
             var Obj = Exp.Member.GetCustomAttributes(typeof(DescriptionAttribute), true).FirstOrDefault();
             return (Obj as DescriptionAttribute).Description;
         }
         /// <summary>
-        ///  Convert a field type to a long integer
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="Param"></param>
-        /// <param name="Expres"></param>
-        /// <returns></returns>
-        public static Int64 ByLong<T>(this T Param, Expression<Func<T, Object>> Expres)
-        {
-            String Str = ((Expres.Body as MemberExpression).Member as PropertyInfo).GetValue(Param).ToString();
-            Int64.TryParse(Str, out Int64 Value);
-            return Value;
-        }
-        /// <summary>
-        ///  set a value for T's Property which choose
+        ///  为选择的T的属性设置一个值(set a value for T's Property which choose)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <param name="Expres"></param>
         /// <param name="Value"></param>
-        public static void BySet<T>(this T Param, Expression<Func<T, Object>> Expres, Object Value)
+        public static void ToSet<T>(this T Param, Expression<Func<T, Object>> Expres, Object Value)
         {
             var Property = ((Expres.Body as MemberExpression).Member as PropertyInfo);
 
@@ -425,14 +381,14 @@ namespace XExten.XCore
             Actions(Param, Value);
         }
         /// <summary>
-        ///  Return paging data
+        ///  返回分页数据(Return paging data)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
         /// <param name="PageIndex"></param>
         /// <param name="PageSize"></param>
         /// <returns></returns>
-        public static Page<T> ByPage<T>(this IEnumerable<T> queryable, int PageIndex, int PageSize)
+        public static Page<T> ToPage<T>(this IEnumerable<T> queryable, int PageIndex, int PageSize)
         {
             return new Page<T>
             {
@@ -443,14 +399,14 @@ namespace XExten.XCore
             };
         }
         /// <summary>
-        ///  return  data table
+        ///  返回数据表(return data table)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
         /// <param name="PageIndex"></param>
         /// <param name="PageSize"></param>
         /// <returns></returns>
-        public static DataTable ByTable<T>(this IEnumerable<T> queryable, int PageIndex, int PageSize)
+        public static DataTable ToTable<T>(this IEnumerable<T> queryable, int PageIndex, int PageSize)
         {
             var properties = typeof(T).GetProperties();
             var dt = new DataTable();
@@ -473,46 +429,29 @@ namespace XExten.XCore
             return dt;
         }
         /// <summary>
-        /// Transform your shit into some other shit.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="K"></typeparam>
-        /// <param name="queryable"></param>
-        /// <param name="MapForm"></param>
-        /// <returns></returns>
-        public static IEnumerable<K> BySend<T, K>(this IEnumerable<T> queryable, Func<T, K> MapForm)
-        {
-            if (queryable == null || MapForm == null) throw new ArgumentNullException();
-            var iterator = queryable.GetEnumerator();
-            while (iterator.MoveNext())
-            {
-                yield return MapForm(iterator.Current);
-            }
-        }
-        /// <summary>
-        ///  Traversing the dictionary
+        ///  循环字典(Traversing the dictionary)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="K"></typeparam>
         /// <param name="Param"></param>
         /// <param name="Selector"></param>
-        public static void ByDicEach<T, K>(this IDictionary<T, K> Param, Action<T, K> Selector)
+        public static void ToDicEach<T, K>(this IDictionary<T, K> Param, Action<T, K> Selector)
         {
             foreach (KeyValuePair<T, K> item in Param)
                 Selector(item.Key, item.Value);
         }
         /// <summary>
-        /// Returns all values of a field in a collection
+        /// 返回集合中字段的所有值(Returns all values of a field in a collection)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
         /// <param name="Expres"></param>
         /// <returns></returns>
-        public static IEnumerable<Object> ByOver<T>(this IEnumerable<T> queryable, Expression<Func<T, Object>> Expres)
+        public static IEnumerable<Object> ToOver<T>(this IEnumerable<T> queryable, Expression<Func<T, Object>> Expres)
         {
             PropertyInfo property = (Expres.Body as MemberExpression).Member as PropertyInfo;
             IList<Object> Data = new List<Object>();
-            queryable.ByEachs(t =>
+            queryable.ToEachs(t =>
             {
                 Object value = t.GetType().GetProperty(property.Name).GetValue(t);
                 Data.Add(value);
@@ -520,12 +459,12 @@ namespace XExten.XCore
             return Data;
         }
         /// <summary>
-        /// Convert a data table to an entity
+        /// 将数据表转换为实体(Convert a data table to an entity)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static T ByEntity<T>(this DataTable Param) where T : new()
+        public static T ToEntity<T>(this DataTable Param) where T : new()
         {
             T entity = new T();
             foreach (DataRow row in Param.Rows)
@@ -548,12 +487,12 @@ namespace XExten.XCore
             return entity;
         }
         /// <summary>
-        /// Convert a data table to entities
+        /// 将数据表转换为实体(Convert a data table to entities)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static IList<T> ByEntities<T>(this DataTable Param) where T : new()
+        public static IList<T> ToEntities<T>(this DataTable Param) where T : new()
         {
             IList<T> entities = new List<T>();
             if (Param == null)
@@ -580,348 +519,437 @@ namespace XExten.XCore
             return entities;
         }
         /// <summary>
-        /// SerializeObject
+        /// 序列化(SerializeObject)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static String ByJson<T>(this T Param)
+        public static String ToJson<T>(this T Param)
         {
             return JsonConvert.SerializeObject(Param);
         }
         /// <summary>
-        /// DeserializeObject
+        /// 返序列化(DeserializeObject)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static T ByModel<T>(this String Param)
+        public static T ToModel<T>(this String Param)
         {
             return JsonConvert.DeserializeObject<T>(Param);
-        }
-        /// <summary>
-        /// Base cache, the default key is your cache object name
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="Param"></param>
-        public static void ByCache<T>(this T Param) where T : class, new()
-        {
-            var Key = Param.GetType().Name;
-            if (Cache.ContainsKey(Key))
-            {
-                Cache.Remove(Key);
-                Cache.Add(Key, Param);
-            }
-            else
-                Cache.Add(Key, Param);
-        }
-        /// <summary>
-        /// Get cache object
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="Param"></param>
-        /// <returns></returns>
-        public static T ByCacheData<T>(this T Param)
-        {
-            var Key = Param.GetType().Name;
-            if (Cache.ContainsKey(Key))
-                return (T)Cache[Key];
-            else
-                return default(T);
         }
         #endregion
 
         #region Async
         /// <summary>
-        /// Return Unicode string
+        /// 转换成Unicode(Return Unicode string)
         /// </summary>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static async Task<String> ByUnicAsync(this String Param)
+        public static async Task<String> ToUnicAsync(this String Param)
         {
-            return await Task.Run(() => ByUnic(Param));
+            return await Task.Run(() => ToUnicode(Param));
         }
         /// <summary>
-        ///  Return UTF8 string
+        /// 转换成UTF8(Return UTF8 string)
         /// </summary>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static async Task<String> ByUTF8Async(this String Param)
+        public static async Task<String> ToUTF8Async(this String Param)
         {
-            return await Task.Run(() => ByUTF8(Param));
+            return await Task.Run(() => ToUTF8(Param));
         }
         /// <summary>
-        /// Replace the data in the entity and return it as Unicode
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="Param"></param>
-        /// <returns></returns>
-        public static async Task<T> ByUnicAsync<T>(this T Param)
-        {
-            return await Task.Run(() => ByUnic(Param));
-        }
-        /// <summary>
-        ///  Replace the data in the entity and return it as UTF8
+        /// 替换实体中的数据并将其作为Unicode返回(Replace the data in the entity and return it as Unicode)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static async Task<T> ByUTF8Async<T>(this T Param)
+        public static async Task<T> ToUnicAsync<T>(this T Param)
         {
-            return await Task.Run(() => ByUTF8(Param));
+            return await Task.Run(() => ToUnicode(Param));
         }
         /// <summary>
-        /// Map an entity to another entity and return the entity
+        ///  替换实体中的数据并将其作为UTF8返回(Replace the data in the entity and return it as UTF8)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static async Task<T> ToUTF8Async<T>(this T Param)
+        {
+            return await Task.Run(() => ToUTF8(Param));
+        }
+        /// <summary>
+        /// (将实体映射到另一个实体并返回该实体)Map an entity to another entity and return the entity
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="K"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static async Task<K> ByMapAsync<T, K>(this T Param)
+        public static async Task<K> ToMapAsync<T, K>(this T Param)
         {
-            return await Task.Run(() => ByMap<T, K>(Param));
+            return await Task.Run(() => ToMapper<T, K>(Param));
         }
         /// <summary>
-        /// Traversing the array
+        /// 循环数组(Traversing the array)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <param name="Selector"></param>
-        public static async Task ByEachAsync<T>(this Array Param, Action<T> Selector)
+        public static async Task ToEachAsync<T>(this Array Param, Action<T> Selector)
         {
-            await Task.Run(() => ByEach(Param, Selector));
+            await Task.Run(() => ToEach(Param, Selector));
         }
         /// <summary>
-        ///  Traverse collection
+        ///  循环集合(Traverse collection)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
         /// <param name="Selector"></param>
-        public static async Task ByEachsAsync<T>(this IEnumerable<T> queryable, Action<T> Selector)
+        public static async Task ToEachsAsync<T>(this IEnumerable<T> queryable, Action<T> Selector)
         {
-            await Task.Run(() => ByEachs(queryable, Selector));
+            await Task.Run(() => ToEachs(queryable, Selector));
         }
         /// <summary>
-        ///  Returns all Property names in an entity
+        ///  返回实体中所有的字段名(Returns all Property names in an entity)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static async Task<List<String>> ByNamesAsync<T>(this T Param)
+        public static async Task<List<String>> ToNamesAsync<T>(this T Param)
         {
-            return await Task.Run(() => ByNames(Param));
+            return await Task.Run(() => ToNames(Param));
         }
         /// <summary>
-        ///  Returns all Property Values in an entity
+        /// 返回实体中所有的字段值(Returns all Property Values in an entity)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static async Task<List<Object>> ByValuesAsync<T>(this T Param)
+        public static async Task<List<Object>> ToValuesAsync<T>(this T Param)
         {
-            return await Task.Run(() => ByValues(Param));
+            return await Task.Run(() => ToValues(Param));
         }
         /// <summary>
-        /// Convert the collection to a data table and return the data table
+        /// 将集合转换为数据表并返回数据表(Convert the collection to a data table and return the data table)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
         /// <returns></returns>
-        public static async Task<DataTable> ByTablesAsync<T>(this IList<T> queryable)
+        public static async Task<DataTable> ToTablesAsync<T>(this IList<T> queryable)
         {
-            return await Task.Run(() => ByTables(queryable));
+            return await Task.Run(() => ToTables(queryable));
         }
         /// <summary>
-        /// Convert the entity to a data table and return the data table
+        /// 将实体转换为数据表并返回数据表(Convert the entity to a data table and return the data table)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static async Task<DataTable> ByTableAsync<T>(this T Param)
+        public static async Task<DataTable> ToTableAsync<T>(this T Param)
         {
-            return await Task.Run(() => ByTable(Param));
+            return await Task.Run(() => ToTable(Param));
         }
         /// <summary>
-        ///  Map a collection to another collection and return the collection
+        ///  将集合映射到另一个集合并返回该集合(Map a collection to another collection and return the collection)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="K"></typeparam>
         /// <param name="queryable"></param>
         /// <returns></returns>
-        public static async Task<IEnumerable<K>> ByMapsAsync<T, K>(this IEnumerable<T> queryable)
+        public static async Task<IEnumerable<K>> ToMapsAsync<T, K>(this IEnumerable<T> queryable)
         {
-            return await Task.Run(() => ByMaps<T, K>(queryable));
+            return await Task.Run(() => ToMappers<T, K>(queryable));
         }
         /// <summary>
-        /// Wraps an entity's property name and property value traversal into the dictionary and returns the dictionary
+        /// 将实体的属性名称和属性值遍历包含到字典中并返回字典
+        /// (Wraps an entity's property name and property value traversal into the dictionary and returns the dictionary)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static async Task<IDictionary<String, Object>> ByDicAsync<T>(this T Param)
+        public static async Task<IDictionary<String, Object>> ToDicAsync<T>(this T Param)
         {
-            return await Task.Run(() => ByDic(Param));
+            return await Task.Run(() => ToDic(Param));
         }
         /// <summary>
-        ///  Determine if the collection is empty
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="queryable"></param>
-        /// <returns></returns>
-        public static async Task<Boolean> IsNullOrEmptyAsync<T>(this IEnumerable<T> queryable)
-        {
-            return await Task.Run(() => IsNullOrEmpty(queryable));
-        }
-        /// <summary>
-        ///  Returns an entity with a property value marked to describe the property field
+        ///  返回具有标记为描述属性字段的属性值的实体
+        ///  (Returns an entity with a property value marked to describe the property field)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <param name="Expres"></param>
         /// <returns></returns>
-        public static async Task<String> ByDesAsync<T>(this T Param, Expression<Func<T, object>> Expres)
+        public static async Task<String> ToDesAsync<T>(this T Param, Expression<Func<T, object>> Expres)
         {
-            return await Task.Run(() => ByDes(Param, Expres));
+            return await Task.Run(() => ToDes(Param, Expres));
         }
         /// <summary>
-        ///  Convert a field type to a long integer
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="Param"></param>
-        /// <param name="Expres"></param>
-        /// <returns></returns>
-        public static async Task<Int64> ByLongAsync<T>(this T Param, Expression<Func<T, object>> Expres)
-        {
-            return await Task.Run(() => ByLong(Param, Expres));
-        }
-        /// <summary>
-        ///  set a value for T's Property which choose
+        ///  为选择的T的属性设置一个值(set a value for T's Property which choose)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <param name="Expres"></param>
         /// <param name="Value"></param>
-        public static async Task BySetAsync<T>(this T Param, Expression<Func<T, object>> Expres, Object Value)
+        public static async Task ToSetAsync<T>(this T Param, Expression<Func<T, object>> Expres, Object Value)
         {
-            await Task.Run(() => BySet(Param, Expres, Value));
+            await Task.Run(() => ToSet(Param, Expres, Value));
         }
         /// <summary>
-        ///  Return paging data
+        ///  返回分页数据(Return paging data)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
         /// <param name="PageIndex"></param>
         /// <param name="PageSize"></param>
         /// <returns></returns>
-        public static async Task<Page<T>> ByPageAsync<T>(this IEnumerable<T> queryable, int PageIndex, int PageSize)
+        public static async Task<Page<T>> ToPageAsync<T>(this IEnumerable<T> queryable, int PageIndex, int PageSize)
         {
-            return await Task.Run(() => ByPage(queryable, PageIndex, PageSize));
+            return await Task.Run(() => ToPage(queryable, PageIndex, PageSize));
         }
         /// <summary>
-        ///  return  data table
+        ///  返回数据表(return data table)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
         /// <param name="PageIndex"></param>
         /// <param name="PageSize"></param>
         /// <returns></returns>
-        public static async Task<DataTable> ByTableAsync<T>(this IEnumerable<T> queryable, int PageIndex, int PageSize)
+        public static async Task<DataTable> ToTableAsync<T>(this IEnumerable<T> queryable, int PageIndex, int PageSize)
         {
-            return await Task.Run(() => ByTable(queryable, PageIndex, PageSize));
+            return await Task.Run(() => ToTable(queryable, PageIndex, PageSize));
         }
         /// <summary>
-        /// Transform your shit into some other shit.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="K"></typeparam>
-        /// <param name="queryable"></param>
-        /// <param name="MapForm"></param>
-        /// <returns></returns>
-        public static async Task<IEnumerable<K>> BySendAsync<T, K>(this IEnumerable<T> queryable, Func<T, K> MapForm)
-        {
-            return await Task.Run(() => BySend(queryable, MapForm));
-        }
-        /// <summary>
-        ///  Traversing the dictionary
+        ///  循环字典(Traversing the dictionary)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="K"></typeparam>
         /// <param name="Param"></param>
         /// <param name="Selector"></param>
-        public static async Task ByDicEachAsync<T, K>(this IDictionary<T, K> Param, Action<T, K> Selector)
+        public static async Task ToDicEachAsync<T, K>(this IDictionary<T, K> Param, Action<T, K> Selector)
         {
-            await Task.Run(() => ByDicEach(Param, Selector));
+            await Task.Run(() => ToDicEach(Param, Selector));
         }
         /// <summary>
-        /// Returns all values of a field in a collection
+        /// 返回集合中字段的所有值(Returns all values of a field in a collection)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
         /// <param name="Expres"></param>
         /// <returns></returns>
-        public static async Task<IEnumerable<Object>> ByOverAsync<T>(this IEnumerable<T> queryable, Expression<Func<T, Object>> Expres)
+        public static async Task<IEnumerable<Object>> ToOverAsync<T>(this IEnumerable<T> queryable, Expression<Func<T, Object>> Expres)
         {
-            return await Task.Run(() => ByOver(queryable, Expres));
+            return await Task.Run(() => ToOver(queryable, Expres));
         }
         /// <summary>
-        /// Convert a data table to an entity
+        /// 将数据表转换为实体(Convert a data table to an entity)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static async Task<T> ByEntityAsync<T>(this DataTable Param) where T : new()
+        public static async Task<T> ToEntityAsync<T>(this DataTable Param) where T : new()
         {
-            return await Task.Run(() => ByEntity<T>(Param));
+            return await Task.Run(() => ToEntity<T>(Param));
         }
         /// <summary>
-        /// Convert a data table to entities
+        /// 将数据表转换为实体(Convert a data table to entities)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static async Task<IList<T>> ByEntitiesAsync<T>(this DataTable Param) where T : new()
+        public static async Task<IList<T>> ToEntitiesAsync<T>(this DataTable Param) where T : new()
         {
-            return await Task.Run(() => ByEntities<T>(Param));
+            return await Task.Run(() => ToEntities<T>(Param));
         }
         /// <summary>
-        /// SerializeObject
+        /// 序列化(SerializeObject)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static async Task<String> ByJsonAsync<T>(this T Param)
+        public static async Task<String> ToJsonAsync<T>(this T Param)
         {
-            return await Task.Run(() => ByJson(Param));
+            return await Task.Run(() => ToJson(Param));
         }
         /// <summary>
-        /// DeserializeObject
+        /// 返序列化(DeserializeObject)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static async Task<T> ByModelAsync<T>(this String Param)
+        public static async Task<T> ToModelAsync<T>(this String Param)
         {
-            return await Task.Run(() => ByModel<T>(Param));
+            return await Task.Run(() => ToModel<T>(Param));
+        }
+        #endregion
+
+        #region IsWhat
+        /// <summary>
+        /// 值所的范围(Range of values)
+        /// </summary>
+        /// <param name="thisValue"></param>
+        /// <param name="begin"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        public static bool IsInRange(this int thisValue, int begin, int end)
+        {
+            return thisValue >= begin && thisValue <= end;
         }
         /// <summary>
-        /// Base cache, the default key is your cache object name
+        /// 时间值所的范围(Range of datetime values)
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="Param"></param>
+        /// <param name="thisValue"></param>
+        /// <param name="begin"></param>
+        /// <param name="end"></param>
         /// <returns></returns>
-        public static async Task ByCacheAsync<T>(this T Param) where T : class, new()
+        public static bool IsInRange(this DateTime thisValue, DateTime begin, DateTime end)
         {
-            await Task.Run(() => ByCache(Param));
+            return thisValue >= begin && thisValue <= end;
         }
         /// <summary>
-        /// Get cache object
+        /// 是否在里面(Is it inside)
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="Param"></param>
+        /// <param name="thisValue"></param>
+        /// <param name="values"></param>
         /// <returns></returns>
-        public static async Task<T> ByCacheDataAsync<T>(this T Param)
+        public static bool IsIn<T>(this T thisValue, params T[] values)
         {
-            return await Task.Run(() => ByCacheData(Param));
+            return values.Contains(thisValue);
+        }
+        /// <summary>
+        /// 是否在里面(Is it inside)
+        /// </summary>
+        /// <param name="thisValue"></param>
+        /// <param name="inValues"></param>
+        /// <returns></returns>
+        public static bool IsContainsIn(this string thisValue, params string[] inValues)
+        {
+            return inValues.Any(it => thisValue.Contains(it));
+        }
+        /// <summary>
+        /// 是null或""(Is null or "")
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsNullOrEmpty(this object thisValue)
+        {
+            if (thisValue == null || thisValue == DBNull.Value) return true;
+            return thisValue.ToString() == "";
+        }
+        /// <summary>
+        /// 是null或""(Is null or "")
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsNullOrEmpty(this Guid? thisValue)
+        {
+            if (thisValue == null) return true;
+            return thisValue == Guid.Empty;
+        }
+        /// <summary>
+        ///  确定集合是否为空(Determine if the collection is empty)
+        /// </summary>
+        /// <param name="queryable"></param>
+        /// <returns></returns>
+        public static bool IsNullOrEmpty(this IEnumerable<object> queryable)
+        {
+            return queryable == null || !queryable.Any();
+        }
+        /// <summary>
+        /// 有值?(has value)
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsValuable(this object thisValue)
+        {
+            if (thisValue == null) return false;
+            return thisValue.ToString() != "";
+        }
+        /// <summary>
+        /// 有值?(has value)
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsValuable(this IEnumerable<object> thisValue)
+        {
+            if (thisValue == null || thisValue.Count() == 0) return false;
+            return true;
+        }
+        /// <summary>
+        /// 是零(IsZero)
+        /// </summary>
+        /// <param name="thisValue"></param>
+        /// <returns></returns>
+        public static bool IsZero(this object thisValue)
+        {
+            return (thisValue == null || thisValue.ToString() == "0");
+        }
+        /// <summary>
+        /// Is INT
+        /// </summary>
+        /// <param name="thisValue"></param>
+        /// <returns></returns>
+        public static bool IsInt(this object thisValue)
+        {
+            if (thisValue == null) return false;
+            return Regex.IsMatch(thisValue.ToString(), @"^\d+$");
+        }
+        /// <summary>
+        /// Is Not INT?
+        /// </summary>
+        /// <param name="thisValue"></param>
+        /// <returns></returns>
+        public static bool IsNoInt(this object thisValue)
+        {
+            if (thisValue == null) return true;
+            return !Regex.IsMatch(thisValue.ToString(), @"^\d+$");
+        }
+        /// <summary>
+        /// 是邮箱(Is Email)
+        /// </summary>
+        /// <param name="thisValue"></param>
+        /// <returns></returns>
+        public static bool IsEamil(this object thisValue)
+        {
+            if (thisValue == null) return false;
+            return Regex.IsMatch(thisValue.ToString(), @"^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$");
+        }
+        /// <summary>
+        /// 是手机(Is Phone)
+        /// </summary>
+        /// <param name="thisValue"></param>
+        /// <returns></returns>
+        public static bool IsMobile(this object thisValue)
+        {
+            if (thisValue == null) return false;
+            return Regex.IsMatch(thisValue.ToString(), @"^\d{11}$");
+        }
+        /// <summary>
+        /// 是座机(Is Tel Phone)
+        /// </summary>
+        /// <param name="thisValue"></param>
+        /// <returns></returns>
+        public static bool IsTelephone(this object thisValue)
+        {
+            if (thisValue == null) return false;
+            return Regex.IsMatch(thisValue.ToString(), @"^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{8}$");
+        }
+        /// <summary>
+        /// 是身份证(Is IdCard)
+        /// </summary>
+        /// <param name="thisValue"></param>
+        /// <returns></returns>
+        public static bool IsIDcard(this object thisValue)
+        {
+            if (thisValue == null) return false;
+            return Regex.IsMatch(thisValue.ToString(), @"^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$");
+        }
+        /// <summary>
+        /// 是传真(Is Fax)
+        /// </summary>
+        /// <param name="thisValue"></param>
+        /// <returns></returns>
+        public static bool IsFax(this object thisValue)
+        {
+            if (thisValue == null) return false;
+            return Regex.IsMatch(thisValue.ToString(), @"^[+]{0,1}(\d){1,3}[ ]?([-]?((\d)|[ ]){1,12})+$");
         }
         #endregion
     }

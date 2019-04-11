@@ -8,6 +8,10 @@ namespace XExten.DynamicType
 {
     public class DynamicClass
     {
+        /// <summary>
+        /// 转字符
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             PropertyInfo[] props = this.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
