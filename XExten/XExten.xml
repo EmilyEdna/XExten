@@ -4,6 +4,11 @@
         <name>XExten</name>
     </assembly>
     <members>
+        <member name="T:XExten.CacheFactory.Caches">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:XExten.DynamicType.DynamicClass.ToString">
             <summary>
             转字符
@@ -240,7 +245,7 @@
         </member>
         <member name="M:XExten.XCore.LinqX.ToMapper``2(``0)">
             <summary>
-            (将实体映射到另一个实体并返回该实体)Map an entity to another entity and return the entity
+            将实体映射到另一个实体并返回该实体(Map an entity to another entity and return the entity)
             </summary>
             <typeparam name="T"></typeparam>
             <typeparam name="K"></typeparam>
@@ -434,7 +439,7 @@
         </member>
         <member name="M:XExten.XCore.LinqX.ToMapAsync``2(``0)">
             <summary>
-            (将实体映射到另一个实体并返回该实体)Map an entity to another entity and return the entity
+            将实体映射到另一个实体并返回该实体(Map an entity to another entity and return the entity)
             </summary>
             <typeparam name="T"></typeparam>
             <typeparam name="K"></typeparam>
@@ -839,6 +844,25 @@
             </summary>
             <param name="Param"></param>
             <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.AddCache``1(System.String,``0,System.Int32)">
+            <summary>
+            添加缓存
+            </summary>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.GetCache``1(System.String)">
+            <summary>
+            获取缓存数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.RemoveCache(System.String)">
+            <summary>
+            删除指定缓存
+            </summary>
+            <param name="Key"></param>
         </member>
     </members>
 </doc>

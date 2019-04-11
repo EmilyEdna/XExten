@@ -195,7 +195,7 @@ namespace XExten.XCore
             return Param;
         }
         /// <summary>
-        /// (将实体映射到另一个实体并返回该实体)Map an entity to another entity and return the entity
+        /// 将实体映射到另一个实体并返回该实体(Map an entity to another entity and return the entity)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="K"></typeparam>
@@ -580,7 +580,7 @@ namespace XExten.XCore
             return await Task.Run(() => ToUTF8(Param));
         }
         /// <summary>
-        /// (将实体映射到另一个实体并返回该实体)Map an entity to another entity and return the entity
+        /// 将实体映射到另一个实体并返回该实体(Map an entity to another entity and return the entity)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="K"></typeparam>

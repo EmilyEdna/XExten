@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Text;
-#if NET45
+#if NET461
 using System.Web;
 using System.Web.Caching;
 #elif NETSTANDARD2_0
@@ -191,7 +191,7 @@ namespace XExten.XPlus
         public static void AddCache<T>(String Key, T Value, int Time)
         {
 
-            #if NET45
+            #if NET461
             HttpRuntime.Cache.Insert(Key, Value, null, DateTime.Now.AddSeconds(Time), Cache.NoSlidingExpiration, CacheItemPriority.Default, null);
             #elif NETSTANDARD2_0
             Cache.Set(Key, Value, new DateTimeOffset(DateTime.Now.AddSeconds(Time)));
@@ -205,7 +205,7 @@ namespace XExten.XPlus
         /// <returns></returns>
         public static T GetCache<T>(String Key)
         {
-            #if NET45
+            #if NET461
             return HttpRuntime.Cache.Get(Key) == null ? default(T) : (T)HttpRuntime.Cache.Get(Key);
             #elif NETSTANDARD2_0
             return Cache.Get(Key) == null ? default(T) : (T)Cache.Get(Key);
@@ -217,13 +217,13 @@ namespace XExten.XPlus
         /// <param name="Key"></param>
         public static void RemoveCache(String Key)
         {
-            #if NET45
+            #if NET461
             HttpRuntime.Cache.Remove(Key);
             #elif NETSTANDARD2_0
             Cache.Remove(Key);
             #endif
         }
-        #if NET45
+        #if NET461
         public static void RemoveAllCache()
         {
 

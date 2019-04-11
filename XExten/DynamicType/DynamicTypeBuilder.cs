@@ -33,7 +33,7 @@ namespace XExten.DynamicType
             _assemblyName = new AssemblyName(moduleName);
 #if NETSTANDARD2_0
             _asssemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(_assemblyName, AssemblyBuilderAccess.Run);
-#elif NET45
+#elif NET461
             _asssemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(_assemblyName, AssemblyBuilderAccess.Run);
 #endif
 
@@ -219,7 +219,7 @@ namespace XExten.DynamicType
                     // Create the type, return the type.
 #if NETSTANDARD2_0
                     Type result = _typeBuilder.CreateTypeInfo();
-#elif NET45
+#elif NET461
                     Type result = _typeBuilder.CreateType();
 #endif
                     return result;

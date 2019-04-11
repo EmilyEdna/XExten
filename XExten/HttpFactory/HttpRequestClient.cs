@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 #if NETSTANDARD2_0
 using System.Net.Http;
-#elif NET45
+#elif NET461
 using System.Net.Http;
 #endif
 using System.Text;

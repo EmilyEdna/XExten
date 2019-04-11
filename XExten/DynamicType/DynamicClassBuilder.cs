@@ -21,7 +21,7 @@ namespace XExten.DynamicType
             AssemblyName name = new AssemblyName("DynamicClasses");
 #if NETSTANDARD2_0
             AssemblyBuilder assembly = AssemblyBuilder.DefineDynamicAssembly(name, AssemblyBuilderAccess.Run);
-#elif NET45
+#elif NET461
             AssemblyBuilder assembly = AppDomain.CurrentDomain.DefineDynamicAssembly(name, AssemblyBuilderAccess.Run);
 #endif
             try
@@ -75,7 +75,7 @@ namespace XExten.DynamicType
                     GenerateGetHashCode(tb, fields);
 #if NETSTANDARD2_0
                     Type result = tb.CreateTypeInfo();
-#elif NET45
+#elif NET461
                     Type result = tb.CreateType();
 #endif
                     classCount++;
