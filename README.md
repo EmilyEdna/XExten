@@ -1,12 +1,4 @@
 # XExten
-#### This package extends LINQ and produces anonymous expressions. For example: new {t1 = xx, t2 = xx}
+#### 针对Linq，Expression，CommonUtil，HttpClient，DynamicType，Redis，MongoDB，RuntimeCache进行了拓展的工具类
 [![](https://img.shields.io/badge/build-success-brightgreen.svg)](https://github.com/EmilyEdna/XExten)
 [![](https://img.shields.io/badge/nuget-v1.1.0-blue.svg)](https://www.nuget.org/packages/XExten/1.1.0)
-
-##### For the expansion of linq, please use XExten.XCore.LinqX namespace
-
-##### Please use the XExten.XPlus.XPlusEx namespace for the tool class
-
-##### To create a dynamic class, use XExten.DynamicType.DynamicTypeBuilder
-
-### Please refer to the test class for details of use.
