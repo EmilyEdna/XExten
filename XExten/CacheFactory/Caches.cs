@@ -20,15 +20,25 @@ namespace XExten.CacheFactory
         /// <summary>
         /// Redis链接字符串
         /// </summary>
-        public static string RedisConnectionString { get; set; }
+        public static string RedisConnectionString
+        {
+            set{ RedisCaches.RedisConnectionString = value;}
+        }
         /// <summary>
         /// MongoDB链接字符串
         /// </summary>
-        public static string MongoDBConnectionString { get; set; }
+        public static string MongoDBConnectionString
+        {
+            set
+            { MongoDbCaches.MongoDBConnectionString = value;}
+          }
         /// <summary>
         /// 缓存类型为MongoDB是必填
         /// </summary>
-        public static string DbName { get; set; }
+        public static string DbName
+        {
+            set { MongoDbCaches.MongoDBName = value; }
+        }
         /// <summary>
         /// 添加Memory缓存
         /// </summary>
@@ -47,7 +57,8 @@ namespace XExten.CacheFactory
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <param name="Minutes"></param>
-        public static void RedisCacheSet<T>(string key, T value, int Minutes = 5) {
+        public static void RedisCacheSet<T>(string key, T value, int Minutes = 5)
+        {
             RedisCaches.StringSet<T>(key, value, (DateTime.Now.AddMinutes(Minutes) - DateTime.Now));
         }
         /// <summary>
