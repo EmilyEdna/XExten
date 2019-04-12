@@ -37,4 +37,4 @@ public void XBarHtml_Test()
 ```
 --------------
 ##### 使用HttpClient需要XExten.HttpFactory,使用DynamicType需要XExten.DynamicType.
-##### 在项目中同时支持使用momeryCache,redis,mongodb
+##### 在项目中同时支持使用memoryCache,redis,mongodb
