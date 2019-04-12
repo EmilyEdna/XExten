@@ -11,12 +11,12 @@ using System.Web.Caching;
 using Microsoft.Extensions.Caching.Memory;
 #endif
 
-namespace XExten.CacheFactory.MemoryCache
+namespace XExten.CacheFactory.RunTimeCache
 {
     public class MemoryCaches
     {
 #if NETSTANDARD2_0
-        public static MemoryCache Cache = new MemoryCache(new MemoryCacheOptions());
+        public static IMemoryCache Cache = new MemoryCache(new MemoryCacheOptions());
 #endif
         /// <summary>
         /// 添加缓存
@@ -25,9 +25,9 @@ namespace XExten.CacheFactory.MemoryCache
         {
 
 #if NET461
-            HttpRuntime.Cache.Insert(Key, Value, null, DateTime.Now.AddHours(Time), Cache.NoSlidingExpiration, CacheItemPriority.Default, null);
+            HttpRuntime.Cache.Insert(Key, Value, null, DateTime.Now.AddMinutes(Time), Cache.NoSlidingExpiration, CacheItemPriority.Default, null);
 #elif NETSTANDARD2_0
-            Cache.Set(Key, Value, new DateTimeOffset(DateTime.Now.AddHours(Time)));
+            Cache.Set(Key, Value, new DateTimeOffset(DateTime.Now.AddMinutes(Time)));
 #endif
         }
         /// <summary>

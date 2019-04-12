@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using XExten.CacheFactory.MemoryCache;
+using XExten.CacheFactory.RunTimeCache;
 using XExten.CacheFactory.MongoDbCache;
 using XExten.CacheFactory.RedisCache;
 using XExten.XCore;
@@ -31,7 +31,7 @@ namespace XExten.CacheFactory
         /// <summary>
         /// 添加缓存
         /// </summary>
-        public static void SetCache<T>(string key, T value, int hours = 2)
+        public static void SetCache<T>(string key, T value, int Minutes = 5)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace XExten.CacheFactory
                     if (ConnectionString.IsNullOrEmpty())
                         throw new Exception("please input redis connectionstring!");
                     RedisCaches.RedisConnectionString = ConnectionString;
-                    RedisCaches.StringSet<T>(key, value, (DateTime.Now.AddHours(hours) - DateTime.Now));
+                    RedisCaches.StringSet<T>(key, value, (DateTime.Now.AddMinutes(Minutes) - DateTime.Now));
                     return;
                 }
                 if (CacheType == 2)
