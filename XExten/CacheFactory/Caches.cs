@@ -8,6 +8,7 @@ using XExten.CacheFactory.MongoDbCache;
 using XExten.CacheFactory.RedisCache;
 using XExten.XCore;
 using XExten.XExpres;
+using System.Linq.Expressions;
 
 namespace XExten.CacheFactory
 {
@@ -17,132 +18,101 @@ namespace XExten.CacheFactory
     public class Caches
     {
         /// <summary>
-        /// 为空默认MemoryCache(值为-1缓存类型为MongoDb,值为1缓存类型为Redis)
+        /// Redis链接字符串
         /// </summary>
-        public static int? CacheType { get; set; }
+        public static string RedisConnectionString { get; set; }
         /// <summary>
-        /// 默认是Redis和MongoDb必填
+        /// MongoDB链接字符串
         /// </summary>
-        public static string ConnectionString { get; set; }
+        public static string MongoDBConnectionString { get; set; }
         /// <summary>
         /// 缓存类型为MongoDB是必填
         /// </summary>
         public static string DbName { get; set; }
         /// <summary>
-        /// 添加缓存
+        /// 添加Memory缓存
         /// </summary>
-        public static void SetCache<T>(string key, T value, int Minutes = 5)
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="Minutes"></param>
+        public static void RunTimeCacheSet<T>(string key, T value, int Minutes = 5)
         {
-            try
-            {
-                if (CacheType.IsNullOrEmpty())
-                {
-                    MemoryCaches.AddCache<T>(key, value, 2);
-                    return;
-                }
-                if (CacheType == 1)
-                {
-                    if (ConnectionString.IsNullOrEmpty())
-                        throw new Exception("please input redis connectionstring!");
-                    RedisCaches.RedisConnectionString = ConnectionString;
-                    RedisCaches.StringSet<T>(key, value, (DateTime.Now.AddMinutes(Minutes) - DateTime.Now));
-                    return;
-                }
-                if (CacheType == 2)
-                {
-                    if (ConnectionString.IsNullOrEmpty())
-                        throw new Exception("please input mongodb connectionstring!");
-                    if(DbName.IsNullOrEmpty())
-                        throw new Exception("please input mongodb name!");
-                    MongoDbCaches.Insert<T>(value);
-                    return;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            MemoryCaches.AddCache<T>(key, value, Minutes);
         }
         /// <summary>
-        /// 获取缓存
-        /// (注意当使用mongoDb是不存在key，此时的查询条件Expression《Func《T,bool》》只需传入模型的字段值)
-        /// (注意当使用mongoDb，参数PorpertyName必填)
+        /// 添加Redis缓存
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="Minutes"></param>
+        public static void RedisCacheSet<T>(string key, T value, int Minutes = 5) {
+            RedisCaches.StringSet<T>(key, value, (DateTime.Now.AddMinutes(Minutes) - DateTime.Now));
+        }
+        /// <summary>
+        /// 添加MongoDB缓存
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        public static void MongoDBCacheSet<T>(T value)
+        {
+            MongoDbCaches.Insert<T>(value);
+        }
+        /// <summary>
+        /// 获取Memory缓存
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static T GetCache<T>(object key,string PorpertyName=null)
+        public static T RunTimeCacheGet<T>(object key)
         {
-            try
-            {
-                if (CacheType.IsNullOrEmpty())
-                {
-                    return MemoryCaches.GetCache<T>(key.ToString());
-                }
-                if (CacheType == 1)
-                {
-                    if (ConnectionString.IsNullOrEmpty())
-                        throw new Exception("please input redis connectionstring!");
-                    RedisCaches.RedisConnectionString = ConnectionString;
-                    return RedisCaches.StringGet<T>(key.ToString());
-                }
-                if (CacheType == 2)
-                {
-                    if (ConnectionString.IsNullOrEmpty())
-                        throw new Exception("please input mongodb connectionstring!");
-                    if (DbName.IsNullOrEmpty())
-                        throw new Exception("please input mongodb name!");
-                    if (PorpertyName.IsNullOrEmpty())
-                        throw new Exception("please input PorpertyName!");
-                    return MongoDbCaches.Search<T>(XExp.GetExpression<T>(PorpertyName, key, QType.Equals));
-                }
-                return default;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return MemoryCaches.GetCache<T>(key.ToString());
         }
         /// <summary>
-        ///  删除某个缓存
-        ///  (注意当缓存类型不为mongoDb,泛型参数可随意填写)
-        ///  (注意当使用mongoDb，参数PorpertyName必填)
+        /// 获取Redis缓存
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static T RedisCacheGet<T>(object key)
+        {
+            return RedisCaches.StringGet<T>(key.ToString());
+        }
+        /// <summary>
+        /// 获取MongoDB缓存
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Exp"></param>
+        /// <returns></returns>
+        public static T MongoDBCacheGet<T>(Expression<Func<T,bool>> Exp)
+        {
+            return MongoDbCaches.Search<T>(Exp);
+        }
+        /// <summary>
+        ///  删除Memory缓存
         /// </summary>
         /// <param name="key"></param>
-        /// <param name="PorpertyName"></param>
-        public static void RemoveCache<T>(string key, string PorpertyName = null)
+        public static void RunTimeCacheRemove(object key)
         {
-            try
-            {
-                if (CacheType.IsNullOrEmpty())
-                {
-                    MemoryCaches.RemoveCache(key);
-                    return;
-                }
-                if (CacheType == 1)
-                {
-                    if (ConnectionString.IsNullOrEmpty())
-                        throw new Exception("please input redis connectionstring!");
-                    RedisCaches.RedisConnectionString = ConnectionString;
-                    RedisCaches.KeyDelete(key);
-                    return;
-                }
-                if (CacheType == 2)
-                {
-                    if (ConnectionString.IsNullOrEmpty())
-                        throw new Exception("please input mongodb connectionstring!");
-                    if (DbName.IsNullOrEmpty())
-                        throw new Exception("please input mongodb name!");
-                    if (PorpertyName.IsNullOrEmpty())
-                        throw new Exception("please input PorpertyName!");
-                    MongoDbCaches.Delete<T>(XExp.GetExpression<T>(PorpertyName, key, QType.Equals));
-                    return;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            MemoryCaches.RemoveCache(key.ToString());
+        }
+        /// <summary>
+        /// 删除Redis缓存
+        /// </summary>
+        /// <param name="key"></param>
+        public static void RedisCacheRemove(object key)
+        {
+            RedisCaches.KeyDelete(key.ToString());
+        }
+        /// <summary>
+        /// 删除MongoDB缓存
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Exp"></param>
+        public static void MongoDBCacheRemove<T>(Expression<Func<T, bool>> Exp)
+        {
+            MongoDbCaches.Delete<T>(Exp);
         }
     }
 }

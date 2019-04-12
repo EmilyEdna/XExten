@@ -11,11 +11,7 @@ namespace XExten.CacheFactory.RedisCache
     public class RedisCaches
     {
         #region Redis
-        private static readonly ConfigurationOptions options = new ConfigurationOptions()
-        {
-            EndPoints = { RedisConnectionString },
-            AllowAdmin = true
-        };
+        public static ConfigurationOptions Options => new ConfigurationOptions(){EndPoints = { RedisConnectionString },AllowAdmin = true};
         private static readonly object locker = new object();
         private static ConnectionMultiplexer instance;
         public static string RedisConnectionString { get; set; }
@@ -36,7 +32,7 @@ namespace XExten.CacheFactory.RedisCache
         }
         private static ConnectionMultiplexer GetInstace()
         {
-            var connect = ConnectionMultiplexer.Connect(options);
+            var connect = ConnectionMultiplexer.Connect(Options);
             #region 注册事件
             connect.ConnectionFailed += MuxerConnectionFailed;
             connect.ConnectionRestored += MuxerConnectionRestored;
@@ -412,7 +408,7 @@ namespace XExten.CacheFactory.RedisCache
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <param name="val"></param>
-        public void ListLeftPush<T>(string key, T val)
+        public static void ListLeftPush<T>(string key, T val)
         {
             Save(db => db.ListLeftPush(key, ConvertToJson(val)));
         }
@@ -422,7 +418,7 @@ namespace XExten.CacheFactory.RedisCache
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
-        public T ListLeftPop<T>(string key)
+        public static T ListLeftPop<T>(string key)
         {
             return Save(db => { return ConvertToObj<T>(db.ListLeftPop(key)); });
         }
@@ -431,7 +427,7 @@ namespace XExten.CacheFactory.RedisCache
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public long GetListLength(string key)
+        public static long GetListLength(string key)
         {
             return Save(db => db.ListLength(key));
         }
