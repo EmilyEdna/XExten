@@ -4,7 +4,7 @@
 [![](https://img.shields.io/badge/build-success-brightgreen.svg)](https://github.com/EmilyEdna/XExten)
 [![](https://img.shields.io/badge/nuget-v1.2.0-blue.svg)](https://www.nuget.org/packages/XExten/1.2.0)
 ![](https://img.shields.io/badge/dependencies-Net461-blue.svg)
-![](https://img.shields.io/badge/dependencies-NETSTANDARD2-blue.svg)
+![](https://img.shields.io/badge/dependencies-NetStandard2-blue.svg)
 ### 怎么使用呢
 --------------
 ##### 使用linq的拓展需要引入XExten.XCore域名空间
