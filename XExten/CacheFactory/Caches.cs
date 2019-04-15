@@ -17,12 +17,13 @@ namespace XExten.CacheFactory
     /// </summary>
     public class Caches
     {
+        #region Properties
         /// <summary>
         /// Redis链接字符串
         /// </summary>
         public static string RedisConnectionString
         {
-            set{ RedisCaches.RedisConnectionString = value;}
+            set { RedisCaches.RedisConnectionString = value; }
         }
         /// <summary>
         /// MongoDB链接字符串
@@ -30,8 +31,8 @@ namespace XExten.CacheFactory
         public static string MongoDBConnectionString
         {
             set
-            { MongoDbCaches.MongoDBConnectionString = value;}
-          }
+            { MongoDbCaches.MongoDBConnectionString = value; }
+        }
         /// <summary>
         /// 缓存类型为MongoDB是必填
         /// </summary>
@@ -39,6 +40,9 @@ namespace XExten.CacheFactory
         {
             set { MongoDbCaches.MongoDBName = value; }
         }
+        #endregion
+
+        #region Sync
         /// <summary>
         /// 添加Memory缓存
         /// </summary>
@@ -96,7 +100,7 @@ namespace XExten.CacheFactory
         /// <typeparam name="T"></typeparam>
         /// <param name="Exp"></param>
         /// <returns></returns>
-        public static T MongoDBCacheGet<T>(Expression<Func<T,bool>> Exp)
+        public static T MongoDBCacheGet<T>(Expression<Func<T, bool>> Exp)
         {
             return MongoDbCaches.Search<T>(Exp);
         }
@@ -125,5 +129,95 @@ namespace XExten.CacheFactory
         {
             MongoDbCaches.Delete<T>(Exp);
         }
+        #endregion
+
+        #region Async
+        /// <summary>
+        /// 添加Memory缓存
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="Minutes"></param>
+        public static async Task RunTimeCacheSetAsync<T>(string key, T value, int Minutes = 5)
+        {
+            await Task.Run(() => RunTimeCacheSet(key, value, Minutes));
+        }
+        /// <summary>
+        /// 添加Redis缓存
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="Minutes"></param>
+        public static async Task RedisCacheSetAsync<T>(string key, T value, int Minutes = 5)
+        {
+            await RedisCaches.StringSetAsync<T>(key, value, (DateTime.Now.AddMinutes(Minutes) - DateTime.Now));
+        }
+        /// <summary>
+        /// 添加MongoDB缓存
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        public static async Task MongoDBCacheSetAsync<T>(T value)
+        {
+            await Task.Run(() => MongoDBCacheSet<T>(value));
+        }
+        /// <summary>
+        /// 获取Memory缓存
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static async Task<T> RunTimeCacheGetAsync<T>(object key)
+        {
+            return await Task.Run(() => RunTimeCacheGet<T>(key));
+        }
+        /// <summary>
+        /// 获取Redis缓存
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static async Task<T> RedisCacheGetAsync<T>(object key)
+        {
+            return await RedisCaches.StringGetAsync<T>(key.ToString());
+        }
+        /// <summary>
+        /// 获取MongoDB缓存
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Exp"></param>
+        /// <returns></returns>
+        public static async Task<T> MongoDBCacheGetAsync<T>(Expression<Func<T, bool>> Exp)
+        {
+            return await Task.Run(() => MongoDBCacheGet<T>(Exp));
+        }
+        /// <summary>
+        ///  删除Memory缓存
+        /// </summary>
+        /// <param name="key"></param>
+        public static async Task RunTimeCacheRemoveAsync(object key)
+        {
+            await Task.Run(() => RunTimeCacheRemove(key));
+        }
+        /// <summary>
+        /// 删除Redis缓存
+        /// </summary>
+        /// <param name="key"></param>
+        public static async Task RedisCacheRemoveAsync(object key)
+        {
+            await RedisCaches.KeyDeleteAsync(key.ToString());
+        }
+        /// <summary>
+        /// 删除MongoDB缓存
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Exp"></param>
+        public static async Task MongoDBCacheRemoveAsync<T>(Expression<Func<T, bool>> Exp)
+        {
+            await Task.Run(() => MongoDBCacheRemove(Exp));
+        }
+        #endregion
     }
 }

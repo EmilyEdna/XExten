@@ -30,6 +30,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net461|AnyCPU'">
     <DocumentationFile>D:\项目\XExten\XExten\XExten.xml</DocumentationFile>
   </PropertyGroup>
+  
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
     <DocumentationFile>D:\项目\XExten\XExten\XExten.xml</DocumentationFile>
   </PropertyGroup>
