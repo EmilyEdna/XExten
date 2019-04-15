@@ -30,8 +30,7 @@ namespace XExten.CacheFactory
         /// </summary>
         public static string MongoDBConnectionString
         {
-            set
-            { MongoDbCaches.MongoDBConnectionString = value; }
+            set { MongoDbCaches.MongoDBConnectionString = value; }
         }
         /// <summary>
         /// 缓存类型为MongoDB是必填
