@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Xml.Serialization;
+
 namespace XExten.XPlus
 {
     /// <summary>
@@ -175,6 +179,74 @@ namespace XExten.XPlus
             if (zero > 0)
                 strMoney.Append("整");
             return strMoney.ToString();
+        }
+        /// <summary>
+        /// 过滤字符(Filter characters)
+        /// </summary>
+        /// <param name="Param"></param>
+        /// <param name="regex"></param>
+        /// <returns></returns>
+        public static bool XFilterStr(String Param, Regex regex)
+        {
+            return regex.IsMatch(Param);
+        }
+        /// <summary>
+        /// 反系列化XML(XmlDeserialize)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Xml"></param>
+        /// <returns></returns>
+        public static T XmlDeserialize<T>(String Xml)
+        {
+            using (StringReader reader = new StringReader(Xml))
+            {
+                return (T)new XmlSerializer(typeof(T)).Deserialize(reader);
+            }
+        }
+        /// <summary>
+        /// 将对象序列化为XML(XmlSerializer)
+        /// 说明：此方法序列化复杂类，如果没有声明XmlInclude等特性，可能会引发“使用 XmlInclude 或 SoapInclude 特性静态指定非已知的类型。”的错误。
+        /// (Description: This method serializes complex classes. If you do not declare features such as XmlInclude, you may get an error "Use the XmlInclude or SoapInclude feature to statically specify a non-known type.")
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static string XmlSerializer<T>(T Param)
+        {
+            MemoryStream Stream = new MemoryStream();
+            XmlSerializer xml = new XmlSerializer(typeof(T));
+            try
+            {
+                //序列化对象
+                xml.Serialize(Stream, Param);
+            }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
+            Stream.Position = 0;
+            StreamReader reader = new StreamReader(Stream);
+            string str = reader.ReadToEnd();
+            reader.Dispose();
+            Stream.Dispose();
+            return str;
+        }
+        /// <summary>
+        /// 计算两点GPS坐标的距离（单位：米）
+        /// Calculate the distance between two GPS coordinates (unit: meter)
+        /// </summary>
+        /// <param name="lat1">第一点的纬度坐标</param>
+        /// <param name="lng1">第一点的经度坐标</param>
+        /// <param name="lat2">第二点的纬度坐标</param>
+        /// <param name="lng2">第二点的经度坐标</param>
+        /// <returns></returns>
+        public static double XDistance(double lat1, double lng1, double lat2, double lng2)
+        {
+            double a = (lat1 * Math.PI / 180.00) - (lat2 * Math.PI / 180.00);//两点纬度之差
+            double b = (lng1 * Math.PI / 180.00) - (lng2 * Math.PI / 180.00); //经度之差
+            double s = 2 * Math.Asin(Math.Sqrt(Math.Pow(Math.Sin(a / 2), 2) + Math.Cos(lat1 * Math.PI / 180.00) * Math.Cos(lat2 * Math.PI / 180.00) * Math.Pow(Math.Sin(b / 2), 2)));//计算两点距离的公式
+            s *= 6378137.0;//弧长乘地球半径（半径为米）
+            return Math.Round(s * 10000d) / 10000d;//精确距离的数值
         }
         #endregion
     }
