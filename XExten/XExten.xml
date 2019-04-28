@@ -9,6 +9,802 @@
             
             </summary>
         </member>
+        <member name="P:XExten.CacheFactory.Caches.RedisConnectionString">
+            <summary>
+            Redis链接字符串
+            </summary>
+        </member>
+        <member name="P:XExten.CacheFactory.Caches.MongoDBConnectionString">
+            <summary>
+            MongoDB链接字符串
+            </summary>
+        </member>
+        <member name="P:XExten.CacheFactory.Caches.DbName">
+            <summary>
+            缓存类型为MongoDB是必填
+            </summary>
+        </member>
+        <member name="M:XExten.CacheFactory.Caches.RunTimeCacheSet``1(System.String,``0,System.Int32)">
+            <summary>
+            添加Memory缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="Minutes"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.Caches.RedisCacheSet``1(System.String,``0,System.Int32)">
+            <summary>
+            添加Redis缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="Minutes"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.Caches.MongoDBCacheSet``1(``0)">
+            <summary>
+            添加MongoDB缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.Caches.RunTimeCacheGet``1(System.Object)">
+            <summary>
+            获取Memory缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.Caches.RedisCacheGet``1(System.Object)">
+            <summary>
+            获取Redis缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.Caches.MongoDBCacheGet``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            获取MongoDB缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Exp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.Caches.RunTimeCacheRemove(System.Object)">
+            <summary>
+             删除Memory缓存
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.Caches.RedisCacheRemove(System.Object)">
+            <summary>
+            删除Redis缓存
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.Caches.MongoDBCacheRemove``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            删除MongoDB缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Exp"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.Caches.RunTimeCacheSetAsync``1(System.String,``0,System.Int32)">
+            <summary>
+            添加Memory缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="Minutes"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.Caches.RedisCacheSetAsync``1(System.String,``0,System.Int32)">
+            <summary>
+            添加Redis缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="Minutes"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.Caches.MongoDBCacheSetAsync``1(``0)">
+            <summary>
+            添加MongoDB缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.Caches.RunTimeCacheGetAsync``1(System.Object)">
+            <summary>
+            获取Memory缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.Caches.RedisCacheGetAsync``1(System.Object)">
+            <summary>
+            获取Redis缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.Caches.MongoDBCacheGetAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            获取MongoDB缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Exp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.Caches.RunTimeCacheRemoveAsync(System.Object)">
+            <summary>
+             删除Memory缓存
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.Caches.RedisCacheRemoveAsync(System.Object)">
+            <summary>
+            删除Redis缓存
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.Caches.MongoDBCacheRemoveAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            删除MongoDB缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Exp"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.MongoDbCache.MongoDbCaches.Insert``1(``0)">
+            <summary>
+            插入单条记录
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="t"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.MongoDbCache.MongoDbCaches.InsertMany``1(System.Collections.Generic.IList{``0})">
+            <summary>
+            批量插入
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="t"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.MongoDbCache.MongoDbCaches.Search``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            查询单个记录
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="filter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.MongoDbCache.MongoDbCaches.SearchMany``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            查询集合
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="filter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.MongoDbCache.MongoDbCaches.Update``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.String,System.String)">
+            <summary>
+            更新单个
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="filter"></param>
+            <param name="name"></param>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.MongoDbCache.MongoDbCaches.UpdateMany``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},``0)">
+            <summary>
+            批量更新
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="filter"></param>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.MongoDbCache.MongoDbCaches.Delete``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            删除单条记录
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="filter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.MongoDbCache.MongoDbCaches.GetPage``1(System.Int32,System.Int32)">
+            <summary>
+            分页查询
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="PageIndex"></param>
+            <param name="PageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.DeleteRedisDataBase">
+            <summary>
+            删除所有redis库
+            </summary>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.DeleteRedisDataBaseAsync">
+            <summary>
+            异步删除所有redis库
+            </summary>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.MuxerInternalError(System.Object,StackExchange.Redis.InternalErrorEventArgs)">
+            <summary>
+            内部异常
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.MuxerHashSlotMoved(System.Object,StackExchange.Redis.HashSlotMovedEventArgs)">
+            <summary>
+            集群更改
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.MuxerConfigurationChanged(System.Object,StackExchange.Redis.EndPointEventArgs)">
+            <summary>
+            配置更改事件
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.MuxerErrorMessage(System.Object,StackExchange.Redis.RedisErrorEventArgs)">
+            <summary>
+            错误事件
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.MuxerConnectionRestored(System.Object,StackExchange.Redis.ConnectionFailedEventArgs)">
+            <summary>
+            重连错误事件
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.MuxerConnectionFailed(System.Object,StackExchange.Redis.ConnectionFailedEventArgs)">
+            <summary>
+            连接失败事件
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.Save``1(System.Func{StackExchange.Redis.IDatabase,``0})">
+            <summary>
+            保存通用
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="exp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.ConvertToJson``1(``0)">
+            <summary>
+            Redis转String
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.ConvertToObj``1(StackExchange.Redis.RedisValue)">
+            <summary>
+            Redis值转对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.ConvertList``1(StackExchange.Redis.RedisValue[])">
+            <summary>
+            Redis值数组转list集合
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.ConvertRedisKeys(System.Collections.Generic.List{System.String})">
+            <summary>
+            集合转key
+            </summary>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.StringSet(System.String,System.String,System.Nullable{System.TimeSpan})">
+            <summary>
+            单个保存
+            </summary>
+            <param name="key"></param>
+            <param name="val">值</param>
+            <param name="exp">过期时间</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.StringSet``1(System.String,``0,System.Nullable{System.TimeSpan})">
+            <summary>
+            保存一个对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="obj"></param>
+            <param name="exp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.StringGet(System.String)">
+            <summary>
+            获取单个
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.StringGet``1(System.String)">
+            <summary>
+            获取单个对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.StringSetAsync(System.String,System.String,System.Nullable{System.TimeSpan})">
+            <summary>
+            异步保存单个
+            </summary>
+            <param name="key"></param>
+            <param name="val"></param>
+            <param name="exp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.StringSetAsync``1(System.String,``0,System.Nullable{System.TimeSpan})">
+            <summary>
+            异步保存一个对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="obj"></param>
+            <param name="exp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.StringGetAsync(System.String)">
+            <summary>
+            异步获取单个
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.StringGetAsync``1(System.String)">
+            <summary>
+            异步获取单个对象
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.KeyDelete(System.String)">
+            <summary>
+            删除单个Key
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.KeyDelete(System.Collections.Generic.List{System.String})">
+            <summary>
+            删除多个Key
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.KeyRename(System.String,System.String)">
+            <summary>
+            重命名Key
+            </summary>
+            <param name="key">old key name</param>
+            <param name="newKey">new key name</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.KeyExpire(System.String,System.Nullable{System.TimeSpan})">
+            <summary>
+            设置Key的时间
+            </summary>
+            <param name="key"></param>
+            <param name="exp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.KeyDeleteAsync(System.String)">
+            <summary>
+            异步删除单个key
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.KeyDeleteAsync(System.Collections.Generic.List{System.String})">
+            <summary>
+            异步删除多个Key
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.KeyRenameAsync(System.String,System.String)">
+            <summary>
+             异步重命名Key
+            </summary>
+            <param name="key">old key name</param>
+            <param name="newKey">new key name</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.KeyExpireAsync(System.String,System.Nullable{System.TimeSpan})">
+            <summary>
+            异步设置Key的时间
+            </summary>
+            <param name="key"></param>
+            <param name="exp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.ListRemove``1(System.String,``0)">
+            <summary>
+            移除List内部指定的值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="val"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.ListRange``1(System.String)">
+            <summary>
+            获取指定Key的List
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.ListRightPush``1(System.String,``0)">
+            <summary>
+            插入（入队）
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="val"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.ListRightPop``1(System.String)">
+            <summary>
+            取出（出队）
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.ListLeftPush``1(System.String,``0)">
+            <summary>
+            入栈
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="val"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.ListLeftPop``1(System.String)">
+            <summary>
+            出栈
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.GetListLength(System.String)">
+            <summary>
+            获取集合中的数量
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.ListRemoveAsync``1(System.String,``0)">
+            <summary>
+            异步移除List内部指定的值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="val"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.ListRangeAsync``1(System.String)">
+            <summary>
+            异步获取指定Key的List
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.ListRightPushAsync``1(System.String,``0)">
+            <summary>
+            异步插入（入队）
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="val"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.ListRightPopAsync``1(System.String)">
+            <summary>
+            异步取出（出队）
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.ListLeftPushAsync``1(System.String,``0)">
+            <summary>
+            异步入栈
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="val"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.ListLeftPopAsync``1(System.String)">
+            <summary>
+            异步出栈
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.GetListLengthAsync(System.String)">
+            <summary>
+            获取集合中的数量
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.SetAdd(System.String,System.String)">
+            <summary>
+            添加
+            </summary>
+            <param name="key"></param>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.SetLength(System.String)">
+            <summary>
+            获取长度
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.SetContains(System.String,System.String)">
+            <summary>
+            是否存在
+            </summary>
+            <param name="key"></param>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.SetRemove(System.String,System.String)">
+            <summary>
+            移除
+            </summary>
+            <param name="key"></param>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.SetAddAsync(System.String,System.String)">
+            <summary>
+            添加
+            </summary>
+            <param name="key"></param>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.SetLengthAsync(System.String)">
+            <summary>
+            获取长度
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.SetContainsAsync(System.String,System.String)">
+            <summary>
+            是否存在
+            </summary>
+            <param name="key"></param>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.SetRemoveAsync(System.String,System.String)">
+            <summary>
+            移除
+            </summary>
+            <param name="key"></param>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.HashExists(System.String,System.String)">
+            <summary>
+            是否被缓存
+            </summary>
+            <param name="key"></param>
+            <param name="dataKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.HashSet``1(System.String,System.String,``0)">
+            <summary>
+            存储数据到hash表
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="dataKey"></param>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.HashDelete(System.String,System.String)">
+            <summary>
+            从hash表中移除数据
+            </summary>
+            <param name="key"></param>
+            <param name="dataKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.HashRemove(System.String,System.Collections.Generic.List{StackExchange.Redis.RedisValue})">
+            <summary>
+            移除hash中的多个值
+            </summary>
+            <param name="key"></param>
+            <param name="dataKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.HashGet``1(System.String,System.String)">
+            <summary>
+            从hash表中获取数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="dataKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.HashKeys``1(System.String)">
+            <summary>
+            获取hashkey所有Redis key
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.HashExistsAsync(System.String,System.String)">
+            <summary>
+            异步是否被缓存
+            </summary>
+            <param name="key"></param>
+            <param name="dataKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.HashSetAsync``1(System.String,System.String,``0)">
+            <summary>
+            异步存储数据到hash表
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="dataKey"></param>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.HashDeleteAsync(System.String,System.String)">
+            <summary>
+            异步从hash表中移除数据
+            </summary>
+            <param name="key"></param>
+            <param name="dataKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.HashRemoveAsync(System.String,System.Collections.Generic.List{StackExchange.Redis.RedisValue})">
+            <summary>
+            异步移除hash中的多个值
+            </summary>
+            <param name="key"></param>
+            <param name="dataKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.HashGetAsync``1(System.String,System.String)">
+            <summary>
+            从hash表中获取数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="dataKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.HashKeysAsync``1(System.String)">
+            <summary>
+            获取hashkey所有Redis key
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.SortedSetAdd``1(System.String,``0,System.Double)">
+            <summary>
+            无序添加
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="val"></param>
+            <param name="score"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.SortedSetRemove``1(System.String,``0)">
+            <summary>
+            删除
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.SortedSetRangeByRank``1(System.String)">
+            <summary>
+            获取全部
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.SortedSetLength(System.String)">
+            <summary>
+             获取集合中的数量
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.SortedSetAddAsync``1(System.String,``0,System.Double)">
+            <summary>
+            异步无序添加
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="val"></param>
+            <param name="score"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.SortedSetRemoveAsync``1(System.String,``0)">
+            <summary>
+            删除
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.SortedSetRangeByRankAsync``1(System.String)">
+            <summary>
+            获取全部
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.SortedSetLengthAsync(System.String)">
+            <summary>
+             获取集合中的数量
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RunTimeCache.MemoryCaches.AddCache``1(System.String,``0,System.Int32)">
+            <summary>
+            添加缓存
+            </summary>
+        </member>
+        <member name="M:XExten.CacheFactory.RunTimeCache.MemoryCaches.GetCache``1(System.String)">
+            <summary>
+            获取缓存数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RunTimeCache.MemoryCaches.RemoveCache(System.String)">
+            <summary>
+            删除指定缓存
+            </summary>
+            <param name="Key"></param>
+        </member>
         <member name="M:XExten.DynamicType.DynamicClass.ToString">
             <summary>
             转字符
@@ -206,6 +1002,98 @@
             <param name="url"></param>
             <param name="headers"></param>
             <param name="timeout"></param>
+            <returns></returns>
+        </member>
+        <member name="P:XExten.MessageQueue.QueueItem.Key">
+            <summary>
+            队列项唯一标识
+            </summary>
+        </member>
+        <member name="P:XExten.MessageQueue.QueueItem.Action">
+            <summary>
+            队列项目命中触发时执行的委托
+            </summary>
+        </member>
+        <member name="P:XExten.MessageQueue.QueueItem.AddTime">
+            <summary>
+            此实例对象的创建时间
+            </summary>
+        </member>
+        <member name="P:XExten.MessageQueue.QueueItem.Description">
+            <summary>
+            项目说明（主要用于调试）
+            </summary>
+        </member>
+        <member name="M:XExten.MessageQueue.QueueItem.#ctor(System.String,System.Action,System.String)">
+            <summary>
+            实例化
+            </summary>
+            <param name="key"></param>
+            <param name="action"></param>
+            <param name="description"></param>
+        </member>
+        <member name="F:XExten.MessageQueue.XQueue.MessageQueueDictionary">
+            <summary>
+            队列数据集合
+            </summary>
+        </member>
+        <member name="F:XExten.MessageQueue.XQueue.MessageQueueSyncLock">
+            <summary>
+            同步执行锁
+            </summary>
+        </member>
+        <member name="F:XExten.MessageQueue.XQueue.FlushCacheLock">
+            <summary>
+            立即同步所有缓存执行锁（给OperateQueue()使用）
+            </summary>
+        </member>
+        <member name="M:XExten.MessageQueue.XQueue.GenerateKey(System.String,System.Type,System.String,System.String)">
+            <summary>
+            生成Key
+            </summary>
+            <param name="name">队列应用名称，如“ContainerBag”</param>
+            <param name="senderType">操作对象类型</param>
+            <param name="identityKey">对象唯一标识Key</param>
+            <param name="actionName">操作名称，如“UpdateContainerBag”</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.MessageQueue.XQueue.OperateQueue">
+            <summary>
+            操作队列
+            </summary>
+        </member>
+        <member name="M:XExten.MessageQueue.XQueue.GetCurrentKey">
+            <summary>
+            获取当前等待执行的Key
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.MessageQueue.XQueue.GetItem(System.String)">
+            <summary>
+            获取SenparcMessageQueueItem
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.MessageQueue.XQueue.Add(System.String,System.Action,System.String)">
+            <summary>
+            添加队列成员
+            </summary>
+            <param name="key"></param>
+            <param name="action"></param>
+            <param name="description"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.MessageQueue.XQueue.Remove(System.String)">
+            <summary>
+            移除队列成员
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:XExten.MessageQueue.XQueue.GetCount">
+            <summary>
+            获得当前队列数量
+            </summary>
             <returns></returns>
         </member>
         <member name="T:XExten.XCore.LinqX">
@@ -845,24 +1733,42 @@
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XPlus.XPlusEx.AddCache``1(System.String,``0,System.Int32)">
+        <member name="M:XExten.XPlus.XPlusEx.XFilterStr(System.String,System.Text.RegularExpressions.Regex)">
             <summary>
-            添加缓存
+            过滤字符(Filter characters)
             </summary>
-        </member>
-        <member name="M:XExten.XPlus.XPlusEx.GetCache``1(System.String)">
-            <summary>
-            获取缓存数据
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="Key"></param>
+            <param name="Param"></param>
+            <param name="regex"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XPlus.XPlusEx.RemoveCache(System.String)">
+        <member name="M:XExten.XPlus.XPlusEx.XmlDeserialize``1(System.String)">
             <summary>
-            删除指定缓存
+            反系列化XML(XmlDeserialize)
             </summary>
-            <param name="Key"></param>
+            <typeparam name="T"></typeparam>
+            <param name="Xml"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.XmlSerializer``1(``0)">
+            <summary>
+            将对象序列化为XML(XmlSerializer)
+            说明：此方法序列化复杂类，如果没有声明XmlInclude等特性，可能会引发“使用 XmlInclude 或 SoapInclude 特性静态指定非已知的类型。”的错误。
+            (Description: This method serializes complex classes. If you do not declare features such as XmlInclude, you may get an error "Use the XmlInclude or SoapInclude feature to statically specify a non-known type.")
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.XDistance(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            计算两点GPS坐标的距离（单位：米）
+            Calculate the distance between two GPS coordinates (unit: meter)
+            </summary>
+            <param name="lat1">第一点的纬度坐标</param>
+            <param name="lng1">第一点的经度坐标</param>
+            <param name="lat2">第二点的纬度坐标</param>
+            <param name="lng2">第二点的经度坐标</param>
+            <returns></returns>
         </member>
     </members>
 </doc>
