@@ -5,7 +5,7 @@
 [![](https://img.shields.io/badge/nuget-v2.0.0-blue.svg)](https://www.nuget.org/packages/XExten/2.0.0)
 ![](https://img.shields.io/badge/support-Net461-blue.svg)
 ![](https://img.shields.io/badge/support-NetStandard2-blue.svg)
-### 怎么使用呢
+### 如何使用
 --------------
 ##### 使用linq的拓展需要引入XExten.XCore域名空间
 ``` c#
@@ -38,3 +38,4 @@ public void XBarHtml_Test()
 --------------
 ##### 使用HttpClient需要XExten.HttpFactory,使用DynamicType需要XExten.DynamicType.
 ##### 在项目中同时支持使用memoryCache,redis,mongodb
+##### 具体如何使用消息队列和APM请参考测试
