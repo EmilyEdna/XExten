@@ -13,6 +13,9 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace XExten.CacheFactory.RunTimeCache
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class MemoryCaches
     {
 #if NETSTANDARD2_0

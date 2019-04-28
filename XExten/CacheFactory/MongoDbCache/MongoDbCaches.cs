@@ -9,11 +9,23 @@ using System.Linq.Expressions;
 
 namespace XExten.CacheFactory.MongoDbCache
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class MongoDbCaches
     {
         private static IMongoDatabase instance;
+        /// <summary>
+        /// 链接字符串
+        /// </summary>
         public static string MongoDBConnectionString { get; set; }
+        /// <summary>
+        /// 库名
+        /// </summary>
         public static string MongoDBName { get; set; }
+        /// <summary>
+        /// 获取实例
+        /// </summary>
         public static IMongoDatabase Instance
         {
             get

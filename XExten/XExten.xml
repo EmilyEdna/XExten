@@ -4,6 +4,169 @@
         <name>XExten</name>
     </assembly>
     <members>
+        <member name="T:XExten.APM.ApmThread">
+            <summary>
+            APM 线程
+            </summary>
+        </member>
+        <member name="P:XExten.APM.ApmThread.OpenCpuWatch">
+            <summary>
+            打开 CPU 状态监控
+            </summary>
+        </member>
+        <member name="P:XExten.APM.ApmThread.OpenMemoryWatch">
+            <summary>
+            打开内存状态监控
+            </summary>
+        </member>
+        <member name="M:XExten.APM.ApmThread.Run">
+            <summary>
+            执行
+            </summary>
+        </member>
+        <member name="T:XExten.APM.DataHelper">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:XExten.APM.DataHelper.IsLaterMinute(System.DateTimeOffset,System.DateTimeOffset)">
+            <summary>
+            确保已经到达下一分钟
+            </summary>
+            <param name="lastTime"></param>
+            <param name="currentDateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.APM.DataHelper.GetCPUCounter">
+            <summary>
+            获取CPU信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.APM.DataHelper.GetOSPlatform">
+            <summary>
+            获取 系统名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:XExten.APM.DataOperation">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:XExten.APM.DataOperation.RegisterFinalKey(System.String)">
+            <summary>
+            注册 Key
+            </summary>
+            <param name="kindName"></param>
+        </member>
+        <member name="M:XExten.APM.DataOperation.#ctor(System.String)">
+            <summary>
+            DataOperation 构造函数
+            </summary>
+            <param name="domain">域，统计的最小单位，可以是一个网站，也可以是一个模块</param>
+        </member>
+        <member name="M:XExten.APM.DataOperation.Set(System.String,System.Double,System.Object,System.Object,System.Nullable{System.DateTimeOffset})">
+            <summary>
+            设置数据
+            </summary>
+            <param name="kindName">统计类别名称</param>
+            <param name="value">统计值</param>
+            <param name="data">复杂类型数据</param>
+            <param name="tempStorage">临时储存信息</param>
+            <param name="dateTime">发生时间，默认为当前系统时间</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.APM.DataOperation.GetDataItemList(System.String)">
+            <summary>
+            获取信息列表
+            </summary>
+            <param name="kindName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.APM.DataOperation.ReadAndCleanDataItems(System.Boolean,System.Boolean)">
+            <summary>
+            获取并清空该 Domain 下的所有数据
+            </summary>
+            <returns></returns>
+            <param name="removeReadItems">是否移除已读取的项目，默认为 true</param>
+            <param name="keepTodayData">当 removeReadItems = true 时有效，在清理的时候是否保留当天的数据</param>
+        </member>
+        <member name="T:XExten.APM.Entities.DataItem">
+            <summary>
+            日志记录的最小单位
+            </summary>
+        </member>
+        <member name="P:XExten.APM.Entities.DataItem.KindName">
+            <summary>
+            统计类别名称
+            </summary>
+        </member>
+        <member name="P:XExten.APM.Entities.DataItem.DateTime">
+            <summary>
+            统计时间
+            </summary>
+        </member>
+        <member name="P:XExten.APM.Entities.DataItem.Value">
+            <summary>
+            统计值
+            </summary>
+        </member>
+        <member name="P:XExten.APM.Entities.DataItem.Data">
+            <summary>
+            复杂类型数据
+            </summary>
+        </member>
+        <member name="P:XExten.APM.Entities.DataItem.TempStorage">
+            <summary>
+            临时储存（不会对外传递）
+            </summary>
+        </member>
+        <member name="T:XExten.APM.Entities.MinuteData">
+            <summary>
+            打包统计的每分钟数据
+            </summary>
+        </member>
+        <member name="P:XExten.APM.Entities.MinuteData.Time">
+            <summary>
+            统计时间段，精确到分钟
+            </summary>
+        </member>
+        <member name="P:XExten.APM.Entities.MinuteData.StartValue">
+            <summary>
+            开始数值
+            </summary>
+        </member>
+        <member name="P:XExten.APM.Entities.MinuteData.EndValue">
+            <summary>
+            末尾数值
+            </summary>
+        </member>
+        <member name="P:XExten.APM.Entities.MinuteData.HighestValue">
+            <summary>
+            最高值
+            </summary>
+        </member>
+        <member name="P:XExten.APM.Entities.MinuteData.LowestValue">
+            <summary>
+            最低值
+            </summary>
+        </member>
+        <member name="P:XExten.APM.Entities.MinuteData.SumValue">
+            <summary>
+            数值总和
+            </summary>
+        </member>
+        <member name="P:XExten.APM.Entities.MinuteData.SampleSize">
+            <summary>
+            统计到的数值样本数量
+            </summary>
+        </member>
+        <member name="T:XExten.APM.Entities.MinuteDataPack">
+            <summary>
+            包含了不同KindName的每分钟数据的集合包
+            </summary>
+        </member>
         <member name="T:XExten.CacheFactory.Caches">
             <summary>
             
@@ -160,6 +323,26 @@
             <typeparam name="T"></typeparam>
             <param name="Exp"></param>
         </member>
+        <member name="T:XExten.CacheFactory.MongoDbCache.MongoDbCaches">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XExten.CacheFactory.MongoDbCache.MongoDbCaches.MongoDBConnectionString">
+            <summary>
+            链接字符串
+            </summary>
+        </member>
+        <member name="P:XExten.CacheFactory.MongoDbCache.MongoDbCaches.MongoDBName">
+            <summary>
+            库名
+            </summary>
+        </member>
+        <member name="P:XExten.CacheFactory.MongoDbCache.MongoDbCaches.Instance">
+            <summary>
+            获取实例
+            </summary>
+        </member>
         <member name="M:XExten.CacheFactory.MongoDbCache.MongoDbCaches.Insert``1(``0)">
             <summary>
             插入单条记录
@@ -225,6 +408,16 @@
             <param name="PageIndex"></param>
             <param name="PageSize"></param>
             <returns></returns>
+        </member>
+        <member name="T:XExten.CacheFactory.RedisCache.RedisCaches">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XExten.CacheFactory.RedisCache.RedisCaches.RedisConnectionString">
+            <summary>
+            链接字符串
+            </summary>
         </member>
         <member name="M:XExten.CacheFactory.RedisCache.RedisCaches.DeleteRedisDataBase">
             <summary>
@@ -786,6 +979,11 @@
             <param name="key"></param>
             <returns></returns>
         </member>
+        <member name="T:XExten.CacheFactory.RunTimeCache.MemoryCaches">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:XExten.CacheFactory.RunTimeCache.MemoryCaches.AddCache``1(System.String,``0,System.Int32)">
             <summary>
             添加缓存
@@ -1004,6 +1202,16 @@
             <param name="timeout"></param>
             <returns></returns>
         </member>
+        <member name="T:XExten.MessageQueue.QueueDictionary">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:XExten.MessageQueue.QueueItem">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:XExten.MessageQueue.QueueItem.Key">
             <summary>
             队列项唯一标识
@@ -1031,6 +1239,11 @@
             <param name="key"></param>
             <param name="action"></param>
             <param name="description"></param>
+        </member>
+        <member name="T:XExten.MessageQueue.XQueue">
+            <summary>
+            
+            </summary>
         </member>
         <member name="F:XExten.MessageQueue.XQueue.MessageQueueDictionary">
             <summary>
@@ -1640,6 +1853,51 @@
         <member name="T:XExten.XCore.IgnoreMappedAttribute">
             <summary>
             忽略映射(Not Map)
+            </summary>
+        </member>
+        <member name="T:XExten.XExpres.QType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:XExten.XExpres.QType.Like">
+            <summary>
+            Like
+            </summary>
+        </member>
+        <member name="F:XExten.XExpres.QType.NotLike">
+            <summary>
+            NotLike
+            </summary>
+        </member>
+        <member name="F:XExten.XExpres.QType.Equals">
+            <summary>
+            Equals
+            </summary>
+        </member>
+        <member name="F:XExten.XExpres.QType.NotEquals">
+            <summary>
+            NotEquals
+            </summary>
+        </member>
+        <member name="F:XExten.XExpres.QType.GreaterThan">
+            <summary>
+            GreaterThan
+            </summary>
+        </member>
+        <member name="F:XExten.XExpres.QType.GreaterThanOrEqual">
+            <summary>
+            GreaterThanOrEqual
+            </summary>
+        </member>
+        <member name="F:XExten.XExpres.QType.LessThan">
+            <summary>
+            LessThan
+            </summary>
+        </member>
+        <member name="F:XExten.XExpres.QType.LessThanOrEqual">
+            <summary>
+            LessThanOrEqual
             </summary>
         </member>
         <member name="T:XExten.XExpres.XExp">

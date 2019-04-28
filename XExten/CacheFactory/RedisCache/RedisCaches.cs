@@ -8,12 +8,18 @@ using System.Threading.Tasks;
 
 namespace XExten.CacheFactory.RedisCache
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class RedisCaches
     {
         #region Redis
         public static ConfigurationOptions Options => new ConfigurationOptions(){EndPoints = { RedisConnectionString },AllowAdmin = true};
         private static readonly object locker = new object();
         private static ConnectionMultiplexer instance;
+        /// <summary>
+        /// 链接字符串
+        /// </summary>
         public static string RedisConnectionString { get; set; }
         public static ConnectionMultiplexer Instance
         {
