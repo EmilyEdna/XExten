@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using XExten.MessageQueue;
 using Xunit;
@@ -15,7 +16,7 @@ namespace XExten.Test
             var count = mq.GetCount();
             var key = Guid.NewGuid().ToString();
             //Test Add()
-            var item = mq.Add(key, () => Console.WriteLine("测试写入"));
+            var item = mq.Add(key, () => Trace.WriteLine("测试写入"));
             Assert.Equal(count + 1, mq.GetCount());
             //Test GetCurrentKey()
             var currentKey = mq.GetCurrentKey();
@@ -27,6 +28,8 @@ namespace XExten.Test
             //Test Remove
             mq.Remove(key);
             Assert.Equal(count, mq.GetCount());
+            // Test Exec
+            XQueue.OperateQueue();
         }
     }
 }

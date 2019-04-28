@@ -35,7 +35,7 @@ namespace XExten.MessageQueue
             Key = key;
             Action = action;
             Description = description;
-            AddTime = DateTime.Now;
+            AddTime = DateTimeOffset.Now;
         }
     }
 }
