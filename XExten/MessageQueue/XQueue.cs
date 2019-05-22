@@ -65,7 +65,7 @@ namespace XExten.MessageQueue
             }
         }
         /// <summary>
-        /// 获取SenparcMessageQueueItem
+        /// 获取MessageQueueItem
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
