@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using XExten.APM;
+using XExten.Encryption;
 using XExten.XCore;
 using Xunit;
 

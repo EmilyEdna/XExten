@@ -1151,6 +1151,72 @@
             <param name="methods">The collection of methods to create in the type.</param>
             <returns>The new instance of the type.</returns>
         </member>
+        <member name="T:XExten.Encryption.AscByte">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:XExten.Encryption.LzString">
+            <summary>
+            implements LzstringJS
+            </summary>
+        </member>
+        <member name="M:XExten.Encryption.LzString.CompressToBase64(System.String)">
+            <summary>
+            采用Base64编码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Encryption.LzString.DecompressFromBase64(System.String)">
+            <summary>
+            解析Base64编码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Encryption.LzString.CompressToUTF16(System.String)">
+            <summary>
+            采用UTF16编码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Encryption.LzString.DecompressFromUTF16(System.String)">
+            <summary>
+            解析UTF16编码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Encryption.LzString.CompressToEncodedURIComponent(System.String)">
+            <summary>
+            采用URI编码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Encryption.LzString.DecompressFromEncodedURIComponent(System.String)">
+            <summary>
+            解析URI编码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Encryption.LzString.Compress(System.String)">
+            <summary>
+            压缩
+            </summary>
+            <param name="uncompressed"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Encryption.LzString.Decompress(System.String)">
+            <summary>
+            解析
+            </summary>
+            <param name="compressed"></param>
+            <returns></returns>
+        </member>
         <member name="M:XExten.HttpFactory.HttpRequestClient.KeyValuePairs``1(``0,System.Collections.Generic.IDictionary{System.String,System.String})">
             <summary>
             创建一个key-value格式的表单数据(Making form data to KeyValuePairs)
@@ -1283,7 +1349,7 @@
         </member>
         <member name="M:XExten.MessageQueue.XQueue.GetItem(System.String)">
             <summary>
-            获取SenparcMessageQueueItem
+            获取MessageQueueItem
             </summary>
             <param name="key"></param>
             <returns></returns>
@@ -2026,6 +2092,48 @@
             <param name="lng1">第一点的经度坐标</param>
             <param name="lat2">第二点的纬度坐标</param>
             <param name="lng2">第二点的经度坐标</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.XCompressToBase64(System.String)">
+            <summary>
+            采用Base64编码(LzString)
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.XDecompressFromBase64(System.String)">
+            <summary>
+            解析Base64编码(LzString)
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.XCompressToUTF16(System.String)">
+            <summary>
+            采用UTF16编码(LzString)
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.XDecompressFromUTF16(System.String)">
+            <summary>
+            解析UTF16编码(LzString)
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.XCompressToEncodedURIComponent(System.String)">
+            <summary>
+            采用URI编码(LzString)
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.XDecompressFromEncodedURIComponent(System.String)">
+            <summary>
+            解析URI编码(LzString)
+            </summary>
+            <param name="input"></param>
             <returns></returns>
         </member>
     </members>
