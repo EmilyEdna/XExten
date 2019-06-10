@@ -1151,11 +1151,6 @@
             <param name="methods">The collection of methods to create in the type.</param>
             <returns>The new instance of the type.</returns>
         </member>
-        <member name="T:XExten.Encryption.AscByte">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="T:XExten.Encryption.LzString">
             <summary>
             implements LzstringJS
@@ -1226,12 +1221,14 @@
             <param name="Map"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.HttpFactory.HttpRequestClient.HttpPostAsync(System.String,System.Collections.Generic.IList{System.Collections.Generic.KeyValuePair{System.String,System.String}},System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Int32,System.Text.Encoding)">
+        <member name="M:XExten.HttpFactory.HttpRequestClient.HttpPostAsync(System.String,System.Collections.Generic.IList{System.Collections.Generic.KeyValuePair{System.String,System.String}},System.Boolean,System.Boolean,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Int32,System.Text.Encoding)">
             <summary>
             Http by post default UTF8
             </summary>
             <param name="url"></param>
             <param name="data"></param>
+            <param name="UseCookie"></param>
+            <param name="IsDispose"></param>
             <param name="headers"></param>
             <param name="contentType"></param>
             <param name="timeout"></param>
@@ -1250,11 +1247,26 @@
             <param name="encoding"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.HttpFactory.HttpRequestClient.HttpGetAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Int32)">
+        <member name="M:XExten.HttpFactory.HttpRequestClient.KeepSessionByHttpPostBytesAsync(System.String,System.Collections.Generic.IList{System.Collections.Generic.KeyValuePair{System.String,System.String}},System.Boolean,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Int32,System.Text.Encoding)">
+            <summary>
+            http by post default bytes keep session
+            </summary>
+            <param name="url"></param>
+            <param name="data"></param>
+            <param name="IsDispose"></param>
+            <param name="headers"></param>
+            <param name="contentType"></param>
+            <param name="timeout"></param>
+            <param name="encoding"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.HttpRequestClient.HttpGetAsync(System.String,System.Boolean,System.Boolean,System.Collections.Generic.Dictionary{System.String,System.String},System.Int32)">
             <summary>
             Http by get default UTF8
             </summary>
             <param name="url"></param>
+            <param name="UseCookie"></param>
+            <param name="IsDispose"></param>
             <param name="headers"></param>
             <param name="timeout"></param>
             <returns></returns>
@@ -1264,6 +1276,16 @@
             Http by get default Bytes
             </summary>
             <param name="url"></param>
+            <param name="headers"></param>
+            <param name="timeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.HttpRequestClient.KeepSessionByHttpGetBytesAsync(System.String,System.Boolean,System.Collections.Generic.Dictionary{System.String,System.String},System.Int32)">
+            <summary>
+            http by get default bytes keep session
+            </summary>
+            <param name="url"></param>
+            <param name="IsDispose"></param>
             <param name="headers"></param>
             <param name="timeout"></param>
             <returns></returns>
