@@ -34,21 +34,21 @@ namespace XExten.Test
         {
             string text = "中国的崛起!";
             var res = XPlusEx.XCompressToBase64(text);
-            string defualt = XPlusEx.XDecompressFromBase64(res);
+            string defaults = XPlusEx.XDecompressFromBase64(res);
         }
         [Fact]
         public void XCompressToUTF16AndXDecompressFromUTF16_Test()
         {
             string text = "中国的崛起!";
             var res = XPlusEx.XCompressToUTF16(text);
-            string defualt = XPlusEx.XDecompressFromUTF16(res);
+            string defaults = XPlusEx.XDecompressFromUTF16(res);
         }
         [Fact]
         public void XEncodedURIAndXDencodedURI()
         {
             string text = "中国的崛起!";
             var res = XPlusEx.XCompressToEncodedURIComponent(text);
-            string defualt = XPlusEx.XDecompressFromEncodedURIComponent(res);
+            string defaults = XPlusEx.XDecompressFromEncodedURIComponent(res);
         }
     }
 }
