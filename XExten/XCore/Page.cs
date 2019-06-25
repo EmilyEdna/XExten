@@ -16,6 +16,11 @@ namespace XExten.XCore
         /// </summary>
         public int Total { get; set; }
         /// <summary>
+        /// CurrentPage
+        /// </summary>
+        public int CurrentPage { get; set; }
+        /// <summary>
+        /// <summary>
         /// TotalPage
         /// </summary>
         public int TotalPage { get; set; }
