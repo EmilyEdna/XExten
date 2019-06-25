@@ -20,10 +20,6 @@ namespace XExten.XCore
         /// </summary>
         public int TotalPage { get; set; }
         /// <summary>
-        /// CurrentPage
-        /// </summary>
-        public int CurrentPage { get; set; }
-        /// <summary>
         ///  Result
         /// </summary>
         public IQueryable<T> Queryable { get; set; }
