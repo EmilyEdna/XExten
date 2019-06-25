@@ -394,7 +394,7 @@ namespace XExten.XCore
             {
                 Total = queryable.Count(),
                 TotalPage = (int)Math.Ceiling(queryable.Count() / (double)PageSize),
-                CurrentPage = (int)Math.Ceiling(PageIndex / (double)PageSize) + 1,
+                CurrentPage = (int)Math.Ceiling(PageIndex / (double)PageSize),
                 Queryable = queryable.Skip((PageIndex - 1) * PageSize).Take(PageSize).AsQueryable()
             };
         }
