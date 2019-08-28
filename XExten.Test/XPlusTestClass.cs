@@ -44,11 +44,18 @@ namespace XExten.Test
             string defaults = XPlusEx.XDecompressFromUTF16(res);
         }
         [Fact]
-        public void XEncodedURIAndXDencodedURI()
+        public void XEncodedURIAndXDencodedURI_Test()
         {
             string text = "中国的崛起!";
             var res = XPlusEx.XCompressToEncodedURIComponent(text);
             string defaults = XPlusEx.XDecompressFromEncodedURIComponent(res);
+        }
+        [Fact]
+        public void MD5_Test()
+        {
+            string text = "中国的崛起!";
+            var res32 = XPlusEx.MD5(text);
+            var res16 = XPlusEx.MD5(text, 16);
         }
     }
 }

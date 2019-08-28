@@ -4,169 +4,6 @@
         <name>XExten</name>
     </assembly>
     <members>
-        <member name="T:XExten.APM.ApmThread">
-            <summary>
-            APM 线程
-            </summary>
-        </member>
-        <member name="P:XExten.APM.ApmThread.OpenCpuWatch">
-            <summary>
-            打开 CPU 状态监控
-            </summary>
-        </member>
-        <member name="P:XExten.APM.ApmThread.OpenMemoryWatch">
-            <summary>
-            打开内存状态监控
-            </summary>
-        </member>
-        <member name="M:XExten.APM.ApmThread.Run">
-            <summary>
-            执行
-            </summary>
-        </member>
-        <member name="T:XExten.APM.DataHelper">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:XExten.APM.DataHelper.IsLaterMinute(System.DateTimeOffset,System.DateTimeOffset)">
-            <summary>
-            确保已经到达下一分钟
-            </summary>
-            <param name="lastTime"></param>
-            <param name="currentDateTime"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.APM.DataHelper.GetCPUCounter">
-            <summary>
-            获取CPU信息
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.APM.DataHelper.GetOSPlatform">
-            <summary>
-            获取 系统名称
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:XExten.APM.DataOperation">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:XExten.APM.DataOperation.RegisterFinalKey(System.String)">
-            <summary>
-            注册 Key
-            </summary>
-            <param name="kindName"></param>
-        </member>
-        <member name="M:XExten.APM.DataOperation.#ctor(System.String)">
-            <summary>
-            DataOperation 构造函数
-            </summary>
-            <param name="domain">域，统计的最小单位，可以是一个网站，也可以是一个模块</param>
-        </member>
-        <member name="M:XExten.APM.DataOperation.Set(System.String,System.Double,System.Object,System.Object,System.Nullable{System.DateTimeOffset})">
-            <summary>
-            设置数据
-            </summary>
-            <param name="kindName">统计类别名称</param>
-            <param name="value">统计值</param>
-            <param name="data">复杂类型数据</param>
-            <param name="tempStorage">临时储存信息</param>
-            <param name="dateTime">发生时间，默认为当前系统时间</param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.APM.DataOperation.GetDataItemList(System.String)">
-            <summary>
-            获取信息列表
-            </summary>
-            <param name="kindName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.APM.DataOperation.ReadAndCleanDataItems(System.Boolean,System.Boolean)">
-            <summary>
-            获取并清空该 Domain 下的所有数据
-            </summary>
-            <returns></returns>
-            <param name="removeReadItems">是否移除已读取的项目，默认为 true</param>
-            <param name="keepTodayData">当 removeReadItems = true 时有效，在清理的时候是否保留当天的数据</param>
-        </member>
-        <member name="T:XExten.APM.Entities.DataItem">
-            <summary>
-            日志记录的最小单位
-            </summary>
-        </member>
-        <member name="P:XExten.APM.Entities.DataItem.KindName">
-            <summary>
-            统计类别名称
-            </summary>
-        </member>
-        <member name="P:XExten.APM.Entities.DataItem.DateTime">
-            <summary>
-            统计时间
-            </summary>
-        </member>
-        <member name="P:XExten.APM.Entities.DataItem.Value">
-            <summary>
-            统计值
-            </summary>
-        </member>
-        <member name="P:XExten.APM.Entities.DataItem.Data">
-            <summary>
-            复杂类型数据
-            </summary>
-        </member>
-        <member name="P:XExten.APM.Entities.DataItem.TempStorage">
-            <summary>
-            临时储存（不会对外传递）
-            </summary>
-        </member>
-        <member name="T:XExten.APM.Entities.MinuteData">
-            <summary>
-            打包统计的每分钟数据
-            </summary>
-        </member>
-        <member name="P:XExten.APM.Entities.MinuteData.Time">
-            <summary>
-            统计时间段，精确到分钟
-            </summary>
-        </member>
-        <member name="P:XExten.APM.Entities.MinuteData.StartValue">
-            <summary>
-            开始数值
-            </summary>
-        </member>
-        <member name="P:XExten.APM.Entities.MinuteData.EndValue">
-            <summary>
-            末尾数值
-            </summary>
-        </member>
-        <member name="P:XExten.APM.Entities.MinuteData.HighestValue">
-            <summary>
-            最高值
-            </summary>
-        </member>
-        <member name="P:XExten.APM.Entities.MinuteData.LowestValue">
-            <summary>
-            最低值
-            </summary>
-        </member>
-        <member name="P:XExten.APM.Entities.MinuteData.SumValue">
-            <summary>
-            数值总和
-            </summary>
-        </member>
-        <member name="P:XExten.APM.Entities.MinuteData.SampleSize">
-            <summary>
-            统计到的数值样本数量
-            </summary>
-        </member>
-        <member name="T:XExten.APM.Entities.MinuteDataPack">
-            <summary>
-            包含了不同KindName的每分钟数据的集合包
-            </summary>
-        </member>
         <member name="T:XExten.CacheFactory.Caches">
             <summary>
             
@@ -1212,6 +1049,25 @@
             <param name="compressed"></param>
             <returns></returns>
         </member>
+        <member name="T:XExten.Encryption.MD5Encryption">
+            <summary>
+            MD5
+            </summary>
+        </member>
+        <member name="M:XExten.Encryption.MD5Encryption.MD5_32(System.String)">
+            <summary>
+            32位MD5
+            </summary>
+            <param name="Source"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Encryption.MD5Encryption.MD5_16(System.String)">
+            <summary>
+            16位MD5
+            </summary>
+            <param name="Source"></param>
+            <returns></returns>
+        </member>
         <member name="M:XExten.HttpFactory.HttpRequestClient.KeyValuePairs``1(``0,System.Collections.Generic.IDictionary{System.String,System.String})">
             <summary>
             创建一个key-value格式的表单数据(Making form data to KeyValuePairs)
@@ -1923,16 +1779,12 @@
             Total
             </summary>
         </member>
-        <member name="P:XExten.XCore.Page`1.TotalPage">
-            <summary>
-            TotalPage
-            </summary>
-        </member>
         <member name="P:XExten.XCore.Page`1.CurrentPage">
             <summary>
             CurrentPage
             </summary>
         </member>
+        <!-- Badly formed XML comment ignored for member "P:XExten.XCore.Page`1.TotalPage" -->
         <member name="P:XExten.XCore.Page`1.Queryable">
             <summary>
              Result
@@ -2156,6 +2008,14 @@
             解析URI编码(LzString)
             </summary>
             <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.MD5(System.String,System.Int32)">
+            <summary>
+            MD5加密
+            </summary>
+            <param name="input"></param>
+            <param name="type">位数：32 16</param>
             <returns></returns>
         </member>
     </members>
