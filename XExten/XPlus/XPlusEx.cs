@@ -305,6 +305,16 @@ namespace XExten.XPlus
         {
             return LzString.DecompressFromEncodedURIComponent(input);
         }
+        /// <summary>
+        /// MD5加密
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="type">位数：32 16</param>
+        /// <returns></returns>
+        public static string MD5(string input, int type = 32)
+        {
+            return type == 32 ? MD5Encryption.MD5_32(input) : MD5Encryption.MD5_16(input);
+        }
         #endregion
     }
 }

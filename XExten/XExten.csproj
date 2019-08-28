@@ -5,12 +5,14 @@
     <Authors>EmilyEdna</Authors>
     <Product />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>It has been extended and revised for Linq and extended the encapsulation of expressions and httpclient. It supports redis, mongodb, memory cache and other caching mechanisms. It supports the creation of dynamic classes through emit, which supports the detection of CPU, memory and access of the computer. It supports simple message queue.(针对Linq进行了扩充修正并且延申了表达式和httpclient的封装，支持redis，mongodb，memorycache等缓存机制，支持通过emit创建动态类，支持对电脑的CPU、内存和访问量的检测，支持简单的消息队列。)</Description>
+    <Description>It has been extended and revised for Linq and extended the encapsulation of expressions and httpclient. It supports redis, mongodb, memory cache and other caching mechanisms. It supports the creation of dynamic classes through emit. It supports simple message queue.(针对Linq进行了扩充修正并且延申了表达式和httpclient的封装，支持redis，mongodb，memorycache等缓存机制，支持通过emit创建动态类，支持简单的消息队列。)</Description>
     <PackageProjectUrl>https://github.com/EmilyEdna/XExten</PackageProjectUrl>
     <PackageTags>Linq、Expression、Cache、Emit、MSGQueue</PackageTags>
     <RepositoryUrl>https://github.com/EmilyEdna/XExten</RepositoryUrl>
     <PackageReleaseNotes>https://github.com/EmilyEdna/XExten</PackageReleaseNotes>
-    <Version>2.1.0</Version>
+    <Version>2.1.0.1</Version>
+    <AssemblyVersion>2.1.0.1</AssemblyVersion>
+    <FileVersion>2.1.0.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
@@ -28,7 +30,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net461|AnyCPU'">
-    <DocumentationFile>D:\项目\XExten\XExten\XExten.xml</DocumentationFile>
+    <DocumentationFile>D:\Project\XExten\XExten\XExten.xml</DocumentationFile>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
