@@ -956,7 +956,7 @@ namespace XExten.XCore
 
         #region Encryption
         /// <summary>
-        /// LzString加密
+        /// LzString加密（LzString Base64 Encryption）
         /// </summary>
         /// <param name="Param"></param>
         /// <returns></returns>
@@ -965,7 +965,7 @@ namespace XExten.XCore
             return LzStringEncryption.CompressToBase64(Param);
         }
         /// <summary>
-        /// LzString加密
+        /// LzString加密（LzString Base64 Encryption）
         /// </summary>
         /// <param name="Param"></param>
         /// <returns></returns>
@@ -974,7 +974,7 @@ namespace XExten.XCore
             return await Task.Run(() => LzStringEnc(Param));
         }
         /// <summary>
-        /// LzString解密
+        /// LzString解密（LzString Base64 Decryption）
         /// </summary>
         /// <param name="Param"></param>
         /// <returns></returns>
@@ -983,7 +983,7 @@ namespace XExten.XCore
             return LzStringEncryption.DecompressFromBase64(Param);
         }
         /// <summary>
-        /// LzString解密
+        /// LzString解密（LzString Base64 Decryption）
         /// </summary>
         /// <param name="Param"></param>
         /// <returns></returns>
@@ -992,7 +992,7 @@ namespace XExten.XCore
             return await Task.Run(() => LzStringDec(Param));
         }
         /// <summary>
-        /// MD5加密
+        /// MD5加密（MD5 Encryption）
         /// </summary>
         /// <param name="Param"></param>
         /// <param name="type">位数：16 32</param>
@@ -1004,7 +1004,7 @@ namespace XExten.XCore
             return type == 32 ? MD5Encryption.MD5_32(Param) : MD5Encryption.MD5_16(Param);
         }
         /// <summary>
-        /// MD5加密
+        /// MD5加密（MD5 Encryption）
         /// </summary>
         /// <param name="Param"></param>
         /// <param name="type">位数：16 32</param>
@@ -1014,7 +1014,7 @@ namespace XExten.XCore
             return await Task.Run(() => MD5(Param, type));
         }
         /// <summary>
-        /// SHA加密
+        /// SHA加密（SHA Encryption）
         /// </summary>
         /// <param name="Param"></param>
         /// <param name="type">位数：1 256 384 512</param>
@@ -1038,7 +1038,7 @@ namespace XExten.XCore
             }
         }
         /// <summary>
-        /// SHA加密
+        /// SHA加密（SHA Encryption）
         /// </summary>
         /// <param name="Param"></param>
         /// <param name="type"></param>

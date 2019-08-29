@@ -988,61 +988,61 @@
             <param name="methods">The collection of methods to create in the type.</param>
             <returns>The new instance of the type.</returns>
         </member>
-        <member name="T:XExten.Encryption.LzString">
+        <member name="T:XExten.Encryption.LzStringEncryption">
             <summary>
             implements LzstringJS
             </summary>
         </member>
-        <member name="M:XExten.Encryption.LzString.CompressToBase64(System.String)">
+        <member name="M:XExten.Encryption.LzStringEncryption.CompressToBase64(System.String)">
             <summary>
             采用Base64编码
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.Encryption.LzString.DecompressFromBase64(System.String)">
+        <member name="M:XExten.Encryption.LzStringEncryption.DecompressFromBase64(System.String)">
             <summary>
             解析Base64编码
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.Encryption.LzString.CompressToUTF16(System.String)">
+        <member name="M:XExten.Encryption.LzStringEncryption.CompressToUTF16(System.String)">
             <summary>
             采用UTF16编码
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.Encryption.LzString.DecompressFromUTF16(System.String)">
+        <member name="M:XExten.Encryption.LzStringEncryption.DecompressFromUTF16(System.String)">
             <summary>
             解析UTF16编码
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.Encryption.LzString.CompressToEncodedURIComponent(System.String)">
+        <member name="M:XExten.Encryption.LzStringEncryption.CompressToEncodedURIComponent(System.String)">
             <summary>
             采用URI编码
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.Encryption.LzString.DecompressFromEncodedURIComponent(System.String)">
+        <member name="M:XExten.Encryption.LzStringEncryption.DecompressFromEncodedURIComponent(System.String)">
             <summary>
             解析URI编码
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.Encryption.LzString.Compress(System.String)">
+        <member name="M:XExten.Encryption.LzStringEncryption.Compress(System.String)">
             <summary>
             压缩
             </summary>
             <param name="uncompressed"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.Encryption.LzString.Decompress(System.String)">
+        <member name="M:XExten.Encryption.LzStringEncryption.Decompress(System.String)">
             <summary>
             解析
             </summary>
@@ -1066,6 +1066,39 @@
             16位MD5
             </summary>
             <param name="Source"></param>
+            <returns></returns>
+        </member>
+        <member name="T:XExten.Encryption.SHAEncryption">
+            <summary>
+            SHA
+            </summary>
+        </member>
+        <member name="M:XExten.Encryption.SHAEncryption.SHA1Encrypt(System.String)">
+            <summary>
+            SHA1
+            </summary>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Encryption.SHAEncryption.SHA256Encrypt(System.String)">
+            <summary>
+            SHA256
+            </summary>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Encryption.SHAEncryption.SHA384Encrypt(System.String)">
+            <summary>
+            SHA384
+            </summary>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Encryption.SHAEncryption.SHA512Encrypt(System.String)">
+            <summary>
+            SHA512
+            </summary>
+            <param name="source"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.HttpFactory.HttpRequestClient.KeyValuePairs``1(``0,System.Collections.Generic.IDictionary{System.String,System.String})">
@@ -1768,6 +1801,66 @@
             <param name="thisValue"></param>
             <returns></returns>
         </member>
+        <member name="M:XExten.XCore.LinqX.LzStringEnc(System.String)">
+            <summary>
+            LzString加密（LzString Base64 Encryption）
+            </summary>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.LzStringAsyncEnc(System.String)">
+            <summary>
+            LzString加密（LzString Base64 Encryption）
+            </summary>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.LzStringDec(System.String)">
+            <summary>
+            LzString解密（LzString Base64 Decryption）
+            </summary>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.LzStringAsyncDec(System.String)">
+            <summary>
+            LzString解密（LzString Base64 Decryption）
+            </summary>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.MD5(System.String,System.Int32)">
+            <summary>
+            MD5加密（MD5 Encryption）
+            </summary>
+            <param name="Param"></param>
+            <param name="type">位数：16 32</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.MD5Async(System.String,System.Int32)">
+            <summary>
+            MD5加密（MD5 Encryption）
+            </summary>
+            <param name="Param"></param>
+            <param name="type">位数：16 32</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.SHA(System.String,System.Int32)">
+            <summary>
+            SHA加密（SHA Encryption）
+            </summary>
+            <param name="Param"></param>
+            <param name="type">位数：1 256 384 512</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.SHAAsync(System.String,System.Int32)">
+            <summary>
+            SHA加密（SHA Encryption）
+            </summary>
+            <param name="Param"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
         <member name="T:XExten.XCore.Page`1">
             <summary>
             paging
@@ -2016,6 +2109,14 @@
             </summary>
             <param name="input"></param>
             <param name="type">位数：32 16</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.SHA(System.String,System.Int32)">
+            <summary>
+            SHA加密
+            </summary>
+            <param name="input"></param>
+            <param name="type">位数：1 256 384 512</param>
             <returns></returns>
         </member>
     </members>
