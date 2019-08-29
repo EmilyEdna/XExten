@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using XExten.Encryption;
 
 namespace XExten.XCore
 {
@@ -950,6 +951,101 @@ namespace XExten.XCore
         {
             if (thisValue == null) return false;
             return Regex.IsMatch(thisValue.ToString(), @"^[+]{0,1}(\d){1,3}[ ]?([-]?((\d)|[ ]){1,12})+$");
+        }
+        #endregion
+
+        #region Encryption
+        /// <summary>
+        /// LzString加密
+        /// </summary>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static String LzStringEnc(this String Param)
+        {
+            return LzStringEncryption.CompressToBase64(Param);
+        }
+        /// <summary>
+        /// LzString加密
+        /// </summary>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static async Task<String> LzStringAsyncEnc(this String Param)
+        {
+            return await Task.Run(() => LzStringEnc(Param));
+        }
+        /// <summary>
+        /// LzString解密
+        /// </summary>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static String LzStringDec(this String Param)
+        {
+            return LzStringEncryption.DecompressFromBase64(Param);
+        }
+        /// <summary>
+        /// LzString解密
+        /// </summary>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static async Task<String> LzStringAsyncDec(this String Param)
+        {
+            return await Task.Run(() => LzStringDec(Param));
+        }
+        /// <summary>
+        /// MD5加密
+        /// </summary>
+        /// <param name="Param"></param>
+        /// <param name="type">位数：16 32</param>
+        /// <returns></returns>
+        public static String MD5(this String Param, int type = 32)
+        {
+            if (type != 32 && type != 16)
+                return "Please enter the MD5 encryption digits,for example：16、32";
+            return type == 32 ? MD5Encryption.MD5_32(Param) : MD5Encryption.MD5_16(Param);
+        }
+        /// <summary>
+        /// MD5加密
+        /// </summary>
+        /// <param name="Param"></param>
+        /// <param name="type">位数：16 32</param>
+        /// <returns></returns>
+        public static async Task<String> MD5Async(this String Param, int type = 32)
+        {
+            return await Task.Run(() => MD5(Param, type));
+        }
+        /// <summary>
+        /// SHA加密
+        /// </summary>
+        /// <param name="Param"></param>
+        /// <param name="type">位数：1 256 384 512</param>
+        /// <returns></returns>
+        public static String SHA(this String Param, int type = 1)
+        {
+            if (type != 1 && type != 256 && type != 384 && type != 512)
+                return "Please enter the number of SHA encryption bits, for example：1、256、384、512";
+            switch (type)
+            {
+                case 1:
+                    return SHAEncryption.SHA1Encrypt(Param);
+                case 256:
+                    return SHAEncryption.SHA256Encrypt(Param);
+                case 384:
+                    return SHAEncryption.SHA384Encrypt(Param);
+                case 512:
+                    return SHAEncryption.SHA512Encrypt(Param);
+                default:
+                    return SHAEncryption.SHA1Encrypt(Param);
+            }
+        }
+        /// <summary>
+        /// SHA加密
+        /// </summary>
+        /// <param name="Param"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static async Task<String> SHAAsync(this String Param, int type = 1)
+        {
+            return await Task.Run(() => SHA(Param, type));
         }
         #endregion
     }

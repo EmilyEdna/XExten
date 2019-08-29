@@ -258,7 +258,7 @@ namespace XExten.XPlus
         /// <returns></returns>
         public static string XCompressToBase64(string input)
         {
-            return LzString.CompressToBase64(input);
+            return LzStringEncryption.CompressToBase64(input);
         }
         /// <summary>
         /// 解析Base64编码(LzString)
@@ -267,7 +267,7 @@ namespace XExten.XPlus
         /// <returns></returns>
         public static string XDecompressFromBase64(string input)
         {
-            return LzString.DecompressFromBase64(input);
+            return LzStringEncryption.DecompressFromBase64(input);
         }
         /// <summary>
         /// 采用UTF16编码(LzString)
@@ -276,7 +276,7 @@ namespace XExten.XPlus
         /// <returns></returns>
         public static string XCompressToUTF16(string input)
         {
-            return LzString.CompressToUTF16(input);
+            return LzStringEncryption.CompressToUTF16(input);
         }
         /// <summary>
         /// 解析UTF16编码(LzString)
@@ -285,7 +285,7 @@ namespace XExten.XPlus
         /// <returns></returns>
         public static string XDecompressFromUTF16(string input)
         {
-            return LzString.DecompressFromUTF16(input);
+            return LzStringEncryption.DecompressFromUTF16(input);
         }
         /// <summary>
         /// 采用URI编码(LzString)
@@ -294,7 +294,7 @@ namespace XExten.XPlus
         /// <returns></returns>
         public static string XCompressToEncodedURIComponent(string input)
         {
-            return LzString.CompressToEncodedURIComponent(input);
+            return LzStringEncryption.CompressToEncodedURIComponent(input);
         }
         /// <summary>
         /// 解析URI编码(LzString)
@@ -303,7 +303,7 @@ namespace XExten.XPlus
         /// <returns></returns>
         public static string XDecompressFromEncodedURIComponent(string input)
         {
-            return LzString.DecompressFromEncodedURIComponent(input);
+            return LzStringEncryption.DecompressFromEncodedURIComponent(input);
         }
         /// <summary>
         /// MD5加密
@@ -313,7 +313,33 @@ namespace XExten.XPlus
         /// <returns></returns>
         public static string MD5(string input, int type = 32)
         {
+            if (type != 32 && type != 16)
+                return "Please enter the MD5 encryption digits,for example：16、32";
             return type == 32 ? MD5Encryption.MD5_32(input) : MD5Encryption.MD5_16(input);
+        }
+        /// <summary>
+        /// SHA加密
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="type">位数：1 256 384 512</param>
+        /// <returns></returns>
+        public static string SHA(string input, int type = 1)
+        {
+            if (type != 1 && type != 256 && type != 384 && type != 512)
+                return "Please enter the number of SHA encryption bits, for example：1、256、384、512";
+            switch (type)
+            {
+                case 1:
+                    return SHAEncryption.SHA1Encrypt(input);
+                case 256:
+                    return SHAEncryption.SHA256Encrypt(input);
+                case 384:
+                    return SHAEncryption.SHA384Encrypt(input);
+                case 512:
+                    return SHAEncryption.SHA512Encrypt(input);
+                default:
+                    return SHAEncryption.SHA1Encrypt(input);
+            }
         }
         #endregion
     }

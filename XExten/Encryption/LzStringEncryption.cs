@@ -9,7 +9,7 @@ namespace XExten.Encryption
     /// <summary>
     /// implements LzstringJS
     /// </summary>
-    sealed class LzString
+    sealed class LzStringEncryption
     {
         private const string KeyStrBase64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
         private const string KeyStrUriSafe = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-$";
