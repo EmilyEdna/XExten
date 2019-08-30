@@ -840,6 +840,52 @@
             </summary>
             <param name="Key"></param>
         </member>
+        <member name="T:XExten.Common.IgnoreMappedAttribute">
+            <summary>
+            忽略映射(Not Map)
+            </summary>
+        </member>
+        <member name="T:XExten.Common.PageQuery">
+            <summary>
+            分页查询
+            </summary>
+        </member>
+        <member name="P:XExten.Common.PageQuery.PageIndex">
+            <summary>
+            页码
+            </summary>
+        </member>
+        <member name="P:XExten.Common.PageQuery.PageSize">
+            <summary>
+            条数
+            </summary>
+        </member>
+        <member name="P:XExten.Common.PageQuery.KeyWord">
+            <summary>
+            关键字
+            </summary>
+        </member>
+        <member name="T:XExten.Common.PageResult`1">
+            <summary>
+            分页结果
+            </summary>
+        </member>
+        <member name="P:XExten.Common.PageResult`1.Total">
+            <summary>
+            Total
+            </summary>
+        </member>
+        <member name="P:XExten.Common.PageResult`1.CurrentPage">
+            <summary>
+            CurrentPage
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:XExten.Common.PageResult`1.TotalPage" -->
+        <member name="P:XExten.Common.PageResult`1.Queryable">
+            <summary>
+             Result
+            </summary>
+        </member>
         <member name="M:XExten.DynamicType.DynamicClass.ToString">
             <summary>
             转字符
@@ -1066,6 +1112,39 @@
             16位MD5
             </summary>
             <param name="Source"></param>
+            <returns></returns>
+        </member>
+        <member name="T:XExten.Encryption.RSAEncryption">
+            <summary>
+            RSA
+            </summary>
+        </member>
+        <member name="M:XExten.Encryption.RSAEncryption.RSAEncrypt(System.String)">
+            <summary>
+            RSA加密
+            </summary>
+            <param name="Source"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Encryption.RSAEncryption.RSADecrypt(System.String)">
+            <summary>
+            RSA解密
+            </summary>
+            <param name="Source"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Encryption.RSAEncryption.CreateRsaFromPublicKey(System.String)">
+            <summary>
+            创建公钥RSA服务
+            </summary>
+            <param name="PublicKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Encryption.RSAEncryption.CreateRsaProviderFromPrivateKey(System.String)">
+            <summary>
+            创建私钥RSA服务
+            </summary>
+            <param name="PrivateKey"></param>
             <returns></returns>
         </member>
         <member name="T:XExten.Encryption.SHAEncryption">
@@ -1801,35 +1880,21 @@
             <param name="thisValue"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.LzStringEnc(System.String)">
+        <member name="M:XExten.XCore.LinqX.ToLzStringEnc(System.String)">
             <summary>
             LzString加密（LzString Base64 Encryption）
             </summary>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.LzStringAsyncEnc(System.String)">
-            <summary>
-            LzString加密（LzString Base64 Encryption）
-            </summary>
-            <param name="Param"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XCore.LinqX.LzStringDec(System.String)">
+        <member name="M:XExten.XCore.LinqX.ToLzStringDec(System.String)">
             <summary>
             LzString解密（LzString Base64 Decryption）
             </summary>
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.LzStringAsyncDec(System.String)">
-            <summary>
-            LzString解密（LzString Base64 Decryption）
-            </summary>
-            <param name="Param"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XCore.LinqX.MD5(System.String,System.Int32)">
+        <member name="M:XExten.XCore.LinqX.ToMD5(System.String,System.Int32)">
             <summary>
             MD5加密（MD5 Encryption）
             </summary>
@@ -1837,15 +1902,7 @@
             <param name="type">位数：16 32</param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.MD5Async(System.String,System.Int32)">
-            <summary>
-            MD5加密（MD5 Encryption）
-            </summary>
-            <param name="Param"></param>
-            <param name="type">位数：16 32</param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XCore.LinqX.SHA(System.String,System.Int32)">
+        <member name="M:XExten.XCore.LinqX.ToSHA(System.String,System.Int32)">
             <summary>
             SHA加密（SHA Encryption）
             </summary>
@@ -1853,40 +1910,63 @@
             <param name="type">位数：1 256 384 512</param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.SHAAsync(System.String,System.Int32)">
+        <member name="M:XExten.XCore.LinqX.ToRSAEnc(System.String)">
+            <summary>
+            RSA加密（RSA Encryption）
+            </summary>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ToRSADec(System.String)">
+            <summary>
+            RSA解密（RSA Decryption）
+            </summary>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ToLzStringAsyncEnc(System.String)">
+            <summary>
+            LzString加密（LzString Base64 Encryption）
+            </summary>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ToLzStringAsyncDec(System.String)">
+            <summary>
+            LzString解密（LzString Base64 Decryption）
+            </summary>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ToMD5Async(System.String,System.Int32)">
+            <summary>
+            MD5加密（MD5 Encryption）
+            </summary>
+            <param name="Param"></param>
+            <param name="type">位数：16 32</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ToSHAAsync(System.String,System.Int32)">
             <summary>
             SHA加密（SHA Encryption）
             </summary>
             <param name="Param"></param>
-            <param name="type"></param>
+            <param name="type">位数：1 256 384 512</param>
             <returns></returns>
         </member>
-        <member name="T:XExten.XCore.Page`1">
+        <member name="M:XExten.XCore.LinqX.ToRSAAsyncEnc(System.String)">
             <summary>
-            paging
+            RSA加密（RSA Encryption）
             </summary>
-            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <returns></returns>
         </member>
-        <member name="P:XExten.XCore.Page`1.Total">
+        <member name="M:XExten.XCore.LinqX.ToRSAAsyncDec(System.String)">
             <summary>
-            Total
+            RSA解密（RSA Decryption）
             </summary>
-        </member>
-        <member name="P:XExten.XCore.Page`1.CurrentPage">
-            <summary>
-            CurrentPage
-            </summary>
-        </member>
-        <!-- Badly formed XML comment ignored for member "P:XExten.XCore.Page`1.TotalPage" -->
-        <member name="P:XExten.XCore.Page`1.Queryable">
-            <summary>
-             Result
-            </summary>
-        </member>
-        <member name="T:XExten.XCore.IgnoreMappedAttribute">
-            <summary>
-            忽略映射(Not Map)
-            </summary>
+            <param name="Param"></param>
+            <returns></returns>
         </member>
         <member name="T:XExten.XExpres.QType">
             <summary>
@@ -2117,6 +2197,20 @@
             </summary>
             <param name="input"></param>
             <param name="type">位数：1 256 384 512</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.RSAEncryp(System.String)">
+            <summary>
+            RSA加密
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.RSADecryp(System.String)">
+            <summary>
+            RSA解密
+            </summary>
+            <param name="input"></param>
             <returns></returns>
         </member>
     </members>

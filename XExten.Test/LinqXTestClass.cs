@@ -108,5 +108,14 @@ namespace XExten.Test
             var res = A.ToJson();
             var data = res.ToModel<TestA>();
         }
+        [Fact]
+        public void Encryption()
+        {
+            string name = "jojo";
+            var a1 = name.ToLzStringEnc();
+            var r1 = a1.ToLzStringDec();
+            var a2 = name.ToMD5();
+            var a3 = name.ToSHA(256);
+        }
     }
 }

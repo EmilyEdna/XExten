@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace XExten.XCore
+namespace XExten.Common
 {
     /// <summary>
-    /// paging
+    /// 分页结果
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class Page<T>
+    public class PageResult<T>
     {
         /// <summary>
         /// Total
@@ -27,13 +27,6 @@ namespace XExten.XCore
         /// <summary>
         ///  Result
         /// </summary>
-        public IQueryable<T> Queryable { get; set; }
-    }
-    /// <summary>
-    /// 忽略映射(Not Map)
-    /// </summary>
-    public class IgnoreMappedAttribute : Attribute
-    {
-
+        public List<T> Queryable { get; set; }
     }
 }

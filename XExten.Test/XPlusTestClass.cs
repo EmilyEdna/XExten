@@ -57,5 +57,10 @@ namespace XExten.Test
             var res32 = XPlusEx.MD5(text);
             var res16 = XPlusEx.MD5(text, 16);
         }
+        [Fact]
+        public void SHA_Test() {
+            string text = "中国的崛起!";
+            var res32 = XPlusEx.SHA(text);
+        }
     }
 }

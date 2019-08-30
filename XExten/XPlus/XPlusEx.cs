@@ -341,6 +341,24 @@ namespace XExten.XPlus
                     return SHAEncryption.SHA1Encrypt(input);
             }
         }
+        /// <summary>
+        /// RSA加密
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string RSAEncryp(string input)
+        {
+            return RSAEncryption.RSAEncrypt(input);
+        }
+        /// <summary>
+        /// RSA解密
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string RSADecryp(string input)
+        {
+            return RSAEncryption.RSADecrypt(input);
+        }
         #endregion
     }
 }

@@ -6,11 +6,13 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Newtonsoft.Json;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using XExten.Encryption;
+using XExten.Common;
+
 
 namespace XExten.XCore
 {
@@ -389,14 +391,14 @@ namespace XExten.XCore
         /// <param name="PageIndex"></param>
         /// <param name="PageSize"></param>
         /// <returns></returns>
-        public static Page<T> ToPage<T>(this IEnumerable<T> queryable, int PageIndex, int PageSize)
+        public static PageResult<T> ToPage<T>(this IEnumerable<T> queryable, int PageIndex, int PageSize)
         {
-            return new Page<T>
+            return new PageResult<T>
             {
                 Total = queryable.Count(),
                 TotalPage = (int)Math.Ceiling(queryable.Count() / (double)PageSize),
                 CurrentPage = (int)Math.Ceiling(PageIndex / (double)PageSize),
-                Queryable = queryable.Skip((PageIndex - 1) * PageSize).Take(PageSize).AsQueryable()
+                Queryable = queryable.Skip((PageIndex - 1) * PageSize).Take(PageSize).ToList()
             };
         }
         /// <summary>
@@ -704,7 +706,7 @@ namespace XExten.XCore
         /// <param name="PageIndex"></param>
         /// <param name="PageSize"></param>
         /// <returns></returns>
-        public static async Task<Page<T>> ToPageAsync<T>(this IEnumerable<T> queryable, int PageIndex, int PageSize)
+        public static async Task<PageResult<T>> ToPageAsync<T>(this IEnumerable<T> queryable, int PageIndex, int PageSize)
         {
             return await Task.Run(() => ToPage(queryable, PageIndex, PageSize));
         }
@@ -955,63 +957,36 @@ namespace XExten.XCore
         #endregion
 
         #region Encryption
+        #region Sync
         /// <summary>
         /// LzString加密（LzString Base64 Encryption）
         /// </summary>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static String LzStringEnc(this String Param)
+        public static String ToLzStringEnc(this String Param)
         {
             return LzStringEncryption.CompressToBase64(Param);
         }
         /// <summary>
-        /// LzString加密（LzString Base64 Encryption）
-        /// </summary>
-        /// <param name="Param"></param>
-        /// <returns></returns>
-        public static async Task<String> LzStringAsyncEnc(this String Param)
-        {
-            return await Task.Run(() => LzStringEnc(Param));
-        }
-        /// <summary>
         /// LzString解密（LzString Base64 Decryption）
         /// </summary>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static String LzStringDec(this String Param)
+        public static String ToLzStringDec(this String Param)
         {
             return LzStringEncryption.DecompressFromBase64(Param);
         }
         /// <summary>
-        /// LzString解密（LzString Base64 Decryption）
-        /// </summary>
-        /// <param name="Param"></param>
-        /// <returns></returns>
-        public static async Task<String> LzStringAsyncDec(this String Param)
-        {
-            return await Task.Run(() => LzStringDec(Param));
-        }
-        /// <summary>
         /// MD5加密（MD5 Encryption）
         /// </summary>
         /// <param name="Param"></param>
         /// <param name="type">位数：16 32</param>
         /// <returns></returns>
-        public static String MD5(this String Param, int type = 32)
+        public static String ToMD5(this String Param, int type = 32)
         {
             if (type != 32 && type != 16)
                 return "Please enter the MD5 encryption digits,for example：16、32";
             return type == 32 ? MD5Encryption.MD5_32(Param) : MD5Encryption.MD5_16(Param);
-        }
-        /// <summary>
-        /// MD5加密（MD5 Encryption）
-        /// </summary>
-        /// <param name="Param"></param>
-        /// <param name="type">位数：16 32</param>
-        /// <returns></returns>
-        public static async Task<String> MD5Async(this String Param, int type = 32)
-        {
-            return await Task.Run(() => MD5(Param, type));
         }
         /// <summary>
         /// SHA加密（SHA Encryption）
@@ -1019,7 +994,7 @@ namespace XExten.XCore
         /// <param name="Param"></param>
         /// <param name="type">位数：1 256 384 512</param>
         /// <returns></returns>
-        public static String SHA(this String Param, int type = 1)
+        public static String ToSHA(this String Param, int type = 1)
         {
             if (type != 1 && type != 256 && type != 384 && type != 512)
                 return "Please enter the number of SHA encryption bits, for example：1、256、384、512";
@@ -1038,15 +1013,82 @@ namespace XExten.XCore
             }
         }
         /// <summary>
+        /// RSA加密（RSA Encryption）
+        /// </summary>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static String ToRSAEnc(this String Param)
+        {
+            return RSAEncryption.RSAEncrypt(Param);
+        }
+        /// <summary>
+        /// RSA解密（RSA Decryption）
+        /// </summary>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static String ToRSADec(this String Param)
+        {
+            return RSAEncryption.RSADecrypt(Param);
+        }
+        #endregion
+        #region Async
+        /// <summary>
+        /// LzString加密（LzString Base64 Encryption）
+        /// </summary>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static async Task<String> ToLzStringAsyncEnc(this String Param)
+        {
+            return await Task.Run(() => ToLzStringEnc(Param));
+        }
+        /// <summary>
+        /// LzString解密（LzString Base64 Decryption）
+        /// </summary>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static async Task<String> ToLzStringAsyncDec(this String Param)
+        {
+            return await Task.Run(() => ToLzStringDec(Param));
+        }
+        /// <summary>
+        /// MD5加密（MD5 Encryption）
+        /// </summary>
+        /// <param name="Param"></param>
+        /// <param name="type">位数：16 32</param>
+        /// <returns></returns>
+        public static async Task<String> ToMD5Async(this String Param, int type = 32)
+        {
+            return await Task.Run(() => ToMD5(Param, type));
+        }
+        /// <summary>
         /// SHA加密（SHA Encryption）
         /// </summary>
         /// <param name="Param"></param>
-        /// <param name="type"></param>
+        /// <param name="type">位数：1 256 384 512</param>
         /// <returns></returns>
-        public static async Task<String> SHAAsync(this String Param, int type = 1)
+        public static async Task<String> ToSHAAsync(this String Param, int type = 1)
         {
-            return await Task.Run(() => SHA(Param, type));
+            return await Task.Run(() => ToSHA(Param, type));
         }
+        /// <summary>
+        /// RSA加密（RSA Encryption）
+        /// </summary>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static async Task<String> ToRSAAsyncEnc(this String Param)
+        {
+            return await Task.Run(() => ToRSAEnc(Param));
+        }
+        /// <summary>
+        /// RSA解密（RSA Decryption）
+        /// </summary>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static async Task<String> ToRSAAsyncDec(this String Param)
+        {
+            return await Task.Run(() => ToRSAAsyncDec(Param));
+        }
+        #endregion
         #endregion
     }
 }
