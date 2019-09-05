@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProtoBuf;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -358,6 +359,60 @@ namespace XExten.XPlus
         public static string RSADecryp(string input)
         {
             return RSAEncryption.RSADecrypt(input);
+        }
+        /// <summary>
+        /// 使用Protobuf序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Poco"></param>
+        /// <returns></returns>
+        public static byte[] ProtobufSerialize<T>(T Poco)
+        {
+            try
+            {
+                //涉及格式转换，需要用到流，将二进制序列化到流中
+                using (MemoryStream Stream = new MemoryStream())
+                {
+                    //使用ProtoBuf工具的序列化方法
+                    Serializer.Serialize<T>(Stream, Poco);
+                    //定义二级制数组，保存序列化后的结果
+                    byte[] result = new byte[Stream.Length];
+                    //将流的位置设为0，起始点
+                    Stream.Position = 0;
+                    //将流中的内容读取到二进制数组中
+                    Stream.Read(result, 0, result.Length);
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        /// <summary>
+        /// 使用Protobuf反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static T ProtobufDeSerialize<T>(byte[] bytes)
+        {
+            try
+            {
+                using (MemoryStream Stream = new MemoryStream())
+                {
+                    //将消息写入流中
+                    Stream.Write(bytes, 0, bytes.Length);
+                    //将流的位置归0
+                    Stream.Position = 0;
+                    //使用工具反序列化对象
+                    return Serializer.Deserialize<T>(Stream);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         #endregion
     }

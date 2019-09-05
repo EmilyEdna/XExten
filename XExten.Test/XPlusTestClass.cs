@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using XExten.Test.TestModel;
 using XExten.XPlus;
 using Xunit;
 
@@ -58,9 +59,17 @@ namespace XExten.Test
             var res16 = XPlusEx.MD5(text, 16);
         }
         [Fact]
-        public void SHA_Test() {
+        public void SHA_Test()
+        {
             string text = "中国的崛起!";
             var res32 = XPlusEx.SHA(text);
+        }
+        [Fact]
+        public void ProtoBuf_Test()
+        {
+            TestB t = new TestB() { Account = "张三", Id = 1, Name = "李四" };
+            var data = XPlusEx.ProtobufSerialize(t);
+            var reslt = XPlusEx.ProtobufDeSerialize<TestB>(data);
         }
     }
 }
