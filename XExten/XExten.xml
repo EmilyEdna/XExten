@@ -2213,5 +2213,21 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:XExten.XPlus.XPlusEx.ProtobufSerialize``1(``0)">
+            <summary>
+            使用Protobuf序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Poco"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.ProtobufDeSerialize``1(System.Byte[])">
+            <summary>
+            使用Protobuf反序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="bytes"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
