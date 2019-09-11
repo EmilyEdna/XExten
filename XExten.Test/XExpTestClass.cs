@@ -38,6 +38,7 @@ namespace XExten.Test
         public void GetCombineClass_Test()
         {
             var res = XExp.CombineClass<TestA, TestB>((t, x) => new { t, x });
+            var instance = Activator.CreateInstance(res);
             //Instantiate first and assign later
         }
         [Fact]
@@ -48,6 +49,15 @@ namespace XExten.Test
                new DynamicPropertyValue("Id",typeof(int),1)
             };
             var res = XExp.CombineClassWithValue<TestA, TestB>((t, x) => new { t, x }, dynamics);
+        }
+        [Fact]
+        public void CreateType_Test()
+        {
+            List<DynamicProperty> properties = new List<DynamicProperty> {
+                new DynamicProperty("age",typeof(int))
+            };
+            var res = DynamicClassBuilder.Instance.GetDynamicClass(properties, "Test");
+            var Instance = Activator.CreateInstance(res);
         }
     }
 }
