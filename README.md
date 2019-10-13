@@ -2,9 +2,9 @@
 --------------
 #### 针对Linq，Expression，CommonUtil，HttpClient，DynamicType，Redis，MongoDB，RuntimeCache进行了拓展的工具类，支持消息队列，新增了加密类
 [![](https://img.shields.io/badge/build-success-brightgreen.svg)](https://github.com/EmilyEdna/XExten)
-[![](https://img.shields.io/badge/nuget-v2.2.0.1-blue.svg)](https://www.nuget.org/packages/XExten/2.2.0.1)
+[![](https://img.shields.io/badge/nuget-v2.2.0.3-blue.svg)](https://www.nuget.org/packages/XExten/2.2.0.3)
 ![](https://img.shields.io/badge/support-Net461-blue.svg)
-![](https://img.shields.io/badge/support-NetStandard2-blue.svg)
+![](https://img.shields.io/badge/support-NetStandard2.1-blue.svg)
 ### 如何使用
 --------------
 ##### 使用linq的拓展需要引入XExten.XCore域名空间
