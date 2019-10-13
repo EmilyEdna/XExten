@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using ProtoBuf;
+using System.ComponentModel;
 
 namespace XExten.Test.TestModel
 {
