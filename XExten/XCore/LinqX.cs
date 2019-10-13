@@ -387,12 +387,11 @@ namespace XExten.XCore
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
-        /// <param name="Key"></param>
         /// <returns></returns>
-        public static String ToSelectDes<T>(this T Param, Object Key)
+        public static String ToSelectDes<T>(this T Param)
         {
-            FieldInfo field = typeof(T).GetField(Enum.GetName(typeof(T), Key));
-            return ((DescriptionAttribute)field.GetCustomAttribute(typeof(T), false)).Description.ToString();
+            FieldInfo field = typeof(T).GetField(Enum.GetName(typeof(T), Param));
+            return ((DescriptionAttribute)field.GetCustomAttribute(typeof(DescriptionAttribute), false)).Description.ToString();
         }
 
         /// <summary>
@@ -751,11 +750,10 @@ namespace XExten.XCore
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
-        /// <param name="Key"></param>
         /// <returns></returns>
-        public static async Task<String> ToSelectDesAsync<T>(this T Param, Object Key)
+        public static async Task<String> ToSelectDesAsync<T>(this T Param)
         {
-            return await Task.Run(() => ToSelectDes(Param, Key));
+            return await Task.Run(() => ToSelectDes(Param));
         }
 
         /// <summary>

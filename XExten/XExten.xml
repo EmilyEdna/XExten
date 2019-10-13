@@ -1485,14 +1485,13 @@
             <param name="Expres"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ToSelectDes``1(``0,System.Object)">
+        <member name="M:XExten.XCore.LinqX.ToSelectDes``1(``0)">
             <summary>
             返回指定的枚举描述值
             (Returns the specified enumeration description value)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
-            <param name="Key"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.XCore.LinqX.ToSet``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Object)">
@@ -1689,14 +1688,13 @@
             <param name="Expres"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ToSelectDesAsync``1(``0,System.Object)">
+        <member name="M:XExten.XCore.LinqX.ToSelectDesAsync``1(``0)">
             <summary>
             返回指定的枚举描述值
             (Returns the specified enumeration description value)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
-            <param name="Key"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.XCore.LinqX.ToSetAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Object)">

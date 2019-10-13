@@ -30,4 +30,11 @@ namespace XExten.Test.TestModel
         [ProtoMember(3)]
         public string Account { get; set; }
     }
+    public enum TestC
+    {
+        [Description("A")]
+        A,
+        [Description("B")]
+        B
+    }
 }

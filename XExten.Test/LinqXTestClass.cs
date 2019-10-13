@@ -122,13 +122,18 @@ namespace XExten.Test
         }
 
         [Fact]
-        public void Encryption()
+        public void Encryption_Test()
         {
             string name = "jojo";
             var a1 = name.ToLzStringEnc();
             var r1 = a1.ToLzStringDec();
             var a2 = name.ToMD5();
             var a3 = name.ToSHA(256);
+        }
+        [Fact]
+        public void ToSelectDes_Test()
+        {
+           var p =  TestC.A.ToSelectDes();
         }
     }
 }
