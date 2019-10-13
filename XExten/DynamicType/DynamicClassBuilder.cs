@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using System.Text;
 using System.Threading;
 
 namespace XExten.DynamicType
@@ -11,15 +9,20 @@ namespace XExten.DynamicType
     public class DynamicClassBuilder
     {
         public static readonly DynamicClassBuilder Instance = new DynamicClassBuilder();
-        static DynamicClassBuilder() { }
-        ModuleBuilder module;
-        Dictionary<Signature, Type> classes;
-        int classCount;
-        ReaderWriterLock rwLock;
+
+        static DynamicClassBuilder()
+        {
+        }
+
+        private ModuleBuilder module;
+        private Dictionary<Signature, Type> classes;
+        private int classCount;
+        private ReaderWriterLock rwLock;
+
         private DynamicClassBuilder()
         {
             AssemblyName name = new AssemblyName("DynamicClasses");
-#if NETSTANDARD2_0
+#if NETSTANDARD2_1
             AssemblyBuilder assembly = AssemblyBuilder.DefineDynamicAssembly(name, AssemblyBuilderAccess.Run);
 #elif NET461
             AssemblyBuilder assembly = AppDomain.CurrentDomain.DefineDynamicAssembly(name, AssemblyBuilderAccess.Run);
@@ -30,11 +33,11 @@ namespace XExten.DynamicType
             }
             finally
             {
-
             }
             classes = new Dictionary<Signature, Type>();
             rwLock = new ReaderWriterLock();
         }
+
         /// <summary>
         ///  Create DynamicClass
         /// </summary>
@@ -60,7 +63,8 @@ namespace XExten.DynamicType
                 rwLock.ReleaseReaderLock();
             }
         }
-        Type CreateDynamicClass(DynamicProperty[] properties, String ClassName = null)
+
+        private Type CreateDynamicClass(DynamicProperty[] properties, String ClassName = null)
         {
             LockCookie cookie = rwLock.UpgradeToWriterLock(Timeout.Infinite);
             try
@@ -73,7 +77,7 @@ namespace XExten.DynamicType
                     FieldInfo[] fields = GenerateProperties(tb, properties);
                     GenerateEquals(tb, fields);
                     GenerateGetHashCode(tb, fields);
-#if NETSTANDARD2_0
+#if NETSTANDARD2_1
                     Type result = tb.CreateTypeInfo();
 #elif NET461
                     Type result = tb.CreateType();
@@ -83,7 +87,6 @@ namespace XExten.DynamicType
                 }
                 finally
                 {
-
                 }
             }
             finally
@@ -91,7 +94,8 @@ namespace XExten.DynamicType
                 rwLock.DowngradeFromWriterLock(ref cookie);
             }
         }
-        FieldInfo[] GenerateProperties(TypeBuilder tb, DynamicProperty[] properties)
+
+        private FieldInfo[] GenerateProperties(TypeBuilder tb, DynamicProperty[] properties)
         {
             FieldInfo[] fields = new FieldBuilder[properties.Length];
             for (int i = 0; i < properties.Length; i++)
@@ -120,7 +124,8 @@ namespace XExten.DynamicType
             }
             return fields;
         }
-        void GenerateEquals(TypeBuilder tb, FieldInfo[] fields)
+
+        private void GenerateEquals(TypeBuilder tb, FieldInfo[] fields)
         {
             MethodBuilder mb = tb.DefineMethod("Equals",
                 MethodAttributes.Public | MethodAttributes.ReuseSlot |
@@ -156,7 +161,8 @@ namespace XExten.DynamicType
             gen.Emit(OpCodes.Ldc_I4_1);
             gen.Emit(OpCodes.Ret);
         }
-        void GenerateGetHashCode(TypeBuilder tb, FieldInfo[] fields)
+
+        private void GenerateGetHashCode(TypeBuilder tb, FieldInfo[] fields)
         {
             MethodBuilder mb = tb.DefineMethod("GetHashCode",
                 MethodAttributes.Public | MethodAttributes.ReuseSlot |

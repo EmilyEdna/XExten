@@ -1,26 +1,28 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using StackExchange.Redis;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using StackExchange.Redis;
-using Newtonsoft.Json;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace XExten.CacheFactory.RedisCache
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class RedisCaches
     {
         #region Redis
-        public static ConfigurationOptions Options => new ConfigurationOptions(){EndPoints = { RedisConnectionString },AllowAdmin = true};
+
+        public static ConfigurationOptions Options => new ConfigurationOptions() { EndPoints = { RedisConnectionString }, AllowAdmin = true };
         private static readonly object locker = new object();
         private static ConnectionMultiplexer instance;
+
         /// <summary>
         /// 链接字符串
         /// </summary>
         public static string RedisConnectionString { get; set; }
+
         public static ConnectionMultiplexer Instance
         {
             get
@@ -36,23 +38,29 @@ namespace XExten.CacheFactory.RedisCache
                 return instance;
             }
         }
+
         private static ConnectionMultiplexer GetInstace()
         {
             var connect = ConnectionMultiplexer.Connect(Options);
+
             #region 注册事件
+
             connect.ConnectionFailed += MuxerConnectionFailed;
             connect.ConnectionRestored += MuxerConnectionRestored;
             connect.ErrorMessage += MuxerErrorMessage;
             connect.ConfigurationChanged += MuxerConfigurationChanged;
             connect.HashSlotMoved += MuxerHashSlotMoved;
             connect.InternalError += MuxerInternalError;
-            #endregion
+
+            #endregion 注册事件
 
             return connect;
         }
-        #endregion
+
+        #endregion Redis
 
         #region 管理员方法 删除所有redis数据库
+
         /// <summary>
         /// 删除所有redis库
         /// </summary>
@@ -60,6 +68,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             Instance.GetServer(RedisConnectionString).FlushAllDatabases();
         }
+
         /// <summary>
         /// 异步删除所有redis库
         /// </summary>
@@ -67,9 +76,11 @@ namespace XExten.CacheFactory.RedisCache
         {
             await Instance.GetServer(RedisConnectionString).FlushAllDatabasesAsync();
         }
-        #endregion
+
+        #endregion 管理员方法 删除所有redis数据库
 
         #region Redis事件
+
         /// <summary>
         /// 内部异常
         /// </summary>
@@ -129,9 +140,11 @@ namespace XExten.CacheFactory.RedisCache
         {
             throw new Exception("连接异常" + e.EndPoint + "，类型为" + e.FailureType + (e.Exception == null ? "" : ("，异常信息是" + e.Exception.Message)));
         }
-        #endregion
+
+        #endregion Redis事件
 
         #region redis方法
+
         /// <summary>
         /// 保存通用
         /// </summary>
@@ -142,6 +155,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return exp(Instance.GetDatabase());
         }
+
         /// <summary>
         /// Redis转String
         /// </summary>
@@ -152,6 +166,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return JsonConvert.SerializeObject(obj);
         }
+
         /// <summary>
         /// Redis值转对象
         /// </summary>
@@ -162,6 +177,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return value.IsNull ? default(T) : JsonConvert.DeserializeObject<T>(value);
         }
+
         /// <summary>
         /// Redis值数组转list集合
         /// </summary>
@@ -178,6 +194,7 @@ namespace XExten.CacheFactory.RedisCache
             }
             return result;
         }
+
         /// <summary>
         /// 集合转key
         /// </summary>
@@ -187,10 +204,13 @@ namespace XExten.CacheFactory.RedisCache
         {
             return val.Select(key => (RedisKey)key).ToArray();
         }
-        #endregion
+
+        #endregion redis方法
 
         #region Redis String
+
         #region 同步执行
+
         /// <summary>
         /// 单个保存
         /// </summary>
@@ -202,6 +222,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => db.StringSet(key, val, exp));
         }
+
         /// <summary>
         /// 保存一个对象
         /// </summary>
@@ -214,6 +235,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => db.StringSet(key, ConvertToJson(obj), exp));
         }
+
         /// <summary>
         /// 获取单个
         /// </summary>
@@ -223,6 +245,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => db.StringGet(key));
         }
+
         /// <summary>
         /// 获取单个对象
         /// </summary>
@@ -236,8 +259,11 @@ namespace XExten.CacheFactory.RedisCache
             else
                 return default(T);
         }
-        #endregion
+
+        #endregion 同步执行
+
         #region 异步执行
+
         /// <summary>
         /// 异步保存单个
         /// </summary>
@@ -249,6 +275,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return await Save(db => db.StringSetAsync(key, val, exp));
         }
+
         /// <summary>
         /// 异步保存一个对象
         /// </summary>
@@ -261,6 +288,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return await Save(db => db.StringSetAsync(key, ConvertToJson(obj), exp));
         }
+
         /// <summary>
         /// 异步获取单个
         /// </summary>
@@ -270,6 +298,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return await Save(db => db.StringGetAsync(key));
         }
+
         /// <summary>
         /// 异步获取单个对象
         /// </summary>
@@ -279,11 +308,15 @@ namespace XExten.CacheFactory.RedisCache
         {
             return ConvertToObj<T>(await Save(db => db.StringGetAsync(key)));
         }
-        #endregion
-        #endregion
 
-        #region  Redis Key
+        #endregion 异步执行
+
+        #endregion Redis String
+
+        #region Redis Key
+
         #region 同步执行
+
         /// <summary>
         /// 删除单个Key
         /// </summary>
@@ -293,6 +326,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => db.KeyDelete(key));
         }
+
         /// <summary>
         /// 删除多个Key
         /// </summary>
@@ -302,6 +336,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => db.KeyDelete(ConvertRedisKeys(key)));
         }
+
         /// <summary>
         /// 重命名Key
         /// </summary>
@@ -312,6 +347,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => db.KeyRename(key, newKey));
         }
+
         /// <summary>
         /// 设置Key的时间
         /// </summary>
@@ -322,8 +358,11 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => db.KeyExpire(key, exp));
         }
-        #endregion
+
+        #endregion 同步执行
+
         #region 异步执行
+
         /// <summary>
         /// 异步删除单个key
         /// </summary>
@@ -333,6 +372,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return await Save(db => db.KeyDeleteAsync(key));
         }
+
         /// <summary>
         /// 异步删除多个Key
         /// </summary>
@@ -342,6 +382,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return await Save(db => db.KeyDeleteAsync(ConvertRedisKeys(key)));
         }
+
         /// <summary>
         ///  异步重命名Key
         /// </summary>
@@ -352,6 +393,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return await Save(db => db.KeyRenameAsync(key, newKey));
         }
+
         /// <summary>
         /// 异步设置Key的时间
         /// </summary>
@@ -362,11 +404,15 @@ namespace XExten.CacheFactory.RedisCache
         {
             return await Save(db => db.KeyExpireAsync(key, exp));
         }
-        #endregion
-        #endregion
+
+        #endregion 异步执行
+
+        #endregion Redis Key
 
         #region Redis List
+
         #region 同步执行
+
         /// <summary>
         /// 移除List内部指定的值
         /// </summary>
@@ -377,6 +423,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             Save(db => db.ListRemove(key, ConvertToJson(val)));
         }
+
         /// <summary>
         /// 获取指定Key的List
         /// </summary>
@@ -387,6 +434,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => { return ConvertList<T>(db.ListRange(key)); });
         }
+
         /// <summary>
         /// 插入（入队）
         /// </summary>
@@ -395,9 +443,9 @@ namespace XExten.CacheFactory.RedisCache
         /// <param name="val"></param>
         public static void ListRightPush<T>(string key, T val)
         {
-
             Save(db => db.ListRightPush(key, ConvertToJson(val)));
         }
+
         /// <summary>
         /// 取出（出队）
         /// </summary>
@@ -408,6 +456,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => { return ConvertToObj<T>(db.ListRightPop(key)); });
         }
+
         /// <summary>
         /// 入栈
         /// </summary>
@@ -418,6 +467,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             Save(db => db.ListLeftPush(key, ConvertToJson(val)));
         }
+
         /// <summary>
         /// 出栈
         /// </summary>
@@ -428,6 +478,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => { return ConvertToObj<T>(db.ListLeftPop(key)); });
         }
+
         /// <summary>
         /// 获取集合中的数量
         /// </summary>
@@ -437,8 +488,11 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => db.ListLength(key));
         }
-        #endregion
+
+        #endregion 同步执行
+
         #region 异步执行
+
         /// <summary>
         /// 异步移除List内部指定的值
         /// </summary>
@@ -449,6 +503,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return await Save(db => db.ListRemoveAsync(key, ConvertToJson(val)));
         }
+
         /// <summary>
         /// 异步获取指定Key的List
         /// </summary>
@@ -459,6 +514,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return ConvertList<T>(await Save(db => db.ListRangeAsync(key)));
         }
+
         /// <summary>
         /// 异步插入（入队）
         /// </summary>
@@ -469,6 +525,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return await Save(db => db.ListRightPushAsync(key, ConvertToJson(val)));
         }
+
         /// <summary>
         /// 异步取出（出队）
         /// </summary>
@@ -479,6 +536,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return ConvertToObj<T>(await Save(db => db.ListRightPopAsync(key)));
         }
+
         /// <summary>
         /// 异步入栈
         /// </summary>
@@ -489,6 +547,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return await Save(db => db.ListLeftPushAsync(key, ConvertToJson(val)));
         }
+
         /// <summary>
         /// 异步出栈
         /// </summary>
@@ -499,6 +558,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return ConvertToObj<T>(await Save(db => db.ListLeftPopAsync(key)));
         }
+
         /// <summary>
         /// 获取集合中的数量
         /// </summary>
@@ -508,11 +568,15 @@ namespace XExten.CacheFactory.RedisCache
         {
             return await Save(db => db.ListLengthAsync(key));
         }
-        #endregion
-        #endregion
+
+        #endregion 异步执行
+
+        #endregion Redis List
 
         #region Redis Set
+
         #region 同步执行
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -523,6 +587,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => db.SetAdd(key, val));
         }
+
         /// <summary>
         /// 获取长度
         /// </summary>
@@ -532,6 +597,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => db.SetLength(key));
         }
+
         /// <summary>
         /// 是否存在
         /// </summary>
@@ -542,6 +608,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => db.SetContains(key, val));
         }
+
         /// <summary>
         /// 移除
         /// </summary>
@@ -552,8 +619,11 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => db.SetRemove(key, val));
         }
-        #endregion
+
+        #endregion 同步执行
+
         #region 异步执行
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -564,6 +634,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return await Save(db => db.SetAddAsync(key, val));
         }
+
         /// <summary>
         /// 获取长度
         /// </summary>
@@ -573,6 +644,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return await Save(db => db.SetLengthAsync(key));
         }
+
         /// <summary>
         /// 是否存在
         /// </summary>
@@ -583,6 +655,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return await Save(db => db.SetContainsAsync(key, val));
         }
+
         /// <summary>
         /// 移除
         /// </summary>
@@ -593,11 +666,15 @@ namespace XExten.CacheFactory.RedisCache
         {
             return await Save(db => db.SetRemoveAsync(key, val));
         }
-        #endregion
-        #endregion
+
+        #endregion 异步执行
+
+        #endregion Redis Set
 
         #region Redis Hash
+
         #region 同步执行
+
         /// <summary>
         /// 是否被缓存
         /// </summary>
@@ -608,6 +685,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => db.HashExists(key, dataKey));
         }
+
         /// <summary>
         /// 存储数据到hash表
         /// </summary>
@@ -620,6 +698,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => { return db.HashSet(key, dataKey, ConvertToJson(val)); });
         }
+
         /// <summary>
         /// 从hash表中移除数据
         /// </summary>
@@ -630,6 +709,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => db.HashDelete(key, dataKey));
         }
+
         /// <summary>
         /// 移除hash中的多个值
         /// </summary>
@@ -640,6 +720,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => db.HashDelete(key, dataKey.ToArray()));
         }
+
         /// <summary>
         /// 从hash表中获取数据
         /// </summary>
@@ -651,6 +732,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => { return ConvertToObj<T>(db.HashGet(key, dataKey)); });
         }
+
         /// <summary>
         /// 获取hashkey所有Redis key
         /// </summary>
@@ -661,8 +743,11 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => { return ConvertList<T>(db.HashKeys(key)); });
         }
-        #endregion
+
+        #endregion 同步执行
+
         #region 异步执行
+
         /// <summary>
         /// 异步是否被缓存
         /// </summary>
@@ -673,6 +758,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return await Save(db => db.HashExistsAsync(key, dataKey));
         }
+
         /// <summary>
         /// 异步存储数据到hash表
         /// </summary>
@@ -685,6 +771,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return await Save(db => { return db.HashSetAsync(key, dataKey, ConvertToJson(val)); });
         }
+
         /// <summary>
         /// 异步从hash表中移除数据
         /// </summary>
@@ -695,6 +782,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return await Save(db => db.HashDeleteAsync(key, dataKey));
         }
+
         /// <summary>
         /// 异步移除hash中的多个值
         /// </summary>
@@ -705,6 +793,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return await Save(db => db.HashDeleteAsync(key, dataKey.ToArray()));
         }
+
         /// <summary>
         /// 从hash表中获取数据
         /// </summary>
@@ -716,6 +805,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return ConvertToObj<T>(await Save(db => db.HashGetAsync(key, dataKey)));
         }
+
         /// <summary>
         /// 获取hashkey所有Redis key
         /// </summary>
@@ -726,11 +816,15 @@ namespace XExten.CacheFactory.RedisCache
         {
             return ConvertList<T>(await Save(db => db.HashKeysAsync(key)));
         }
-        #endregion
-        #endregion
+
+        #endregion 异步执行
+
+        #endregion Redis Hash
 
         #region Redis SortedSet
+
         #region 同步执行
+
         /// <summary>
         /// 无序添加
         /// </summary>
@@ -743,6 +837,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => db.SortedSetAdd(key, ConvertToJson<T>(val), score));
         }
+
         /// <summary>
         /// 删除
         /// </summary>
@@ -754,6 +849,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => db.SortedSetRemove(key, ConvertToJson<T>(val)));
         }
+
         /// <summary>
         /// 获取全部
         /// </summary>
@@ -764,6 +860,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => { return ConvertList<T>(db.SortedSetRangeByRank(key)); });
         }
+
         /// <summary>
         ///  获取集合中的数量
         /// </summary>
@@ -773,8 +870,11 @@ namespace XExten.CacheFactory.RedisCache
         {
             return Save(db => db.SortedSetLength(key));
         }
-        #endregion
+
+        #endregion 同步执行
+
         #region 异步执行
+
         /// <summary>
         /// 异步无序添加
         /// </summary>
@@ -787,6 +887,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return await Save(db => db.SortedSetAddAsync(key, ConvertToJson<T>(val), score));
         }
+
         /// <summary>
         /// 删除
         /// </summary>
@@ -798,6 +899,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return await Save(db => db.SortedSetRemoveAsync(key, ConvertToJson<T>(val)));
         }
+
         /// <summary>
         /// 获取全部
         /// </summary>
@@ -808,6 +910,7 @@ namespace XExten.CacheFactory.RedisCache
         {
             return ConvertList<T>(await Save(db => db.SortedSetRangeByRankAsync(key)));
         }
+
         /// <summary>
         ///  获取集合中的数量
         /// </summary>
@@ -817,7 +920,9 @@ namespace XExten.CacheFactory.RedisCache
         {
             return await Save(db => db.SortedSetLengthAsync(key));
         }
-        #endregion
-        #endregion
+
+        #endregion 异步执行
+
+        #endregion Redis SortedSet
     }
 }

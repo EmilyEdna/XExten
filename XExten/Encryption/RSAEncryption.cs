@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace XExten.Encryption
 {
@@ -14,6 +11,7 @@ namespace XExten.Encryption
     public class RSAEncryption
     {
         #region 密钥对
+
         private const string PublicKey = @"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7PyjMEuniN6BPn8oqzIZ6AO1N
 jSTO9R3adCCIwKfKIEoWXXM+tHDpktdPKSaAsWJPTNAGvEvtxOfzXib/EMXKqD0e
 Uy5MatfpRjRdf1hJVimmfrb09Qx2j7CsKLy7nD23m4xubdYBwvkjMwt/L3JxB5D6
@@ -32,7 +30,8 @@ jfwFOFZSn5YSRUa6NmtmPY6tumUJXSWWqKb1GwlVTuc3xBqXYsNLLUWwLhkCQQDJ
 UJCiD0LohhdGEqUuSKnj5H9kxddJO4pZXFSI7UEJbJQDwcBkyn+FTm2BH+tZGZdQ
 fVnlA89OJr0poOpSg+eNAkAKY85SR9KASaTiDBoPpJ8N805XEhd0Kq+ghzSThxL3
 fVtKUQLiCh7Yd8oMd/G5S3xWJHUXSioATT8uPRH2bOb/";
-        #endregion
+
+        #endregion 密钥对
 
         /// <summary>
         /// RSA加密
@@ -44,7 +43,6 @@ fVtKUQLiCh7Yd8oMd/G5S3xWJHUXSioATT8uPRH2bOb/";
             RSACryptoServiceProvider serviceProvider = CreateRsaFromPublicKey(PublicKey);
             var bytes = serviceProvider.Encrypt(Encoding.UTF8.GetBytes(Source), false);
             return Convert.ToBase64String(bytes);
-
         }
 
         /// <summary>
@@ -67,6 +65,7 @@ fVtKUQLiCh7Yd8oMd/G5S3xWJHUXSioATT8uPRH2bOb/";
         }
 
         #region 公钥
+
         /// <summary>
         /// 创建公钥RSA服务
         /// </summary>
@@ -162,9 +161,9 @@ fVtKUQLiCh7Yd8oMd/G5S3xWJHUXSioATT8uPRH2bOb/";
 
                     return RSA;
                 }
-
             }
         }
+
         private static bool CompareBytearrays(byte[] a, byte[] b)
         {
             if (a.Length != b.Length)
@@ -178,8 +177,11 @@ fVtKUQLiCh7Yd8oMd/G5S3xWJHUXSioATT8uPRH2bOb/";
             }
             return true;
         }
-        #endregion
+
+        #endregion 公钥
+
         #region 私钥
+
         /// <summary>
         /// 创建私钥RSA服务
         /// </summary>
@@ -225,6 +227,7 @@ fVtKUQLiCh7Yd8oMd/G5S3xWJHUXSioATT8uPRH2bOb/";
             RSA.ImportParameters(RSAparams);
             return RSA;
         }
+
         private static int GetIntegerSize(BinaryReader binr)
         {
             byte bt = 0;
@@ -258,6 +261,7 @@ fVtKUQLiCh7Yd8oMd/G5S3xWJHUXSioATT8uPRH2bOb/";
             binr.BaseStream.Seek(-1, SeekOrigin.Current);
             return count;
         }
-        #endregion
+
+        #endregion 私钥
     }
 }

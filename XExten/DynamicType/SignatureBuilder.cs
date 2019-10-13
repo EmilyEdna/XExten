@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace XExten.DynamicType
 {
@@ -25,19 +24,16 @@ namespace XExten.DynamicType
             }
         }
 
-     
         public override int GetHashCode()
         {
             return hashCode;
         }
 
-        
         public override bool Equals(object obj)
         {
             return obj is SignatureBuilder ? Equals((SignatureBuilder)obj) : false;
         }
 
-      
         public bool Equals(SignatureBuilder other)
         {
             if (properties.Length != other.properties.Length) return false;

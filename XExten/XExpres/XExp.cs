@@ -2,23 +2,42 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using System.Dynamic;
-using XExten.XCore;
 using XExten.DynamicType;
-using System.Reflection;
-using System.Data;
-using System.ComponentModel;
+using XExten.XCore;
 
 namespace XExten.XExpres
 {
     /// <summary>
+    /// 
+    /// </summary>
+
+    internal class NewExpressionVisitor : ExpressionVisitor
+    {
+        public ParameterExpression NewParameter { get; private set; }
+
+        public NewExpressionVisitor(ParameterExpression param)
+        {
+            NewParameter = param;
+        }
+
+        public Expression Replace(Expression exp)
+        {
+            return Visit(exp);
+        }
+
+        protected override Expression VisitParameter(ParameterExpression node)
+        {
+            return NewParameter;
+        }
+    }
+
+    /// <summary>
     /// Expression Extension Class
     /// </summary>
-    public class XExp
+    public static class XExp
     {
         #region Func
+
         /// <summary>
         ///  返回一个属性类(Return AttributeType)
         /// </summary>
@@ -33,6 +52,7 @@ namespace XExten.XExpres
             var Attribute = (T)Exp.Member.GetCustomAttributes(typeof(T), true).FirstOrDefault();
             return Attribute;
         }
+
         /// <summary>
         /// 设置属性值(Set Properties Value)
         /// </summary>
@@ -60,6 +80,7 @@ namespace XExten.XExpres
                 Actions(Param, NameValue.Value);
             };
         }
+
         /// <summary>
         ///  返回一个new表达式(Return a new expression)
         /// </summary>
@@ -79,6 +100,7 @@ namespace XExten.XExpres
             MemberInitExpression Member = Expression.MemberInit(Expression.New(typeof(T)), Exps);
             return Expression.Lambda<Func<T, Object>>(Member, Parameter);
         }
+
         /// <summary>
         ///  返回一个bool表达式(return a bool expression)
         /// </summary>
@@ -102,33 +124,42 @@ namespace XExten.XExpres
                 case QType.Like:
                     Filter = Expression.Call(Left, typeof(String).GetMethod("Contains", new Type[] { typeof(String) }), Right);
                     break;
+
                 case QType.NotLike:
                     Filter = Expression.Not(Expression.Call(Left, typeof(String).GetMethod("Contains", new Type[] { typeof(String) }), Right));
                     break;
+
                 case QType.Equals:
                     Filter = Expression.Equal(Left, Right);
                     break;
+
                 case QType.NotEquals:
                     Filter = Expression.NotEqual(Left, Right);
                     break;
+
                 case QType.GreaterThan:
                     Filter = Expression.GreaterThan(Left, Right);
                     break;
+
                 case QType.GreaterThanOrEqual:
                     Filter = Expression.GreaterThanOrEqual(Left, Right);
                     break;
+
                 case QType.LessThan:
                     Filter = Expression.LessThan(Left, Right);
                     break;
+
                 case QType.LessThanOrEqual:
                     Filter = Expression.LessThanOrEqual(Left, Right);
                     break;
+
                 default:
                     Filter = Expression.Equal(Left, Right);
                     break;
             }
             return Expression.Lambda<Func<T, bool>>(Filter, Parameter);
         }
+
         /// <summary>
         /// 将两个类合并为一个类(Combine two classes into one class)
         /// </summary>
@@ -151,6 +182,7 @@ namespace XExten.XExpres
             });
             return DynamicClassBuilder.Instance.GetDynamicClass(dynamics, "DynamicClass");
         }
+
         /// <summary>
         /// 将两个类合并为一个类并设值(Combine two classes into one class with value)
         /// </summary>
@@ -168,6 +200,52 @@ namespace XExten.XExpres
             });
             return DynamicType;
         }
-        #endregion
+
+        /// <summary>
+        /// 合并表达式 ExprOne AND ExprTwo
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ExprOne"></param>
+        /// <param name="ExprTwo"></param>
+        /// <returns></returns>
+        public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> ExprOne, Expression<Func<T, bool>> ExprTwo)
+        {
+            if (ExprOne == null)
+                return ExprTwo;
+            else if (ExprTwo == null)
+                return ExprOne;
+
+            ParameterExpression newParameter = Expression.Parameter(typeof(T), "t");
+            NewExpressionVisitor visitor = new NewExpressionVisitor(newParameter);
+
+            var left = visitor.Replace(ExprOne.Body);
+            var right = visitor.Replace(ExprTwo.Body);
+            var body = Expression.And(left, right);
+            return Expression.Lambda<Func<T, bool>>(body, newParameter);
+        }
+
+        /// <summary>
+        /// 合并表达式 ExprOne or ExprTwo
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ExprOne"></param>
+        /// <param name="ExprTwo"></param>
+        /// <returns></returns>
+        public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> ExprOne, Expression<Func<T, bool>> ExprTwo)
+        {
+            if (ExprOne == null)
+                return ExprTwo;
+            else if (ExprTwo == null)
+                return ExprOne;
+
+            ParameterExpression newParameter = Expression.Parameter(typeof(T), "t");
+            NewExpressionVisitor visitor = new NewExpressionVisitor(newParameter);
+
+            var left = visitor.Replace(ExprOne.Body);
+            var right = visitor.Replace(ExprTwo.Body);
+            var body = Expression.Or(left, right);
+            return Expression.Lambda<Func<T, bool>>(body, newParameter);
+        }
+        #endregion Func
     }
 }

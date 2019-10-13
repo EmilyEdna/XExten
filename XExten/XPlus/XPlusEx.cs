@@ -1,9 +1,7 @@
 ﻿using ProtoBuf;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
@@ -17,6 +15,7 @@ namespace XExten.XPlus
     public class XPlusEx
     {
         #region Func
+
         /// <summary>
         /// 取一个随机手机号(Return a random phone number)
         /// </summary>
@@ -28,6 +27,7 @@ namespace XExten.XPlus
             int index = random.Next(0, PhonesHost.Length - 1);
             return PhonesHost[index] + (random.Next(100, 888) + 10000).ToString().Substring(1) + (random.Next(1, 9100) + 10000).ToString().Substring(1);
         }
+
         /// <summary>
         /// 创建一个验证吗(Create a verification code)
         /// </summary>
@@ -40,7 +40,7 @@ namespace XExten.XPlus
                 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
             };
             string randomNum = "";
-            int flag = -1;//记录上次随机数的数值，尽量避免产生几个相同的随机数 
+            int flag = -1;//记录上次随机数的数值，尽量避免产生几个相同的随机数
             Random rand = new Random();
             for (int i = 0; i < 4; i++)
             {
@@ -58,6 +58,7 @@ namespace XExten.XPlus
             }
             return randomNum;
         }
+
         /// <summary>
         ///  返回条形码(Return barcode)
         /// </summary>
@@ -68,7 +69,9 @@ namespace XExten.XPlus
         public static String XBarHtml(String Param, int Width, int Height)
         {
             Hashtable Has = new Hashtable();
+
             #region 39码 12位
+
             Has.Add('A', "110101001011");
             Has.Add('B', "101101001011");
             Has.Add('C', "110110100101");
@@ -113,7 +116,9 @@ namespace XExten.XPlus
             Has.Add('$', "100100100101");
             Has.Add('.', "110010101101");
             Has.Add(' ', "100110101101");
-            #endregion
+
+            #endregion 39码 12位
+
             Param = "*" + Param.ToUpper() + "*";
             string Result = "";
             try
@@ -141,6 +146,7 @@ namespace XExten.XPlus
             Html += @"<div style=clear:both></div>";
             return $"<div style=\"background:#FFFFFF;padding:5px;font-size:{(Width * 5)}px;font-family:楷体;\">{Html}</div>";
         }
+
         /// <summary>
         /// 将小写的金钱转换成大写的金钱(Convert money into Chinese characters)
         /// </summary>
@@ -184,6 +190,7 @@ namespace XExten.XPlus
                 strMoney.Append("整");
             return strMoney.ToString();
         }
+
         /// <summary>
         /// 过滤字符(Filter characters)
         /// </summary>
@@ -194,6 +201,7 @@ namespace XExten.XPlus
         {
             return regex.IsMatch(Param);
         }
+
         /// <summary>
         /// 反系列化XML(XmlDeserialize)
         /// </summary>
@@ -207,6 +215,7 @@ namespace XExten.XPlus
                 return (T)new XmlSerializer(typeof(T)).Deserialize(reader);
             }
         }
+
         /// <summary>
         /// 将对象序列化为XML(XmlSerializer)
         /// 说明：此方法序列化复杂类，如果没有声明XmlInclude等特性，可能会引发“使用 XmlInclude 或 SoapInclude 特性静态指定非已知的类型。”的错误。
@@ -235,6 +244,7 @@ namespace XExten.XPlus
             Stream.Dispose();
             return str;
         }
+
         /// <summary>
         /// 计算两点GPS坐标的距离（单位：米）
         /// Calculate the distance between two GPS coordinates (unit: meter)
@@ -252,6 +262,7 @@ namespace XExten.XPlus
             s *= 6378137.0;//弧长乘地球半径（半径为米）
             return Math.Round(s * 10000d) / 10000d;//精确距离的数值
         }
+
         /// <summary>
         /// 采用Base64编码(LzString)
         /// </summary>
@@ -261,6 +272,7 @@ namespace XExten.XPlus
         {
             return LzStringEncryption.CompressToBase64(input);
         }
+
         /// <summary>
         /// 解析Base64编码(LzString)
         /// </summary>
@@ -270,6 +282,7 @@ namespace XExten.XPlus
         {
             return LzStringEncryption.DecompressFromBase64(input);
         }
+
         /// <summary>
         /// 采用UTF16编码(LzString)
         /// </summary>
@@ -279,6 +292,7 @@ namespace XExten.XPlus
         {
             return LzStringEncryption.CompressToUTF16(input);
         }
+
         /// <summary>
         /// 解析UTF16编码(LzString)
         /// </summary>
@@ -288,6 +302,7 @@ namespace XExten.XPlus
         {
             return LzStringEncryption.DecompressFromUTF16(input);
         }
+
         /// <summary>
         /// 采用URI编码(LzString)
         /// </summary>
@@ -297,6 +312,7 @@ namespace XExten.XPlus
         {
             return LzStringEncryption.CompressToEncodedURIComponent(input);
         }
+
         /// <summary>
         /// 解析URI编码(LzString)
         /// </summary>
@@ -306,6 +322,7 @@ namespace XExten.XPlus
         {
             return LzStringEncryption.DecompressFromEncodedURIComponent(input);
         }
+
         /// <summary>
         /// MD5加密
         /// </summary>
@@ -318,6 +335,7 @@ namespace XExten.XPlus
                 return "Please enter the MD5 encryption digits,for example：16、32";
             return type == 32 ? MD5Encryption.MD5_32(input) : MD5Encryption.MD5_16(input);
         }
+
         /// <summary>
         /// SHA加密
         /// </summary>
@@ -332,16 +350,21 @@ namespace XExten.XPlus
             {
                 case 1:
                     return SHAEncryption.SHA1Encrypt(input);
+
                 case 256:
                     return SHAEncryption.SHA256Encrypt(input);
+
                 case 384:
                     return SHAEncryption.SHA384Encrypt(input);
+
                 case 512:
                     return SHAEncryption.SHA512Encrypt(input);
+
                 default:
                     return SHAEncryption.SHA1Encrypt(input);
             }
         }
+
         /// <summary>
         /// RSA加密
         /// </summary>
@@ -351,6 +374,7 @@ namespace XExten.XPlus
         {
             return RSAEncryption.RSAEncrypt(input);
         }
+
         /// <summary>
         /// RSA解密
         /// </summary>
@@ -360,6 +384,7 @@ namespace XExten.XPlus
         {
             return RSAEncryption.RSADecrypt(input);
         }
+
         /// <summary>
         /// 使用Protobuf序列化
         /// </summary>
@@ -389,6 +414,7 @@ namespace XExten.XPlus
                 throw ex;
             }
         }
+
         /// <summary>
         /// 使用Protobuf反序列化
         /// </summary>
@@ -414,6 +440,7 @@ namespace XExten.XPlus
                 throw ex;
             }
         }
-        #endregion
+
+        #endregion Func
     }
 }

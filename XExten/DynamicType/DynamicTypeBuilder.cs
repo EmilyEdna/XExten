@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using System.Text;
 using System.Threading;
 
 namespace XExten.DynamicType
@@ -31,7 +30,7 @@ namespace XExten.DynamicType
 
             // Create the nw assembly
             _assemblyName = new AssemblyName(moduleName);
-#if NETSTANDARD2_0
+#if NETSTANDARD2_1
             _asssemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(_assemblyName, AssemblyBuilderAccess.Run);
 #elif NET461
             _asssemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(_assemblyName, AssemblyBuilderAccess.Run);
@@ -165,7 +164,7 @@ namespace XExten.DynamicType
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="properties"></param>
         /// <param name="methods"></param>
@@ -191,7 +190,7 @@ namespace XExten.DynamicType
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="properties"></param>
         /// <param name="methods"></param>
@@ -217,7 +216,7 @@ namespace XExten.DynamicType
                         GenerateMethods(_typeBuilder, methods);
 
                     // Create the type, return the type.
-#if NETSTANDARD2_0
+#if NETSTANDARD2_1
                     Type result = _typeBuilder.CreateTypeInfo();
 #elif NET461
                     Type result = _typeBuilder.CreateType();
@@ -233,7 +232,7 @@ namespace XExten.DynamicType
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="typeBuilder"></param>
         private void CreateConstructor(TypeBuilder typeBuilder)
@@ -254,7 +253,7 @@ namespace XExten.DynamicType
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="tb"></param>
         /// <param name="methods"></param>
@@ -316,7 +315,7 @@ namespace XExten.DynamicType
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="tb"></param>
         /// <param name="properties"></param>
@@ -352,7 +351,7 @@ namespace XExten.DynamicType
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="tb"></param>
         /// <param name="fields"></param>
@@ -394,7 +393,7 @@ namespace XExten.DynamicType
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="tb"></param>
         /// <param name="fields"></param>

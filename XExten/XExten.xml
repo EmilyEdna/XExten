@@ -6,7 +6,6 @@
     <members>
         <member name="T:XExten.CacheFactory.Caches">
             <summary>
-            
             </summary>
         </member>
         <member name="P:XExten.CacheFactory.Caches.RedisConnectionString">
@@ -162,7 +161,6 @@
         </member>
         <member name="T:XExten.CacheFactory.MongoDbCache.MongoDbCaches">
             <summary>
-            
             </summary>
         </member>
         <member name="P:XExten.CacheFactory.MongoDbCache.MongoDbCaches.MongoDBConnectionString">
@@ -248,7 +246,6 @@
         </member>
         <member name="T:XExten.CacheFactory.RedisCache.RedisCaches">
             <summary>
-            
             </summary>
         </member>
         <member name="P:XExten.CacheFactory.RedisCache.RedisCaches.RedisConnectionString">
@@ -818,7 +815,6 @@
         </member>
         <member name="T:XExten.CacheFactory.RunTimeCache.MemoryCaches">
             <summary>
-            
             </summary>
         </member>
         <member name="M:XExten.CacheFactory.RunTimeCache.MemoryCaches.AddCache``1(System.String,``0,System.Int32)">
@@ -951,7 +947,6 @@
         </member>
         <member name="M:XExten.DynamicType.DynamicTypeBuilder.GetDynamicClass(System.Collections.Generic.IEnumerable{XExten.DynamicType.DynamicProperty},System.Collections.Generic.IEnumerable{XExten.DynamicType.DynamicMethod})">
             <summary>
-            
             </summary>
             <param name="properties"></param>
             <param name="methods"></param>
@@ -959,7 +954,6 @@
         </member>
         <member name="M:XExten.DynamicType.DynamicTypeBuilder.CreateDynamicClass(XExten.DynamicType.DynamicProperty[],XExten.DynamicType.DynamicMethod[])">
             <summary>
-            
             </summary>
             <param name="properties"></param>
             <param name="methods"></param>
@@ -967,20 +961,17 @@
         </member>
         <member name="M:XExten.DynamicType.DynamicTypeBuilder.CreateConstructor(System.Reflection.Emit.TypeBuilder)">
             <summary>
-            
             </summary>
             <param name="typeBuilder"></param>
         </member>
         <member name="M:XExten.DynamicType.DynamicTypeBuilder.GenerateMethods(System.Reflection.Emit.TypeBuilder,XExten.DynamicType.DynamicMethod[])">
             <summary>
-            
             </summary>
             <param name="tb"></param>
             <param name="methods"></param>
         </member>
         <member name="M:XExten.DynamicType.DynamicTypeBuilder.GenerateProperties(System.Reflection.Emit.TypeBuilder,XExten.DynamicType.DynamicProperty[])">
             <summary>
-            
             </summary>
             <param name="tb"></param>
             <param name="properties"></param>
@@ -988,14 +979,12 @@
         </member>
         <member name="M:XExten.DynamicType.DynamicTypeBuilder.GenerateEquals(System.Reflection.Emit.TypeBuilder,System.Reflection.FieldInfo[])">
             <summary>
-            
             </summary>
             <param name="tb"></param>
             <param name="fields"></param>
         </member>
         <member name="M:XExten.DynamicType.DynamicTypeBuilder.GenerateGetHashCode(System.Reflection.Emit.TypeBuilder,System.Reflection.FieldInfo[])">
             <summary>
-            
             </summary>
             <param name="tb"></param>
             <param name="fields"></param>
@@ -1260,12 +1249,10 @@
         </member>
         <member name="T:XExten.MessageQueue.QueueDictionary">
             <summary>
-            
             </summary>
         </member>
         <member name="T:XExten.MessageQueue.QueueItem">
             <summary>
-            
             </summary>
         </member>
         <member name="P:XExten.MessageQueue.QueueItem.Key">
@@ -1298,7 +1285,6 @@
         </member>
         <member name="T:XExten.MessageQueue.XQueue">
             <summary>
-            
             </summary>
         </member>
         <member name="F:XExten.MessageQueue.XQueue.MessageQueueDictionary">
@@ -1970,7 +1956,6 @@
         </member>
         <member name="T:XExten.XExpres.QType">
             <summary>
-            
             </summary>
         </member>
         <member name="F:XExten.XExpres.QType.Like">

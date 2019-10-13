@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace XExten.DynamicType
 {
     public class DynamicProperty
     {
-        string name;
-        Type type;
+        private string name;
+        private Type type;
 
         public DynamicProperty(string name, Type type)
         {
@@ -17,7 +14,7 @@ namespace XExten.DynamicType
             this.name = name;
             this.type = type;
         }
-        
+
         public string Name
         {
             get { return name; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,13 +7,11 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Newtonsoft.Json;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using XExten.Encryption;
 using XExten.Common;
-
+using XExten.Encryption;
 
 namespace XExten.XCore
 {
@@ -22,6 +21,7 @@ namespace XExten.XCore
     public static class LinqX
     {
         #region Func
+
         private static Func<T, K> Funcs<T, K>()
         {
             var SType = typeof(T);
@@ -37,7 +37,7 @@ namespace XExten.XCore
                 //check Model can write or read
                 if (SItem == null || !SItem.CanRead || SItem.PropertyType.IsNotPublic)
                     continue;
-                //ignore map 
+                //ignore map
                 if (SItem.GetCustomAttribute<IgnoreMappedAttribute>() != null)
                     continue;
                 MemberExpression SProperty = Expression.Property(Parameter, SItem);
@@ -84,6 +84,7 @@ namespace XExten.XCore
             ConditionalExpression Condition = Expression.Condition(Binary, Member, Expression.Constant(null, TType));
             return Expression.Lambda<Func<T, K>>(Condition, Parameter).Compile();
         }
+
         private static Expression GetClassExpression(Expression SProperty, Type SType, Type TType)
         {
             var Item = Expression.NotEqual(SProperty, Expression.Constant(null, SType));
@@ -92,6 +93,7 @@ namespace XExten.XCore
             var Call = Expression.Call(MType, SProperty);
             return Expression.Condition(Item, Call, Expression.Constant(null, TType));
         }
+
         private static Expression GetListExpression(Expression SProperty, Type SType, Type TType)
         {
             //条件p.Item!=null
@@ -109,17 +111,21 @@ namespace XExten.XCore
                 Exp = Expression.Convert(Call, TType);
             return Expression.Condition(Item, Exp, Expression.Constant(null, TType));
         }
+
         private static bool IsNullableType(Type type)
         {
             return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
         }
+
         private static bool IsEnumerable(Type type)
         {
             return type.IsArray || type.GetInterfaces().Any(x => x == typeof(ICollection) || x == typeof(IEnumerable));
         }
-        #endregion
+
+        #endregion Func
 
         #region Sync
+
         /// <summary>
         /// 转换成Unicode(Return Unicode string)
         /// </summary>
@@ -140,6 +146,7 @@ namespace XExten.XCore
                 return str.ToString();
             }
         }
+
         /// <summary>
         /// 转换成UTF8(Return UTF8 string)
         /// </summary>
@@ -153,6 +160,7 @@ namespace XExten.XCore
                 return new Regex(@"\\u([0-9A-F]{4})", RegexOptions.IgnoreCase | RegexOptions.Compiled)
                       .Replace(Param, x => String.Empty + Convert.ToChar(Convert.ToUInt16(x.Result("$1"), 16)));
         }
+
         /// <summary>
         /// 替换实体中的数据并将其作为Unicode返回(Replace the data in the entity and return it as Unicode)
         /// </summary>
@@ -177,6 +185,7 @@ namespace XExten.XCore
             });
             return Param;
         }
+
         /// <summary>
         ///  替换实体中的数据并将其作为UTF8返回(Replace the data in the entity and return it as UTF8)
         /// </summary>
@@ -197,6 +206,7 @@ namespace XExten.XCore
             });
             return Param;
         }
+
         /// <summary>
         /// 将实体映射到另一个实体并返回该实体(Map an entity to another entity and return the entity)
         /// </summary>
@@ -208,6 +218,7 @@ namespace XExten.XCore
         {
             return (Funcs<T, K>())(Param);
         }
+
         /// <summary>
         /// 循环数组(Traversing the array)
         /// </summary>
@@ -219,6 +230,7 @@ namespace XExten.XCore
             foreach (var item in Param)
                 Selector((T)item);
         }
+
         /// <summary>
         ///  循环集合(Traverse collection)
         /// </summary>
@@ -230,6 +242,7 @@ namespace XExten.XCore
             foreach (var item in queryable)
                 Selector((T)item);
         }
+
         /// <summary>
         ///  返回实体中所有的字段名(Returns all Property names in an entity)
         /// </summary>
@@ -245,6 +258,7 @@ namespace XExten.XCore
             });
             return Names;
         }
+
         /// <summary>
         /// 返回实体中所有的字段值(Returns all Property Values in an entity)
         /// </summary>
@@ -260,6 +274,7 @@ namespace XExten.XCore
             });
             return Values;
         }
+
         /// <summary>
         /// 将集合转换为数据表并返回数据表(Convert the collection to a data table and return the data table)
         /// </summary>
@@ -295,6 +310,7 @@ namespace XExten.XCore
             }
             return dt;
         }
+
         /// <summary>
         /// 将实体转换为数据表并返回数据表(Convert the entity to a data table and return the data table)
         /// </summary>
@@ -316,6 +332,7 @@ namespace XExten.XCore
             });
             return dt;
         }
+
         /// <summary>
         ///  将集合映射到另一个集合并返回该集合(Map a collection to another collection and return the collection)
         /// </summary>
@@ -327,6 +344,7 @@ namespace XExten.XCore
         {
             return queryable.Select(Funcs<T, K>());
         }
+
         /// <summary>
         /// 将实体的属性名称和属性值遍历包含到字典中并返回字典
         /// (Wraps an entity's property name and property value traversal into the dictionary and returns the dictionary)
@@ -347,6 +365,7 @@ namespace XExten.XCore
             });
             return Map;
         }
+
         /// <summary>
         ///  返回具有标记为描述属性字段的属性值的实体
         ///  (Returns an entity with a property value marked to describe the property field)
@@ -361,6 +380,21 @@ namespace XExten.XCore
             var Obj = Exp.Member.GetCustomAttributes(typeof(DescriptionAttribute), true).FirstOrDefault();
             return (Obj as DescriptionAttribute).Description;
         }
+
+        /// <summary>
+        /// 返回指定的枚举描述值
+        /// (Returns the specified enumeration description value)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <param name="Key"></param>
+        /// <returns></returns>
+        public static String ToSelectDes<T>(this T Param, Object Key)
+        {
+            FieldInfo field = typeof(T).GetField(Enum.GetName(typeof(T), Key));
+            return ((DescriptionAttribute)field.GetCustomAttribute(typeof(T), false)).Description.ToString();
+        }
+
         /// <summary>
         ///  为选择的T的属性设置一个值(set a value for T's Property which choose)
         /// </summary>
@@ -383,6 +417,7 @@ namespace XExten.XCore
             var Actions = expression.Compile();
             Actions(Param, Value);
         }
+
         /// <summary>
         ///  返回分页数据(Return paging data)
         /// </summary>
@@ -401,6 +436,7 @@ namespace XExten.XCore
                 Queryable = queryable.Skip((PageIndex - 1) * PageSize).Take(PageSize).ToList()
             };
         }
+
         /// <summary>
         ///  返回数据表(return data table)
         /// </summary>
@@ -431,6 +467,7 @@ namespace XExten.XCore
             }
             return dt;
         }
+
         /// <summary>
         ///  循环字典(Traversing the dictionary)
         /// </summary>
@@ -443,6 +480,7 @@ namespace XExten.XCore
             foreach (KeyValuePair<T, K> item in Param)
                 Selector(item.Key, item.Value);
         }
+
         /// <summary>
         /// 返回集合中字段的所有值(Returns all values of a field in a collection)
         /// </summary>
@@ -461,6 +499,7 @@ namespace XExten.XCore
             });
             return Data;
         }
+
         /// <summary>
         /// 将数据表转换为实体(Convert a data table to an entity)
         /// </summary>
@@ -489,6 +528,7 @@ namespace XExten.XCore
             }
             return entity;
         }
+
         /// <summary>
         /// 将数据表转换为实体(Convert a data table to entities)
         /// </summary>
@@ -521,6 +561,7 @@ namespace XExten.XCore
             }
             return entities;
         }
+
         /// <summary>
         /// 序列化(SerializeObject)
         /// </summary>
@@ -531,6 +572,7 @@ namespace XExten.XCore
         {
             return JsonConvert.SerializeObject(Param);
         }
+
         /// <summary>
         /// 返序列化(DeserializeObject)
         /// </summary>
@@ -541,9 +583,11 @@ namespace XExten.XCore
         {
             return JsonConvert.DeserializeObject<T>(Param);
         }
-        #endregion
+
+        #endregion Sync
 
         #region Async
+
         /// <summary>
         /// 转换成Unicode(Return Unicode string)
         /// </summary>
@@ -553,6 +597,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToUnicode(Param));
         }
+
         /// <summary>
         /// 转换成UTF8(Return UTF8 string)
         /// </summary>
@@ -562,6 +607,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToUTF8(Param));
         }
+
         /// <summary>
         /// 替换实体中的数据并将其作为Unicode返回(Replace the data in the entity and return it as Unicode)
         /// </summary>
@@ -572,6 +618,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToUnicode(Param));
         }
+
         /// <summary>
         ///  替换实体中的数据并将其作为UTF8返回(Replace the data in the entity and return it as UTF8)
         /// </summary>
@@ -582,6 +629,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToUTF8(Param));
         }
+
         /// <summary>
         /// 将实体映射到另一个实体并返回该实体(Map an entity to another entity and return the entity)
         /// </summary>
@@ -593,6 +641,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToMapper<T, K>(Param));
         }
+
         /// <summary>
         /// 循环数组(Traversing the array)
         /// </summary>
@@ -603,6 +652,7 @@ namespace XExten.XCore
         {
             await Task.Run(() => ToEach(Param, Selector));
         }
+
         /// <summary>
         ///  循环集合(Traverse collection)
         /// </summary>
@@ -613,6 +663,7 @@ namespace XExten.XCore
         {
             await Task.Run(() => ToEachs(queryable, Selector));
         }
+
         /// <summary>
         ///  返回实体中所有的字段名(Returns all Property names in an entity)
         /// </summary>
@@ -623,6 +674,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToNames(Param));
         }
+
         /// <summary>
         /// 返回实体中所有的字段值(Returns all Property Values in an entity)
         /// </summary>
@@ -633,6 +685,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToValues(Param));
         }
+
         /// <summary>
         /// 将集合转换为数据表并返回数据表(Convert the collection to a data table and return the data table)
         /// </summary>
@@ -643,6 +696,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToTables(queryable));
         }
+
         /// <summary>
         /// 将实体转换为数据表并返回数据表(Convert the entity to a data table and return the data table)
         /// </summary>
@@ -653,6 +707,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToTable(Param));
         }
+
         /// <summary>
         ///  将集合映射到另一个集合并返回该集合(Map a collection to another collection and return the collection)
         /// </summary>
@@ -664,6 +719,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToMappers<T, K>(queryable));
         }
+
         /// <summary>
         /// 将实体的属性名称和属性值遍历包含到字典中并返回字典
         /// (Wraps an entity's property name and property value traversal into the dictionary and returns the dictionary)
@@ -675,6 +731,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToDic(Param));
         }
+
         /// <summary>
         ///  返回具有标记为描述属性字段的属性值的实体
         ///  (Returns an entity with a property value marked to describe the property field)
@@ -687,6 +744,20 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToDes(Param, Expres));
         }
+
+        /// <summary>
+        /// 返回指定的枚举描述值
+        /// (Returns the specified enumeration description value)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <param name="Key"></param>
+        /// <returns></returns>
+        public static async Task<String> ToSelectDesAsync<T>(this T Param, Object Key)
+        {
+            return await Task.Run(() => ToSelectDes(Param, Key));
+        }
+
         /// <summary>
         ///  为选择的T的属性设置一个值(set a value for T's Property which choose)
         /// </summary>
@@ -698,6 +769,7 @@ namespace XExten.XCore
         {
             await Task.Run(() => ToSet(Param, Expres, Value));
         }
+
         /// <summary>
         ///  返回分页数据(Return paging data)
         /// </summary>
@@ -710,6 +782,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToPage(queryable, PageIndex, PageSize));
         }
+
         /// <summary>
         ///  返回数据表(return data table)
         /// </summary>
@@ -722,6 +795,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToTable(queryable, PageIndex, PageSize));
         }
+
         /// <summary>
         ///  循环字典(Traversing the dictionary)
         /// </summary>
@@ -733,6 +807,7 @@ namespace XExten.XCore
         {
             await Task.Run(() => ToDicEach(Param, Selector));
         }
+
         /// <summary>
         /// 返回集合中字段的所有值(Returns all values of a field in a collection)
         /// </summary>
@@ -744,6 +819,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToOver(queryable, Expres));
         }
+
         /// <summary>
         /// 将数据表转换为实体(Convert a data table to an entity)
         /// </summary>
@@ -754,6 +830,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToEntity<T>(Param));
         }
+
         /// <summary>
         /// 将数据表转换为实体(Convert a data table to entities)
         /// </summary>
@@ -764,6 +841,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToEntities<T>(Param));
         }
+
         /// <summary>
         /// 序列化(SerializeObject)
         /// </summary>
@@ -774,6 +852,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToJson(Param));
         }
+
         /// <summary>
         /// 返序列化(DeserializeObject)
         /// </summary>
@@ -784,9 +863,11 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToModel<T>(Param));
         }
-        #endregion
+
+        #endregion Async
 
         #region IsWhat
+
         /// <summary>
         /// 值所的范围(Range of values)
         /// </summary>
@@ -798,6 +879,7 @@ namespace XExten.XCore
         {
             return thisValue >= begin && thisValue <= end;
         }
+
         /// <summary>
         /// 时间值所的范围(Range of datetime values)
         /// </summary>
@@ -809,6 +891,7 @@ namespace XExten.XCore
         {
             return thisValue >= begin && thisValue <= end;
         }
+
         /// <summary>
         /// 是否在里面(Is it inside)
         /// </summary>
@@ -820,6 +903,7 @@ namespace XExten.XCore
         {
             return values.Contains(thisValue);
         }
+
         /// <summary>
         /// 是否在里面(Is it inside)
         /// </summary>
@@ -830,6 +914,7 @@ namespace XExten.XCore
         {
             return inValues.Any(it => thisValue.Contains(it));
         }
+
         /// <summary>
         /// 是null或""(Is null or "")
         /// </summary>
@@ -839,6 +924,7 @@ namespace XExten.XCore
             if (thisValue == null || thisValue == DBNull.Value) return true;
             return thisValue.ToString() == "";
         }
+
         /// <summary>
         /// 是null或""(Is null or "")
         /// </summary>
@@ -848,6 +934,7 @@ namespace XExten.XCore
             if (thisValue == null) return true;
             return thisValue == Guid.Empty;
         }
+
         /// <summary>
         ///  确定集合是否为空(Determine if the collection is empty)
         /// </summary>
@@ -857,6 +944,7 @@ namespace XExten.XCore
         {
             return queryable == null || !queryable.Any();
         }
+
         /// <summary>
         /// 有值?(has value)
         /// </summary>
@@ -866,6 +954,7 @@ namespace XExten.XCore
             if (thisValue == null) return false;
             return thisValue.ToString() != "";
         }
+
         /// <summary>
         /// 有值?(has value)
         /// </summary>
@@ -875,6 +964,7 @@ namespace XExten.XCore
             if (thisValue == null || thisValue.Count() == 0) return false;
             return true;
         }
+
         /// <summary>
         /// 是零(IsZero)
         /// </summary>
@@ -884,6 +974,7 @@ namespace XExten.XCore
         {
             return (thisValue == null || thisValue.ToString() == "0");
         }
+
         /// <summary>
         /// Is INT
         /// </summary>
@@ -894,6 +985,7 @@ namespace XExten.XCore
             if (thisValue == null) return false;
             return Regex.IsMatch(thisValue.ToString(), @"^\d+$");
         }
+
         /// <summary>
         /// Is Not INT?
         /// </summary>
@@ -904,6 +996,7 @@ namespace XExten.XCore
             if (thisValue == null) return true;
             return !Regex.IsMatch(thisValue.ToString(), @"^\d+$");
         }
+
         /// <summary>
         /// 是邮箱(Is Email)
         /// </summary>
@@ -914,6 +1007,7 @@ namespace XExten.XCore
             if (thisValue == null) return false;
             return Regex.IsMatch(thisValue.ToString(), @"^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$");
         }
+
         /// <summary>
         /// 是手机(Is Phone)
         /// </summary>
@@ -924,6 +1018,7 @@ namespace XExten.XCore
             if (thisValue == null) return false;
             return Regex.IsMatch(thisValue.ToString(), @"^\d{11}$");
         }
+
         /// <summary>
         /// 是座机(Is Tel Phone)
         /// </summary>
@@ -934,6 +1029,7 @@ namespace XExten.XCore
             if (thisValue == null) return false;
             return Regex.IsMatch(thisValue.ToString(), @"^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{8}$");
         }
+
         /// <summary>
         /// 是身份证(Is IdCard)
         /// </summary>
@@ -944,6 +1040,7 @@ namespace XExten.XCore
             if (thisValue == null) return false;
             return Regex.IsMatch(thisValue.ToString(), @"^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$");
         }
+
         /// <summary>
         /// 是传真(Is Fax)
         /// </summary>
@@ -954,10 +1051,13 @@ namespace XExten.XCore
             if (thisValue == null) return false;
             return Regex.IsMatch(thisValue.ToString(), @"^[+]{0,1}(\d){1,3}[ ]?([-]?((\d)|[ ]){1,12})+$");
         }
-        #endregion
+
+        #endregion IsWhat
 
         #region Encryption
+
         #region Sync
+
         /// <summary>
         /// LzString加密（LzString Base64 Encryption）
         /// </summary>
@@ -967,6 +1067,7 @@ namespace XExten.XCore
         {
             return LzStringEncryption.CompressToBase64(Param);
         }
+
         /// <summary>
         /// LzString解密（LzString Base64 Decryption）
         /// </summary>
@@ -976,6 +1077,7 @@ namespace XExten.XCore
         {
             return LzStringEncryption.DecompressFromBase64(Param);
         }
+
         /// <summary>
         /// MD5加密（MD5 Encryption）
         /// </summary>
@@ -988,6 +1090,7 @@ namespace XExten.XCore
                 return "Please enter the MD5 encryption digits,for example：16、32";
             return type == 32 ? MD5Encryption.MD5_32(Param) : MD5Encryption.MD5_16(Param);
         }
+
         /// <summary>
         /// SHA加密（SHA Encryption）
         /// </summary>
@@ -1002,16 +1105,21 @@ namespace XExten.XCore
             {
                 case 1:
                     return SHAEncryption.SHA1Encrypt(Param);
+
                 case 256:
                     return SHAEncryption.SHA256Encrypt(Param);
+
                 case 384:
                     return SHAEncryption.SHA384Encrypt(Param);
+
                 case 512:
                     return SHAEncryption.SHA512Encrypt(Param);
+
                 default:
                     return SHAEncryption.SHA1Encrypt(Param);
             }
         }
+
         /// <summary>
         /// RSA加密（RSA Encryption）
         /// </summary>
@@ -1021,6 +1129,7 @@ namespace XExten.XCore
         {
             return RSAEncryption.RSAEncrypt(Param);
         }
+
         /// <summary>
         /// RSA解密（RSA Decryption）
         /// </summary>
@@ -1030,8 +1139,11 @@ namespace XExten.XCore
         {
             return RSAEncryption.RSADecrypt(Param);
         }
-        #endregion
+
+        #endregion Sync
+
         #region Async
+
         /// <summary>
         /// LzString加密（LzString Base64 Encryption）
         /// </summary>
@@ -1041,6 +1153,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToLzStringEnc(Param));
         }
+
         /// <summary>
         /// LzString解密（LzString Base64 Decryption）
         /// </summary>
@@ -1050,6 +1163,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToLzStringDec(Param));
         }
+
         /// <summary>
         /// MD5加密（MD5 Encryption）
         /// </summary>
@@ -1060,6 +1174,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToMD5(Param, type));
         }
+
         /// <summary>
         /// SHA加密（SHA Encryption）
         /// </summary>
@@ -1070,6 +1185,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToSHA(Param, type));
         }
+
         /// <summary>
         /// RSA加密（RSA Encryption）
         /// </summary>
@@ -1079,6 +1195,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToRSAEnc(Param));
         }
+
         /// <summary>
         /// RSA解密（RSA Decryption）
         /// </summary>
@@ -1088,7 +1205,9 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToRSAAsyncDec(Param));
         }
-        #endregion
-        #endregion
+
+        #endregion Async
+
+        #endregion Encryption
     }
 }

@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace XExten.Encryption
 {
     /// <summary>
     /// SHA
     /// </summary>
-    sealed class SHAEncryption
+    internal sealed class SHAEncryption
     {
         /// <summary>
         /// SHA1
@@ -23,6 +19,7 @@ namespace XExten.Encryption
             var encryptbytes = SHA1.Create().ComputeHash(bytes);
             return Base64To16(encryptbytes);
         }
+
         /// <summary>
         /// SHA256
         /// </summary>
@@ -34,6 +31,7 @@ namespace XExten.Encryption
             var encryptbytes = SHA256.Create().ComputeHash(bytes);
             return Base64To16(encryptbytes);
         }
+
         /// <summary>
         /// SHA384
         /// </summary>
@@ -45,6 +43,7 @@ namespace XExten.Encryption
             var encryptbytes = SHA384.Create().ComputeHash(bytes);
             return Base64To16(encryptbytes);
         }
+
         /// <summary>
         /// SHA512
         /// </summary>
@@ -56,6 +55,7 @@ namespace XExten.Encryption
             var encryptbytes = SHA512.Create().ComputeHash(bytes);
             return Base64To16(encryptbytes);
         }
+
         private static string Base64To16(byte[] buffer)
         {
             string md_str = string.Empty;

@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace XExten.DynamicType
 {
     public class DynamicPropertyValue
     {
-        object value;
-        string name;
-        Type type;
+        private object value;
+        private string name;
+        private Type type;
 
         public DynamicPropertyValue(string name, Type type, object value)
         {
@@ -25,12 +22,12 @@ namespace XExten.DynamicType
         {
             get { return name; }
         }
-      
+
         public Type Type
         {
             get { return type; }
         }
-      
+
         public object Value
         {
             get { return value; }

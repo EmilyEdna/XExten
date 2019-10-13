@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace XExten.Encryption
 {
     /// <summary>
     /// implements LzstringJS
     /// </summary>
-    sealed class LzStringEncryption
+    internal sealed class LzStringEncryption
     {
         private const string KeyStrBase64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
         private const string KeyStrUriSafe = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-$";
         private static readonly IDictionary<char, char> KeyStrBase64Dict = CreateBaseDict(KeyStrBase64);
         private static readonly IDictionary<char, char> KeyStrUriSafeDict = CreateBaseDict(KeyStrUriSafe);
+
         private static IDictionary<char, char> CreateBaseDict(string alphabet)
         {
             var dict = new Dictionary<char, char>();
@@ -24,6 +24,7 @@ namespace XExten.Encryption
             }
             return dict;
         }
+
         /// <summary>
         /// 采用Base64编码
         /// </summary>
@@ -43,6 +44,7 @@ namespace XExten.Encryption
                 case 3: return res + "=";
             }
         }
+
         /// <summary>
         /// 解析Base64编码
         /// </summary>
@@ -54,6 +56,7 @@ namespace XExten.Encryption
 
             return Decompress(input.Length, 32, index => KeyStrBase64Dict[input[index]]);
         }
+
         /// <summary>
         /// 采用UTF16编码
         /// </summary>
@@ -63,6 +66,7 @@ namespace XExten.Encryption
         {
             return Compress(input, 15, code => (char)(code + 32));
         }
+
         /// <summary>
         /// 解析UTF16编码
         /// </summary>
@@ -74,6 +78,7 @@ namespace XExten.Encryption
 
             return Decompress(input.Length, 16384, index => (char)(input[index] - 32));
         }
+
         /// <summary>
         /// 采用URI编码
         /// </summary>
@@ -85,6 +90,7 @@ namespace XExten.Encryption
 
             return Compress(input, 6, code => KeyStrUriSafe[code]);
         }
+
         /// <summary>
         /// 解析URI编码
         /// </summary>
@@ -97,6 +103,7 @@ namespace XExten.Encryption
             input = input.Replace(" ", "+");
             return Decompress(input.Length, 32, index => KeyStrUriSafeDict[input[index]]);
         }
+
         /// <summary>
         /// 压缩
         /// </summary>
@@ -106,6 +113,7 @@ namespace XExten.Encryption
         {
             return Compress(uncompressed, 16, code => (char)code);
         }
+
         private static string Compress(string uncompressed, int bitsPerChar, Func<int, char> getCharFromInt)
         {
             if (uncompressed == null) throw new ArgumentNullException(nameof(uncompressed));
@@ -233,8 +241,6 @@ namespace XExten.Encryption
                             }
                             value = value >> 1;
                         }
-
-
                     }
                     context_enlargeIn--;
                     if (context_enlargeIn == 0)
@@ -347,8 +353,6 @@ namespace XExten.Encryption
                         }
                         value = value >> 1;
                     }
-
-
                 }
                 context_enlargeIn--;
                 if (context_enlargeIn == 0)
@@ -389,6 +393,7 @@ namespace XExten.Encryption
             }
             return context_data.ToString();
         }
+
         /// <summary>
         /// 解析
         /// </summary>
@@ -401,6 +406,7 @@ namespace XExten.Encryption
             //TODO: Use an enumerator
             return Decompress(compressed.Length, 32768, index => compressed[index]);
         }
+
         private static string Decompress(int length, int resetValue, Func<int, char> getNextValue)
         {
             var dictionary = new List<string>();
@@ -457,6 +463,7 @@ namespace XExten.Encryption
                     }
                     c = (char)bits;
                     break;
+
                 case 1:
                     bits = 0;
                     maxpower = (int)Math.Pow(2, 16);
@@ -475,6 +482,7 @@ namespace XExten.Encryption
                     }
                     c = (char)bits;
                     break;
+
                 case 2:
                     return "";
             }
@@ -528,6 +536,7 @@ namespace XExten.Encryption
                         dictionary.Add(((char)bits).ToString());
                         enlargeIn--;
                         break;
+
                     case (char)1:
                         bits = 0;
                         maxpower = (int)Math.Pow(2, 16);
@@ -548,6 +557,7 @@ namespace XExten.Encryption
                         dictionary.Add(((char)bits).ToString());
                         enlargeIn--;
                         break;
+
                     case (char)2:
                         return result.ToString();
                 }

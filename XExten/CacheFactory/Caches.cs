@@ -1,23 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
-using XExten.CacheFactory.RunTimeCache;
 using XExten.CacheFactory.MongoDbCache;
 using XExten.CacheFactory.RedisCache;
-using XExten.XCore;
-using XExten.XExpres;
-using System.Linq.Expressions;
+using XExten.CacheFactory.RunTimeCache;
 
 namespace XExten.CacheFactory
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class Caches
     {
         #region Properties
+
         /// <summary>
         /// Redis链接字符串
         /// </summary>
@@ -25,6 +21,7 @@ namespace XExten.CacheFactory
         {
             set { RedisCaches.RedisConnectionString = value; }
         }
+
         /// <summary>
         /// MongoDB链接字符串
         /// </summary>
@@ -32,6 +29,7 @@ namespace XExten.CacheFactory
         {
             set { MongoDbCaches.MongoDBConnectionString = value; }
         }
+
         /// <summary>
         /// 缓存类型为MongoDB是必填
         /// </summary>
@@ -39,9 +37,11 @@ namespace XExten.CacheFactory
         {
             set { MongoDbCaches.MongoDBName = value; }
         }
-        #endregion
+
+        #endregion Properties
 
         #region Sync
+
         /// <summary>
         /// 添加Memory缓存
         /// </summary>
@@ -53,6 +53,7 @@ namespace XExten.CacheFactory
         {
             MemoryCaches.AddCache<T>(key, value, Minutes);
         }
+
         /// <summary>
         /// 添加Redis缓存
         /// </summary>
@@ -64,6 +65,7 @@ namespace XExten.CacheFactory
         {
             RedisCaches.StringSet<T>(key, value, (DateTime.Now.AddMinutes(Minutes) - DateTime.Now));
         }
+
         /// <summary>
         /// 添加MongoDB缓存
         /// </summary>
@@ -73,6 +75,7 @@ namespace XExten.CacheFactory
         {
             MongoDbCaches.Insert<T>(value);
         }
+
         /// <summary>
         /// 获取Memory缓存
         /// </summary>
@@ -83,6 +86,7 @@ namespace XExten.CacheFactory
         {
             return MemoryCaches.GetCache<T>(key.ToString());
         }
+
         /// <summary>
         /// 获取Redis缓存
         /// </summary>
@@ -93,6 +97,7 @@ namespace XExten.CacheFactory
         {
             return RedisCaches.StringGet<T>(key.ToString());
         }
+
         /// <summary>
         /// 获取MongoDB缓存
         /// </summary>
@@ -103,6 +108,7 @@ namespace XExten.CacheFactory
         {
             return MongoDbCaches.Search<T>(Exp);
         }
+
         /// <summary>
         ///  删除Memory缓存
         /// </summary>
@@ -111,6 +117,7 @@ namespace XExten.CacheFactory
         {
             MemoryCaches.RemoveCache(key.ToString());
         }
+
         /// <summary>
         /// 删除Redis缓存
         /// </summary>
@@ -119,6 +126,7 @@ namespace XExten.CacheFactory
         {
             RedisCaches.KeyDelete(key.ToString());
         }
+
         /// <summary>
         /// 删除MongoDB缓存
         /// </summary>
@@ -128,9 +136,11 @@ namespace XExten.CacheFactory
         {
             MongoDbCaches.Delete<T>(Exp);
         }
-        #endregion
+
+        #endregion Sync
 
         #region Async
+
         /// <summary>
         /// 添加Memory缓存
         /// </summary>
@@ -142,6 +152,7 @@ namespace XExten.CacheFactory
         {
             await Task.Run(() => RunTimeCacheSet(key, value, Minutes));
         }
+
         /// <summary>
         /// 添加Redis缓存
         /// </summary>
@@ -153,6 +164,7 @@ namespace XExten.CacheFactory
         {
             await RedisCaches.StringSetAsync<T>(key, value, (DateTime.Now.AddMinutes(Minutes) - DateTime.Now));
         }
+
         /// <summary>
         /// 添加MongoDB缓存
         /// </summary>
@@ -162,6 +174,7 @@ namespace XExten.CacheFactory
         {
             await Task.Run(() => MongoDBCacheSet<T>(value));
         }
+
         /// <summary>
         /// 获取Memory缓存
         /// </summary>
@@ -172,6 +185,7 @@ namespace XExten.CacheFactory
         {
             return await Task.Run(() => RunTimeCacheGet<T>(key));
         }
+
         /// <summary>
         /// 获取Redis缓存
         /// </summary>
@@ -182,6 +196,7 @@ namespace XExten.CacheFactory
         {
             return await RedisCaches.StringGetAsync<T>(key.ToString());
         }
+
         /// <summary>
         /// 获取MongoDB缓存
         /// </summary>
@@ -192,6 +207,7 @@ namespace XExten.CacheFactory
         {
             return await Task.Run(() => MongoDBCacheGet<T>(Exp));
         }
+
         /// <summary>
         ///  删除Memory缓存
         /// </summary>
@@ -200,6 +216,7 @@ namespace XExten.CacheFactory
         {
             await Task.Run(() => RunTimeCacheRemove(key));
         }
+
         /// <summary>
         /// 删除Redis缓存
         /// </summary>
@@ -208,6 +225,7 @@ namespace XExten.CacheFactory
         {
             await RedisCaches.KeyDeleteAsync(key.ToString());
         }
+
         /// <summary>
         /// 删除MongoDB缓存
         /// </summary>
@@ -217,6 +235,7 @@ namespace XExten.CacheFactory
         {
             await Task.Run(() => MongoDBCacheRemove(Exp));
         }
-        #endregion
+
+        #endregion Async
     }
 }

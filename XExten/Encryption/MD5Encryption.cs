@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace XExten.Encryption
 {
     /// <summary>
     /// MD5
     /// </summary>
-    sealed class MD5Encryption
+    internal sealed class MD5Encryption
     {
         /// <summary>
         /// 32位MD5
@@ -31,6 +28,7 @@ namespace XExten.Encryption
                 return hash.ToUpper();
             }
         }
+
         /// <summary>
         /// 16位MD5
         /// </summary>

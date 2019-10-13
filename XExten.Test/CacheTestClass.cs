@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using XExten.CacheFactory;
+﻿using XExten.CacheFactory;
 using XExten.Test.TestModel;
 using Xunit;
 
@@ -17,6 +14,7 @@ namespace XExten.Test
             Caches.RunTimeCacheGet<TestA>("key");
             Caches.RunTimeCacheRemove("key");
         }
+
         [Fact]
         public void RedisCache_Test()
         {
@@ -26,8 +24,10 @@ namespace XExten.Test
             Caches.RedisCacheGet<TestA>("key");
             Caches.RedisCacheRemove("key");
         }
+
         [Fact]
-        public void MongoDbCache_Test() {
+        public void MongoDbCache_Test()
+        {
             Caches.MongoDBConnectionString = "mongodb://sa:123@127.0.0.1";
             Caches.DbName = "Test";
             TestA A = new TestA { Id = 1, Name = "123", PassWord = "123" };

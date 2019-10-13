@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace XExten.MessageQueue
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class XQueue
     {
@@ -15,14 +12,17 @@ namespace XExten.MessageQueue
         /// 队列数据集合
         /// </summary>
         public static QueueDictionary MessageQueueDictionary = new QueueDictionary();
+
         /// <summary>
         /// 同步执行锁
         /// </summary>
         private static object MessageQueueSyncLock = new object();
+
         /// <summary>
         /// 立即同步所有缓存执行锁（给OperateQueue()使用）
         /// </summary>
         private static object FlushCacheLock = new object();
+
         /// <summary>
         /// 生成Key
         /// </summary>
@@ -33,8 +33,9 @@ namespace XExten.MessageQueue
         /// <returns></returns>
         public static string GenerateKey(string name, Type senderType, string identityKey, string actionName)
         {
-            return string.Format("Name@{0}||Type@{1}||Key@{2}||ActionName@{3}",name, senderType, identityKey, actionName);
+            return string.Format("Name@{0}||Type@{1}||Key@{2}||ActionName@{3}", name, senderType, identityKey, actionName);
         }
+
         /// <summary>
         /// 操作队列
         /// </summary>
@@ -53,6 +54,7 @@ namespace XExten.MessageQueue
                 }
             }
         }
+
         /// <summary>
         /// 获取当前等待执行的Key
         /// </summary>
@@ -64,6 +66,7 @@ namespace XExten.MessageQueue
                 return MessageQueueDictionary.Keys.FirstOrDefault();
             }
         }
+
         /// <summary>
         /// 获取MessageQueueItem
         /// </summary>
@@ -80,6 +83,7 @@ namespace XExten.MessageQueue
                 return null;
             }
         }
+
         /// <summary>
         /// 添加队列成员
         /// </summary>
@@ -96,6 +100,7 @@ namespace XExten.MessageQueue
                 return mqItem;
             }
         }
+
         /// <summary>
         /// 移除队列成员
         /// </summary>
@@ -110,6 +115,7 @@ namespace XExten.MessageQueue
                 }
             }
         }
+
         /// <summary>
         /// 获得当前队列数量
         /// </summary>
@@ -121,6 +127,5 @@ namespace XExten.MessageQueue
                 return MessageQueueDictionary.Count;
             }
         }
-
     }
 }

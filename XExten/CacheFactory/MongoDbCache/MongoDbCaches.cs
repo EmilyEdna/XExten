@@ -1,28 +1,29 @@
-﻿using System;
+﻿using MongoDB.Driver;
+using MongoDB.Driver.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using MongoDB.Driver;
-using MongoDB.Driver.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Linq.Expressions;
 
 namespace XExten.CacheFactory.MongoDbCache
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class MongoDbCaches
     {
         private static IMongoDatabase instance;
+
         /// <summary>
         /// 链接字符串
         /// </summary>
         public static string MongoDBConnectionString { get; set; }
+
         /// <summary>
         /// 库名
         /// </summary>
         public static string MongoDBName { get; set; }
+
         /// <summary>
         /// 获取实例
         /// </summary>
@@ -36,6 +37,7 @@ namespace XExten.CacheFactory.MongoDbCache
                     return instance;
             }
         }
+
         /// <summary>
         /// 插入单条记录
         /// </summary>
@@ -45,6 +47,7 @@ namespace XExten.CacheFactory.MongoDbCache
         {
             Instance.GetCollection<T>(typeof(T).Name).InsertOne(t);
         }
+
         /// <summary>
         /// 批量插入
         /// </summary>
@@ -54,6 +57,7 @@ namespace XExten.CacheFactory.MongoDbCache
         {
             Instance.GetCollection<T>(typeof(T).Name).InsertMany(t);
         }
+
         /// <summary>
         /// 查询单个记录
         /// </summary>
@@ -64,6 +68,7 @@ namespace XExten.CacheFactory.MongoDbCache
         {
             return Instance.GetCollection<T>(typeof(T).GetType().Name).Find(filter).FirstOrDefault();
         }
+
         /// <summary>
         /// 查询集合
         /// </summary>
@@ -74,6 +79,7 @@ namespace XExten.CacheFactory.MongoDbCache
         {
             return Instance.GetCollection<T>(typeof(T).GetType().Name).Find(filter).ToList();
         }
+
         /// <summary>
         /// 更新单个
         /// </summary>
@@ -86,6 +92,7 @@ namespace XExten.CacheFactory.MongoDbCache
         {
             return (int)Instance.GetCollection<T>(typeof(T).GetType().Name).UpdateOne(filter, Builders<T>.Update.Set(name, param)).ModifiedCount;
         }
+
         /// <summary>
         /// 批量更新
         /// </summary>
@@ -97,6 +104,7 @@ namespace XExten.CacheFactory.MongoDbCache
         {
             return (int)Instance.GetCollection<T>(typeof(T).GetType().Name).UpdateMany(filter, Builders<T>.Update.Combine(new List<UpdateDefinition<T>>())).ModifiedCount;
         }
+
         /// <summary>
         /// 删除单条记录
         /// </summary>
@@ -107,6 +115,7 @@ namespace XExten.CacheFactory.MongoDbCache
         {
             return (int)Instance.GetCollection<T>(typeof(T).Name).DeleteOne(filter).DeletedCount;
         }
+
         /// <summary>
         /// 分页查询
         /// </summary>

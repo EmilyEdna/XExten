@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace XExten.Common
 {
@@ -15,10 +12,12 @@ namespace XExten.Common
         /// 页码
         /// </summary>
         public int PageIndex { get; set; }
+
         /// <summary>
         /// 条数
         /// </summary>
         public int PageSize { get; set; }
+
         /// <summary>
         /// 关键字
         /// </summary>

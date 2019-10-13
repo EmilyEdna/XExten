@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Text;
 using XExten.DynamicType;
 using XExten.Test.TestModel;
 using XExten.XExpres;
@@ -22,18 +20,21 @@ namespace XExten.Test
             TestA A = new TestA();
             XExp.SetProptertiesValue<TestA>(keyValues, A);
         }
+
         [Fact]
         public void GetExpression_Test()
         {
             string[] arr = new[] { "Id", "Name" };
             var res = XExp.GetExpression<TestA>(arr);
         }
+
         [Fact]
         public void GetExpression_Test1()
         {
             TestA A = new TestA { Id = 10, Name = "测试" };
             XExp.GetExpression<TestA>("Name", "123", QType.NotLike);
         }
+
         [Fact]
         public void GetCombineClass_Test()
         {
@@ -41,6 +42,7 @@ namespace XExten.Test
             var instance = Activator.CreateInstance(res);
             //Instantiate first and assign later
         }
+
         [Fact]
         public void GetCombineClassValue_Test()
         {
@@ -50,6 +52,7 @@ namespace XExten.Test
             };
             var res = XExp.CombineClassWithValue<TestA, TestB>((t, x) => new { t, x }, dynamics);
         }
+
         [Fact]
         public void CreateType_Test()
         {

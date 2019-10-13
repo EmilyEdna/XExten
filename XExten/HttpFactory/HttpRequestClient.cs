@@ -3,11 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
-#if NETSTANDARD2_0
+
+#if NETSTANDARD2_1
 using System.Net.Http;
 #elif NET461
+
 using System.Net.Http;
+
 #endif
+
 using System.Text;
 using System.Threading.Tasks;
 using System.Net;
@@ -40,6 +44,7 @@ namespace XExten.HttpFactory
             });
             return keyValuePairs;
         }
+
         /// <summary>
         /// Http by post default UTF8
         /// </summary>
@@ -61,6 +66,7 @@ namespace XExten.HttpFactory
                 ResultBytes = await HttpPostBytesAsync(url, data, headers, contentType, timeout, encoding);
             return Encoding.UTF8.GetString(ResultBytes);
         }
+
         /// <summary>
         /// Http by post default Bytes
         /// </summary>
@@ -90,6 +96,7 @@ namespace XExten.HttpFactory
                 return await responseMessage.Content.ReadAsByteArrayAsync();
             }
         }
+
         /// <summary>
         /// http by post default bytes keep session
         /// </summary>
@@ -147,6 +154,7 @@ namespace XExten.HttpFactory
                 return await responseMessage.Content.ReadAsByteArrayAsync();
             }
         }
+
         /// <summary>
         /// Http by get default UTF8
         /// </summary>
@@ -165,6 +173,7 @@ namespace XExten.HttpFactory
                 ResultBytes = await HttpGetBytesAsync(url, headers, timeout);
             return Encoding.Default.GetString(ResultBytes);
         }
+
         /// <summary>
         /// Http by get default Bytes
         /// </summary>
@@ -187,6 +196,7 @@ namespace XExten.HttpFactory
                 return await Client.GetByteArrayAsync(url);
             }
         }
+
         /// <summary>
         /// http by get default bytes keep session
         /// </summary>
