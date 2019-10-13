@@ -133,7 +133,7 @@ namespace XExten.Test
         [Fact]
         public void ToSelectDes_Test()
         {
-           var p =  TestC.A.ToSelectDes();
+           var res =  TestC.A.ToSelectDes();
         }
     }
 }
