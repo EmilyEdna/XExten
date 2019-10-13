@@ -5,8 +5,9 @@
     </assembly>
     <members>
         <member name="T:XExten.CacheFactory.Caches">
-            <summary>
-            </summary>
+             <summary>
+            
+             </summary>
         </member>
         <member name="P:XExten.CacheFactory.Caches.RedisConnectionString">
             <summary>
@@ -160,8 +161,9 @@
             <param name="Exp"></param>
         </member>
         <member name="T:XExten.CacheFactory.MongoDbCache.MongoDbCaches">
-            <summary>
-            </summary>
+             <summary>
+            
+             </summary>
         </member>
         <member name="P:XExten.CacheFactory.MongoDbCache.MongoDbCaches.MongoDBConnectionString">
             <summary>
@@ -245,8 +247,9 @@
             <returns></returns>
         </member>
         <member name="T:XExten.CacheFactory.RedisCache.RedisCaches">
-            <summary>
-            </summary>
+             <summary>
+            
+             </summary>
         </member>
         <member name="P:XExten.CacheFactory.RedisCache.RedisCaches.RedisConnectionString">
             <summary>
@@ -814,8 +817,9 @@
             <returns></returns>
         </member>
         <member name="T:XExten.CacheFactory.RunTimeCache.MemoryCaches">
-            <summary>
-            </summary>
+             <summary>
+            
+             </summary>
         </member>
         <member name="M:XExten.CacheFactory.RunTimeCache.MemoryCaches.AddCache``1(System.String,``0,System.Int32)">
             <summary>
@@ -946,48 +950,55 @@
             <returns>The new instance of the type.</returns>
         </member>
         <member name="M:XExten.DynamicType.DynamicTypeBuilder.GetDynamicClass(System.Collections.Generic.IEnumerable{XExten.DynamicType.DynamicProperty},System.Collections.Generic.IEnumerable{XExten.DynamicType.DynamicMethod})">
-            <summary>
-            </summary>
-            <param name="properties"></param>
-            <param name="methods"></param>
-            <returns></returns>
+             <summary>
+            
+             </summary>
+             <param name="properties"></param>
+             <param name="methods"></param>
+             <returns></returns>
         </member>
         <member name="M:XExten.DynamicType.DynamicTypeBuilder.CreateDynamicClass(XExten.DynamicType.DynamicProperty[],XExten.DynamicType.DynamicMethod[])">
-            <summary>
-            </summary>
-            <param name="properties"></param>
-            <param name="methods"></param>
-            <returns></returns>
+             <summary>
+            
+             </summary>
+             <param name="properties"></param>
+             <param name="methods"></param>
+             <returns></returns>
         </member>
         <member name="M:XExten.DynamicType.DynamicTypeBuilder.CreateConstructor(System.Reflection.Emit.TypeBuilder)">
-            <summary>
-            </summary>
-            <param name="typeBuilder"></param>
+             <summary>
+            
+             </summary>
+             <param name="typeBuilder"></param>
         </member>
         <member name="M:XExten.DynamicType.DynamicTypeBuilder.GenerateMethods(System.Reflection.Emit.TypeBuilder,XExten.DynamicType.DynamicMethod[])">
-            <summary>
-            </summary>
-            <param name="tb"></param>
-            <param name="methods"></param>
+             <summary>
+            
+             </summary>
+             <param name="tb"></param>
+             <param name="methods"></param>
         </member>
         <member name="M:XExten.DynamicType.DynamicTypeBuilder.GenerateProperties(System.Reflection.Emit.TypeBuilder,XExten.DynamicType.DynamicProperty[])">
-            <summary>
-            </summary>
-            <param name="tb"></param>
-            <param name="properties"></param>
-            <returns></returns>
+             <summary>
+            
+             </summary>
+             <param name="tb"></param>
+             <param name="properties"></param>
+             <returns></returns>
         </member>
         <member name="M:XExten.DynamicType.DynamicTypeBuilder.GenerateEquals(System.Reflection.Emit.TypeBuilder,System.Reflection.FieldInfo[])">
-            <summary>
-            </summary>
-            <param name="tb"></param>
-            <param name="fields"></param>
+             <summary>
+            
+             </summary>
+             <param name="tb"></param>
+             <param name="fields"></param>
         </member>
         <member name="M:XExten.DynamicType.DynamicTypeBuilder.GenerateGetHashCode(System.Reflection.Emit.TypeBuilder,System.Reflection.FieldInfo[])">
-            <summary>
-            </summary>
-            <param name="tb"></param>
-            <param name="fields"></param>
+             <summary>
+            
+             </summary>
+             <param name="tb"></param>
+             <param name="fields"></param>
         </member>
         <member name="M:XExten.DynamicType.IDynamicTypeBuilder.Create(System.String,System.Collections.Generic.IEnumerable{XExten.DynamicType.DynamicProperty})">
             <summary>
@@ -1248,12 +1259,14 @@
             <returns></returns>
         </member>
         <member name="T:XExten.MessageQueue.QueueDictionary">
-            <summary>
-            </summary>
+             <summary>
+            
+             </summary>
         </member>
         <member name="T:XExten.MessageQueue.QueueItem">
-            <summary>
-            </summary>
+             <summary>
+            
+             </summary>
         </member>
         <member name="P:XExten.MessageQueue.QueueItem.Key">
             <summary>
@@ -1284,8 +1297,9 @@
             <param name="description"></param>
         </member>
         <member name="T:XExten.MessageQueue.XQueue">
-            <summary>
-            </summary>
+             <summary>
+            
+             </summary>
         </member>
         <member name="F:XExten.MessageQueue.XQueue.MessageQueueDictionary">
             <summary>
@@ -1469,6 +1483,16 @@
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <param name="Expres"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ToSelectDes``1(``0,System.Object)">
+            <summary>
+            返回指定的枚举描述值
+            (Returns the specified enumeration description value)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <param name="Key"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.XCore.LinqX.ToSet``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Object)">
@@ -1663,6 +1687,16 @@
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <param name="Expres"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ToSelectDesAsync``1(``0,System.Object)">
+            <summary>
+            返回指定的枚举描述值
+            (Returns the specified enumeration description value)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <param name="Key"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.XCore.LinqX.ToSetAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Object)">
@@ -1955,8 +1989,9 @@
             <returns></returns>
         </member>
         <member name="T:XExten.XExpres.QType">
-            <summary>
-            </summary>
+             <summary>
+            
+             </summary>
         </member>
         <member name="F:XExten.XExpres.QType.Like">
             <summary>
@@ -1996,6 +2031,11 @@
         <member name="F:XExten.XExpres.QType.LessThanOrEqual">
             <summary>
             LessThanOrEqual
+            </summary>
+        </member>
+        <member name="T:XExten.XExpres.NewExpressionVisitor">
+            <summary>
+            
             </summary>
         </member>
         <member name="T:XExten.XExpres.XExp">
@@ -2055,6 +2095,24 @@
             <typeparam name="K"></typeparam>
             <param name="Express"></param>
             <param name="dynamics"></param>
+        </member>
+        <member name="M:XExten.XExpres.XExp.And``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            合并表达式 ExprOne AND ExprTwo
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ExprOne"></param>
+            <param name="ExprTwo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XExpres.XExp.Or``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            合并表达式 ExprOne or ExprTwo
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ExprOne"></param>
+            <param name="ExprTwo"></param>
+            <returns></returns>
         </member>
         <member name="T:XExten.XPlus.XPlusEx">
             <summary>
