@@ -38,4 +38,4 @@ public void XBarHtml_Test()
 --------------
 ##### 使用HttpClient需要XExten.HttpFactory,使用DynamicType需要XExten.DynamicType.
 ##### 在项目中同时支持使用memoryCache,redis,mongodb
-##### 具体如何使用消息队列和APM请参考测试
+##### 具体如何使用消息队列测试
