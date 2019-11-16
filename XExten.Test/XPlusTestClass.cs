@@ -77,5 +77,11 @@ namespace XExten.Test
             var data = XPlusEx.ProtobufSerialize(t);
             var reslt = XPlusEx.ProtobufDeSerialize<TestB>(data);
         }
+
+        [Fact]
+        public void ReadXml_Test() {
+            XPlusEx.ReadXml();
+            var dic = XPlusEx.XmlMap;
+        }
     }
 }

@@ -20,4 +20,10 @@
     <ProjectReference Include="..\XExten\XExten.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="XmlConfig\Test.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

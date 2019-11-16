@@ -2117,6 +2117,11 @@
             Common Extension Class
             </summary>
         </member>
+        <member name="F:XExten.XPlus.XPlusEx.XmlMap">
+            <summary>
+            XML内容集合
+            </summary>
+        </member>
         <member name="M:XExten.XPlus.XPlusEx.XTel">
             <summary>
             取一个随机手机号(Return a random phone number)
@@ -2170,6 +2175,14 @@
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.ReadXml(System.String,System.String,System.String)">
+            <summary>
+            读取XML内容
+            </summary>
+            <param name="NodeItem">根节点</param>
+            <param name="NodeKey">根节点下Key节点</param>
+            <param name="NodeValue">根节点下Value节点</param>
         </member>
         <member name="M:XExten.XPlus.XPlusEx.XDistance(System.Double,System.Double,System.Double,System.Double)">
             <summary>

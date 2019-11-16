@@ -1,11 +1,15 @@
 ﻿using ProtoBuf;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 using XExten.Encryption;
+using XExten.XCore;
 
 namespace XExten.XPlus
 {
@@ -14,6 +18,11 @@ namespace XExten.XPlus
     /// </summary>
     public class XPlusEx
     {
+        /// <summary>
+        /// XML内容集合
+        /// </summary>
+        public static IDictionary<String, String> XmlMap = new Dictionary<String, String>();
+
         #region Func
 
         /// <summary>
@@ -243,6 +252,38 @@ namespace XExten.XPlus
             reader.Dispose();
             Stream.Dispose();
             return str;
+        }
+
+        /// <summary>
+        /// 读取XML内容
+        /// </summary>
+        /// <param name="NodeItem">根节点</param>
+        /// <param name="NodeKey">根节点下Key节点</param>
+        /// <param name="NodeValue">根节点下Value节点</param>
+        /*<Item>
+         <Key><![CDATA[Key]]></Key>
+         <Value><![CDATA[Value]]></Value>
+         </Item>
+         */
+        public static void ReadXml(string NodeItem = null, string NodeKey = null, string NodeValue = null)
+        {
+            string XmlPath = Directory.GetDirectories(Directory.GetCurrentDirectory()).Where(t => t.ToLower().Contains("xml")).FirstOrDefault();
+            string[] XmlFilePath = Directory.GetFiles(XmlPath, "*.xml");
+            XmlFilePath.ToEach<string>(item =>
+            {
+                XElement XNodes = XElement.Load(item);
+                var elements = XNodes.Elements(NodeItem.IsNullOrEmpty() ? "Item" : NodeItem);
+                if (elements.Count() > 0)
+                {
+                    elements.ToEachs<XElement>(element =>
+                    {
+                        string Key = element.Element(NodeKey.IsNullOrEmpty() ? "Key" : NodeKey).Value;
+                        string Value = element.Element(NodeValue.IsNullOrEmpty() ? "Value" : NodeValue).Value;
+                        if (!XmlMap.ContainsKey(Key))
+                            XmlMap.Add(Key, Value);
+                    });
+                }
+            });
         }
 
         /// <summary>
