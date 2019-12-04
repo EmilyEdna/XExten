@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using XExten.CacheFactory.MongoDbCache;
@@ -110,6 +111,17 @@ namespace XExten.CacheFactory
         }
 
         /// <summary>
+        /// 获取MongoDB缓存列表
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Exp"></param>
+        /// <returns></returns>
+        public static IList<T> MongoDBCachesGet<T>(Expression<Func<T, bool>> Exp)
+        {
+            return MongoDbCaches.SearchMany(Exp);
+        }
+
+        /// <summary>
         ///  删除Memory缓存
         /// </summary>
         /// <param name="key"></param>
@@ -206,6 +218,17 @@ namespace XExten.CacheFactory
         public static async Task<T> MongoDBCacheGetAsync<T>(Expression<Func<T, bool>> Exp)
         {
             return await Task.Run(() => MongoDBCacheGet<T>(Exp));
+        }
+
+        /// <summary>
+        /// 获取MongoDB缓存列表
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Exp"></param>
+        /// <returns></returns>
+        public static async Task<IList<T>> MongoDBCachesGetAsync<T>(Expression<Func<T, bool>> Exp)
+        {
+            return await Task.Run(() => MongoDBCachesGet<T>(Exp));
         }
 
         /// <summary>

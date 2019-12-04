@@ -66,7 +66,7 @@ namespace XExten.CacheFactory.MongoDbCache
         /// <returns></returns>
         public static T Search<T>(Expression<Func<T, bool>> filter)
         {
-            return Instance.GetCollection<T>(typeof(T).GetType().Name).Find(filter).FirstOrDefault();
+            return Instance.GetCollection<T>(typeof(T).Name).Find(filter).FirstOrDefault();
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace XExten.CacheFactory.MongoDbCache
         /// <returns></returns>
         public static IList<T> SearchMany<T>(Expression<Func<T, bool>> filter)
         {
-            return Instance.GetCollection<T>(typeof(T).GetType().Name).Find(filter).ToList();
+            return Instance.GetCollection<T>(typeof(T).Name).Find(filter).ToList();
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace XExten.CacheFactory.MongoDbCache
         /// <returns></returns>
         public static int Update<T>(Expression<Func<T, bool>> filter, string name, string param)
         {
-            return (int)Instance.GetCollection<T>(typeof(T).GetType().Name).UpdateOne(filter, Builders<T>.Update.Set(name, param)).ModifiedCount;
+            return (int)Instance.GetCollection<T>(typeof(T).Name).UpdateOne(filter, Builders<T>.Update.Set(name, param)).ModifiedCount;
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace XExten.CacheFactory.MongoDbCache
         /// <returns></returns>
         public static int UpdateMany<T>(Expression<Func<T, bool>> filter, T t)
         {
-            return (int)Instance.GetCollection<T>(typeof(T).GetType().Name).UpdateMany(filter, Builders<T>.Update.Combine(new List<UpdateDefinition<T>>())).ModifiedCount;
+            return (int)Instance.GetCollection<T>(typeof(T).Name).UpdateMany(filter, Builders<T>.Update.Combine(new List<UpdateDefinition<T>>())).ModifiedCount;
         }
 
         /// <summary>
