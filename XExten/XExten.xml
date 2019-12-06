@@ -73,6 +73,14 @@
             <param name="Exp"></param>
             <returns></returns>
         </member>
+        <member name="M:XExten.CacheFactory.Caches.MongoDBCachesGet``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            获取MongoDB缓存列表
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Exp"></param>
+            <returns></returns>
+        </member>
         <member name="M:XExten.CacheFactory.Caches.RunTimeCacheRemove(System.Object)">
             <summary>
              删除Memory缓存
@@ -136,6 +144,14 @@
         <member name="M:XExten.CacheFactory.Caches.MongoDBCacheGetAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
             <summary>
             获取MongoDB缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Exp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.Caches.MongoDBCachesGetAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            获取MongoDB缓存列表
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Exp"></param>
@@ -886,6 +902,29 @@
              Result
             </summary>
         </member>
+        <member name="T:XExten.Common.ResultProvider">
+            <summary>
+            序列化中间结果
+            </summary>
+        </member>
+        <member name="P:XExten.Common.ResultProvider.ObjectProvider">
+            <summary>
+            对象结果
+            </summary>
+        </member>
+        <member name="P:XExten.Common.ResultProvider.DictionaryProvider">
+            <summary>
+            字典结果
+            </summary>
+        </member>
+        <member name="M:XExten.Common.ResultProvider.SetValue(System.Object,System.Collections.Generic.Dictionary{System.Object,System.Object})">
+            <summary>
+            设值
+            </summary>
+            <param name="ObjKey"></param>
+            <param name="DicKey"></param>
+            <returns></returns>
+        </member>
         <member name="M:XExten.DynamicType.DynamicClass.ToString">
             <summary>
             转字符
@@ -1573,6 +1612,31 @@
             <param name="Param"></param>
             <returns></returns>
         </member>
+        <member name="M:XExten.XCore.LinqX.ToMsgByte``1(``0,System.Boolean)">
+            <summary>
+            使用MsgPack序列化(DeserializeObject For MessagePack)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <param name="IsPublic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ToMsgJson(System.Byte[])">
+            <summary>
+            使用MsgPack序列化为Json(DeserializeObject To Json For MessagePack)
+            </summary>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ToMsgModel``1(System.Byte[],System.Boolean)">
+            <summary>
+            使用MsgPack反序列化(DeserializeObject For MessagePack)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <param name="IsPublic"></param>
+            <returns></returns>
+        </member>
         <member name="M:XExten.XCore.LinqX.ToUnicAsync(System.String)">
             <summary>
             转换成Unicode(Return Unicode string)
@@ -1774,6 +1838,31 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ToMsgByteAsync``1(``0,System.Boolean)">
+            <summary>
+            使用MsgPack序列化(DeserializeObject For MessagePack)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <param name="IsPublic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ToMsgJsonAsync(System.Byte[])">
+            <summary>
+            使用MsgPack序列化为Json(DeserializeObject To Json For MessagePack)
+            </summary>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ToMsgModelAsync``1(System.Byte[],System.Boolean)">
+            <summary>
+            使用MsgPack反序列化(DeserializeObject For MessagePack)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <param name="IsPublic"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.XCore.LinqX.IsInRange(System.Int32,System.Int32,System.Int32)">
