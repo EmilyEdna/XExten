@@ -10,9 +10,9 @@
     <PackageTags>Linq、Expression、Cache、Emit、MSGQueue、XML</PackageTags>
     <RepositoryUrl>https://github.com/EmilyEdna/XExten</RepositoryUrl>
     <PackageReleaseNotes>https://github.com/EmilyEdna/XExten</PackageReleaseNotes>
-    <Version>2.2.0.7</Version>
-    <AssemblyVersion>2.2.0.7</AssemblyVersion>
-    <FileVersion>2.2.0.7</FileVersion>
+    <Version>2.2.0.8</Version>
+    <AssemblyVersion>2.2.0.8</AssemblyVersion>
+    <FileVersion>2.2.0.8</FileVersion>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net461'">

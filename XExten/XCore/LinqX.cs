@@ -584,7 +584,7 @@ namespace XExten.XCore
         {
             try
             {
-                return JsonConvert.DeserializeObject<T>(Param) == null ? (T)JsonConvert.DeserializeObject(Param, typeof(T)) : default;
+                return JsonConvert.DeserializeObject<T>(Param) == null ? (T)JsonConvert.DeserializeObject(Param, typeof(T)) : JsonConvert.DeserializeObject<T>(Param);
             }
             catch (Exception)
             {
