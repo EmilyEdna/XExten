@@ -133,7 +133,20 @@ namespace XExten.Test
         [Fact]
         public void ToSelectDes_Test()
         {
-           var res =  TestC.A.ToSelectDes();
+            var res = TestC.A.ToSelectDes();
+        }
+        [Fact]
+        public void ToMsgByte_Test()
+        {
+            var test = new 
+            {
+                Id = 1,
+                Name = "emily",
+                PassWord = "emily"
+            };
+            var bytes = test.ToMsgByte();
+            var json = bytes.ToMsgJson();
+            var model = bytes.ToMsgModel<object>();
         }
     }
 }

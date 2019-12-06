@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using MessagePack;
+using MessagePack.Resolvers;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -580,9 +582,49 @@ namespace XExten.XCore
         /// <returns></returns>
         public static T ToModel<T>(this String Param)
         {
-            return JsonConvert.DeserializeObject<T>(Param);
+            try
+            {
+                return JsonConvert.DeserializeObject<T>(Param) == null ? (T)JsonConvert.DeserializeObject(Param, typeof(T)) : default;
+            }
+            catch (Exception)
+            {
+                throw new Exception("Deserialize Objcet Exception");
+            }
         }
 
+        /// <summary>
+        /// 使用MsgPack序列化(DeserializeObject For MessagePack)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <param name="IsPublic"></param>
+        /// <returns></returns>
+        public static Byte[] ToMsgByte<T>(this T Param, Boolean IsPublic = true)
+        {
+            return MessagePackSerializer.Serialize<T>(Param, (IsPublic ? ContractlessStandardResolver.Instance : DynamicObjectResolverAllowPrivate.Instance));
+        }
+
+        /// <summary>
+        /// 使用MsgPack序列化为Json(DeserializeObject To Json For MessagePack)
+        /// </summary>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static String ToMsgJson(this Byte[] Param)
+        {
+            return MessagePackSerializer.ToJson(Param);
+        }
+
+        /// <summary>
+        /// 使用MsgPack反序列化(DeserializeObject For MessagePack)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <param name="IsPublic"></param>
+        /// <returns></returns>
+        public static T ToMsgModel<T>(this Byte[] Param, Boolean IsPublic = true)
+        {
+            return MessagePackSerializer.Deserialize<T>(Param, (IsPublic ? ContractlessStandardResolver.Instance : DynamicObjectResolverAllowPrivate.Instance));
+        }
         #endregion Sync
 
         #region Async
@@ -860,6 +902,40 @@ namespace XExten.XCore
         public static async Task<T> ToModelAsync<T>(this String Param)
         {
             return await Task.Run(() => ToModel<T>(Param));
+        }
+
+        /// <summary>
+        /// 使用MsgPack序列化(DeserializeObject For MessagePack)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <param name="IsPublic"></param>
+        /// <returns></returns>
+        public static async Task<Byte[]> ToMsgByteAsync<T>(this T Param, Boolean IsPublic = true)
+        {
+            return await Task.Run(() => ToMsgByte<T>(Param, IsPublic));
+        }
+
+        /// <summary>
+        /// 使用MsgPack序列化为Json(DeserializeObject To Json For MessagePack)
+        /// </summary>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static async Task<String> ToMsgJsonAsync(this Byte[] Param)
+        {
+            return await Task.Run(() => ToMsgJson(Param));
+        }
+
+        /// <summary>
+        /// 使用MsgPack反序列化(DeserializeObject For MessagePack)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Param"></param>
+        /// <param name="IsPublic"></param>
+        /// <returns></returns>
+        public static async Task<T> ToMsgModelAsync<T>(this Byte[] Param, Boolean IsPublic = true)
+        {
+            return await Task.Run(() => ToMsgModel<T>(Param, IsPublic));
         }
 
         #endregion Async

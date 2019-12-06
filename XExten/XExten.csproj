@@ -5,14 +5,14 @@
     <Authors>EmilyEdna</Authors>
     <Product />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>LINQ is extended and modified, and the encapsulation of expression and httpclient is extended. Redis, mongodb, memorycache and other caching mechanisms are supported. Dynamic classes are created through emit, XML is read, protobuf serialization is supported, and simple message queues are supported.</Description>
+    <Description>LINQ is extended and modified, and the encapsulation of expression and httpclient is extended. Redis, mongodb, memorycache and other caching mechanisms are supported. Dynamic classes are created through emit, XML is read, protobuf serialization,MessagePack serialization is supported, and simple message queues are supported.</Description>
     <PackageProjectUrl>https://github.com/EmilyEdna/XExten</PackageProjectUrl>
     <PackageTags>Linq、Expression、Cache、Emit、MSGQueue、XML</PackageTags>
     <RepositoryUrl>https://github.com/EmilyEdna/XExten</RepositoryUrl>
     <PackageReleaseNotes>https://github.com/EmilyEdna/XExten</PackageReleaseNotes>
-    <Version>2.2.0.5</Version>
-    <AssemblyVersion>2.2.0.5</AssemblyVersion>
-    <FileVersion>2.2.0.5</FileVersion>
+    <Version>2.2.0.6</Version>
+    <AssemblyVersion>2.2.0.6</AssemblyVersion>
+    <FileVersion>2.2.0.6</FileVersion>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
@@ -21,8 +21,8 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
-    <PackageReference Include="System.Reflection.Emit" Version="4.3.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.0.0" />
+    <PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.0" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -38,9 +38,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MongoDB.Driver" Version="2.9.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-    <PackageReference Include="protobuf-net" Version="2.4.0" />
+    <PackageReference Include="MessagePack" Version="1.8.80" />
+    <PackageReference Include="MessagePackAnalyzer" Version="1.8.80" />
+    <PackageReference Include="MessagePackAnalyzer" Version="1.8.80" />
+    <PackageReference Include="MongoDB.Driver" Version="2.9.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="protobuf-net" Version="2.4.4" />
     <PackageReference Include="StackExchange.Redis" Version="2.0.601" />
   </ItemGroup>
 
