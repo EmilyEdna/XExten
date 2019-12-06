@@ -1,6 +1,6 @@
 # XExten
 --------------
-#### 针对Linq，Expression，CommonUtil，HttpClient，DynamicType，Redis，MongoDB，RuntimeCache进行了拓展的工具类，支持消息队列，新增了加密类
+#### 对LINQ进行了扩展和修改，扩展了表达式和httpclient的封装。支持Redis、mongodb、memorycache等缓存机制。通过emit创建动态类，读取XML，支持protobuf序列化，支持MessagePack序列化，支持简单的消息队列。
 [![](https://img.shields.io/badge/build-success-brightgreen.svg)](https://github.com/EmilyEdna/XExten)
 [![](https://img.shields.io/badge/nuget-v2.2.0.7-blue.svg)](https://www.nuget.org/packages/XExten/2.2.0.7)
 ![](https://img.shields.io/badge/support-Net461-blue.svg)
