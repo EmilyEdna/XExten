@@ -79,9 +79,21 @@ namespace XExten.Test
         }
 
         [Fact]
-        public void ReadXml_Test() {
-            XPlusEx.ReadXml();
-            var dic = XPlusEx.XmlMap;
+        public void ReadXml_Test()
+        {
+            var dic = XPlusEx.ReadXml();
+        }
+
+        [Fact]
+        public void ReadXml_Test2()
+        {
+            var dic = XPlusEx.ReadXml("Node", "Name", "Email");
+        }
+
+        [Fact]
+        public void QrCode_Test()
+        {
+            var qr = XPlusEx.CreateQRCode("https://www.google.com", 10);
         }
     }
 }

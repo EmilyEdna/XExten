@@ -8,6 +8,9 @@ namespace XExten.MessageQueue
     /// </summary>
     public class QueueDictionary : Dictionary<String, QueueItem>
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public QueueDictionary() : base(StringComparer.OrdinalIgnoreCase)
         {
         }
