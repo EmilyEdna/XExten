@@ -13,6 +13,7 @@
     <Version>2.2.1</Version>
     <AssemblyVersion>2.2.1</AssemblyVersion>
     <FileVersion>2.2.1</FileVersion>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
