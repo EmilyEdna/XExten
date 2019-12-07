@@ -2271,16 +2271,75 @@
             Common Extension Class
             </summary>
         </member>
-        <member name="M:XExten.XPlus.XPlusEx.XTel">
+        <member name="M:XExten.XPlus.XPlusEx.CreateQRCode(System.String,System.Int32)">
             <summary>
-            取一个随机手机号(Return a random phone number)
+            生成二维码
             </summary>
+            <param name="Path">网址</param>
+            <param name="Pixel">像素</param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XPlus.XPlusEx.XVerifyCode">
+        <member name="M:XExten.XPlus.XPlusEx.CreateQRCode(System.String,System.Int32,System.Int32)">
             <summary>
-            创建一个验证吗(Create a verification code)
+            生成二维码
             </summary>
+            <param name="Path">网址</param>
+            <param name="Pixel">像素</param>
+            <param name="ImgType">1：PNG，2：JPEG，3：GIF，不在此区间默认PNG</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.MD5(System.String,System.Int32)">
+            <summary>
+            MD5加密
+            </summary>
+            <param name="Input"></param>
+            <param name="Type">位数：32 16</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.ProtobufDeSerialize``1(System.Byte[])">
+            <summary>
+            使用Protobuf反序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Bytes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.ProtobufSerialize``1(``0)">
+            <summary>
+            使用Protobuf序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Poco"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.ReadXml(System.String,System.String,System.String)">
+            <summary>
+            读取XML内容
+            </summary>
+            <param name="NodeItem">根节点</param>
+            <param name="NodeKey">根节点下Key节点</param>
+            <param name="NodeValue">根节点下Value节点</param>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.RSADecryp(System.String)">
+            <summary>
+            RSA解密
+            </summary>
+            <param name="Input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.RSAEncryp(System.String)">
+            <summary>
+            RSA加密
+            </summary>
+            <param name="Input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.SHA(System.String,System.Int32)">
+            <summary>
+            SHA加密
+            </summary>
+            <param name="Input"></param>
+            <param name="Type">位数：1 256 384 512</param>
             <returns></returns>
         </member>
         <member name="M:XExten.XPlus.XPlusEx.XBarHtml(System.String,System.Int32,System.Int32)">
@@ -2292,11 +2351,64 @@
             <param name="Height"></param>
             <returns></returns>
         </member>
+        <member name="M:XExten.XPlus.XPlusEx.XCompressToBase64(System.String)">
+            <summary>
+            采用Base64编码(LzString)
+            </summary>
+            <param name="Input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.XCompressToEncodedURIComponent(System.String)">
+            <summary>
+            采用URI编码(LzString)
+            </summary>
+            <param name="Input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.XCompressToUTF16(System.String)">
+            <summary>
+            采用UTF16编码(LzString)
+            </summary>
+            <param name="Input"></param>
+            <returns></returns>
+        </member>
         <member name="M:XExten.XPlus.XPlusEx.XConvertCHN(System.Decimal)">
             <summary>
             将小写的金钱转换成大写的金钱(Convert money into Chinese characters)
             </summary>
             <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.XDecompressFromBase64(System.String)">
+            <summary>
+            解析Base64编码(LzString)
+            </summary>
+            <param name="Input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.XDecompressFromEncodedURIComponent(System.String)">
+            <summary>
+            解析URI编码(LzString)
+            </summary>
+            <param name="Input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.XDecompressFromUTF16(System.String)">
+            <summary>
+            解析UTF16编码(LzString)
+            </summary>
+            <param name="Input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.XDistance(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            计算两点GPS坐标的距离（单位：米）
+            Calculate the distance between two GPS coordinates (unit: meter)
+            </summary>
+            <param name="LatStar">第一点的纬度坐标</param>
+            <param name="LngStar">第一点的经度坐标</param>
+            <param name="LatEnd">第二点的纬度坐标</param>
+            <param name="LngEnd">第二点的经度坐标</param>
             <returns></returns>
         </member>
         <member name="M:XExten.XPlus.XPlusEx.XFilterStr(System.String,System.Text.RegularExpressions.Regex)">
@@ -2325,120 +2437,16 @@
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XPlus.XPlusEx.ReadXml(System.String,System.String,System.String)">
+        <member name="M:XExten.XPlus.XPlusEx.XTel">
             <summary>
-            读取XML内容
+            取一个随机手机号(Return a random phone number)
             </summary>
-            <param name="NodeItem">根节点</param>
-            <param name="NodeKey">根节点下Key节点</param>
-            <param name="NodeValue">根节点下Value节点</param>
-        </member>
-        <member name="M:XExten.XPlus.XPlusEx.XDistance(System.Double,System.Double,System.Double,System.Double)">
-            <summary>
-            计算两点GPS坐标的距离（单位：米）
-            Calculate the distance between two GPS coordinates (unit: meter)
-            </summary>
-            <param name="LatStar">第一点的纬度坐标</param>
-            <param name="LngStar">第一点的经度坐标</param>
-            <param name="LatEnd">第二点的纬度坐标</param>
-            <param name="LngEnd">第二点的经度坐标</param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XPlus.XPlusEx.XCompressToBase64(System.String)">
+        <member name="M:XExten.XPlus.XPlusEx.XVerifyCode">
             <summary>
-            采用Base64编码(LzString)
+            创建一个验证吗(Create a verification code)
             </summary>
-            <param name="Input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XPlus.XPlusEx.XDecompressFromBase64(System.String)">
-            <summary>
-            解析Base64编码(LzString)
-            </summary>
-            <param name="Input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XPlus.XPlusEx.XCompressToUTF16(System.String)">
-            <summary>
-            采用UTF16编码(LzString)
-            </summary>
-            <param name="Input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XPlus.XPlusEx.XDecompressFromUTF16(System.String)">
-            <summary>
-            解析UTF16编码(LzString)
-            </summary>
-            <param name="Input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XPlus.XPlusEx.XCompressToEncodedURIComponent(System.String)">
-            <summary>
-            采用URI编码(LzString)
-            </summary>
-            <param name="Input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XPlus.XPlusEx.XDecompressFromEncodedURIComponent(System.String)">
-            <summary>
-            解析URI编码(LzString)
-            </summary>
-            <param name="Input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XPlus.XPlusEx.MD5(System.String,System.Int32)">
-            <summary>
-            MD5加密
-            </summary>
-            <param name="Input"></param>
-            <param name="Type">位数：32 16</param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XPlus.XPlusEx.SHA(System.String,System.Int32)">
-            <summary>
-            SHA加密
-            </summary>
-            <param name="Input"></param>
-            <param name="Type">位数：1 256 384 512</param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XPlus.XPlusEx.RSAEncryp(System.String)">
-            <summary>
-            RSA加密
-            </summary>
-            <param name="Input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XPlus.XPlusEx.RSADecryp(System.String)">
-            <summary>
-            RSA解密
-            </summary>
-            <param name="Input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XPlus.XPlusEx.ProtobufSerialize``1(``0)">
-            <summary>
-            使用Protobuf序列化
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="Poco"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XPlus.XPlusEx.ProtobufDeSerialize``1(System.Byte[])">
-            <summary>
-            使用Protobuf反序列化
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="Bytes"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XPlus.XPlusEx.CreateQRCode(System.String,System.Int32,System.Int32)">
-            <summary>
-            生成二维码
-            </summary>
-            <param name="Path">网址</param>
-            <param name="Pixel">像素</param>
-            <param name="ImgType">1：PNG，2：JPEG，3：GIF，不在此区间默认PNG</param>
             <returns></returns>
         </member>
     </members>

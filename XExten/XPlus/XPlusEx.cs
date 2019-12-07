@@ -35,7 +35,6 @@ namespace XExten.XPlus
             QRCodeData CodeData = Generator.CreateQrCode(HttpUtility.UrlEncode(Path), QRCodeGenerator.ECCLevel.Q);
             using QRCode Code = new QRCode(CodeData);
             return Code.GetGraphic(Pixel, Color.Black, Color.White, true);
-
         }
 
         /// <summary>
