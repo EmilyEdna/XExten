@@ -24,23 +24,25 @@
             缓存类型为MongoDB是必填
             </summary>
         </member>
-        <member name="M:XExten.CacheFactory.Caches.RunTimeCacheSet``1(System.String,``0,System.Int32)">
+        <member name="M:XExten.CacheFactory.Caches.RunTimeCacheSet``1(System.String,``0,System.Int32,System.Boolean)">
             <summary>
             添加Memory缓存
             </summary>
             <typeparam name="T"></typeparam>
             <param name="key"></param>
             <param name="value"></param>
-            <param name="Minutes"></param>
+            <param name="MinutesOrSecond"></param>
+            <param name="UseSecond"></param>
         </member>
-        <member name="M:XExten.CacheFactory.Caches.RedisCacheSet``1(System.String,``0,System.Int32)">
+        <member name="M:XExten.CacheFactory.Caches.RedisCacheSet``1(System.String,``0,System.Int32,System.Boolean)">
             <summary>
             添加Redis缓存
             </summary>
             <typeparam name="T"></typeparam>
             <param name="key"></param>
             <param name="value"></param>
-            <param name="Minutes"></param>
+            <param name="MinutesOrSecond"></param>
+            <param name="UseSecond"></param>
         </member>
         <member name="M:XExten.CacheFactory.Caches.MongoDBCacheSet``1(``0)">
             <summary>
@@ -100,23 +102,27 @@
             <typeparam name="T"></typeparam>
             <param name="Exp"></param>
         </member>
-        <member name="M:XExten.CacheFactory.Caches.RunTimeCacheSetAsync``1(System.String,``0,System.Int32)">
+        <member name="M:XExten.CacheFactory.Caches.RunTimeCacheSetAsync``1(System.String,``0,System.Int32,System.Boolean)">
             <summary>
             添加Memory缓存
             </summary>
             <typeparam name="T"></typeparam>
             <param name="key"></param>
             <param name="value"></param>
-            <param name="Minutes"></param>
+            <param name="MinutesOrSecond"></param>
+            <param name="UseSecond"></param>
+            <returns></returns>
         </member>
-        <member name="M:XExten.CacheFactory.Caches.RedisCacheSetAsync``1(System.String,``0,System.Int32)">
+        <member name="M:XExten.CacheFactory.Caches.RedisCacheSetAsync``1(System.String,``0,System.Int32,System.Boolean)">
             <summary>
             添加Redis缓存
             </summary>
             <typeparam name="T"></typeparam>
             <param name="key"></param>
             <param name="value"></param>
-            <param name="Minutes"></param>
+            <param name="MinutesOrSecond"></param>
+            <param name="UseSecond"></param>
+            <returns></returns>
         </member>
         <member name="M:XExten.CacheFactory.Caches.MongoDBCacheSetAsync``1(``0)">
             <summary>
@@ -837,10 +843,15 @@
             
              </summary>
         </member>
-        <member name="M:XExten.CacheFactory.RunTimeCache.MemoryCaches.AddCache``1(System.String,``0,System.Int32)">
+        <member name="M:XExten.CacheFactory.RunTimeCache.MemoryCaches.AddCache``1(System.String,``0,System.Int32,System.Boolean)">
             <summary>
             添加缓存
             </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Key"></param>
+            <param name="Value"></param>
+            <param name="Time"></param>
+            <param name="UseSecond"></param>
         </member>
         <member name="M:XExten.CacheFactory.RunTimeCache.MemoryCaches.GetCache``1(System.String)">
             <summary>
