@@ -49,10 +49,11 @@ namespace XExten.CacheFactory
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        /// <param name="Minutes"></param>
-        public static void RunTimeCacheSet<T>(string key, T value, int Minutes = 5)
+        /// <param name="MinutesOrSecond"></param>
+        /// <param name="UseSecond"></param>
+        public static void RunTimeCacheSet<T>(string key, T value, int MinutesOrSecond = 5, bool UseSecond = false)
         {
-            MemoryCaches.AddCache<T>(key, value, Minutes);
+            MemoryCaches.AddCache<T>(key, value, MinutesOrSecond, UseSecond);
         }
 
         /// <summary>
@@ -61,10 +62,11 @@ namespace XExten.CacheFactory
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        /// <param name="Minutes"></param>
-        public static void RedisCacheSet<T>(string key, T value, int Minutes = 5)
+        /// <param name="MinutesOrSecond"></param>
+        /// <param name="UseSecond"></param>
+        public static void RedisCacheSet<T>(string key, T value, int MinutesOrSecond = 5, bool UseSecond = false)
         {
-            RedisCaches.StringSet<T>(key, value, (DateTime.Now.AddMinutes(Minutes) - DateTime.Now));
+            RedisCaches.StringSet<T>(key, value, (UseSecond ? (DateTime.Now.AddSeconds(MinutesOrSecond) - DateTime.Now) : (DateTime.Now.AddMinutes(MinutesOrSecond) - DateTime.Now)));
         }
 
         /// <summary>
@@ -159,10 +161,12 @@ namespace XExten.CacheFactory
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        /// <param name="Minutes"></param>
-        public static async Task RunTimeCacheSetAsync<T>(string key, T value, int Minutes = 5)
+        /// <param name="MinutesOrSecond"></param>
+        /// <param name="UseSecond"></param>
+        /// <returns></returns>
+        public static async Task RunTimeCacheSetAsync<T>(string key, T value, int MinutesOrSecond = 5, bool UseSecond = false)
         {
-            await Task.Run(() => RunTimeCacheSet(key, value, Minutes));
+            await Task.Run(() => RunTimeCacheSet(key, value, MinutesOrSecond, UseSecond));
         }
 
         /// <summary>
@@ -171,10 +175,12 @@ namespace XExten.CacheFactory
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        /// <param name="Minutes"></param>
-        public static async Task RedisCacheSetAsync<T>(string key, T value, int Minutes = 5)
+        /// <param name="MinutesOrSecond"></param>
+        /// <param name="UseSecond"></param>
+        /// <returns></returns>
+        public static async Task RedisCacheSetAsync<T>(string key, T value, int MinutesOrSecond = 5, bool UseSecond = false)
         {
-            await RedisCaches.StringSetAsync<T>(key, value, (DateTime.Now.AddMinutes(Minutes) - DateTime.Now));
+            await RedisCaches.StringSetAsync<T>(key, value, (UseSecond ? (DateTime.Now.AddSeconds(MinutesOrSecond) - DateTime.Now) : (DateTime.Now.AddMinutes(MinutesOrSecond) - DateTime.Now)));
         }
 
         /// <summary>

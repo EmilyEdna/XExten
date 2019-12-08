@@ -24,12 +24,17 @@ namespace XExten.CacheFactory.RunTimeCache
         /// <summary>
         /// 添加缓存
         /// </summary>
-        public static void AddCache<T>(String Key, T Value, int Time)
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Key"></param>
+        /// <param name="Value"></param>
+        /// <param name="Time"></param>
+        /// <param name="UseSecond"></param>
+        public static void AddCache<T>(String Key, T Value, int Time, bool UseSecond = false)
         {
 #if NET461
-            HttpRuntime.Cache.Insert(Key, Value, null, DateTime.Now.AddMinutes(Time), Cache.NoSlidingExpiration, CacheItemPriority.Default, null);
+            HttpRuntime.Cache.Insert(Key, Value, null,(UseSecond? DateTime.Now.AddSeconds(Time) : DateTime.Now.AddMinutes(Time)), Cache.NoSlidingExpiration, CacheItemPriority.Default, null);
 #elif NETSTANDARD2_1
-            Cache.Set(Key, Value, new DateTimeOffset(DateTime.Now.AddMinutes(Time)));
+            Cache.Set(Key, Value, new DateTimeOffset((UseSecond ? DateTime.Now.AddSeconds(Time) : DateTime.Now.AddMinutes(Time))));
 #endif
         }
 
