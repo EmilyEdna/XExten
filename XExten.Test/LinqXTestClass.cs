@@ -95,8 +95,20 @@ namespace XExten.Test
         [Fact]
         public void ToOver_Test()
         {
-            List<TestA> Li = new List<TestA>();
-            Li.ToOver(t => t.Name);
+            var T = new TestA
+            {
+                Id = 1,
+                Name = "张三",
+                PassWord = "123"
+            };
+            var T1 = new TestA
+            {
+                Id = 1,
+                Name = "李四",
+                PassWord = "123"
+            };
+            List<TestA> Li = new List<TestA>() { T,T1 };
+            var res = Li.ToOver(t => t.Name);
         }
 
         [Fact]
@@ -138,7 +150,7 @@ namespace XExten.Test
         [Fact]
         public void ToMsgByte_Test()
         {
-            var test = new 
+            var test = new
             {
                 Id = 1,
                 Name = "emily",

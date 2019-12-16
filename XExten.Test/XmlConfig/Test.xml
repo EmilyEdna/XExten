@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Base>
   <Item>
-    <Key><![CDATA[hello]]></Key>
-    <Value><![CDATA[my name is lee]]></Value>
+    <Key><![CDATA[Hellp]]></Key>
+    <Value><![CDATA[My Name Is EmilyEdna]]></Value>
   </Item>
   <Node>
-    <Name><![CDATA[EdnaEmily]]></Name>
+    <Name><![CDATA[EmilyEdna]]></Name>
     <Email><![CDATA[847432003@qq.com]]></Email>
   </Node>
 </Base>

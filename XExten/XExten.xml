@@ -2282,7 +2282,7 @@
             Common Extension Class
             </summary>
         </member>
-        <member name="M:XExten.XPlus.XPlusEx.CreateQRCode(System.String,System.Int32)">
+        <member name="M:XExten.XPlus.XPlusEx.XCreateQRCode(System.String,System.Int32)">
             <summary>
             生成二维码
             </summary>
@@ -2290,7 +2290,7 @@
             <param name="Pixel">像素</param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XPlus.XPlusEx.CreateQRCode(System.String,System.Int32,System.Int32)">
+        <member name="M:XExten.XPlus.XPlusEx.XCreateQRCode(System.String,System.Int32,System.Int32)">
             <summary>
             生成二维码
             </summary>
@@ -2299,7 +2299,7 @@
             <param name="ImgType">1：PNG，2：JPEG，3：GIF，不在此区间默认PNG</param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XPlus.XPlusEx.MD5(System.String,System.Int32)">
+        <member name="M:XExten.XPlus.XPlusEx.XMD5(System.String,System.Int32)">
             <summary>
             MD5加密
             </summary>
@@ -2307,7 +2307,7 @@
             <param name="Type">位数：32 16</param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XPlus.XPlusEx.ProtobufDeSerialize``1(System.Byte[])">
+        <member name="M:XExten.XPlus.XPlusEx.XProtobufDeSerialize``1(System.Byte[])">
             <summary>
             使用Protobuf反序列化
             </summary>
@@ -2315,7 +2315,7 @@
             <param name="Bytes"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XPlus.XPlusEx.ProtobufSerialize``1(``0)">
+        <member name="M:XExten.XPlus.XPlusEx.XProtobufSerialize``1(``0)">
             <summary>
             使用Protobuf序列化
             </summary>
@@ -2323,7 +2323,7 @@
             <param name="Poco"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XPlus.XPlusEx.ReadXml(System.String,System.String,System.String)">
+        <member name="M:XExten.XPlus.XPlusEx.XReadXml(System.String,System.String,System.String)">
             <summary>
             读取XML内容
             </summary>
@@ -2331,21 +2331,21 @@
             <param name="NodeKey">根节点下Key节点</param>
             <param name="NodeValue">根节点下Value节点</param>
         </member>
-        <member name="M:XExten.XPlus.XPlusEx.RSADecryp(System.String)">
+        <member name="M:XExten.XPlus.XPlusEx.XRSADecryp(System.String)">
             <summary>
             RSA解密
             </summary>
             <param name="Input"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XPlus.XPlusEx.RSAEncryp(System.String)">
+        <member name="M:XExten.XPlus.XPlusEx.XRSAEncryp(System.String)">
             <summary>
             RSA加密
             </summary>
             <param name="Input"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XPlus.XPlusEx.SHA(System.String,System.Int32)">
+        <member name="M:XExten.XPlus.XPlusEx.XSHA(System.String,System.Int32)">
             <summary>
             SHA加密
             </summary>
@@ -2458,6 +2458,13 @@
             <summary>
             创建一个验证吗(Create a verification code)
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.XIsChineseStr(System.String)">
+            <summary>
+            检查字符串是否有中文字符
+            </summary>
+            <param name="Param"></param>
             <returns></returns>
         </member>
     </members>

@@ -622,6 +622,7 @@ namespace XExten.XCore
                 return new Regex(@"\\u([0-9A-F]{4})", RegexOptions.IgnoreCase | RegexOptions.Compiled)
                       .Replace(Param, x => String.Empty + Convert.ToChar(Convert.ToUInt16(x.Result("$1"), 16)));
         }
+
         /// <summary>
         ///  替换实体中的数据并将其作为UTF8返回(Replace the data in the entity and return it as UTF8)
         /// </summary>
@@ -642,6 +643,7 @@ namespace XExten.XCore
             });
             return Param;
         }
+
         /// <summary>
         /// 返回实体中所有的字段值(Returns all Property Values in an entity)
         /// </summary>

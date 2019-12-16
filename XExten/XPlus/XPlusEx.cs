@@ -29,7 +29,7 @@ namespace XExten.XPlus
         /// <param name="Path">网址</param>
         /// <param name="Pixel">像素</param>
         /// <returns></returns>
-        public static Bitmap CreateQRCode(string Path, int Pixel)
+        public static Bitmap XCreateQRCode(string Path, int Pixel)
         {
             QRCodeGenerator Generator = new QRCodeGenerator();
             QRCodeData CodeData = Generator.CreateQrCode(HttpUtility.UrlEncode(Path), QRCodeGenerator.ECCLevel.Q);
@@ -44,7 +44,7 @@ namespace XExten.XPlus
         /// <param name="Pixel">像素</param>
         /// <param name="ImgType">1：PNG，2：JPEG，3：GIF，不在此区间默认PNG</param>
         /// <returns></returns>
-        public static string CreateQRCode(string Path, int Pixel, int ImgType = 1)
+        public static string XCreateQRCode(string Path, int Pixel, int ImgType = 1)
         {
             QRCodeGenerator Generator = new QRCodeGenerator();
             QRCodeData CodeData = Generator.CreateQrCode(HttpUtility.UrlEncode(Path), QRCodeGenerator.ECCLevel.Q);
@@ -64,7 +64,7 @@ namespace XExten.XPlus
         /// <param name="Input"></param>
         /// <param name="Type">位数：32 16</param>
         /// <returns></returns>
-        public static string MD5(string Input, int Type = 32)
+        public static string XMD5(string Input, int Type = 32)
         {
             if (Type != 32 && Type != 16)
                 return "Please enter the MD5 encryption digits,for example：16、32";
@@ -77,7 +77,7 @@ namespace XExten.XPlus
         /// <typeparam name="T"></typeparam>
         /// <param name="Bytes"></param>
         /// <returns></returns>
-        public static T ProtobufDeSerialize<T>(byte[] Bytes)
+        public static T XProtobufDeSerialize<T>(byte[] Bytes)
         {
             try
             {
@@ -103,7 +103,7 @@ namespace XExten.XPlus
         /// <typeparam name="T"></typeparam>
         /// <param name="Poco"></param>
         /// <returns></returns>
-        public static byte[] ProtobufSerialize<T>(T Poco)
+        public static byte[] XProtobufSerialize<T>(T Poco)
         {
             try
             {
@@ -133,7 +133,7 @@ namespace XExten.XPlus
         /// <param name="NodeItem">根节点</param>
         /// <param name="NodeKey">根节点下Key节点</param>
         /// <param name="NodeValue">根节点下Value节点</param>
-        public static Dictionary<String, String> ReadXml(string NodeItem = null, string NodeKey = null, string NodeValue = null)
+        public static Dictionary<String, String> XReadXml(string NodeItem = null, string NodeKey = null, string NodeValue = null)
         {
             Dictionary<String, String> XmlMap = new Dictionary<String, String>();
             string XmlPath = Directory.GetDirectories(Directory.GetCurrentDirectory()).Where(t => t.ToLower().Contains("xml")).FirstOrDefault();
@@ -161,7 +161,7 @@ namespace XExten.XPlus
         /// </summary>
         /// <param name="Input"></param>
         /// <returns></returns>
-        public static string RSADecryp(string Input)
+        public static string XRSADecryp(string Input)
         {
             return RSAEncryption.RSADecrypt(Input);
         }
@@ -171,7 +171,7 @@ namespace XExten.XPlus
         /// </summary>
         /// <param name="Input"></param>
         /// <returns></returns>
-        public static string RSAEncryp(string Input)
+        public static string XRSAEncryp(string Input)
         {
             return RSAEncryption.RSAEncrypt(Input);
         }
@@ -182,7 +182,7 @@ namespace XExten.XPlus
         /// <param name="Input"></param>
         /// <param name="Type">位数：1 256 384 512</param>
         /// <returns></returns>
-        public static string SHA(string Input, int Type = 1)
+        public static string XSHA(string Input, int Type = 1)
         {
             if (Type != 1 && Type != 256 && Type != 384 && Type != 512)
                 return "Please enter the number of SHA encryption bits, for example：1、256、384、512";
@@ -212,7 +212,7 @@ namespace XExten.XPlus
         /// <param name="Width"></param>
         /// <param name="Height"></param>
         /// <returns></returns>
-        public static String XBarHtml(String Param, int Width, int Height)
+        public static string XBarHtml(string Param, int Width, int Height)
         {
             Hashtable Has = new Hashtable();
 
@@ -421,7 +421,7 @@ namespace XExten.XPlus
         /// <param name="Param"></param>
         /// <param name="regex"></param>
         /// <returns></returns>
-        public static bool XFilterStr(String Param, Regex regex)
+        public static bool XFilterStr(string Param, Regex regex)
         {
             return regex.IsMatch(Param);
         }
@@ -432,7 +432,7 @@ namespace XExten.XPlus
         /// <typeparam name="T"></typeparam>
         /// <param name="Xml"></param>
         /// <returns></returns>
-        public static T XmlDeserialize<T>(String Xml)
+        public static T XmlDeserialize<T>(string Xml)
         {
             using (StringReader reader = new StringReader(Xml))
             {
@@ -473,7 +473,7 @@ namespace XExten.XPlus
         /// 取一个随机手机号(Return a random phone number)
         /// </summary>
         /// <returns></returns>
-        public static String XTel()
+        public static string XTel()
         {
             String[] PhonesHost = "134,135,136,137,138,139,150,151,152,157,158,159,130,131,132,155,156,133,153,180,181,182,183,185,186,176,187,188,189,177,178".Split(',');
             Random random = new Random();
@@ -485,7 +485,7 @@ namespace XExten.XPlus
         /// 创建一个验证吗(Create a verification code)
         /// </summary>
         /// <returns></returns>
-        public static String XVerifyCode()
+        public static string XVerifyCode()
         {
             char[] CharArray ={
                 '1','2','3','4','5','6','7','8','9',
@@ -510,6 +510,16 @@ namespace XExten.XPlus
                 randomNum += CharArray[t];
             }
             return randomNum;
+        }
+
+        /// <summary>
+        /// 检查字符串是否有中文字符
+        /// </summary>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static bool XIsChineseStr(string Param)
+        {
+            return Param.ToArray().Any(item => (int)item > 127);
         }
         #endregion Func
     }

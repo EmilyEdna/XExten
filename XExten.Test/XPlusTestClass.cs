@@ -34,7 +34,7 @@ namespace XExten.Test
         [Fact]
         public void XCompressToBase64AndXDeCompressToBase64_Test()
         {
-            string text = "中国的崛起!";
+            string text = "张三!";
             var res = XPlusEx.XCompressToBase64(text);
             string defaults = XPlusEx.XDecompressFromBase64(res);
         }
@@ -42,7 +42,7 @@ namespace XExten.Test
         [Fact]
         public void XCompressToUTF16AndXDecompressFromUTF16_Test()
         {
-            string text = "中国的崛起!";
+            string text = "张三!";
             var res = XPlusEx.XCompressToUTF16(text);
             string defaults = XPlusEx.XDecompressFromUTF16(res);
         }
@@ -50,50 +50,57 @@ namespace XExten.Test
         [Fact]
         public void XEncodedURIAndXDencodedURI_Test()
         {
-            string text = "中国的崛起!";
+            string text = "张三!";
             var res = XPlusEx.XCompressToEncodedURIComponent(text);
             string defaults = XPlusEx.XDecompressFromEncodedURIComponent(res);
         }
 
         [Fact]
-        public void MD5_Test()
+        public void XMD5_Test()
         {
-            string text = "中国的崛起!";
-            var res32 = XPlusEx.MD5(text);
-            var res16 = XPlusEx.MD5(text, 16);
+            string text = "张三!";
+            var res32 = XPlusEx.XMD5(text);
+            var res16 = XPlusEx.XMD5(text, 16);
         }
 
         [Fact]
-        public void SHA_Test()
+        public void XSHA_Test()
         {
-            string text = "中国的崛起!";
-            var res32 = XPlusEx.SHA(text);
+            string text = "张三!";
+            var res32 = XPlusEx.XSHA(text);
         }
 
         [Fact]
-        public void ProtoBuf_Test()
+        public void XProtoBuf_Test()
         {
             TestB t = new TestB() { Account = "张三", Id = 1, Name = "李四" };
-            var data = XPlusEx.ProtobufSerialize(t);
-            var reslt = XPlusEx.ProtobufDeSerialize<TestB>(data);
+            var data = XPlusEx.XProtobufSerialize(t);
+            var reslt = XPlusEx.XProtobufDeSerialize<TestB>(data);
         }
 
         [Fact]
-        public void ReadXml_Test()
+        public void XReadXml_Test()
         {
-            var dic = XPlusEx.ReadXml();
+            var dic = XPlusEx.XReadXml();
         }
 
         [Fact]
-        public void ReadXml_Test2()
+        public void XReadXml_Test2()
         {
-            var dic = XPlusEx.ReadXml("Node", "Name", "Email");
+            var dic = XPlusEx.XReadXml("Node", "Name", "Email");
         }
 
         [Fact]
-        public void QrCode_Test()
+        public void XQrCode_Test()
         {
-            var qr = XPlusEx.CreateQRCode("https://www.google.com", 10);
+            var qr = XPlusEx.XCreateQRCode("https://www.google.com", 10);
+        }
+
+        [Fact]
+        public void IsChineseCode()
+        {
+            string text = "张三!";
+            var res = XPlusEx.XIsChineseStr(text);
         }
     }
 }
