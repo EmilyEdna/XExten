@@ -7,11 +7,21 @@ using XExten.HttpFactory.MultiInterface;
 
 namespace XExten.HttpFactory.MultiImplement
 {
+    /// <summary>
+    /// URL
+    /// </summary>
     public class Node : INode
     {
+        internal IHeaders Headers;
+        internal IHeaders Cookies;
+        public Node() { 
+        
+        }
+
+
         public INode AddUrl(string Path)
         {
-            throw new NotImplementedException();
+            Uri uri = new Uri(Path)
         }
 
         public ICookies Cookie(string name, string value)

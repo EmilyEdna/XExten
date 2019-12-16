@@ -17,6 +17,7 @@ namespace XExten.HttpFactory
     {
         public static List<HttpClient> Factory = new List<HttpClient>();
         public static List<CookieContainer> Container = new List<CookieContainer>();
+        public static List<Uri> Uris = new List<Uri>();
         internal IHeaders HeadersInstance = null;
         internal ICookies CookiesInstance = null;
         /// <summary>
@@ -107,5 +108,17 @@ namespace XExten.HttpFactory
             return CookiesInstance;
         }
         #endregion Cookie
+
+        #region URL
+        /// <summary>
+        /// Add Path
+        /// </summary>
+        /// <param name="Path"></param>
+        /// <returns></returns>
+        public INode Nodes(string Path) {
+            Uris.Add(new Uri(Path));
+            return new Node();
+        }
+        #endregion
     }
 }
