@@ -12,6 +12,25 @@ namespace XExten.HttpFactory.MultiInterface
     public interface ICookies
     {
         /// <summary>
+        /// Add URL
+        /// </summary>
+        /// <param name="Path"></param>
+        /// <returns></returns>
+        INode AddUrl(string Path);
+        /// <summary>
+        /// Add Header
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        IHeaders Header(string key, string value);
+        /// <summary>
+        /// Add Header
+        /// </summary>
+        /// <param name="headers"></param>
+        /// <returns></returns>
+        IHeaders Header(Dictionary<string, string> headers);
+        /// <summary>
         /// Add Cookie
         /// </summary>
         /// <param name="name"></param>

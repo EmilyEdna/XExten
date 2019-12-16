@@ -12,6 +12,12 @@ namespace XExten.HttpFactory.MultiInterface
     public interface IHeaders
     {
         /// <summary>
+        /// Add URL
+        /// </summary>
+        /// <param name="Path"></param>
+        /// <returns></returns>
+        INode AddUrl(string Path);
+        /// <summary>
         /// Add Header
         /// </summary>
         /// <param name="key"></param>
@@ -27,12 +33,26 @@ namespace XExten.HttpFactory.MultiInterface
         /// <summary>
         /// Add Cookie
         /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
-        ICookies Cookie();
+        ICookies Cookie(string name, string value);
         /// <summary>
-        /// Add Path
+        /// Add Cookie
         /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <param name="path"></param>
         /// <returns></returns>
-        INode Node();
+        ICookies Cookie(string name, string value, string path);
+        /// <summary>
+        /// Add Cookie
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <param name="path"></param>
+        /// <param name="domain"></param>
+        /// <returns></returns>
+        ICookies Cookie(string name, string value, string path, string domain);
     }
 }

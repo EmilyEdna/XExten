@@ -15,8 +15,10 @@ namespace XExten.HttpFactory
     /// </summary>
     public class HttpMultiClient
     {
-        internal HttpClient Client;
-
+        public static List<HttpClient> Factory = new List<HttpClient>();
+        public static List<CookieContainer> Container = new List<CookieContainer>();
+        internal IHeaders HeadersInstance = null;
+        internal ICookies CookiesInstance = null;
         /// <summary>
         /// Instance
         /// </summary>
@@ -26,7 +28,7 @@ namespace XExten.HttpFactory
         /// </summary>
         public HttpMultiClient()
         {
-            Client = new HttpClient();
+            Factory.Add(new HttpClient());
         }
 
         #region Header
@@ -38,21 +40,23 @@ namespace XExten.HttpFactory
         /// <returns></returns>
         public IHeaders Headers(string key, string value)
         {
-            Client.DefaultRequestHeaders.Add(key, value);
-            return new Headers(Client);
+            Factory.FirstOrDefault().DefaultRequestHeaders.Add(key, value);
+            HeadersInstance = new Headers(CookiesInstance ?? new Cookies(new CookieContainer()));
+            return HeadersInstance;
         }
         /// <summary>
         /// Add Header
         /// </summary>
         /// <param name="headers"></param>
         /// <returns></returns>
-        public IHeaders Headers(Dictionary<string,string> headers)
+        public IHeaders Headers(Dictionary<string, string> headers)
         {
             foreach (var item in headers)
             {
-                Client.DefaultRequestHeaders.Add(item.Key, item.Value);
+                Factory.FirstOrDefault().DefaultRequestHeaders.Add(item.Key, item.Value);
             }
-            return new Headers(Client);
+            HeadersInstance = new Headers(CookiesInstance?? new Cookies(new CookieContainer()));
+            return HeadersInstance;
         }
         #endregion Header
 
@@ -63,11 +67,13 @@ namespace XExten.HttpFactory
         /// <param name="name"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public ICookies Cookies(string name,string value) {
-            CookieContainer Container = new CookieContainer();
-            Cookie Cookie = new Cookie(name,value);
-            Container.Add(Cookie);
-            return new Cookies(Container);
+        public ICookies Cookies(string name, string value)
+        {
+            Container .Add(new CookieContainer());
+            Cookie Cookie = new Cookie(name, value);
+            Container.FirstOrDefault().Add(Cookie);
+            CookiesInstance = new Cookies(HeadersInstance ?? new Headers());
+            return CookiesInstance;
         }
         /// <summary>
         /// Add Cookie
@@ -78,10 +84,11 @@ namespace XExten.HttpFactory
         /// <returns></returns>
         public ICookies Cookies(string name, string value, string path)
         {
-            CookieContainer Container = new CookieContainer();
+            Container.Add(new CookieContainer());
             Cookie Cookie = new Cookie(name, value, path);
-            Container.Add(Cookie);
-            return new Cookies(Container);
+            Container.FirstOrDefault().Add(Cookie);
+            CookiesInstance = new Cookies(HeadersInstance ?? new Headers());
+            return CookiesInstance;
         }
         /// <summary>
         /// Add Cookie
@@ -93,10 +100,11 @@ namespace XExten.HttpFactory
         /// <returns></returns>
         public ICookies Cookies(string name, string value, string path, string domain)
         {
-            CookieContainer Container = new CookieContainer();
+            Container.Add(new CookieContainer());
             Cookie Cookie = new Cookie(name, value, path, domain);
-            Container.Add(Cookie);
-            return new Cookies(Container);
+            Container.FirstOrDefault().Add(Cookie);
+            CookiesInstance = new Cookies(HeadersInstance ?? new Headers());
+            return CookiesInstance;
         }
         #endregion Cookie
     }
