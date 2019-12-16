@@ -15,8 +15,9 @@ namespace XExten.HttpFactory.MultiInterface
         /// Add URL
         /// </summary>
         /// <param name="Path"></param>
+        /// <param name="Weight"></param>
         /// <returns></returns>
-        INode AddUrl(string Path);
+        INode AddNode(string Path, int Weight = 50);
         /// <summary>
         /// Add Header
         /// </summary>

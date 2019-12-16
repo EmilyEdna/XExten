@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -17,7 +18,7 @@ namespace XExten.HttpFactory
     {
         public static List<HttpClient> Factory = new List<HttpClient>();
         public static List<CookieContainer> Container = new List<CookieContainer>();
-        public static List<Uri> Uris = new List<Uri>();
+        public static ConcurrentDictionary<string, Uri> UriMap = new ConcurrentDictionary<string, Uri>();
         internal IHeaders HeadersInstance = null;
         internal ICookies CookiesInstance = null;
         /// <summary>
@@ -42,7 +43,7 @@ namespace XExten.HttpFactory
         public IHeaders Headers(string key, string value)
         {
             Factory.FirstOrDefault().DefaultRequestHeaders.Add(key, value);
-            HeadersInstance = new Headers(CookiesInstance ?? new Cookies(new CookieContainer()));
+            HeadersInstance = new Headers(CookiesInstance ?? new Cookies());
             return HeadersInstance;
         }
         /// <summary>
@@ -56,7 +57,7 @@ namespace XExten.HttpFactory
             {
                 Factory.FirstOrDefault().DefaultRequestHeaders.Add(item.Key, item.Value);
             }
-            HeadersInstance = new Headers(CookiesInstance?? new Cookies(new CookieContainer()));
+            HeadersInstance = new Headers(CookiesInstance ?? new Cookies());
             return HeadersInstance;
         }
         #endregion Header
@@ -70,7 +71,7 @@ namespace XExten.HttpFactory
         /// <returns></returns>
         public ICookies Cookies(string name, string value)
         {
-            Container .Add(new CookieContainer());
+            Container.Add(new CookieContainer());
             Cookie Cookie = new Cookie(name, value);
             Container.FirstOrDefault().Add(Cookie);
             CookiesInstance = new Cookies(HeadersInstance ?? new Headers());
@@ -114,9 +115,12 @@ namespace XExten.HttpFactory
         /// Add Path
         /// </summary>
         /// <param name="Path"></param>
+        /// <param name="Weight">1~100区间</param>
         /// <returns></returns>
-        public INode Nodes(string Path) {
-            Uris.Add(new Uri(Path));
+        public INode AddNode(string Path, int Weight = 50)
+        {
+            if (!UriMap.ContainsKey(Path + 50))
+                UriMap.TryAdd(Path + Weight, new Uri(Path));
             return new Node();
         }
         #endregion

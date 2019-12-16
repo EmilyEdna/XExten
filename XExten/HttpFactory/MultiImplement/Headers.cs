@@ -17,15 +17,16 @@ namespace XExten.HttpFactory.MultiImplement
     {
         internal HttpClient ClientHeader;
         internal ICookies Cookies;
+        internal INode Nodes;
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="Client"></param>
         /// <param name="Cookie"></param>
         public Headers(ICookies Cookie)
         {
             ClientHeader = HttpMultiClient.Factory.FirstOrDefault();
             Cookies = Cookie;
+            Nodes = new Node();
         }
         /// <summary>
         /// Constructor
@@ -34,6 +35,7 @@ namespace XExten.HttpFactory.MultiImplement
         {
             ClientHeader = HttpMultiClient.Factory.FirstOrDefault();
             Cookies = new Cookies();
+            Nodes = new Node();
         }
 
         /// <summary>
@@ -98,9 +100,15 @@ namespace XExten.HttpFactory.MultiImplement
             return Cookies.Cookie(name, value, path, domain);
         }
 
-        public INode AddUrl(string Path)
+        /// <summary>
+        /// AddUri
+        /// </summary>
+        /// <param name="Path"></param>
+        /// <param name="Weight"></param>
+        /// <returns></returns>
+        public INode AddNode(string Path, int Weight = 50)
         {
-            throw new NotImplementedException();
+            return Nodes.AddNode(Path, Weight);
         }
     }
 }

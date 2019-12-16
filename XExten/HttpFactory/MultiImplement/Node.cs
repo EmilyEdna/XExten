@@ -13,40 +13,83 @@ namespace XExten.HttpFactory.MultiImplement
     public class Node : INode
     {
         internal IHeaders Headers;
-        internal IHeaders Cookies;
-        public Node() { 
-        
-        }
-
-
-        public INode AddUrl(string Path)
+        internal ICookies Cookies;
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public Node()
         {
-            Uri uri = new Uri(Path)
+            Headers = new Headers();
+            Cookies = new Cookies();
+        }
+        /// <summary>
+        /// Add Uri
+        /// </summary>
+        /// <param name="Path"></param>
+        /// <param name="Weight"></param>
+        /// <returns></returns>
+        public INode AddNode(string Path, int Weight = 50)
+        {
+            if (!HttpMultiClient.UriMap.ContainsKey(Path + 50))
+                HttpMultiClient.UriMap.TryAdd(Path + Weight, new Uri(Path));
+            return this;
         }
 
+        /// <summary>
+        /// Add Cookie
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public ICookies Cookie(string name, string value)
         {
-            throw new NotImplementedException();
+            return Cookies.Cookie(name, value);
         }
 
+        /// <summary>
+        /// Add Cookie
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public ICookies Cookie(string name, string value, string path)
         {
-            throw new NotImplementedException();
+            return Cookies.Cookie(name, value, path);
         }
 
+        /// <summary>
+        /// Add Cookie
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <param name="path"></param>
+        /// <param name="domain"></param>
+        /// <returns></returns>
         public ICookies Cookie(string name, string value, string path, string domain)
         {
-            throw new NotImplementedException();
+            return Cookies.Cookie(name, value, path, domain);
         }
 
+        /// <summary>
+        /// Add Header
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public IHeaders Header(string key, string value)
         {
-            throw new NotImplementedException();
+            return Headers.Header(key, value);
         }
 
+        /// <summary>
+        /// Add Header
+        /// </summary>
+        /// <param name="headers"></param>
+        /// <returns></returns>
         public IHeaders Header(Dictionary<string, string> headers)
         {
-            throw new NotImplementedException();
+            return Headers.Header(headers);
         }
     }
 }
