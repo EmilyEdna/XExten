@@ -13,28 +13,27 @@ namespace XExten.HttpFactory.MultiImplement
     /// </summary>
     public class Cookies : ICookies
     {
-        internal CookieContainer Containers;
         internal IHeaders Headers;
         internal INode Nodes;
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="Header"></param>
-        public Cookies(IHeaders Header)
-        {
-            Containers = HttpMultiClient.Container.FirstOrDefault(); ;
-            Headers = Header;
-            Nodes = new Node();
-        }
+        internal IBuilder Builder;
 
         /// <summary>
         /// Constructor
         /// </summary>
         public Cookies()
         {
-            Containers = HttpMultiClient.Container.FirstOrDefault();
             Headers = new Headers();
             Nodes = new Node();
+            Builder = new Builder();
+        }
+
+        /// <summary>
+        /// 构建
+        /// </summary>
+        /// <returns></returns>
+        public IBuilder Build()
+        {
+            return Builder.Build();
         }
 
         /// <summary>
@@ -46,7 +45,7 @@ namespace XExten.HttpFactory.MultiImplement
         public ICookies Cookie(string name, string value)
         {
             Cookie Cookie = new Cookie(name, value);
-            Containers.Add(Cookie);
+            HttpMultiClientWare.Container.Add(Cookie);
             return this;
         }
 
@@ -60,7 +59,7 @@ namespace XExten.HttpFactory.MultiImplement
         public ICookies Cookie(string name, string value, string path)
         {
             Cookie Cookie = new Cookie(name, value, path);
-            Containers.Add(Cookie);
+            HttpMultiClientWare.Container.Add(Cookie);
             return this;
         }
 
@@ -75,7 +74,7 @@ namespace XExten.HttpFactory.MultiImplement
         public ICookies Cookie(string name, string value, string path, string domain)
         {
             Cookie Cookie = new Cookie(name, value, path, domain);
-            Containers.Add(Cookie);
+            HttpMultiClientWare.Container.Add(Cookie);
             return this;
         }
 
@@ -109,6 +108,31 @@ namespace XExten.HttpFactory.MultiImplement
         public INode AddNode(string Path, int Weight = 50)
         {
             return Nodes.AddNode(Path, Weight);
+        }
+        /// <summary>
+        /// Add Path
+        /// </summary>
+        /// <param name="Path"></param>
+        /// <param name="Param"></param>
+        /// <param name="Weight"></param>
+        /// <returns></returns>
+        public INode AddNode(string Path, string Param, int Weight = 50)
+        {
+            return Nodes.AddNode(Path, Param, Weight);
+        }
+
+        /// <summary>
+        /// Add Path
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Path"></param>
+        /// <param name="Param">实体模型</param>
+        /// <param name="MapFied">映射字段</param>
+        /// <param name="Weight"></param>
+        /// <returns></returns>
+        public INode AddNode<T>(string Path, T Param, IDictionary<string, string> MapFied = null, int Weight = 50) where T : class, new()
+        {
+            return Nodes.AddNode(Path, Param, MapFied, Weight);
         }
     }
 }

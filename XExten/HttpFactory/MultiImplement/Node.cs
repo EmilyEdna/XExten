@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using XExten.HttpFactory.MultiInterface;
@@ -14,6 +15,8 @@ namespace XExten.HttpFactory.MultiImplement
     {
         internal IHeaders Headers;
         internal ICookies Cookies;
+        internal IBuilder Builder;
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -21,18 +24,80 @@ namespace XExten.HttpFactory.MultiImplement
         {
             Headers = new Headers();
             Cookies = new Cookies();
+            Builder = new Builder();
         }
+
+        /// <summary>
+        /// 构建
+        /// </summary>
+        /// <returns></returns>
+        public IBuilder Build()
+        {
+            return Builder.Build();
+        }
+
         /// <summary>
         /// Add Uri
         /// </summary>
         /// <param name="Path"></param>
+        ///<param name="Weight"></param>
+        /// <returns></returns>
+        public INode AddNode(string Path, int Weight)
+        {
+            WeightURL WeightUri = new WeightURL
+            {
+                Weight = Weight,
+                URL = new Uri(Path)
+            };
+            HttpMultiClientWare.WeightPath.Add(WeightUri);
+            return this;
+        }
+
+        /// <summary>
+        /// Add Path
+        /// </summary>
+        /// <param name="Path"></param>
+        /// <param name="Param"></param>
         /// <param name="Weight"></param>
         /// <returns></returns>
-        public INode AddNode(string Path, int Weight = 50)
+        public INode AddNode(string Path, string Param, int Weight = 50)
         {
-            if (!HttpMultiClient.UriMap.ContainsKey(Path + 50))
-                HttpMultiClient.UriMap.TryAdd(Path + Weight, new Uri(Path));
+            WeightURL WeightUri = new WeightURL
+            {
+                Weight = Weight,
+                URL = new Uri(Path),
+                StringContents = new StringContent(Param)
+            };
+            HttpMultiClientWare.WeightPath.Add(WeightUri);
             return this;
+        }
+
+        /// <summary>
+        /// Add Path
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Path"></param>
+        /// <param name="Param">实体模型</param>
+        /// <param name="MapFied">映射字段</param>
+        /// <param name="Weight"></param>
+        /// <returns></returns>
+        public INode AddNode<T>(string Path, T Param, IDictionary<string, string> MapFied = null, int Weight = 50) where T : class, new()
+        {
+            try
+            {
+                WeightURL WeightUri = new WeightURL
+                {
+                    Weight = Weight,
+                    URL = new Uri(Path),
+                    FormContent = new FormUrlEncodedContent(HttpKeyPairs.KeyValuePairs(Param, MapFied))
+                };
+                HttpMultiClientWare.WeightPath.Add(WeightUri);
+                return this;
+            }
+            catch (Exception)
+            {
+                throw new Exception("参数类型不正确，参数只能是实体模型。");
+            }
         }
 
         /// <summary>

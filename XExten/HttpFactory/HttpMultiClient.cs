@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -16,11 +15,6 @@ namespace XExten.HttpFactory
     /// </summary>
     public class HttpMultiClient
     {
-        public static List<HttpClient> Factory = new List<HttpClient>();
-        public static List<CookieContainer> Container = new List<CookieContainer>();
-        public static ConcurrentDictionary<string, Uri> UriMap = new ConcurrentDictionary<string, Uri>();
-        internal IHeaders HeadersInstance = null;
-        internal ICookies CookiesInstance = null;
         /// <summary>
         /// Instance
         /// </summary>
@@ -30,7 +24,8 @@ namespace XExten.HttpFactory
         /// </summary>
         public HttpMultiClient()
         {
-            Factory.Add(new HttpClient());
+            HttpMultiClientWare.FactoryClient = new HttpClient();
+            HttpMultiClientWare.Container = new CookieContainer();
         }
 
         #region Header
@@ -42,9 +37,8 @@ namespace XExten.HttpFactory
         /// <returns></returns>
         public IHeaders Headers(string key, string value)
         {
-            Factory.FirstOrDefault().DefaultRequestHeaders.Add(key, value);
-            HeadersInstance = new Headers(CookiesInstance ?? new Cookies());
-            return HeadersInstance;
+            HttpMultiClientWare.FactoryClient.DefaultRequestHeaders.Add(key, value);
+            return new Headers();
         }
         /// <summary>
         /// Add Header
@@ -55,10 +49,9 @@ namespace XExten.HttpFactory
         {
             foreach (var item in headers)
             {
-                Factory.FirstOrDefault().DefaultRequestHeaders.Add(item.Key, item.Value);
+                HttpMultiClientWare.FactoryClient.DefaultRequestHeaders.Add(item.Key, item.Value);
             }
-            HeadersInstance = new Headers(CookiesInstance ?? new Cookies());
-            return HeadersInstance;
+            return new Headers();
         }
         #endregion Header
 
@@ -71,11 +64,9 @@ namespace XExten.HttpFactory
         /// <returns></returns>
         public ICookies Cookies(string name, string value)
         {
-            Container.Add(new CookieContainer());
             Cookie Cookie = new Cookie(name, value);
-            Container.FirstOrDefault().Add(Cookie);
-            CookiesInstance = new Cookies(HeadersInstance ?? new Headers());
-            return CookiesInstance;
+            HttpMultiClientWare.Container.Add(Cookie);
+            return new Cookies();
         }
         /// <summary>
         /// Add Cookie
@@ -86,11 +77,9 @@ namespace XExten.HttpFactory
         /// <returns></returns>
         public ICookies Cookies(string name, string value, string path)
         {
-            Container.Add(new CookieContainer());
             Cookie Cookie = new Cookie(name, value, path);
-            Container.FirstOrDefault().Add(Cookie);
-            CookiesInstance = new Cookies(HeadersInstance ?? new Headers());
-            return CookiesInstance;
+            HttpMultiClientWare.Container.Add(Cookie);
+            return new Cookies();
         }
         /// <summary>
         /// Add Cookie
@@ -102,11 +91,9 @@ namespace XExten.HttpFactory
         /// <returns></returns>
         public ICookies Cookies(string name, string value, string path, string domain)
         {
-            Container.Add(new CookieContainer());
             Cookie Cookie = new Cookie(name, value, path, domain);
-            Container.FirstOrDefault().Add(Cookie);
-            CookiesInstance = new Cookies(HeadersInstance ?? new Headers());
-            return CookiesInstance;
+            HttpMultiClientWare.Container.Add(Cookie);
+            return new Cookies();
         }
         #endregion Cookie
 
@@ -114,14 +101,63 @@ namespace XExten.HttpFactory
         /// <summary>
         /// Add Path
         /// </summary>
-        /// <param name="Path"></param>
+        /// <param name="Path">请求地址</param>
         /// <param name="Weight">1~100区间</param>
         /// <returns></returns>
         public INode AddNode(string Path, int Weight = 50)
         {
-            if (!UriMap.ContainsKey(Path + 50))
-                UriMap.TryAdd(Path + Weight, new Uri(Path));
+            WeightURL WeightUri = new WeightURL
+            {
+                Weight = Weight,
+                URL = new Uri(Path)
+            };
+            HttpMultiClientWare.WeightPath.Add(WeightUri);
             return new Node();
+        }
+        /// <summary>
+        /// Add Path
+        /// </summary>
+        /// <param name="Path"></param>
+        /// <param name="Param"></param>
+        /// <param name="Weight"></param>
+        /// <returns></returns>
+        public INode AddNode(string Path, string Param, int Weight = 50)
+        {
+            WeightURL WeightUri = new WeightURL
+            {
+                Weight = Weight,
+                URL = new Uri(Path),
+                StringContents = new StringContent(Param)
+            };
+            HttpMultiClientWare.WeightPath.Add(WeightUri);
+            return new Node();
+        }
+        /// <summary>
+        /// Add Path
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Path"></param>
+        /// <param name="Param">实体模型</param>
+        /// <param name="MapFied">映射字段</param>
+        /// <param name="Weight"></param>
+        /// <returns></returns>
+        public INode AddNode<T>(string Path, T Param, IDictionary<string, string> MapFied = null, int Weight = 50) where T : class, new()
+        {
+            try
+            {
+                WeightURL WeightUri = new WeightURL
+                {
+                    Weight = Weight,
+                    URL = new Uri(Path),
+                    FormContent = new FormUrlEncodedContent(HttpKeyPairs.KeyValuePairs(Param, MapFied))
+                };
+                HttpMultiClientWare.WeightPath.Add(WeightUri);
+                return new Node();
+            }
+            catch (Exception)
+            {
+                throw new Exception("参数类型不正确，参数只能是实体模型。");
+            }
         }
         #endregion
     }

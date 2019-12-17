@@ -74,7 +74,7 @@ namespace XExten.Test
         public void XProtoBuf_Test()
         {
             TestB t = new TestB() { Account = "张三", Id = 1, Name = "李四" };
-            var data = XPlusEx.XProtobufSerialize(t);
+             var data = XPlusEx.XProtobufSerialize(t);
             var reslt = XPlusEx.XProtobufDeSerialize<TestB>(data);
         }
 

@@ -12,12 +12,35 @@ namespace XExten.HttpFactory.MultiInterface
     public interface ICookies
     {
         /// <summary>
+        /// 构建
+        /// </summary>
+        /// <returns></returns>
+        IBuilder Build();
+        /// <summary>
         /// Add URL
         /// </summary>
         /// <param name="Path"></param>
+        ///<param name="Weight"></param>
+        /// <returns></returns>
+        INode AddNode(string Path, int Weight);
+        /// <summary>
+        /// Add Path
+        /// </summary>
+        /// <param name="Path"></param>
+        /// <param name="Param"></param>
         /// <param name="Weight"></param>
         /// <returns></returns>
-        INode AddNode(string Path, int Weight = 50);
+        INode AddNode(string Path, string Param, int Weight = 50);
+        /// <summary>
+        /// Add Path
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Path"></param>
+        /// <param name="Param">实体模型</param>
+        /// <param name="MapFied">映射字段</param>
+        /// <param name="Weight"></param>
+        /// <returns></returns>
+        INode AddNode<T>(string Path, T Param, IDictionary<string, string> MapFied = null, int Weight = 50) where T : class, new();
         /// <summary>
         /// Add Header
         /// </summary>

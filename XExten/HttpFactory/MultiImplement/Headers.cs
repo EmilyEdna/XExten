@@ -15,27 +15,27 @@ namespace XExten.HttpFactory.MultiImplement
     /// </summary>
     public class Headers : IHeaders
     {
-        internal HttpClient ClientHeader;
         internal ICookies Cookies;
         internal INode Nodes;
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="Cookie"></param>
-        public Headers(ICookies Cookie)
-        {
-            ClientHeader = HttpMultiClient.Factory.FirstOrDefault();
-            Cookies = Cookie;
-            Nodes = new Node();
-        }
+        internal IBuilder Builder;
+
         /// <summary>
         /// Constructor
         /// </summary>
         public Headers()
         {
-            ClientHeader = HttpMultiClient.Factory.FirstOrDefault();
             Cookies = new Cookies();
             Nodes = new Node();
+            Builder = new Builder();
+        }
+
+        /// <summary>
+        /// 构建
+        /// </summary>
+        /// <returns></returns>
+        public IBuilder Build()
+        {
+            return Builder.Build();
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace XExten.HttpFactory.MultiImplement
         /// <returns></returns>
         public IHeaders Header(string key, string value)
         {
-            ClientHeader.DefaultRequestHeaders.Add(key, value);
+            HttpMultiClientWare.FactoryClient.DefaultRequestHeaders.Add(key, value);
             return this;
         }
 
@@ -59,7 +59,7 @@ namespace XExten.HttpFactory.MultiImplement
         {
             foreach (var item in headers)
             {
-                ClientHeader.DefaultRequestHeaders.Add(item.Key, item.Value);
+                HttpMultiClientWare.FactoryClient.DefaultRequestHeaders.Add(item.Key, item.Value);
             }
             return this;
         }
@@ -109,6 +109,32 @@ namespace XExten.HttpFactory.MultiImplement
         public INode AddNode(string Path, int Weight = 50)
         {
             return Nodes.AddNode(Path, Weight);
+        }
+
+        /// <summary>
+        /// Add Path
+        /// </summary>
+        /// <param name="Path"></param>
+        /// <param name="Param"></param>
+        /// <param name="Weight"></param>
+        /// <returns></returns>
+        public INode AddNode(string Path, string Param, int Weight = 50)
+        {
+            return Nodes.AddNode(Path, Param, Weight);
+        }
+
+        /// <summary>
+        /// Add Path
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Path"></param>
+        /// <param name="Param">实体模型</param>
+        /// <param name="MapFied">映射字段</param>
+        /// <param name="Weight"></param>
+        /// <returns></returns>
+        public INode AddNode<T>(string Path, T Param, IDictionary<string, string> MapFied = null, int Weight = 50) where T : class, new()
+        {
+            return Nodes.AddNode(Path, Param, MapFied, Weight);
         }
     }
 }
