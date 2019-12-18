@@ -1,33 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace XExten.HttpFactory
 {
     /// <summary>
-    /// 负载路由
+    /// RequestType
     /// </summary>
-    public struct WeightURL
+    public enum RequestType
     {
         /// <summary>
-        /// 请求类型
+        /// POST
         /// </summary>
-        public RequestType Request { get; set; }
+        POST = 1,
         /// <summary>
-        /// 负载比
+        /// GET
         /// </summary>
-        public int Weight { get; set; }
+        GET = 2,
         /// <summary>
-        /// 路由
+        /// DELETE
         /// </summary>
-        public Uri URL { get; set; }
+        DELETE = 3,
         /// <summary>
-        /// Json
+        /// PUT
         /// </summary>
-        public HttpContent Contents { get; set; }
+        PUT = 4
     }
-
 }

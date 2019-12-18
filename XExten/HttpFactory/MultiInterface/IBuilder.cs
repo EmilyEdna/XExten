@@ -13,23 +13,30 @@ namespace XExten.HttpFactory.MultiInterface
     public interface IBuilder
     {
         /// <summary>
-        /// 客服端
-        /// </summary>
-        HttpClient Client => HttpMultiClientWare.FactoryClient;
-        /// <summary>
         /// 构建
         /// </summary>
+        /// <param name="TimeOut">超时:秒</param>
         /// <returns></returns>
-        IBuilder Build();
+        IBuilder Build(int TimeOut=60);
         /// <summary>
         /// 执行
         /// </summary>
         /// <returns></returns>
-        Task<List<String>> RunAsync();
+        List<String> RunString();
         /// <summary>
         /// 执行
         /// </summary>
         /// <returns></returns>
-        List<String> Run();
+        Task<List<String>> RunStringAsync();
+        /// <summary>
+        /// 执行
+        /// </summary>
+        /// <returns></returns>
+        List<Byte[]> RunBytes();
+        /// <summary>
+        /// 执行
+        /// </summary>
+        /// <returns></returns>
+        Task<List<Byte[]>> RunBytesAsync();
     }
 }

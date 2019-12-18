@@ -24,7 +24,6 @@ namespace XExten.HttpFactory
         /// </summary>
         public HttpMultiClient()
         {
-            HttpMultiClientWare.FactoryClient = new HttpClient();
             HttpMultiClientWare.Container = new CookieContainer();
         }
 
@@ -37,7 +36,7 @@ namespace XExten.HttpFactory
         /// <returns></returns>
         public IHeaders Headers(string key, string value)
         {
-            HttpMultiClientWare.FactoryClient.DefaultRequestHeaders.Add(key, value);
+            HttpMultiClientWare.HeaderMaps.Add(new Dictionary<string, string>() { { key, value } });
             return new Headers();
         }
         /// <summary>
@@ -47,10 +46,7 @@ namespace XExten.HttpFactory
         /// <returns></returns>
         public IHeaders Headers(Dictionary<string, string> headers)
         {
-            foreach (var item in headers)
-            {
-                HttpMultiClientWare.FactoryClient.DefaultRequestHeaders.Add(item.Key, item.Value);
-            }
+            HttpMultiClientWare.HeaderMaps.Add(headers);
             return new Headers();
         }
         #endregion Header
@@ -102,14 +98,16 @@ namespace XExten.HttpFactory
         /// Add Path
         /// </summary>
         /// <param name="Path">请求地址</param>
+        /// <param name="Type">请求类型</param>
         /// <param name="Weight">1~100区间</param>
         /// <returns></returns>
-        public INode AddNode(string Path, int Weight = 50)
+        public INode AddNode(string Path, RequestType Type = RequestType.GET, int Weight = 50)
         {
             WeightURL WeightUri = new WeightURL
             {
                 Weight = Weight,
-                URL = new Uri(Path)
+                URL = new Uri(Path),
+                Request= Type
             };
             HttpMultiClientWare.WeightPath.Add(WeightUri);
             return new Node();
@@ -119,15 +117,17 @@ namespace XExten.HttpFactory
         /// </summary>
         /// <param name="Path"></param>
         /// <param name="Param"></param>
+        ///  <param name="Type">请求类型</param>
         /// <param name="Weight"></param>
         /// <returns></returns>
-        public INode AddNode(string Path, string Param, int Weight = 50)
+        public INode AddNode(string Path, string Param, RequestType Type = RequestType.GET, int Weight = 50)
         {
             WeightURL WeightUri = new WeightURL
             {
                 Weight = Weight,
                 URL = new Uri(Path),
-                StringContents = new StringContent(Param)
+                Request = Type,
+                Contents = new StringContent(Param)
             };
             HttpMultiClientWare.WeightPath.Add(WeightUri);
             return new Node();
@@ -139,9 +139,10 @@ namespace XExten.HttpFactory
         /// <param name="Path"></param>
         /// <param name="Param">实体模型</param>
         /// <param name="MapFied">映射字段</param>
+        ///  <param name="Type">请求类型</param>
         /// <param name="Weight"></param>
         /// <returns></returns>
-        public INode AddNode<T>(string Path, T Param, IDictionary<string, string> MapFied = null, int Weight = 50) where T : class, new()
+        public INode AddNode<T>(string Path, T Param, IDictionary<string, string> MapFied = null, RequestType Type = RequestType.GET, int Weight = 50) where T : class, new()
         {
             try
             {
@@ -149,14 +150,15 @@ namespace XExten.HttpFactory
                 {
                     Weight = Weight,
                     URL = new Uri(Path),
-                    FormContent = new FormUrlEncodedContent(HttpKeyPairs.KeyValuePairs(Param, MapFied))
+                    Request = Type,
+                    Contents = new FormUrlEncodedContent(HttpKeyPairs.KeyValuePairs(Param, MapFied))
                 };
                 HttpMultiClientWare.WeightPath.Add(WeightUri);
                 return new Node();
             }
             catch (Exception)
             {
-                throw new Exception("参数类型不正确，参数只能是实体模型。");
+                throw new Exception("The parameter type is incorrect. The parameter can only be a solid model.");
             }
         }
         #endregion

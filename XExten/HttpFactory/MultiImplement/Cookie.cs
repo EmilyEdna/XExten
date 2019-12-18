@@ -30,8 +30,9 @@ namespace XExten.HttpFactory.MultiImplement
         /// <summary>
         /// 构建
         /// </summary>
+        /// <param name="TimeOut">超时:秒</param>
         /// <returns></returns>
-        public IBuilder Build()
+        public IBuilder Build(int TimeOut = 60)
         {
             return Builder.Build();
         }
@@ -100,39 +101,43 @@ namespace XExten.HttpFactory.MultiImplement
         }
 
         /// <summary>
-        /// Add Uri
+        /// AddUri
         /// </summary>
         /// <param name="Path"></param>
+        /// <param name="Type"></param>
         /// <param name="Weight"></param>
         /// <returns></returns>
-        public INode AddNode(string Path, int Weight = 50)
+        public INode AddNode(string Path, RequestType Type = RequestType.GET, int Weight = 50)
         {
-            return Nodes.AddNode(Path, Weight);
-        }
-        /// <summary>
-        /// Add Path
-        /// </summary>
-        /// <param name="Path"></param>
-        /// <param name="Param"></param>
-        /// <param name="Weight"></param>
-        /// <returns></returns>
-        public INode AddNode(string Path, string Param, int Weight = 50)
-        {
-            return Nodes.AddNode(Path, Param, Weight);
+            return Nodes.AddNode(Path, Type, Weight);
         }
 
         /// <summary>
-        /// Add Path
+        /// AddUri
+        /// </summary>
+        /// <param name="Path"></param>
+        /// <param name="Param"></param>
+        /// <param name="Type"></param>
+        /// <param name="Weight"></param>
+        /// <returns></returns>
+        public INode AddNode(string Path, string Param, RequestType Type = RequestType.GET, int Weight = 50)
+        {
+            return Nodes.AddNode(Path, Param, Type, Weight);
+        }
+
+        /// <summary>
+        /// AddUri
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Path"></param>
-        /// <param name="Param">实体模型</param>
-        /// <param name="MapFied">映射字段</param>
+        /// <param name="Param"></param>
+        /// <param name="MapFied"></param>
+        /// <param name="Type"></param>
         /// <param name="Weight"></param>
         /// <returns></returns>
-        public INode AddNode<T>(string Path, T Param, IDictionary<string, string> MapFied = null, int Weight = 50) where T : class, new()
+        public INode AddNode<T>(string Path, T Param, IDictionary<string, string> MapFied = null, RequestType Type = RequestType.GET, int Weight = 50) where T : class, new()
         {
-            return Nodes.AddNode(Path, Param, MapFied, Weight);
+            return Nodes.AddNode(Path, Param, MapFied, Type, Weight);
         }
     }
 }
