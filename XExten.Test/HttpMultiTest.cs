@@ -11,7 +11,9 @@ namespace XExten.Test
         [Fact]
         public void Test1()
         {
-            var data = HttpMultiClient.HttpMulti.AddNode("https://www.baidu.com").AddNode("https://fanyi.baidu.com/?aldtype=16047#auto/zh").Build().RunString();
+            var data = HttpMultiClient.HttpMulti.AddNode("https://www.baidu.com")
+                .AddNode("https://fanyi.baidu.com/?aldtype=16047#auto/zh")
+                .Build().RunString();
         }
         [Fact]
         public void Test2()
@@ -19,8 +21,8 @@ namespace XExten.Test
             var data = HttpMultiClient.HttpMulti
                 .InitCookieContainer()
                 .Headers("name","test")
-                .AddNode("https://www.baidu.com")
-                .AddNode("https://fanyi.baidu.com/?aldtype=16047#auto/zh")
+                .AddNode("https://api.uixsj.cn/hitokoto/w.php")
+                .AddNode("https://api.uixsj.cn/hitokoto/w.php?code=json")
                 .Build().RunString();
         }
     }
