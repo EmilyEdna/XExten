@@ -13,20 +13,6 @@ namespace XExten.HttpFactory.MultiImplement
     /// </summary>
     public class Node : INode
     {
-        internal IHeaders Headers;
-        internal ICookies Cookies;
-        internal IBuilder Builder;
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        public Node()
-        {
-            Headers = new Headers();
-            Cookies = new Cookies();
-            Builder = new Builder();
-        }
-
         /// <summary>
         /// 构建
         /// </summary>
@@ -34,7 +20,7 @@ namespace XExten.HttpFactory.MultiImplement
         /// <returns></returns>
         public IBuilder Build(int TimeOut = 60)
         {
-            return Builder.Build();
+            return HttpMultiClientWare.Builder.Build();
         }
 
         /// <summary>
@@ -53,7 +39,7 @@ namespace XExten.HttpFactory.MultiImplement
                 Request = Type
             };
             HttpMultiClientWare.WeightPath.Add(WeightUri);
-            return this;
+            return HttpMultiClientWare.Nodes;
         }
 
         /// <summary>
@@ -74,7 +60,7 @@ namespace XExten.HttpFactory.MultiImplement
                 Contents = new StringContent(Param)
             };
             HttpMultiClientWare.WeightPath.Add(WeightUri);
-            return this;
+            return HttpMultiClientWare.Nodes;
         }
 
         /// <summary>
@@ -99,7 +85,7 @@ namespace XExten.HttpFactory.MultiImplement
                     Contents = new FormUrlEncodedContent(HttpKeyPairs.KeyValuePairs(Param, MapFied))
                 };
                 HttpMultiClientWare.WeightPath.Add(WeightUri);
-                return this;
+                return HttpMultiClientWare.Nodes;
             }
             catch (Exception)
             {
@@ -115,7 +101,7 @@ namespace XExten.HttpFactory.MultiImplement
         /// <returns></returns>
         public ICookies Cookie(string name, string value)
         {
-            return Cookies.Cookie(name, value);
+            return HttpMultiClientWare.Cookies.Cookie(name, value);
         }
 
         /// <summary>
@@ -127,7 +113,7 @@ namespace XExten.HttpFactory.MultiImplement
         /// <returns></returns>
         public ICookies Cookie(string name, string value, string path)
         {
-            return Cookies.Cookie(name, value, path);
+            return HttpMultiClientWare.Cookies.Cookie(name, value, path);
         }
 
         /// <summary>
@@ -140,7 +126,7 @@ namespace XExten.HttpFactory.MultiImplement
         /// <returns></returns>
         public ICookies Cookie(string name, string value, string path, string domain)
         {
-            return Cookies.Cookie(name, value, path, domain);
+            return HttpMultiClientWare.Cookies.Cookie(name, value, path, domain);
         }
 
         /// <summary>
@@ -151,7 +137,7 @@ namespace XExten.HttpFactory.MultiImplement
         /// <returns></returns>
         public IHeaders Header(string key, string value)
         {
-            return Headers.Header(key, value);
+            return HttpMultiClientWare.Headers.Header(key, value);
         }
 
         /// <summary>
@@ -161,7 +147,7 @@ namespace XExten.HttpFactory.MultiImplement
         /// <returns></returns>
         public IHeaders Header(Dictionary<string, string> headers)
         {
-            return Headers.Header(headers);
+            return HttpMultiClientWare.Headers.Header(headers);
         }
     }
 }

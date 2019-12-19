@@ -1256,6 +1256,20 @@
             <param name="source"></param>
             <returns></returns>
         </member>
+        <member name="T:XExten.HttpFactory.HttpKeyPairs">
+            <summary>
+            封装数据
+            </summary>
+        </member>
+        <member name="M:XExten.HttpFactory.HttpKeyPairs.KeyValuePairs``1(``0,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            创建一个key-value格式的表单数据(Making form data to KeyValuePairs)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Entity"></param>
+            <param name="Map"></param>
+            <returns></returns>
+        </member>
         <member name="T:XExten.HttpFactory.HttpMultiClient">
             <summary>
             负载请求
@@ -1270,6 +1284,12 @@
             <summary>
             Constructor
             </summary>
+        </member>
+        <member name="M:XExten.HttpFactory.HttpMultiClient.InitCookieContainer">
+            <summary>
+            初始化Cookie容器
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:XExten.HttpFactory.HttpMultiClient.Headers(System.String,System.String)">
             <summary>
@@ -1313,41 +1333,35 @@
             <param name="domain"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.HttpFactory.HttpMultiClient.AddNodeGet(System.String,System.Int32)">
+        <member name="M:XExten.HttpFactory.HttpMultiClient.AddNode(System.String,XExten.HttpFactory.RequestType,System.Int32)">
             <summary>
             Add Path
             </summary>
             <param name="Path">请求地址</param>
+            <param name="Type">请求类型</param>
             <param name="Weight">1~100区间</param>
             <returns></returns>
         </member>
-        <member name="T:XExten.HttpFactory.HttpMultiClientWare">
+        <member name="M:XExten.HttpFactory.HttpMultiClient.AddNode(System.String,System.String,XExten.HttpFactory.RequestType,System.Int32)">
             <summary>
-            中间服务
+            Add Path
             </summary>
+            <param name="Path"></param>
+            <param name="Param"></param>
+             <param name="Type">请求类型</param>
+            <param name="Weight"></param>
+            <returns></returns>
         </member>
-        <member name="P:XExten.HttpFactory.HttpMultiClientWare.FactoryClient">
+        <member name="M:XExten.HttpFactory.HttpMultiClient.AddNode``1(System.String,``0,System.Collections.Generic.IDictionary{System.String,System.String},XExten.HttpFactory.RequestType,System.Int32)">
             <summary>
-            Client
-            </summary>
-        </member>
-        <member name="P:XExten.HttpFactory.HttpMultiClientWare.Container">
-            <summary>
-            Container
-            </summary>
-        </member>
-        <member name="P:XExten.HttpFactory.HttpMultiClientWare.WeightPath">
-            <summary>
-            URL
-            </summary>
-        </member>
-        <member name="M:XExten.HttpFactory.HttpRequestClient.KeyValuePairs``1(``0,System.Collections.Generic.IDictionary{System.String,System.String})">
-            <summary>
-            创建一个key-value格式的表单数据(Making form data to KeyValuePairs)
+            Add Path
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="Entity"></param>
-            <param name="Map"></param>
+            <param name="Path"></param>
+            <param name="Param">实体模型</param>
+            <param name="MapFied">映射字段</param>
+             <param name="Type">请求类型</param>
+            <param name="Weight"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.HttpFactory.HttpRequestClient.HttpPostAsync(System.String,System.Collections.Generic.IList{System.Collections.Generic.KeyValuePair{System.String,System.String}},System.Boolean,System.Boolean,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Int32,System.Text.Encoding)">
@@ -1419,15 +1433,53 @@
             <param name="timeout"></param>
             <returns></returns>
         </member>
+        <member name="T:XExten.HttpFactory.MultiImplement.Builder">
+            <summary>
+            构建器
+            </summary>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiImplement.Builder.Build(System.Int32)">
+            <summary>
+            构建
+            </summary>
+            <param name="TimeOut">超时:秒</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiImplement.Builder.RunBytes">
+            <summary>
+            执行
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiImplement.Builder.RunBytesAsync">
+            <summary>
+            执行
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiImplement.Builder.RunString">
+            <summary>
+            执行
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiImplement.Builder.RunStringAsync">
+            <summary>
+            执行
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:XExten.HttpFactory.MultiImplement.Cookies">
             <summary>
             Cookie
             </summary>
         </member>
-        <member name="M:XExten.HttpFactory.MultiImplement.Cookies.#ctor">
+        <member name="M:XExten.HttpFactory.MultiImplement.Cookies.Build(System.Int32)">
             <summary>
-            Constructor
+            构建
             </summary>
+            <param name="TimeOut">超时:秒</param>
+            <returns></returns>
         </member>
         <member name="M:XExten.HttpFactory.MultiImplement.Cookies.Cookie(System.String,System.String)">
             <summary>
@@ -1471,11 +1523,34 @@
             <param name="headers"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.HttpFactory.MultiImplement.Cookies.AddNode(System.String,System.Int32)">
+        <member name="M:XExten.HttpFactory.MultiImplement.Cookies.AddNode(System.String,XExten.HttpFactory.RequestType,System.Int32)">
             <summary>
-            Add Uri
+            AddUri
             </summary>
             <param name="Path"></param>
+            <param name="Type"></param>
+            <param name="Weight"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiImplement.Cookies.AddNode(System.String,System.String,XExten.HttpFactory.RequestType,System.Int32)">
+            <summary>
+            AddUri
+            </summary>
+            <param name="Path"></param>
+            <param name="Param"></param>
+            <param name="Type"></param>
+            <param name="Weight"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiImplement.Cookies.AddNode``1(System.String,``0,System.Collections.Generic.IDictionary{System.String,System.String},XExten.HttpFactory.RequestType,System.Int32)">
+            <summary>
+            AddUri
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Path"></param>
+            <param name="Param"></param>
+            <param name="MapFied"></param>
+            <param name="Type"></param>
             <param name="Weight"></param>
             <returns></returns>
         </member>
@@ -1484,10 +1559,12 @@
             Header
             </summary>
         </member>
-        <member name="M:XExten.HttpFactory.MultiImplement.Headers.#ctor">
+        <member name="M:XExten.HttpFactory.MultiImplement.Headers.Build(System.Int32)">
             <summary>
-            Constructor
+            构建
             </summary>
+            <param name="TimeOut">超时:秒</param>
+            <returns></returns>
         </member>
         <member name="M:XExten.HttpFactory.MultiImplement.Headers.Header(System.String,System.String)">
             <summary>
@@ -1531,11 +1608,34 @@
             <param name="domain"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.HttpFactory.MultiImplement.Headers.AddNode(System.String,System.Int32)">
+        <member name="M:XExten.HttpFactory.MultiImplement.Headers.AddNode(System.String,XExten.HttpFactory.RequestType,System.Int32)">
             <summary>
             AddUri
             </summary>
             <param name="Path"></param>
+            <param name="Type"></param>
+            <param name="Weight"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiImplement.Headers.AddNode(System.String,System.String,XExten.HttpFactory.RequestType,System.Int32)">
+            <summary>
+            AddUri
+            </summary>
+            <param name="Path"></param>
+            <param name="Param"></param>
+            <param name="Type"></param>
+            <param name="Weight"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiImplement.Headers.AddNode``1(System.String,``0,System.Collections.Generic.IDictionary{System.String,System.String},XExten.HttpFactory.RequestType,System.Int32)">
+            <summary>
+            AddUri
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Path"></param>
+            <param name="Param"></param>
+            <param name="MapFied"></param>
+            <param name="Type"></param>
             <param name="Weight"></param>
             <returns></returns>
         </member>
@@ -1544,18 +1644,43 @@
             URL
             </summary>
         </member>
-        <member name="M:XExten.HttpFactory.MultiImplement.Node.#ctor">
+        <member name="M:XExten.HttpFactory.MultiImplement.Node.Build(System.Int32)">
             <summary>
-            Constructor
+            构建
             </summary>
+            <param name="TimeOut">超时:秒</param>
+            <returns></returns>
         </member>
-        <member name="M:XExten.HttpFactory.MultiImplement.Node.AddNode(System.String,System.Int32)">
-             <summary>
-             Add Uri
-             </summary>
-             <param name="Path"></param>
+        <member name="M:XExten.HttpFactory.MultiImplement.Node.AddNode(System.String,XExten.HttpFactory.RequestType,System.Int32)">
+            <summary>
+            Add Path
+            </summary>
+            <param name="Path">请求地址</param>
+            <param name="Type">请求类型</param>
+            <param name="Weight">1~100区间</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiImplement.Node.AddNode(System.String,System.String,XExten.HttpFactory.RequestType,System.Int32)">
+            <summary>
+            Add Path
+            </summary>
+            <param name="Path"></param>
+            <param name="Param"></param>
+             <param name="Type">请求类型</param>
             <param name="Weight"></param>
-             <returns></returns>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiImplement.Node.AddNode``1(System.String,``0,System.Collections.Generic.IDictionary{System.String,System.String},XExten.HttpFactory.RequestType,System.Int32)">
+            <summary>
+            Add Path
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Path"></param>
+            <param name="Param">实体模型</param>
+            <param name="MapFied">映射字段</param>
+             <param name="Type">请求类型</param>
+            <param name="Weight"></param>
+            <returns></returns>
         </member>
         <member name="M:XExten.HttpFactory.MultiImplement.Node.Cookie(System.String,System.String)">
             <summary>
@@ -1599,16 +1724,82 @@
             <param name="headers"></param>
             <returns></returns>
         </member>
+        <member name="T:XExten.HttpFactory.MultiInterface.IBuilder">
+            <summary>
+            构建
+            </summary>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiInterface.IBuilder.Build(System.Int32)">
+            <summary>
+            构建
+            </summary>
+            <param name="TimeOut">超时:秒</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiInterface.IBuilder.RunString">
+            <summary>
+            执行
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiInterface.IBuilder.RunStringAsync">
+            <summary>
+            执行
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiInterface.IBuilder.RunBytes">
+            <summary>
+            执行
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiInterface.IBuilder.RunBytesAsync">
+            <summary>
+            执行
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:XExten.HttpFactory.MultiInterface.ICookies">
             <summary>
             Cookie
             </summary>
         </member>
-        <member name="M:XExten.HttpFactory.MultiInterface.ICookies.AddNode(System.String,System.Int32)">
+        <member name="M:XExten.HttpFactory.MultiInterface.ICookies.Build(System.Int32)">
             <summary>
-            Add URL
+            构建
+            </summary>
+            <param name="TimeOut">超时:秒</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiInterface.ICookies.AddNode(System.String,XExten.HttpFactory.RequestType,System.Int32)">
+            <summary>
+            Add Path
             </summary>
             <param name="Path"></param>
+            <param name="Type"></param>
+            <param name="Weight"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiInterface.ICookies.AddNode(System.String,System.String,XExten.HttpFactory.RequestType,System.Int32)">
+            <summary>
+            Add Path
+            </summary>
+            <param name="Path"></param>
+            <param name="Param"></param>
+            <param name="Type"></param>
+            <param name="Weight"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiInterface.ICookies.AddNode``1(System.String,``0,System.Collections.Generic.IDictionary{System.String,System.String},XExten.HttpFactory.RequestType,System.Int32)">
+            <summary>
+            Add Path
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Path"></param>
+            <param name="Param">实体模型</param>
+            <param name="MapFied">映射字段</param>
+            <param name="Type"></param>
             <param name="Weight"></param>
             <returns></returns>
         </member>
@@ -1659,11 +1850,41 @@
             Header
             </summary>
         </member>
-        <member name="M:XExten.HttpFactory.MultiInterface.IHeaders.AddNode(System.String,System.Int32)">
+        <member name="M:XExten.HttpFactory.MultiInterface.IHeaders.Build(System.Int32)">
             <summary>
-            Add URL
+            构建
+            </summary>
+            <param name="TimeOut">超时:秒</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiInterface.IHeaders.AddNode(System.String,XExten.HttpFactory.RequestType,System.Int32)">
+            <summary>
+            Add Path
             </summary>
             <param name="Path"></param>
+            <param name="Type"></param>
+            <param name="Weight"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiInterface.IHeaders.AddNode(System.String,System.String,XExten.HttpFactory.RequestType,System.Int32)">
+            <summary>
+            Add Path
+            </summary>
+            <param name="Path"></param>
+            <param name="Param"></param>
+            <param name="Type"></param>
+            <param name="Weight"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiInterface.IHeaders.AddNode``1(System.String,``0,System.Collections.Generic.IDictionary{System.String,System.String},XExten.HttpFactory.RequestType,System.Int32)">
+            <summary>
+            Add Path
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Path"></param>
+            <param name="Param">实体模型</param>
+            <param name="MapFied">映射字段</param>
+            <param name="Type"></param>
             <param name="Weight"></param>
             <returns></returns>
         </member>
@@ -1714,13 +1935,43 @@
             
             </summary>
         </member>
-        <member name="M:XExten.HttpFactory.MultiInterface.INode.AddNode(System.String,System.Int32)">
-             <summary>
-             Add URL
-             </summary>
-             <param name="Path"></param>
+        <member name="M:XExten.HttpFactory.MultiInterface.INode.Build(System.Int32)">
+            <summary>
+            构建
+            </summary>
+            <param name="TimeOut">超时:秒</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiInterface.INode.AddNode(System.String,XExten.HttpFactory.RequestType,System.Int32)">
+            <summary>
+            Add Path
+            </summary>
+            <param name="Path"></param>
+            <param name="Type"></param>
             <param name="Weight"></param>
-             <returns></returns>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiInterface.INode.AddNode(System.String,System.String,XExten.HttpFactory.RequestType,System.Int32)">
+            <summary>
+            Add Path
+            </summary>
+            <param name="Path"></param>
+            <param name="Param"></param>
+            <param name="Type"></param>
+            <param name="Weight"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiInterface.INode.AddNode``1(System.String,``0,System.Collections.Generic.IDictionary{System.String,System.String},XExten.HttpFactory.RequestType,System.Int32)">
+            <summary>
+            Add Path
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Path"></param>
+            <param name="Param">实体模型</param>
+            <param name="MapFied">映射字段</param>
+            <param name="Type"></param>
+            <param name="Weight"></param>
+            <returns></returns>
         </member>
         <member name="M:XExten.HttpFactory.MultiInterface.INode.Header(System.String,System.String)">
             <summary>
@@ -1764,9 +2015,39 @@
             <param name="domain"></param>
             <returns></returns>
         </member>
+        <member name="T:XExten.HttpFactory.RequestType">
+            <summary>
+            RequestType
+            </summary>
+        </member>
+        <member name="F:XExten.HttpFactory.RequestType.POST">
+            <summary>
+            POST
+            </summary>
+        </member>
+        <member name="F:XExten.HttpFactory.RequestType.GET">
+            <summary>
+            GET
+            </summary>
+        </member>
+        <member name="F:XExten.HttpFactory.RequestType.DELETE">
+            <summary>
+            DELETE
+            </summary>
+        </member>
+        <member name="F:XExten.HttpFactory.RequestType.PUT">
+            <summary>
+            PUT
+            </summary>
+        </member>
         <member name="T:XExten.HttpFactory.WeightURL">
             <summary>
             负载路由
+            </summary>
+        </member>
+        <member name="P:XExten.HttpFactory.WeightURL.Request">
+            <summary>
+            请求类型
             </summary>
         </member>
         <member name="P:XExten.HttpFactory.WeightURL.Weight">
@@ -1779,9 +2060,9 @@
             路由
             </summary>
         </member>
-        <member name="P:XExten.HttpFactory.WeightURL.ContentType">
+        <member name="P:XExten.HttpFactory.WeightURL.Contents">
             <summary>
-            内容类型
+            Json
             </summary>
         </member>
         <member name="T:XExten.MessageQueue.QueueDictionary">

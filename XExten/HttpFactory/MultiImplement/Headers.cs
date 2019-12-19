@@ -15,19 +15,6 @@ namespace XExten.HttpFactory.MultiImplement
     /// </summary>
     public class Headers : IHeaders
     {
-        internal ICookies Cookies;
-        internal INode Nodes;
-        internal IBuilder Builder;
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        public Headers()
-        {
-            Cookies = new Cookies();
-            Nodes = new Node();
-            Builder = new Builder();
-        }
 
         /// <summary>
         /// 构建
@@ -36,7 +23,7 @@ namespace XExten.HttpFactory.MultiImplement
         /// <returns></returns>
         public IBuilder Build(int TimeOut = 60)
         {
-            return Builder.Build();
+            return HttpMultiClientWare.Builder.Build();
         }
 
         /// <summary>
@@ -48,7 +35,7 @@ namespace XExten.HttpFactory.MultiImplement
         public IHeaders Header(string key, string value)
         {
             HttpMultiClientWare.HeaderMaps.Add(new Dictionary<string, string>() { { key, value } });
-            return this;
+            return HttpMultiClientWare.Headers;
         }
 
         /// <summary>
@@ -59,7 +46,7 @@ namespace XExten.HttpFactory.MultiImplement
         public IHeaders Header(Dictionary<string, string> headers)
         {
             HttpMultiClientWare.HeaderMaps.Add(headers);
-            return this;
+            return HttpMultiClientWare.Headers;
         }
 
         /// <summary>
@@ -70,7 +57,7 @@ namespace XExten.HttpFactory.MultiImplement
         /// <returns></returns>
         public ICookies Cookie(string name, string value)
         {
-           return  Cookies.Cookie(name, value);
+           return HttpMultiClientWare.Cookies.Cookie(name, value);
         }
 
         /// <summary>
@@ -82,7 +69,7 @@ namespace XExten.HttpFactory.MultiImplement
         /// <returns></returns>
         public ICookies Cookie(string name, string value, string path)
         {
-            return Cookies.Cookie(name, value, path);
+            return HttpMultiClientWare.Cookies.Cookie(name, value, path);
         }
 
         /// <summary>
@@ -95,7 +82,7 @@ namespace XExten.HttpFactory.MultiImplement
         /// <returns></returns>
         public ICookies Cookie(string name, string value, string path, string domain)
         {
-            return Cookies.Cookie(name, value, path, domain);
+            return HttpMultiClientWare.Cookies.Cookie(name, value, path, domain);
         }
 
         /// <summary>
@@ -107,7 +94,7 @@ namespace XExten.HttpFactory.MultiImplement
         /// <returns></returns>
         public INode AddNode(string Path, RequestType Type = RequestType.GET, int Weight = 50)
         {
-            return Nodes.AddNode(Path, Type, Weight);
+            return HttpMultiClientWare.Nodes.AddNode(Path, Type, Weight);
         }
 
         /// <summary>
@@ -120,7 +107,7 @@ namespace XExten.HttpFactory.MultiImplement
         /// <returns></returns>
         public INode AddNode(string Path, string Param, RequestType Type = RequestType.GET, int Weight = 50)
         {
-            return Nodes.AddNode(Path, Param, Type, Weight);
+            return HttpMultiClientWare.Nodes.AddNode(Path, Param, Type, Weight);
         }
 
         /// <summary>
@@ -135,7 +122,7 @@ namespace XExten.HttpFactory.MultiImplement
         /// <returns></returns>
         public INode AddNode<T>(string Path, T Param, IDictionary<string, string> MapFied = null, RequestType Type = RequestType.GET, int Weight = 50) where T : class, new()
         {
-            return Nodes.AddNode(Path, Param, MapFied, Type, Weight);
+            return HttpMultiClientWare.Nodes.AddNode(Path, Param, MapFied, Type, Weight);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace XExten.HttpFactory
     {
 
         /// <summary>
-        /// Http by post default UTF8
+        /// Http by post default UTF8 (Please use HttpMultiClient)
         /// </summary>
         /// <param name="url"></param>
         /// <param name="data"></param>
@@ -25,6 +25,7 @@ namespace XExten.HttpFactory
         /// <param name="timeout"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
+        [Obsolete]
         public static async Task<String> HttpPostAsync(string url, IList<KeyValuePair<String, String>> data, bool UseCookie = false, bool IsDispose = true, Dictionary<string, string> headers = null, string contentType = null, int timeout = 0, Encoding encoding = null)
         {
             Byte[] ResultBytes = null;
@@ -45,7 +46,7 @@ namespace XExten.HttpFactory
         /// <param name="timeout"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        public static async Task<Byte[]> HttpPostBytesAsync(string url, IList<KeyValuePair<String, String>> data, Dictionary<string, string> headers = null, string contentType = null, int timeout = 0, Encoding encoding = null)
+        private static async Task<Byte[]> HttpPostBytesAsync(string url, IList<KeyValuePair<String, String>> data, Dictionary<string, string> headers = null, string contentType = null, int timeout = 0, Encoding encoding = null)
         {
             using (HttpClient Client = new HttpClient())
             {
@@ -76,7 +77,7 @@ namespace XExten.HttpFactory
         /// <param name="timeout"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        public static async Task<Byte[]> KeepSessionByHttpPostBytesAsync(string url, IList<KeyValuePair<String, String>> data, bool IsDispose = true, Dictionary<string, string> headers = null, string contentType = null, int timeout = 0, Encoding encoding = null)
+        private static async Task<Byte[]> KeepSessionByHttpPostBytesAsync(string url, IList<KeyValuePair<String, String>> data, bool IsDispose = true, Dictionary<string, string> headers = null, string contentType = null, int timeout = 0, Encoding encoding = null)
         {
             CookieContainer Cookie = new CookieContainer();
             HttpClientHandler Handler = new HttpClientHandler
@@ -124,7 +125,7 @@ namespace XExten.HttpFactory
         }
 
         /// <summary>
-        /// Http by get default UTF8
+        /// Http by get default UTF8 (Please use HttpMultiClient)
         /// </summary>
         /// <param name="url"></param>
         /// <param name="UseCookie"></param>
@@ -132,6 +133,7 @@ namespace XExten.HttpFactory
         /// <param name="headers"></param>
         /// <param name="timeout"></param>
         /// <returns></returns>
+        [Obsolete]
         public static async Task<String> HttpGetAsync(string url, bool UseCookie = false, bool IsDispose = true, Dictionary<string, string> headers = null, int timeout = 0)
         {
             Byte[] ResultBytes = null;
@@ -149,7 +151,7 @@ namespace XExten.HttpFactory
         /// <param name="headers"></param>
         /// <param name="timeout"></param>
         /// <returns></returns>
-        public static async Task<Byte[]> HttpGetBytesAsync(string url, Dictionary<string, string> headers = null, int timeout = 0)
+        private static async Task<Byte[]> HttpGetBytesAsync(string url, Dictionary<string, string> headers = null, int timeout = 0)
         {
             using (HttpClient Client = new HttpClient())
             {
@@ -173,7 +175,7 @@ namespace XExten.HttpFactory
         /// <param name="headers"></param>
         /// <param name="timeout"></param>
         /// <returns></returns>
-        public static async Task<Byte[]> KeepSessionByHttpGetBytesAsync(string url, bool IsDispose = true, Dictionary<string, string> headers = null, int timeout = 0)
+        private static async Task<Byte[]> KeepSessionByHttpGetBytesAsync(string url, bool IsDispose = true, Dictionary<string, string> headers = null, int timeout = 0)
         {
             CookieContainer Cookie = new CookieContainer();
             HttpClientHandler Handler = new HttpClientHandler

@@ -19,12 +19,27 @@ namespace XExten.HttpFactory
         /// Instance
         /// </summary>
         public static HttpMultiClient HttpMulti => new HttpMultiClient();
+
         /// <summary>
         /// Constructor
         /// </summary>
         public HttpMultiClient()
         {
+           
+            HttpMultiClientWare.Builder = new Builder();
+            HttpMultiClientWare.Headers = new Headers();
+            HttpMultiClientWare.Cookies = new Cookies();
+            HttpMultiClientWare.Nodes = new Node();
+        }
+
+        /// <summary>
+        /// 初始化Cookie容器
+        /// </summary>
+        /// <returns></returns>
+        public HttpMultiClient InitCookieContainer()
+        {
             HttpMultiClientWare.Container = new CookieContainer();
+            return this;
         }
 
         #region Header
@@ -37,7 +52,7 @@ namespace XExten.HttpFactory
         public IHeaders Headers(string key, string value)
         {
             HttpMultiClientWare.HeaderMaps.Add(new Dictionary<string, string>() { { key, value } });
-            return new Headers();
+            return HttpMultiClientWare.Headers;
         }
         /// <summary>
         /// Add Header
@@ -47,7 +62,7 @@ namespace XExten.HttpFactory
         public IHeaders Headers(Dictionary<string, string> headers)
         {
             HttpMultiClientWare.HeaderMaps.Add(headers);
-            return new Headers();
+            return HttpMultiClientWare.Headers;
         }
         #endregion Header
 
@@ -62,7 +77,7 @@ namespace XExten.HttpFactory
         {
             Cookie Cookie = new Cookie(name, value);
             HttpMultiClientWare.Container.Add(Cookie);
-            return new Cookies();
+            return HttpMultiClientWare.Cookies;
         }
         /// <summary>
         /// Add Cookie
@@ -75,7 +90,7 @@ namespace XExten.HttpFactory
         {
             Cookie Cookie = new Cookie(name, value, path);
             HttpMultiClientWare.Container.Add(Cookie);
-            return new Cookies();
+            return HttpMultiClientWare.Cookies;
         }
         /// <summary>
         /// Add Cookie
@@ -89,7 +104,7 @@ namespace XExten.HttpFactory
         {
             Cookie Cookie = new Cookie(name, value, path, domain);
             HttpMultiClientWare.Container.Add(Cookie);
-            return new Cookies();
+            return HttpMultiClientWare.Cookies;
         }
         #endregion Cookie
 
@@ -110,7 +125,7 @@ namespace XExten.HttpFactory
                 Request= Type
             };
             HttpMultiClientWare.WeightPath.Add(WeightUri);
-            return new Node();
+            return HttpMultiClientWare.Nodes;
         }
         /// <summary>
         /// Add Path
@@ -130,7 +145,7 @@ namespace XExten.HttpFactory
                 Contents = new StringContent(Param)
             };
             HttpMultiClientWare.WeightPath.Add(WeightUri);
-            return new Node();
+            return HttpMultiClientWare.Nodes;
         }
         /// <summary>
         /// Add Path
@@ -154,7 +169,7 @@ namespace XExten.HttpFactory
                     Contents = new FormUrlEncodedContent(HttpKeyPairs.KeyValuePairs(Param, MapFied))
                 };
                 HttpMultiClientWare.WeightPath.Add(WeightUri);
-                return new Node();
+                return HttpMultiClientWare.Nodes;
             }
             catch (Exception)
             {

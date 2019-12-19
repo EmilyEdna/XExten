@@ -23,7 +23,6 @@ namespace XExten.HttpFactory.MultiImplement
         {
             if (HttpMultiClientWare.WeightPath.FirstOrDefault().URL == null)
                 throw new Exception("Request address is not set!");
-            HttpMultiClientWare.FactoryClient.Timeout = new TimeSpan(0, 0, TimeOut);
             if (HttpMultiClientWare.Container != null)
             {
                 HttpClientHandler Handler = new HttpClientHandler
@@ -56,7 +55,8 @@ namespace XExten.HttpFactory.MultiImplement
                     });
                 HttpMultiClientWare.FactoryClient = Client;
             }
-            return this;
+            HttpMultiClientWare.FactoryClient.Timeout = new TimeSpan(0, 0, TimeOut);
+            return HttpMultiClientWare.Builder;
         }
 
         /// <summary>
