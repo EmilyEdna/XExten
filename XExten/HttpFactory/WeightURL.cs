@@ -10,7 +10,7 @@ namespace XExten.HttpFactory
     /// <summary>
     /// 负载路由
     /// </summary>
-    public struct WeightURL
+    internal struct WeightURL
     {
         /// <summary>
         /// 请求类型

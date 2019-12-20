@@ -25,7 +25,6 @@ namespace XExten.HttpFactory
         /// </summary>
         public HttpMultiClient()
         {
-           
             HttpMultiClientWare.Builder = new Builder();
             HttpMultiClientWare.Headers = new Headers();
             HttpMultiClientWare.Cookies = new Cookies();

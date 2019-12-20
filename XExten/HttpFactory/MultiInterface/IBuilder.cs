@@ -19,12 +19,12 @@ namespace XExten.HttpFactory.MultiInterface
         /// <returns></returns>
         IBuilder Build(int TimeOut=60);
         /// <summary>
-        /// 执行
+        /// 执行 default UTF-8
         /// </summary>
         /// <returns></returns>
         List<String> RunString();
         /// <summary>
-        /// 执行
+        /// 执行 default UTF-8
         /// </summary>
         /// <returns></returns>
         Task<List<String>> RunStringAsync();

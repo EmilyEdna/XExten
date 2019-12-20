@@ -91,7 +91,7 @@ namespace XExten.HttpFactory.MultiImplement
         }
 
         /// <summary>
-        /// 执行
+        /// 执行 default UTF-8
         /// </summary>
         /// <returns></returns>
         public List<string> RunString()
@@ -113,7 +113,7 @@ namespace XExten.HttpFactory.MultiImplement
         }
 
         /// <summary>
-        /// 执行
+        /// 执行 default UTF-8
         /// </summary>
         /// <returns></returns>
         public async Task<List<string>> RunStringAsync()
