@@ -102,6 +102,15 @@
             <typeparam name="T"></typeparam>
             <param name="Exp"></param>
         </member>
+        <member name="M:XExten.CacheFactory.Caches.MongoDbCacheUpdate``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.String,System.String)">
+            <summary>
+            更新MongoDB某个指
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Exp"></param>
+            <param name="Property"></param>
+            <param name="Value"></param>
+        </member>
         <member name="M:XExten.CacheFactory.Caches.RunTimeCacheSetAsync``1(System.String,``0,System.Int32,System.Boolean)">
             <summary>
             添加Memory缓存
@@ -181,6 +190,16 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Exp"></param>
+        </member>
+        <member name="M:XExten.CacheFactory.Caches.MongoDbCacheUpdateAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.String,System.String)">
+            <summary>
+            更新MongoDB某个指
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Exp"></param>
+            <param name="Property"></param>
+            <param name="Value"></param>
+            <returns></returns>
         </member>
         <member name="T:XExten.CacheFactory.MongoDbCache.MongoDbCaches">
              <summary>

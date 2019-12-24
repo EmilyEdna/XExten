@@ -151,6 +151,18 @@ namespace XExten.CacheFactory
             MongoDbCaches.Delete<T>(Exp);
         }
 
+        /// <summary>
+        /// 更新MongoDB某个指
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Exp"></param>
+        /// <param name="Property"></param>
+        /// <param name="Value"></param>
+        public static void MongoDbCacheUpdate<T>(Expression<Func<T, bool>> Exp, string Property, string Value)
+        {
+            MongoDbCaches.Update(Exp, Property, Value);
+        }
+
         #endregion Sync
 
         #region Async
@@ -263,6 +275,19 @@ namespace XExten.CacheFactory
         public static async Task MongoDBCacheRemoveAsync<T>(Expression<Func<T, bool>> Exp)
         {
             await Task.Run(() => MongoDBCacheRemove(Exp));
+        }
+
+        /// <summary>
+        /// 更新MongoDB某个指
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Exp"></param>
+        /// <param name="Property"></param>
+        /// <param name="Value"></param>
+        /// <returns></returns>
+        public static async Task MongoDbCacheUpdateAsync<T>(Expression<Func<T, bool>> Exp, string Property, string Value)
+        {
+            await Task.Run(() => MongoDbCaches.Update(Exp, Property, Value));
         }
 
         #endregion Async
