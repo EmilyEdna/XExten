@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using XExten.HttpFactory.MultiInterface;
@@ -57,10 +58,39 @@ namespace XExten.HttpFactory.MultiImplement
                 Weight = Weight,
                 URL = new Uri(Path),
                 Request = Type,
-                Contents = new StringContent(Param)
+                Contents = new StringContent(Param),
+                MediaTypeHeader = new MediaTypeHeaderValue("application/json")
             };
             HttpMultiClientWare.WeightPath.Add(WeightUri);
             return HttpMultiClientWare.Nodes;
+        }
+
+        /// <summary>
+        /// Add Path
+        /// </summary>
+        /// <param name="Path"></param>
+        /// <param name="Param"></param>
+        /// <param name="Type"></param>
+        /// <param name="Weight"></param>
+        /// <returns></returns>
+        public INode AddNode(string Path, List<KeyValuePair<String, String>> Param, RequestType Type = RequestType.GET, int Weight = 50) {
+            try
+            {
+                WeightURL WeightUri = new WeightURL
+                {
+                    Weight = Weight,
+                    URL = new Uri(Path),
+                    Request = Type,
+                    Contents = new FormUrlEncodedContent(Param),
+                    MediaTypeHeader = new MediaTypeHeaderValue("application/x-www-form-urlencoded")
+                };
+                HttpMultiClientWare.WeightPath.Add(WeightUri);
+                return HttpMultiClientWare.Nodes;
+            }
+            catch (Exception)
+            {
+                throw new Exception("The parameter type is incorrect. The parameter can only be a solid model.");
+            }
         }
 
         /// <summary>
@@ -82,7 +112,8 @@ namespace XExten.HttpFactory.MultiImplement
                     Weight = Weight,
                     URL = new Uri(Path),
                     Request = Type,
-                    Contents = new FormUrlEncodedContent(HttpKeyPairs.KeyValuePairs(Param, MapFied))
+                    Contents = new FormUrlEncodedContent(HttpKeyPairs.KeyValuePairs(Param, MapFied)),
+                    MediaTypeHeader = new MediaTypeHeaderValue("application/x-www-form-urlencoded")
                 };
                 HttpMultiClientWare.WeightPath.Add(WeightUri);
                 return HttpMultiClientWare.Nodes;

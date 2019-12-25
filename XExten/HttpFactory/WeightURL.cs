@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,9 +26,13 @@ namespace XExten.HttpFactory
         /// </summary>
         public Uri URL { get; set; }
         /// <summary>
-        /// Json
+        /// 请求内容
         /// </summary>
         public HttpContent Contents { get; set; }
+        /// <summary>
+        /// 请求类型
+        /// </summary>
+        public MediaTypeHeaderValue MediaTypeHeader { get; set; }
     }
 
 }

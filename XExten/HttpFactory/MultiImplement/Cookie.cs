@@ -115,6 +115,19 @@ namespace XExten.HttpFactory.MultiImplement
         /// <summary>
         /// AddUri
         /// </summary>
+        /// <param name="Path"></param>
+        /// <param name="Param"></param>
+        /// <param name="Type"></param>
+        /// <param name="Weight"></param>
+        /// <returns></returns>
+        public INode AddNode(string Path, List<KeyValuePair<String, String>> Param, RequestType Type = RequestType.GET, int Weight = 50)
+        {
+            return HttpMultiClientWare.Nodes.AddNode(Path, Param, Type, Weight);
+        }
+
+        /// <summary>
+        /// AddUri
+        /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Path"></param>
         /// <param name="Param"></param>

@@ -35,6 +35,15 @@ namespace XExten.HttpFactory.MultiInterface
         /// <returns></returns>
         INode AddNode(string Path, string Param, RequestType Type = RequestType.GET, int Weight = 50);
         /// <summary>
+        /// AddUri
+        /// </summary>
+        /// <param name="Path"></param>
+        /// <param name="Param"></param>
+        /// <param name="Type"></param>
+        /// <param name="Weight"></param>
+        /// <returns></returns>
+        INode AddNode(string Path, List<KeyValuePair<String, String>> Param, RequestType Type = RequestType.GET, int Weight = 50);
+        /// <summary>
         /// Add Path
         /// </summary>
         /// <typeparam name="T"></typeparam>

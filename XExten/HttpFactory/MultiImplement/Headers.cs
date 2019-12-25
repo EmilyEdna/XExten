@@ -57,7 +57,7 @@ namespace XExten.HttpFactory.MultiImplement
         /// <returns></returns>
         public ICookies Cookie(string name, string value)
         {
-           return HttpMultiClientWare.Cookies.Cookie(name, value);
+            return HttpMultiClientWare.Cookies.Cookie(name, value);
         }
 
         /// <summary>
@@ -109,7 +109,18 @@ namespace XExten.HttpFactory.MultiImplement
         {
             return HttpMultiClientWare.Nodes.AddNode(Path, Param, Type, Weight);
         }
-
+        /// <summary>
+        /// AddUri
+        /// </summary>
+        /// <param name="Path"></param>
+        /// <param name="Param"></param>
+        /// <param name="Type"></param>
+        /// <param name="Weight"></param>
+        /// <returns></returns>
+        public INode AddNode(string Path, List<KeyValuePair<String, String>> Param, RequestType Type = RequestType.GET, int Weight = 50)
+        {
+            return HttpMultiClientWare.Nodes.AddNode(Path, Param, Type, Weight);
+        }
         /// <summary>
         /// AddUri
         /// </summary>
