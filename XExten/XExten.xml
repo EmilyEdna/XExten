@@ -1371,6 +1371,16 @@
             <param name="Weight"></param>
             <returns></returns>
         </member>
+        <member name="M:XExten.HttpFactory.HttpMultiClient.AddNode(System.String,System.Collections.Generic.List{System.Collections.Generic.KeyValuePair{System.String,System.String}},XExten.HttpFactory.RequestType,System.Int32)">
+            <summary>
+            Add Path
+            </summary>
+            <param name="Path"></param>
+            <param name="Param"></param>
+            <param name="Type"></param>
+            <param name="Weight"></param>
+            <returns></returns>
+        </member>
         <member name="M:XExten.HttpFactory.HttpMultiClient.AddNode``1(System.String,``0,System.Collections.Generic.IDictionary{System.String,System.String},XExten.HttpFactory.RequestType,System.Int32)">
             <summary>
             Add Path
@@ -1492,6 +1502,16 @@
             <param name="Weight"></param>
             <returns></returns>
         </member>
+        <member name="M:XExten.HttpFactory.MultiImplement.Cookies.AddNode(System.String,System.Collections.Generic.List{System.Collections.Generic.KeyValuePair{System.String,System.String}},XExten.HttpFactory.RequestType,System.Int32)">
+            <summary>
+            AddUri
+            </summary>
+            <param name="Path"></param>
+            <param name="Param"></param>
+            <param name="Type"></param>
+            <param name="Weight"></param>
+            <returns></returns>
+        </member>
         <member name="M:XExten.HttpFactory.MultiImplement.Cookies.AddNode``1(System.String,``0,System.Collections.Generic.IDictionary{System.String,System.String},XExten.HttpFactory.RequestType,System.Int32)">
             <summary>
             AddUri
@@ -1577,6 +1597,16 @@
             <param name="Weight"></param>
             <returns></returns>
         </member>
+        <member name="M:XExten.HttpFactory.MultiImplement.Headers.AddNode(System.String,System.Collections.Generic.List{System.Collections.Generic.KeyValuePair{System.String,System.String}},XExten.HttpFactory.RequestType,System.Int32)">
+            <summary>
+            AddUri
+            </summary>
+            <param name="Path"></param>
+            <param name="Param"></param>
+            <param name="Type"></param>
+            <param name="Weight"></param>
+            <returns></returns>
+        </member>
         <member name="M:XExten.HttpFactory.MultiImplement.Headers.AddNode``1(System.String,``0,System.Collections.Generic.IDictionary{System.String,System.String},XExten.HttpFactory.RequestType,System.Int32)">
             <summary>
             AddUri
@@ -1617,6 +1647,16 @@
             <param name="Path"></param>
             <param name="Param"></param>
              <param name="Type">请求类型</param>
+            <param name="Weight"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiImplement.Node.AddNode(System.String,System.Collections.Generic.List{System.Collections.Generic.KeyValuePair{System.String,System.String}},XExten.HttpFactory.RequestType,System.Int32)">
+            <summary>
+            Add Path
+            </summary>
+            <param name="Path"></param>
+            <param name="Param"></param>
+            <param name="Type"></param>
             <param name="Weight"></param>
             <returns></returns>
         </member>
@@ -1741,6 +1781,16 @@
             <param name="Weight"></param>
             <returns></returns>
         </member>
+        <member name="M:XExten.HttpFactory.MultiInterface.ICookies.AddNode(System.String,System.Collections.Generic.List{System.Collections.Generic.KeyValuePair{System.String,System.String}},XExten.HttpFactory.RequestType,System.Int32)">
+            <summary>
+            AddUri
+            </summary>
+            <param name="Path"></param>
+            <param name="Param"></param>
+            <param name="Type"></param>
+            <param name="Weight"></param>
+            <returns></returns>
+        </member>
         <member name="M:XExten.HttpFactory.MultiInterface.ICookies.AddNode``1(System.String,``0,System.Collections.Generic.IDictionary{System.String,System.String},XExten.HttpFactory.RequestType,System.Int32)">
             <summary>
             Add Path
@@ -1826,6 +1876,16 @@
             <param name="Weight"></param>
             <returns></returns>
         </member>
+        <member name="M:XExten.HttpFactory.MultiInterface.IHeaders.AddNode(System.String,System.Collections.Generic.List{System.Collections.Generic.KeyValuePair{System.String,System.String}},XExten.HttpFactory.RequestType,System.Int32)">
+            <summary>
+            AddUri
+            </summary>
+            <param name="Path"></param>
+            <param name="Param"></param>
+            <param name="Type"></param>
+            <param name="Weight"></param>
+            <returns></returns>
+        </member>
         <member name="M:XExten.HttpFactory.MultiInterface.IHeaders.AddNode``1(System.String,``0,System.Collections.Generic.IDictionary{System.String,System.String},XExten.HttpFactory.RequestType,System.Int32)">
             <summary>
             Add Path
@@ -1902,6 +1962,16 @@
             <returns></returns>
         </member>
         <member name="M:XExten.HttpFactory.MultiInterface.INode.AddNode(System.String,System.String,XExten.HttpFactory.RequestType,System.Int32)">
+            <summary>
+            Add Path
+            </summary>
+            <param name="Path"></param>
+            <param name="Param"></param>
+            <param name="Type"></param>
+            <param name="Weight"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiInterface.INode.AddNode(System.String,System.Collections.Generic.List{System.Collections.Generic.KeyValuePair{System.String,System.String}},XExten.HttpFactory.RequestType,System.Int32)">
             <summary>
             Add Path
             </summary>
@@ -2012,7 +2082,12 @@
         </member>
         <member name="P:XExten.HttpFactory.WeightURL.Contents">
             <summary>
-            Json
+            请求内容
+            </summary>
+        </member>
+        <member name="P:XExten.HttpFactory.WeightURL.MediaTypeHeader">
+            <summary>
+            请求类型
             </summary>
         </member>
         <member name="T:XExten.MessageQueue.QueueDictionary">

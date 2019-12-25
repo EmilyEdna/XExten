@@ -78,6 +78,7 @@ namespace XExten.HttpFactory.MultiImplement
                     Result.Add(HttpMultiClientWare.FactoryClient.PutAsync(item.URL, item.Contents).Result.Content.ReadAsByteArrayAsync().Result);
             });
             HttpMultiClientWare.FactoryClient.Dispose();
+            HttpMultiClientWare.WeightPath.Clear();
             return Result;
         }
 
@@ -109,6 +110,7 @@ namespace XExten.HttpFactory.MultiImplement
                     Result.Add(HttpMultiClientWare.FactoryClient.PutAsync(item.URL, item.Contents).Result.Content.ReadAsStringAsync().Result);
             });
             HttpMultiClientWare.FactoryClient.Dispose();
+            HttpMultiClientWare.WeightPath.Clear();
             return Result;
         }
 
