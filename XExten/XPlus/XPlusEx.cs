@@ -521,6 +521,29 @@ namespace XExten.XPlus
         {
             return Param.ToArray().Any(item => (int)item > 127);
         }
+
+        /// <summary>
+        /// 异常处理
+        /// </summary>
+        /// <param name="Executer"></param>
+        /// <param name="Exception"></param>
+        /// <param name="Finally"></param>
+        public static void XTry(Action Executer, Action<Exception> Exception, Action Finally = null)
+        {
+            try
+            {
+                Executer.Invoke();
+            }
+            catch (Exception ex)
+            {
+                Exception.Invoke(ex);
+            }
+            finally
+            {
+                if (Finally != null) Finally.Invoke();
+            }
+        }
+
         #endregion Func
     }
 }

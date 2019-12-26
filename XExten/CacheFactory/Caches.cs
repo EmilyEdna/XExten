@@ -116,11 +116,11 @@ namespace XExten.CacheFactory
         /// 获取MongoDB缓存列表
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="Exp"></param>
+        /// <param name="Express">Exp</param>
         /// <returns></returns>
-        public static IList<T> MongoDBCachesGet<T>(Expression<Func<T, bool>> Exp)
+        public static IList<T> MongoDBCachesGet<T>(Expression<Func<T, bool>> Express)
         {
-            return MongoDbCaches.SearchMany(Exp);
+            return MongoDbCaches.SearchMany(Express);
         }
 
         /// <summary>
@@ -242,11 +242,11 @@ namespace XExten.CacheFactory
         /// 获取MongoDB缓存列表
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="Exp"></param>
+        /// <param name="Express"></param>
         /// <returns></returns>
-        public static async Task<IList<T>> MongoDBCachesGetAsync<T>(Expression<Func<T, bool>> Exp)
+        public static async Task<IList<T>> MongoDBCachesGetAsync<T>(Expression<Func<T, bool>> Express)
         {
-            return await Task.Run(() => MongoDBCachesGet<T>(Exp));
+            return await Task.Run(() => MongoDBCachesGet<T>(Express));
         }
 
         /// <summary>

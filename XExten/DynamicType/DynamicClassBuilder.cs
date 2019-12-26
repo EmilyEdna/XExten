@@ -6,8 +6,14 @@ using System.Threading;
 
 namespace XExten.DynamicType
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class DynamicClassBuilder
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public static readonly DynamicClassBuilder Instance = new DynamicClassBuilder();
 
         static DynamicClassBuilder()

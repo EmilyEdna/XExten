@@ -18,6 +18,9 @@ namespace XExten.CacheFactory.RunTimeCache
     public class MemoryCaches
     {
 #if NETSTANDARD2_1
+        /// <summary>
+        /// MemoryCaches
+        /// </summary>
         public static IMemoryCache Cache = new MemoryCache(new MemoryCacheOptions());
 #endif
 

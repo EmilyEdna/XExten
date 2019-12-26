@@ -3,6 +3,9 @@ using System.Text;
 
 namespace XExten.DynamicType
 {
+    /// <summary>
+    /// DynamicClass
+    /// </summary>
     public class DynamicClass
     {
         /// <summary>

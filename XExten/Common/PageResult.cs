@@ -18,7 +18,6 @@ namespace XExten.Common
         public int CurrentPage { get; set; }
 
         /// <summary>
-        /// <summary>
         /// TotalPage
         /// </summary>
         public int TotalPage { get; set; }

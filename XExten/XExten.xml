@@ -3223,5 +3223,13 @@
             <param name="Param"></param>
             <returns></returns>
         </member>
+        <member name="M:XExten.XPlus.XPlusEx.XTry(System.Action,System.Action{System.Exception},System.Action)">
+            <summary>
+            异常处理
+            </summary>
+            <param name="Executer"></param>
+            <param name="Exception"></param>
+            <param name="Finally"></param>
+        </member>
     </members>
 </doc>

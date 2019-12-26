@@ -62,35 +62,35 @@ namespace XExten.CacheFactory.MongoDbCache
         /// 查询单个记录
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="filter"></param>
+        /// <param name="Filter"></param>
         /// <returns></returns>
-        public static T Search<T>(Expression<Func<T, bool>> filter)
+        public static T Search<T>(Expression<Func<T, bool>> Filter)
         {
-            return Instance.GetCollection<T>(typeof(T).Name).Find(filter).FirstOrDefault();
+            return Instance.GetCollection<T>(typeof(T).Name).Find(Filter).FirstOrDefault();
         }
 
         /// <summary>
         /// 查询集合
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="filter"></param>
+        /// <param name="Filter"></param>
         /// <returns></returns>
-        public static IList<T> SearchMany<T>(Expression<Func<T, bool>> filter)
+        public static IList<T> SearchMany<T>(Expression<Func<T, bool>> Filter)
         {
-            return Instance.GetCollection<T>(typeof(T).Name).Find(filter).ToList();
+            return Instance.GetCollection<T>(typeof(T).Name).Find(Filter).ToList();
         }
 
         /// <summary>
         /// 更新单个
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="filter"></param>
+        /// <param name="Filter"></param>
         /// <param name="name"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        public static int Update<T>(Expression<Func<T, bool>> filter, string name, string param)
+        public static int Update<T>(Expression<Func<T, bool>> Filter, string name, string param)
         {
-            return (int)Instance.GetCollection<T>(typeof(T).Name).UpdateOne(filter, Builders<T>.Update.Set(name, param)).ModifiedCount;
+            return (int)Instance.GetCollection<T>(typeof(T).Name).UpdateOne(Filter, Builders<T>.Update.Set(name, param)).ModifiedCount;
         }
 
         /// <summary>
@@ -98,11 +98,11 @@ namespace XExten.CacheFactory.MongoDbCache
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="filter"></param>
-        /// <param name="t"></param>
+        /// <param name="Entity"></param>
         /// <returns></returns>
-        public static int UpdateMany<T>(Expression<Func<T, bool>> filter, T t)
+        public static int UpdateMany<T>(Expression<Func<T, bool>> filter, T Entity)
         {
-            return (int)Instance.GetCollection<T>(typeof(T).Name).UpdateMany(filter, Builders<T>.Update.Combine(new List<UpdateDefinition<T>>())).ModifiedCount;
+            return (int)Instance.GetCollection<T>(Entity.GetType().Name).UpdateMany(filter, Builders<T>.Update.Combine(new List<UpdateDefinition<T>>())).ModifiedCount;
         }
 
         /// <summary>

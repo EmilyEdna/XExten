@@ -13,7 +13,9 @@ namespace XExten.CacheFactory.RedisCache
     public class RedisCaches
     {
         #region Redis
-
+        /// <summary>
+        /// 配置redis
+        /// </summary>
         public static ConfigurationOptions Options => new ConfigurationOptions() { EndPoints = { RedisConnectionString }, AllowAdmin = true };
         private static readonly object locker = new object();
         private static ConnectionMultiplexer instance;

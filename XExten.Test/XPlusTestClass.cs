@@ -1,6 +1,7 @@
 ﻿using XExten.Test.TestModel;
 using XExten.XPlus;
 using Xunit;
+using System;
 
 namespace XExten.Test
 {
@@ -74,7 +75,7 @@ namespace XExten.Test
         public void XProtoBuf_Test()
         {
             TestB t = new TestB() { Account = "张三", Id = 1, Name = "李四" };
-             var data = XPlusEx.XProtobufSerialize(t);
+            var data = XPlusEx.XProtobufSerialize(t);
             var reslt = XPlusEx.XProtobufDeSerialize<TestB>(data);
         }
 
@@ -97,10 +98,15 @@ namespace XExten.Test
         }
 
         [Fact]
-        public void IsChineseCode()
+        public void XIsChineseCode_Test()
         {
             string text = "张三!";
             var res = XPlusEx.XIsChineseStr(text);
+        }
+        [Fact]
+        public void XTryCatch()
+        {
+            XPlusEx.XTry(() => throw new Exception("test exception"), (ex) => Console.WriteLine(ex.Message));
         }
     }
 }
