@@ -80,7 +80,7 @@
             获取MongoDB缓存列表
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="Exp"></param>
+            <param name="Express">Exp</param>
             <returns></returns>
         </member>
         <member name="M:XExten.CacheFactory.Caches.RunTimeCacheRemove(System.Object)">
@@ -169,7 +169,7 @@
             获取MongoDB缓存列表
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="Exp"></param>
+            <param name="Express"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.CacheFactory.Caches.RunTimeCacheRemoveAsync(System.Object)">
@@ -240,7 +240,7 @@
             查询单个记录
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="filter"></param>
+            <param name="Filter"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.CacheFactory.MongoDbCache.MongoDbCaches.SearchMany``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
@@ -248,7 +248,7 @@
             查询集合
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="filter"></param>
+            <param name="Filter"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.CacheFactory.MongoDbCache.MongoDbCaches.Update``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.String,System.String)">
@@ -256,7 +256,7 @@
             更新单个
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="filter"></param>
+            <param name="Filter"></param>
             <param name="name"></param>
             <param name="param"></param>
             <returns></returns>
@@ -267,7 +267,7 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="filter"></param>
-            <param name="t"></param>
+            <param name="Entity"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.CacheFactory.MongoDbCache.MongoDbCaches.Delete``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
@@ -291,6 +291,11 @@
              <summary>
             
              </summary>
+        </member>
+        <member name="P:XExten.CacheFactory.RedisCache.RedisCaches.Options">
+            <summary>
+            配置redis
+            </summary>
         </member>
         <member name="P:XExten.CacheFactory.RedisCache.RedisCaches.RedisConnectionString">
             <summary>
@@ -926,7 +931,11 @@
             CurrentPage
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:XExten.Common.PageResult`1.TotalPage" -->
+        <member name="P:XExten.Common.PageResult`1.TotalPage">
+            <summary>
+            TotalPage
+            </summary>
+        </member>
         <member name="P:XExten.Common.PageResult`1.Queryable">
             <summary>
              Result
@@ -981,11 +990,26 @@
             <param name="DynKey"></param>
             <returns></returns>
         </member>
+        <member name="T:XExten.DynamicType.DynamicClass">
+            <summary>
+            DynamicClass
+            </summary>
+        </member>
         <member name="M:XExten.DynamicType.DynamicClass.ToString">
             <summary>
             转字符
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:XExten.DynamicType.DynamicClassBuilder">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:XExten.DynamicType.DynamicClassBuilder.Instance">
+            <summary>
+            
+            </summary>
         </member>
         <member name="M:XExten.DynamicType.DynamicClassBuilder.GetDynamicClass(System.Collections.Generic.IEnumerable{XExten.DynamicType.DynamicProperty},System.String)">
             <summary>
