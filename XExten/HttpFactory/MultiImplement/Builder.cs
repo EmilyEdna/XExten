@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using XExten.CacheFactory;
 using XExten.HttpFactory.MultiInterface;
 using XExten.XCore;
 
@@ -14,6 +15,9 @@ namespace XExten.HttpFactory.MultiImplement
     /// </summary>
     public class Builder : IBuilder
     {
+
+        private static int CacheSecond = 30;
+
         /// <summary>
         /// 构建
         /// </summary>
@@ -60,6 +64,17 @@ namespace XExten.HttpFactory.MultiImplement
         }
 
         /// <summary>
+        /// 设置缓存时间
+        /// </summary>
+        /// <param name="CacheSeconds">单位：Seconds</param>
+        /// <returns></returns>
+        public IBuilder CacheTime(int CacheSeconds = 60)
+        {
+            CacheSecond = CacheSeconds;
+            return this;
+        }
+
+        /// <summary>
         /// 执行
         /// </summary>
         /// <returns></returns>
@@ -68,14 +83,19 @@ namespace XExten.HttpFactory.MultiImplement
             List<Byte[]> Result = new List<Byte[]>();
             HttpMultiClientWare.WeightPath.OrderByDescending(t => t.Weight).ToEachs(item =>
             {
-                if (item.Request == RequestType.GET)
-                    Result.Add(HttpMultiClientWare.FactoryClient.GetAsync(item.URL).Result.Content.ReadAsByteArrayAsync().Result);
-                else if (item.Request == RequestType.DELETE)
-                    Result.Add(HttpMultiClientWare.FactoryClient.DeleteAsync(item.URL).Result.Content.ReadAsByteArrayAsync().Result);
-                else if (item.Request == RequestType.POST)
-                    Result.Add(HttpMultiClientWare.FactoryClient.PostAsync(item.URL, item.Contents).Result.Content.ReadAsByteArrayAsync().Result);
+                if (item.UseCache)
+                {
+                    var Data = Caches.RunTimeCacheGet<Byte[]>(item.URL.AbsoluteUri);
+                    if (Data == null)
+                    {
+                        Result.Add(RequestBytes(item));
+                        Caches.RunTimeCacheSet(item.URL.AbsoluteUri, Result.FirstOrDefault(), CacheSecond, true);
+                    }
+                    else
+                        Result.Add(Data);
+                }
                 else
-                    Result.Add(HttpMultiClientWare.FactoryClient.PutAsync(item.URL, item.Contents).Result.Content.ReadAsByteArrayAsync().Result);
+                    Result.Add(RequestBytes(item));
             });
             HttpMultiClientWare.FactoryClient.Dispose();
             HttpMultiClientWare.WeightPath.Clear();
@@ -100,14 +120,19 @@ namespace XExten.HttpFactory.MultiImplement
             List<string> Result = new List<string>();
             HttpMultiClientWare.WeightPath.OrderByDescending(t => t.Weight).ToEachs(item =>
             {
-                if (item.Request == RequestType.GET)
-                    Result.Add(HttpMultiClientWare.FactoryClient.GetAsync(item.URL).Result.Content.ReadAsStringAsync().Result);
-                else if (item.Request == RequestType.DELETE)
-                    Result.Add(HttpMultiClientWare.FactoryClient.DeleteAsync(item.URL).Result.Content.ReadAsStringAsync().Result);
-                else if (item.Request == RequestType.POST)
-                    Result.Add(HttpMultiClientWare.FactoryClient.PostAsync(item.URL, item.Contents).Result.Content.ReadAsStringAsync().Result);
+                if (item.UseCache)
+                {
+                    var Data = Caches.RunTimeCacheGet<string>(item.URL.AbsoluteUri);
+                    if (Data.IsNullOrEmpty())
+                    {
+                        Result.Add(RequestString(item));
+                        Caches.RunTimeCacheSet(item.URL.AbsoluteUri, Result.FirstOrDefault(), CacheSecond, true);
+                    }
+                    else
+                        Result.Add(Data);
+                }
                 else
-                    Result.Add(HttpMultiClientWare.FactoryClient.PutAsync(item.URL, item.Contents).Result.Content.ReadAsStringAsync().Result);
+                    Result.Add(RequestString(item));
             });
             HttpMultiClientWare.FactoryClient.Dispose();
             HttpMultiClientWare.WeightPath.Clear();
@@ -121,6 +146,40 @@ namespace XExten.HttpFactory.MultiImplement
         public async Task<List<string>> RunStringAsync()
         {
             return await Task.FromResult(RunString());
+        }
+
+        /// <summary>
+        /// 请求
+        /// </summary>
+        /// <param name="Item"></param>
+        /// <returns></returns>
+        private string RequestString(WeightURL Item)
+        {
+            if (Item.Request == RequestType.GET)
+                return HttpMultiClientWare.FactoryClient.GetAsync(Item.URL).Result.Content.ReadAsStringAsync().Result;
+            else if (Item.Request == RequestType.DELETE)
+                return HttpMultiClientWare.FactoryClient.DeleteAsync(Item.URL).Result.Content.ReadAsStringAsync().Result;
+            else if (Item.Request == RequestType.POST)
+                return HttpMultiClientWare.FactoryClient.PostAsync(Item.URL, Item.Contents).Result.Content.ReadAsStringAsync().Result;
+            else
+                return HttpMultiClientWare.FactoryClient.PutAsync(Item.URL, Item.Contents).Result.Content.ReadAsStringAsync().Result;
+        }
+
+        /// <summary>
+        /// 请求
+        /// </summary>
+        /// <param name="Item"></param>
+        /// <returns></returns>
+        private Byte[] RequestBytes(WeightURL Item)
+        {
+            if (Item.Request == RequestType.GET)
+                return HttpMultiClientWare.FactoryClient.GetAsync(Item.URL).Result.Content.ReadAsByteArrayAsync().Result;
+            else if (Item.Request == RequestType.DELETE)
+                return HttpMultiClientWare.FactoryClient.DeleteAsync(Item.URL).Result.Content.ReadAsByteArrayAsync().Result;
+            else if (Item.Request == RequestType.POST)
+                return HttpMultiClientWare.FactoryClient.PostAsync(Item.URL, Item.Contents).Result.Content.ReadAsByteArrayAsync().Result;
+            else
+                return HttpMultiClientWare.FactoryClient.PutAsync(Item.URL, Item.Contents).Result.Content.ReadAsByteArrayAsync().Result;
         }
     }
 }

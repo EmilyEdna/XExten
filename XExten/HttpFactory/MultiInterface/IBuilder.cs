@@ -19,6 +19,12 @@ namespace XExten.HttpFactory.MultiInterface
         /// <returns></returns>
         IBuilder Build(int TimeOut=60);
         /// <summary>
+        /// 设置缓存时间
+        /// </summary>
+        /// <param name="CacheSeconds"></param>
+        /// <returns></returns>
+        IBuilder CacheTime(int CacheSeconds = 60);
+        /// <summary>
         /// 执行 default UTF-8
         /// </summary>
         /// <returns></returns>

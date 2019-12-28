@@ -104,9 +104,21 @@ namespace XExten.Test
             var res = XPlusEx.XIsChineseStr(text);
         }
         [Fact]
-        public void XTryCatch()
+        public void XTryCatch_Test1()
         {
             XPlusEx.XTry(() => throw new Exception("test exception"), (ex) => Console.WriteLine(ex.Message));
+        }
+
+        [Fact]
+        public void XTryCatch_Test2()
+        {
+            XPlusEx.XTry(() =>
+            {
+                return Convert.ToInt32("q");
+            }, (ex) =>
+            {
+                Console.WriteLine(ex.Message);
+            });
         }
     }
 }

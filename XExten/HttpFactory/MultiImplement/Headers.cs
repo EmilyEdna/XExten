@@ -86,54 +86,60 @@ namespace XExten.HttpFactory.MultiImplement
         }
 
         /// <summary>
-        /// AddUri
+        /// Add Path
         /// </summary>
         /// <param name="Path"></param>
         /// <param name="Type"></param>
+        /// <param name="UseCache"></param>
         /// <param name="Weight"></param>
         /// <returns></returns>
-        public INode AddNode(string Path, RequestType Type = RequestType.GET, int Weight = 50)
+        public INode AddNode(string Path, RequestType Type = RequestType.GET, bool UseCache = false, int Weight = 50)
         {
-            return HttpMultiClientWare.Nodes.AddNode(Path, Type, Weight);
+            return HttpMultiClientWare.Nodes.AddNode(Path, Type, UseCache, Weight);
         }
 
         /// <summary>
-        /// AddUri
+        /// Add Path
         /// </summary>
         /// <param name="Path"></param>
         /// <param name="Param"></param>
         /// <param name="Type"></param>
+        /// <param name="UseCache"></param>
         /// <param name="Weight"></param>
         /// <returns></returns>
-        public INode AddNode(string Path, string Param, RequestType Type = RequestType.GET, int Weight = 50)
+        public INode AddNode(string Path, string Param, RequestType Type = RequestType.GET, bool UseCache = false, int Weight = 50)
         {
-            return HttpMultiClientWare.Nodes.AddNode(Path, Param, Type, Weight);
+            return HttpMultiClientWare.Nodes.AddNode(Path, Param, Type, UseCache, Weight);
         }
+
         /// <summary>
-        /// AddUri
+        /// Add Path
         /// </summary>
         /// <param name="Path"></param>
         /// <param name="Param"></param>
         /// <param name="Type"></param>
+        /// <param name="UseCache"></param>
         /// <param name="Weight"></param>
         /// <returns></returns>
-        public INode AddNode(string Path, List<KeyValuePair<String, String>> Param, RequestType Type = RequestType.GET, int Weight = 50)
+        public INode AddNode(string Path, List<KeyValuePair<String, String>> Param, RequestType Type = RequestType.GET, bool UseCache = false, int Weight = 50)
         {
-            return HttpMultiClientWare.Nodes.AddNode(Path, Param, Type, Weight);
+            return HttpMultiClientWare.Nodes.AddNode(Path, Param, Type, UseCache, Weight);
         }
+
         /// <summary>
-        /// AddUri
+        /// Add Path
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Path"></param>
         /// <param name="Param"></param>
         /// <param name="MapFied"></param>
         /// <param name="Type"></param>
+        /// <param name="UseCache"></param>
         /// <param name="Weight"></param>
         /// <returns></returns>
-        public INode AddNode<T>(string Path, T Param, IDictionary<string, string> MapFied = null, RequestType Type = RequestType.GET, int Weight = 50) where T : class, new()
+        public INode AddNode<T>(string Path, T Param, IDictionary<string, string> MapFied = null, RequestType Type = RequestType.GET, bool UseCache = false, int Weight = 50) where T : class, new()
         {
-            return HttpMultiClientWare.Nodes.AddNode(Path, Param, MapFied, Type, Weight);
+            return HttpMultiClientWare.Nodes.AddNode(Path, Param, MapFied, Type, UseCache, Weight);
         }
     }
 }

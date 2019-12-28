@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using XExten.HttpFactory.MultiInterface;
+using XExten.XPlus;
 
 namespace XExten.HttpFactory.MultiImplement
 {
@@ -29,15 +30,17 @@ namespace XExten.HttpFactory.MultiImplement
         /// </summary>
         /// <param name="Path">请求地址</param>
         /// <param name="Type">请求类型</param>
+        /// <param name="UseCache">使用缓存</param>
         /// <param name="Weight">1~100区间</param>
         /// <returns></returns>
-        public INode AddNode(string Path, RequestType Type = RequestType.GET, int Weight = 50)
+        public INode AddNode(string Path, RequestType Type = RequestType.GET, bool UseCache = false, int Weight = 50)
         {
             WeightURL WeightUri = new WeightURL
             {
                 Weight = Weight,
                 URL = new Uri(Path),
-                Request = Type
+                Request = Type,
+                UseCache=UseCache
             };
             HttpMultiClientWare.WeightPath.Add(WeightUri);
             return HttpMultiClientWare.Nodes;
@@ -49,15 +52,17 @@ namespace XExten.HttpFactory.MultiImplement
         /// <param name="Path"></param>
         /// <param name="Param"></param>
         ///  <param name="Type">请求类型</param>
+        /// <param name="UseCache">使用缓存</param>
         /// <param name="Weight"></param>
         /// <returns></returns>
-        public INode AddNode(string Path, string Param, RequestType Type = RequestType.GET, int Weight = 50)
+        public INode AddNode(string Path, string Param, RequestType Type = RequestType.GET, bool UseCache = false, int Weight = 50)
         {
             WeightURL WeightUri = new WeightURL
             {
                 Weight = Weight,
                 URL = new Uri(Path),
                 Request = Type,
+                UseCache = UseCache,
                 Contents = new StringContent(Param),
                 MediaTypeHeader = new MediaTypeHeaderValue("application/json")
             };
@@ -70,11 +75,12 @@ namespace XExten.HttpFactory.MultiImplement
         /// </summary>
         /// <param name="Path"></param>
         /// <param name="Param"></param>
-        /// <param name="Type"></param>
-        /// <param name="Weight"></param>
+        /// <param name="Type">请求类型</param>
+        /// <param name="UseCache">使用缓存</param>
+        /// <param name="Weight">1~100区间</param>
         /// <returns></returns>
-        public INode AddNode(string Path, List<KeyValuePair<String, String>> Param, RequestType Type = RequestType.GET, int Weight = 50) {
-            try
+        public INode AddNode(string Path, List<KeyValuePair<String, String>> Param, RequestType Type = RequestType.GET, bool UseCache = false, int Weight = 50) {
+            return XPlusEx.XTry(() =>
             {
                 WeightURL WeightUri = new WeightURL
                 {
@@ -82,15 +88,12 @@ namespace XExten.HttpFactory.MultiImplement
                     URL = new Uri(Path),
                     Request = Type,
                     Contents = new FormUrlEncodedContent(Param),
+                    UseCache = UseCache,
                     MediaTypeHeader = new MediaTypeHeaderValue("application/x-www-form-urlencoded")
                 };
                 HttpMultiClientWare.WeightPath.Add(WeightUri);
                 return HttpMultiClientWare.Nodes;
-            }
-            catch (Exception)
-            {
-                throw new Exception("The parameter type is incorrect. The parameter can only be a solid model.");
-            }
+            }, (Ex) => throw new Exception("The parameter type is incorrect. The parameter can only be a solid model."));
         }
 
         /// <summary>
@@ -101,27 +104,25 @@ namespace XExten.HttpFactory.MultiImplement
         /// <param name="Param">实体模型</param>
         /// <param name="MapFied">映射字段</param>
         ///  <param name="Type">请求类型</param>
-        /// <param name="Weight"></param>
+        /// <param name="UseCache">使用缓存</param>
+        /// <param name="Weight">1~100区间</param>
         /// <returns></returns>
-        public INode AddNode<T>(string Path, T Param, IDictionary<string, string> MapFied = null, RequestType Type = RequestType.GET, int Weight = 50) where T : class, new()
+        public INode AddNode<T>(string Path, T Param, IDictionary<string, string> MapFied = null, RequestType Type = RequestType.GET, bool UseCache = false, int Weight = 50) where T : class, new()
         {
-            try
+            return XPlusEx.XTry(() =>
             {
                 WeightURL WeightUri = new WeightURL
                 {
                     Weight = Weight,
                     URL = new Uri(Path),
                     Request = Type,
+                    UseCache = UseCache,
                     Contents = new FormUrlEncodedContent(HttpKeyPairs.KeyValuePairs(Param, MapFied)),
                     MediaTypeHeader = new MediaTypeHeaderValue("application/x-www-form-urlencoded")
                 };
                 HttpMultiClientWare.WeightPath.Add(WeightUri);
                 return HttpMultiClientWare.Nodes;
-            }
-            catch (Exception)
-            {
-                throw new Exception("The parameter type is incorrect. The parameter can only be a solid model.");
-            }
+            }, (Ex) => throw new Exception("The parameter type is incorrect. The parameter can only be a solid model."));
         }
 
         /// <summary>

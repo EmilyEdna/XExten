@@ -30,6 +30,10 @@ namespace XExten.HttpFactory
         /// </summary>
         public HttpContent Contents { get; set; }
         /// <summary>
+        /// 使用缓存
+        /// </summary>
+        public bool UseCache { get; set; }
+        /// <summary>
         /// 请求类型
         /// </summary>
         public MediaTypeHeaderValue MediaTypeHeader { get; set; }

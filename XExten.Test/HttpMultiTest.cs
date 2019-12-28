@@ -21,9 +21,14 @@ namespace XExten.Test
             var data = HttpMultiClient.HttpMulti
                 .InitCookieContainer()
                 .Headers("name","test")
-                .AddNode("https://api.uixsj.cn/hitokoto/w.php")
-                .AddNode("https://api.uixsj.cn/hitokoto/w.php?code=json")
-                .Build().RunString();
+                .AddNode("https://api.uixsj.cn/hitokoto/w.php?code=json",RequestType.GET,true)
+                .Build().CacheTime().RunBytes();
+
+            var data1 = HttpMultiClient.HttpMulti
+              .InitCookieContainer()
+              .Headers("name", "test")
+              .AddNode("https://api.uixsj.cn/hitokoto/w.php?code=json", RequestType.GET, true)
+              .Build().CacheTime().RunBytes();
         }
     }
 }
