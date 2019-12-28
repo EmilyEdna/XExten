@@ -2904,6 +2904,13 @@
             <param name="thisValue"></param>
             <returns></returns>
         </member>
+        <member name="M:XExten.XCore.LinqX.IsNumOrLetter(System.String)">
+            <summary>
+            是否字母或数字
+            </summary>
+            <param name="thisValue"></param>
+            <returns></returns>
+        </member>
         <member name="M:XExten.XCore.LinqX.ToLzStringDec(System.String)">
             <summary>
             LzString解密（LzString Base64 Decryption）

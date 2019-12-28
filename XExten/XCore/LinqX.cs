@@ -1075,6 +1075,7 @@ namespace XExten.XCore
         {
             return thisValue >= begin && thisValue <= end;
         }
+
         /// <summary>
         /// Is INT
         /// </summary>
@@ -1177,6 +1178,16 @@ namespace XExten.XCore
         public static bool IsZero(this object thisValue)
         {
             return (thisValue == null || thisValue.ToString() == "0");
+        }
+
+        /// <summary>
+        /// 是否字母或数字
+        /// </summary>
+        /// <param name="thisValue"></param>
+        /// <returns></returns>
+        public static bool IsNumOrLetter(this string thisValue)
+        {
+           return Regex.IsMatch(thisValue, "^[a-zA-Z\\d]+$");
         }
         #endregion IsWhat
 
