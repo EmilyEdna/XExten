@@ -1478,6 +1478,11 @@
             <param name="Item"></param>
             <returns></returns>
         </member>
+        <member name="M:XExten.HttpFactory.MultiImplement.Builder.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
         <member name="T:XExten.HttpFactory.MultiImplement.Cookies">
             <summary>
             Cookie
@@ -3323,7 +3328,7 @@
             <param name="Exception"></param>
             <param name="Finally"></param>
         </member>
-        <member name="M:XExten.XPlus.XPlusEx.XTry``1(System.Func{``0},System.Action{System.Exception},System.Action)">
+        <member name="M:XExten.XPlus.XPlusEx.XTry``1(System.Func{``0},System.Func{System.Exception,``0},System.Action)">
             <summary>
             异常处理
             </summary>

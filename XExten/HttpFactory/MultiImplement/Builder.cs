@@ -97,8 +97,7 @@ namespace XExten.HttpFactory.MultiImplement
                 else
                     Result.Add(RequestBytes(item));
             });
-            HttpMultiClientWare.FactoryClient.Dispose();
-            HttpMultiClientWare.WeightPath.Clear();
+            Dispose();
             return Result;
         }
 
@@ -134,8 +133,7 @@ namespace XExten.HttpFactory.MultiImplement
                 else
                     Result.Add(RequestString(item));
             });
-            HttpMultiClientWare.FactoryClient.Dispose();
-            HttpMultiClientWare.WeightPath.Clear();
+            Dispose();
             return Result;
         }
 
@@ -180,6 +178,17 @@ namespace XExten.HttpFactory.MultiImplement
                 return HttpMultiClientWare.FactoryClient.PostAsync(Item.URL, Item.Contents).Result.Content.ReadAsByteArrayAsync().Result;
             else
                 return HttpMultiClientWare.FactoryClient.PutAsync(Item.URL, Item.Contents).Result.Content.ReadAsByteArrayAsync().Result;
+        }
+
+        /// <summary>
+        /// 释放资源
+        /// </summary>
+        private void Dispose()
+        {
+            HttpMultiClientWare.FactoryClient.Dispose();
+            HttpMultiClientWare.Container = null;
+            HttpMultiClientWare.HeaderMaps.Clear();
+            HttpMultiClientWare.WeightPath.Clear();
         }
     }
 }
