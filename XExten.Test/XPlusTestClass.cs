@@ -118,6 +118,7 @@ namespace XExten.Test
             }, (ex) =>
             {
                 Console.WriteLine(ex.Message);
+                return 1;
             });
         }
     }

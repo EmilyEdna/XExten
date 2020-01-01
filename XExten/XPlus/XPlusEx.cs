@@ -552,7 +552,7 @@ namespace XExten.XPlus
         /// <param name="Exception"></param>
         /// <param name="Finally"></param>
         /// <returns></returns>
-        public static T XTry<T>(Func<T> Executer, Action<Exception> Exception, Action Finally = null)
+        public static T XTry<T>(Func<T> Executer, Func<Exception, T> Exception, Action Finally = null)
         {
             try
             {
@@ -560,8 +560,7 @@ namespace XExten.XPlus
             }
             catch (Exception ex)
             {
-                Exception.Invoke(ex);
-                return default;
+                return Exception.Invoke(ex);
             }
             finally
             {
