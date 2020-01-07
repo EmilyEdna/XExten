@@ -867,6 +867,11 @@
             
              </summary>
         </member>
+        <member name="F:XExten.CacheFactory.RunTimeCache.MemoryCaches.Cache">
+            <summary>
+            MemoryCaches
+            </summary>
+        </member>
         <member name="M:XExten.CacheFactory.RunTimeCache.MemoryCaches.AddCache``1(System.String,``0,System.Int32,System.Boolean)">
             <summary>
             添加缓存
@@ -1069,12 +1074,7 @@
             <returns>The new instance of the type.</returns>
         </member>
         <member name="M:XExten.DynamicType.DynamicTypeBuilder.GetDynamicClass(System.Collections.Generic.IEnumerable{XExten.DynamicType.DynamicProperty},System.Collections.Generic.IEnumerable{XExten.DynamicType.DynamicMethod})">
-             <summary>
-            
-             </summary>
-             <param name="properties"></param>
-             <param name="methods"></param>
-             <returns></returns>
+eturns></returns>
         </member>
         <member name="M:XExten.DynamicType.DynamicTypeBuilder.CreateDynamicClass(XExten.DynamicType.DynamicProperty[],XExten.DynamicType.DynamicMethod[])">
              <summary>
@@ -1146,6 +1146,10 @@
         </member>
         <member name="M:XExten.DynamicType.IDynamicTypeBuilder.Create(System.String,System.Collections.Generic.IEnumerable{XExten.DynamicType.DynamicPropertyValue},System.Collections.Generic.IEnumerable{XExten.DynamicType.DynamicMethod})">
             <summary>
+            Create a new instance of the dynamic type.
+            </summary>
+            <param name="typeName">The name of the type.</param>
+            <param nry>
             Create a new instance of the dynamic type.
             </summary>
             <param name="typeName">The name of the type.</param>
@@ -1238,6 +1242,11 @@
             RSA
             </summary>
         </member>
+        <member name="P:XExten.Encryption.RSAEncryption.Instance">
+            <summary>
+            实例
+            </summary>
+        </member>
         <member name="M:XExten.Encryption.RSAEncryption.RSAEncrypt(System.String)">
             <summary>
             RSA加密
@@ -1250,20 +1259,6 @@
             RSA解密
             </summary>
             <param name="Source"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.Encryption.RSAEncryption.CreateRsaFromPublicKey(System.String)">
-            <summary>
-            创建公钥RSA服务
-            </summary>
-            <param name="PublicKey"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.Encryption.RSAEncryption.CreateRsaProviderFromPrivateKey(System.String)">
-            <summary>
-            创建私钥RSA服务
-            </summary>
-            <param name="PrivateKey"></param>
             <returns></returns>
         </member>
         <member name="T:XExten.Encryption.SHAEncryption">
@@ -1746,11 +1741,7 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.HttpFactory.MultiImplement.Node.Cookie(System.String,System.String,System.String)">
-            <summary>
-            Add Cookie
-            </summary>
-            <param name="name"></param>
+        <member name="M:XExten.Htm name="name"></param>
             <param name="value"></param>
             <param name="path"></param>
             <returns></returns>
@@ -1853,6 +1844,9 @@
             <param name="Param"></param>
              <param name="Type">请求类型</param>
             <param name="UseCache">使用缓存</param>
+            <param name="Weight"></parame="Param"></param>
+             <param name="Type">请求类型</param>
+            <param name="UseCache">使用缓存</param>
             <param name="Weight"></param>
             <returns></returns>
         </member>
@@ -1941,10 +1935,7 @@
             <param name="Path">请求地址</param>
             <param name="Type">请求类型</param>
             <param name="UseCache">使用缓存</param>
-            <param name="Weight">1~100区间</param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.HttpFactory.MultiInterface.IHeaders.AddNode(System.String,System.String,XExten.HttpFactory.RequestType,System.Boolean,System.Int32)">
+        e(System.String,System.String,XExten.HttpFactory.RequestType,System.Boolean,System.Int32)">
             <summary>
             Add Path
             </summary>
@@ -2034,6 +2025,8 @@
             <returns></returns>
         </member>
         <member name="M:XExten.HttpFactory.MultiInterface.INode.AddNode(System.String,XExten.HttpFactory.RequestType,System.Boolean,System.Int32)">
+            <summary>
+        member name="M:XExten.HttpFactory.MultiInterface.INode.AddNode(System.String,XExten.HttpFactory.RequestType,System.Boolean,System.Int32)">
             <summary>
             Add Path
             </summary>
@@ -2342,11 +2335,7 @@
             <param name="Param"></param>
             <param name="Selector"></param>
         </member>
-        <member name="M:XExten.XCore.LinqX.ToEach``1(System.Array,System.Action{``0})">
-            <summary>
-            循环数组(Traversing the array)
-            </summary>
-            <typeparam name="T"></typeparam>
+        <member name="M:XExten.XCore.Lme="T"></typeparam>
             <param name="Param"></param>
             <param name="Selector"></param>
         </member>
@@ -2540,6 +2529,23 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ToDescription(System.Enum)">
+            <summary>
+            获取DescriptionAttribute值
+            </summary>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ToAttribute``2(``0,System.String)">
+            <summary>
+            获取指定字段的Attribute
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <typeparam name="TAttribute"></typeparam>
+            <param name="Param"></param>
+            <param name="FieldName">字段名</param>
             <returns></returns>
         </member>
         <member name="M:XExten.XCore.LinqX.ToAutoMapperAsync``1(System.Object)">
@@ -2785,6 +2791,23 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ToDescriptionAsync(System.Enum)">
+            <summary>
+            获取DescriptionAttribute值
+            </summary>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ToAttributeAsync``2(``0,System.String)">
+            <summary>
+            获取指定字段的Attribute
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <typeparam name="TAttribute"></typeparam>
+            <param name="Param"></param>
+            <param name="FieldName">字段名</param>
             <returns></returns>
         </member>
         <member name="M:XExten.XCore.LinqX.IsContainsIn(System.String,System.String[])">
@@ -3334,6 +3357,23 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Executer"></param>
+            <param name="Exception"></param>
+            <param name="Finally"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.XTry``1(System.Func{System.Threading.Tasks.Task{``0}},System.Func{System.Exception,System.Threading.Tasks.Task{``0}},System.Action)">
+            <summary>
+            异常处理
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Executer"></param>
+            <param name="Exception"></param>
+            <param name="Finally"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
+am>
             <param name="Exception"></param>
             <param name="Finally"></param>
             <returns></returns>

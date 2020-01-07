@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -163,7 +164,7 @@ namespace XExten.XPlus
         /// <returns></returns>
         public static string XRSADecryp(string Input)
         {
-            return RSAEncryption.RSADecrypt(Input);
+            return RSAEncryption.Instance.RSADecrypt(Input);
         }
 
         /// <summary>
@@ -173,7 +174,7 @@ namespace XExten.XPlus
         /// <returns></returns>
         public static string XRSAEncryp(string Input)
         {
-            return RSAEncryption.RSAEncrypt(Input);
+            return RSAEncryption.Instance.RSAEncrypt(Input);
         }
 
         /// <summary>
@@ -561,6 +562,30 @@ namespace XExten.XPlus
             catch (Exception ex)
             {
                 return Exception.Invoke(ex);
+            }
+            finally
+            {
+                if (Finally != null) Finally.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// 异常处理
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Executer"></param>
+        /// <param name="Exception"></param>
+        /// <param name="Finally"></param>
+        /// <returns></returns>
+        public static async Task<T> XTry<T>(Func<Task<T>> Executer, Func<Exception, Task<T>> Exception, Action Finally = null) 
+        {
+            try
+            {
+                return await Executer.Invoke();
+            }
+            catch (Exception ex)
+            {
+                return await Exception.Invoke(ex);
             }
             finally
             {

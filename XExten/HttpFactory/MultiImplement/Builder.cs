@@ -13,7 +13,7 @@ namespace XExten.HttpFactory.MultiImplement
     /// <summary>
     /// 构建器
     /// </summary>
-    public class Builder : IBuilder
+    public class Builder : IBuilder, IDisposable
     {
 
         private static int CacheSecond = 30;
@@ -183,7 +183,7 @@ namespace XExten.HttpFactory.MultiImplement
         /// <summary>
         /// 释放资源
         /// </summary>
-        private void Dispose()
+        public void Dispose()
         {
             HttpMultiClientWare.FactoryClient.Dispose();
             HttpMultiClientWare.Container = null;

@@ -121,5 +121,12 @@ namespace XExten.Test
                 return 1;
             });
         }
+
+        [Fact]
+        public void XRSA_Test()
+        {
+            var enc = XPlusEx.XRSAEncryp("emily");
+            var dec = XPlusEx.XRSADecryp(enc);
+        }
     }
 }

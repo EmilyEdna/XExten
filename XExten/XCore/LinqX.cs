@@ -659,6 +659,30 @@ namespace XExten.XCore
             });
             return Values;
         }
+
+        /// <summary>
+        /// 获取DescriptionAttribute值
+        /// </summary>
+        /// <param name="Param"></param>
+        /// <returns></returns>
+        public static string ToDescription(this Enum Param)
+        {
+            return (Param.GetType().GetField(Param.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), false).FirstOrDefault() as DescriptionAttribute).Description;
+        }
+
+        /// <summary>
+        /// 获取指定字段的Attribute
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <typeparam name="TAttribute"></typeparam>
+        /// <param name="Param"></param>
+        /// <param name="FieldName">字段名</param>
+        /// <returns></returns>
+        public static TAttribute ToAttribute<TSource, TAttribute>(this TSource Param, string FieldName) where TAttribute : Attribute
+        {
+            return (Param.GetType().GetField(FieldName).GetCustomAttributes(typeof(TAttribute), false).FirstOrDefault() as TAttribute);
+        }
+
         #endregion Sync
 
         #region Async
@@ -972,6 +996,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToUTF8(Param));
         }
+
         /// <summary>
         ///  替换实体中的数据并将其作为UTF8返回(Replace the data in the entity and return it as UTF8)
         /// </summary>
@@ -982,6 +1007,7 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToUTF8(Param));
         }
+
         /// <summary>
         /// 返回实体中所有的字段值(Returns all Property Values in an entity)
         /// </summary>
@@ -992,16 +1018,40 @@ namespace XExten.XCore
         {
             return await Task.Run(() => ToValues(Param));
         }
-        #endregion Async
-
-        #region IsWhat
 
         /// <summary>
-        /// 是否在里面(Is it inside)
+        /// 获取DescriptionAttribute值
         /// </summary>
-        /// <param name="thisValue"></param>
-        /// <param name="inValues"></param>
+        /// <param name="Param"></param>
         /// <returns></returns>
+        public static async Task<string> ToDescriptionAsync(this Enum Param)
+        {
+            return await Task.Run(() => ToDescription(Param));
+        }
+
+        /// <summary>
+        /// 获取指定字段的Attribute
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <typeparam name="TAttribute"></typeparam>
+        /// <param name="Param"></param>
+        /// <param name="FieldName">字段名</param>
+        /// <returns></returns>
+        public static async Task<TAttribute> ToAttributeAsync<TSource, TAttribute>(this TSource Param, string FieldName) where TAttribute : Attribute
+        {
+            return await Task.Run(() => ToAttribute<TSource, TAttribute>(Param, FieldName));
+        }
+
+        #endregion Async
+
+            #region IsWhat
+
+            /// <summary>
+            /// 是否在里面(Is it inside)
+            /// </summary>
+            /// <param name="thisValue"></param>
+            /// <param name="inValues"></param>
+            /// <returns></returns>
         public static bool IsContainsIn(this string thisValue, params string[] inValues)
         {
             return inValues.Any(it => thisValue.Contains(it));
@@ -1187,7 +1237,7 @@ namespace XExten.XCore
         /// <returns></returns>
         public static bool IsNumOrLetter(this string thisValue)
         {
-           return Regex.IsMatch(thisValue, "^[a-zA-Z\\d]+$");
+            return Regex.IsMatch(thisValue, "^[a-zA-Z\\d]+$");
         }
         #endregion IsWhat
 
@@ -1234,7 +1284,7 @@ namespace XExten.XCore
         /// <returns></returns>
         public static String ToRSADec(this String Param)
         {
-            return RSAEncryption.RSADecrypt(Param);
+            return RSAEncryption.Instance.RSADecrypt(Param);
         }
 
         /// <summary>
@@ -1244,7 +1294,7 @@ namespace XExten.XCore
         /// <returns></returns>
         public static String ToRSAEnc(this String Param)
         {
-            return RSAEncryption.RSAEncrypt(Param);
+            return RSAEncryption.Instance.RSAEncrypt(Param);
         }
 
         /// <summary>

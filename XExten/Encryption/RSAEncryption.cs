@@ -10,6 +10,12 @@ namespace XExten.Encryption
     /// </summary>
     public class RSAEncryption
     {
+
+        /// <summary>
+        /// 实例
+        /// </summary>
+        public static RSAEncryption Instance => new RSAEncryption();
+
         #region 密钥对
 
         private const string PublicKey = @"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7PyjMEuniN6BPn8oqzIZ6AO1N
@@ -38,10 +44,10 @@ fVtKUQLiCh7Yd8oMd/G5S3xWJHUXSioATT8uPRH2bOb/";
         /// </summary>
         /// <param name="Source"></param>
         /// <returns></returns>
-        public static string RSAEncrypt(string Source)
+        public string RSAEncrypt(string Source)
         {
-            RSACryptoServiceProvider serviceProvider = CreateRsaFromPublicKey(PublicKey);
-            var bytes = serviceProvider.Encrypt(Encoding.UTF8.GetBytes(Source), false);
+            var Rsa = Instance.CreateRsaProviderFromPublicKey(PublicKey);
+            var bytes = Rsa.Encrypt(Encoding.UTF8.GetBytes(Source), RSAEncryptionPadding.Pkcs1);
             return Convert.ToBase64String(bytes);
         }
 
@@ -50,12 +56,12 @@ fVtKUQLiCh7Yd8oMd/G5S3xWJHUXSioATT8uPRH2bOb/";
         /// </summary>
         /// <param name="Source"></param>
         /// <returns></returns>
-        public static string RSADecrypt(string Source)
+        public string RSADecrypt(string Source)
         {
             try
             {
-                RSACryptoServiceProvider serviceProvider = CreateRsaProviderFromPrivateKey(PrivateKey);
-                var bytes = serviceProvider.Decrypt(Convert.FromBase64String(Source), false);
+                var Rsa = Instance.CreateRsaProviderFromPrivateKey(PrivateKey);
+                var bytes = Rsa.Decrypt(Convert.FromBase64String(Source), RSAEncryptionPadding.Pkcs1);
                 return Encoding.UTF8.GetString(bytes);
             }
             catch (Exception ex)
@@ -64,26 +70,63 @@ fVtKUQLiCh7Yd8oMd/G5S3xWJHUXSioATT8uPRH2bOb/";
             }
         }
 
-        #region 公钥
+        #region 使用私钥创建RSA实例
 
-        /// <summary>
-        /// 创建公钥RSA服务
-        /// </summary>
-        /// <param name="PublicKey"></param>
-        /// <returns></returns>
-        private static RSACryptoServiceProvider CreateRsaFromPublicKey(string PublicKey)
+        private RSA CreateRsaProviderFromPrivateKey(string privateKey)
+        {
+            var privateKeyBits = Convert.FromBase64String(privateKey);
+
+            var rsa = RSA.Create();
+            var rsaParameters = new RSAParameters();
+
+            using (BinaryReader binr = new BinaryReader(new MemoryStream(privateKeyBits)))
+            {
+                byte bt = 0;
+                ushort twobytes = 0;
+                twobytes = binr.ReadUInt16();
+                if (twobytes == 0x8130)
+                    binr.ReadByte();
+                else if (twobytes == 0x8230)
+                    binr.ReadInt16();
+                else
+                    throw new Exception("Unexpected value read binr.ReadUInt16()");
+
+                twobytes = binr.ReadUInt16();
+                if (twobytes != 0x0102)
+                    throw new Exception("Unexpected version");
+
+                bt = binr.ReadByte();
+                if (bt != 0x00)
+                    throw new Exception("Unexpected value read binr.ReadByte()");
+
+                rsaParameters.Modulus = binr.ReadBytes(GetIntegerSize(binr));
+                rsaParameters.Exponent = binr.ReadBytes(GetIntegerSize(binr));
+                rsaParameters.D = binr.ReadBytes(GetIntegerSize(binr));
+                rsaParameters.P = binr.ReadBytes(GetIntegerSize(binr));
+                rsaParameters.Q = binr.ReadBytes(GetIntegerSize(binr));
+                rsaParameters.DP = binr.ReadBytes(GetIntegerSize(binr));
+                rsaParameters.DQ = binr.ReadBytes(GetIntegerSize(binr));
+                rsaParameters.InverseQ = binr.ReadBytes(GetIntegerSize(binr));
+            }
+
+            rsa.ImportParameters(rsaParameters);
+            return rsa;
+        }
+
+        #endregion
+
+        #region 使用公钥创建RSA实例
+
+        private RSA CreateRsaProviderFromPublicKey(string publicKeyString)
         {
             // encoded OID sequence for  PKCS #1 rsaEncryption szOID_RSA_RSA = "1.2.840.113549.1.1.1"
-            byte[] SeqOID = { 0x30, 0x0D, 0x06, 0x09, 0x2A, 0x86, 0x48, 0x86, 0xF7, 0x0D, 0x01, 0x01, 0x01, 0x05, 0x00 };
-            byte[] x509key;
+            byte[] seqOid = { 0x30, 0x0D, 0x06, 0x09, 0x2A, 0x86, 0x48, 0x86, 0xF7, 0x0D, 0x01, 0x01, 0x01, 0x05, 0x00 };
             byte[] seq = new byte[15];
-            int x509size;
 
-            x509key = Convert.FromBase64String(PublicKey);
-            x509size = x509key.Length;
+            var x509Key = Convert.FromBase64String(publicKeyString);
 
             // ---------  Set up stream to read the asn.1 encoded SubjectPublicKeyInfo blob  ------
-            using (MemoryStream mem = new MemoryStream(x509key))
+            using (MemoryStream mem = new MemoryStream(x509Key))
             {
                 using (BinaryReader binr = new BinaryReader(mem))  //wrap Memory Stream with BinaryReader for easy reading
                 {
@@ -99,7 +142,7 @@ fVtKUQLiCh7Yd8oMd/G5S3xWJHUXSioATT8uPRH2bOb/";
                         return null;
 
                     seq = binr.ReadBytes(15);       //read the Sequence OID
-                    if (!CompareBytearrays(seq, SeqOID))    //make sure Sequence for OID is correct
+                    if (!CompareBytearrays(seq, seqOid))    //make sure Sequence for OID is correct
                         return null;
 
                     twobytes = binr.ReadUInt16();
@@ -153,86 +196,27 @@ fVtKUQLiCh7Yd8oMd/G5S3xWJHUXSioATT8uPRH2bOb/";
                     byte[] exponent = binr.ReadBytes(expbytes);
 
                     // ------- create RSACryptoServiceProvider instance and initialize with public key -----
-                    RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
-                    RSAParameters RSAKeyInfo = new RSAParameters();
-                    RSAKeyInfo.Modulus = modulus;
-                    RSAKeyInfo.Exponent = exponent;
-                    RSA.ImportParameters(RSAKeyInfo);
+                    var rsa = RSA.Create();
+                    RSAParameters rsaKeyInfo = new RSAParameters
+                    {
+                        Modulus = modulus,
+                        Exponent = exponent
+                    };
+                    rsa.ImportParameters(rsaKeyInfo);
 
-                    return RSA;
+                    return rsa;
                 }
+
             }
         }
 
-        private static bool CompareBytearrays(byte[] a, byte[] b)
-        {
-            if (a.Length != b.Length)
-                return false;
-            int i = 0;
-            foreach (byte c in a)
-            {
-                if (c != b[i])
-                    return false;
-                i++;
-            }
-            return true;
-        }
+        #endregion
 
-        #endregion 公钥
+        #region 导入密钥算法
 
-        #region 私钥
-
-        /// <summary>
-        /// 创建私钥RSA服务
-        /// </summary>
-        /// <param name="PrivateKey"></param>
-        /// <returns></returns>
-        private static RSACryptoServiceProvider CreateRsaProviderFromPrivateKey(string PrivateKey)
-        {
-            var privateKeyBits = System.Convert.FromBase64String(PrivateKey);
-
-            var RSA = new RSACryptoServiceProvider();
-            var RSAparams = new RSAParameters();
-
-            using (BinaryReader binr = new BinaryReader(new MemoryStream(privateKeyBits)))
-            {
-                byte bt = 0;
-                ushort twobytes = 0;
-                twobytes = binr.ReadUInt16();
-                if (twobytes == 0x8130)
-                    binr.ReadByte();
-                else if (twobytes == 0x8230)
-                    binr.ReadInt16();
-                else
-                    throw new Exception("binr.ReadUInt16()是超出预期的值");
-
-                twobytes = binr.ReadUInt16();
-                if (twobytes != 0x0102)
-                    throw new Exception("不明确的版本");
-
-                bt = binr.ReadByte();
-                if (bt != 0x00)
-                    throw new Exception("binr.ReadByte()是超出预期的值");
-
-                RSAparams.Modulus = binr.ReadBytes(GetIntegerSize(binr));
-                RSAparams.Exponent = binr.ReadBytes(GetIntegerSize(binr));
-                RSAparams.D = binr.ReadBytes(GetIntegerSize(binr));
-                RSAparams.P = binr.ReadBytes(GetIntegerSize(binr));
-                RSAparams.Q = binr.ReadBytes(GetIntegerSize(binr));
-                RSAparams.DP = binr.ReadBytes(GetIntegerSize(binr));
-                RSAparams.DQ = binr.ReadBytes(GetIntegerSize(binr));
-                RSAparams.InverseQ = binr.ReadBytes(GetIntegerSize(binr));
-            }
-
-            RSA.ImportParameters(RSAparams);
-            return RSA;
-        }
-
-        private static int GetIntegerSize(BinaryReader binr)
+        private int GetIntegerSize(BinaryReader binr)
         {
             byte bt = 0;
-            byte lowbyte = 0x00;
-            byte highbyte = 0x00;
             int count = 0;
             bt = binr.ReadByte();
             if (bt != 0x02)
@@ -242,10 +226,10 @@ fVtKUQLiCh7Yd8oMd/G5S3xWJHUXSioATT8uPRH2bOb/";
             if (bt == 0x81)
                 count = binr.ReadByte();
             else
-                if (bt == 0x82)
+            if (bt == 0x82)
             {
-                highbyte = binr.ReadByte();
-                lowbyte = binr.ReadByte();
+                var highbyte = binr.ReadByte();
+                var lowbyte = binr.ReadByte();
                 byte[] modint = { lowbyte, highbyte, 0x00, 0x00 };
                 count = BitConverter.ToInt32(modint, 0);
             }
@@ -262,6 +246,20 @@ fVtKUQLiCh7Yd8oMd/G5S3xWJHUXSioATT8uPRH2bOb/";
             return count;
         }
 
-        #endregion 私钥
+        private bool CompareBytearrays(byte[] a, byte[] b)
+        {
+            if (a.Length != b.Length)
+                return false;
+            int i = 0;
+            foreach (byte c in a)
+            {
+                if (c != b[i])
+                    return false;
+                i++;
+            }
+            return true;
+        }
+
+        #endregion
     }
 }
