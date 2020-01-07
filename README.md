@@ -2,9 +2,8 @@
 --------------
 #### 对LINQ进行了扩展和修改，扩展了表达式和httpclient的封装。支持Redis、mongodb、memorycache等缓存机制。通过emit创建动态类，读取XML，创建二维码，支持protobuf序列化，支持MessagePack序列化，支持简单的消息队列。
 [![](https://img.shields.io/badge/build-success-brightgreen.svg)](https://github.com/EmilyEdna/XExten)
-[![](https://img.shields.io/badge/nuget-v2.2.1.6-blue.svg)](https://www.nuget.org/packages/XExten/2.2.1.6)
-![](https://img.shields.io/badge/support-Net461-blue.svg)
-![](https://img.shields.io/badge/support-NetStandard2.1-blue.svg)
+[![](https://img.shields.io/badge/nuget-v2.2.1.7-blue.svg)](https://www.nuget.org/packages/XExten/2.2.1.7)
+![](https://img.shields.io/badge/Download-3K-brightgreen)
 ### 如何使用
 --------------
 ##### 使用linq的拓展需要引入XExten.XCore域名空间
