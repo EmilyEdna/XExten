@@ -1011,6 +1011,11 @@
             
             </summary>
         </member>
+        <member name="M:Xmember name="F:XExten.DynamicType.DynamicClassBuilder.Instance">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:XExten.DynamicType.DynamicClassBuilder.GetDynamicClass(System.Collections.Generic.IEnumerable{XExten.DynamicType.DynamicProperty},System.String)">
             <summary>
              Create DynamicClass
@@ -2451,15 +2456,6 @@
             <param name="PageSize"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ToSelectDes``1(``0)">
-            <summary>
-            返回指定的枚举描述值
-            (Returns the specified enumeration description value)
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="Param"></param>
-            <returns></returns>
-        </member>
         <member name="M:XExten.XCore.LinqX.ToSet``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Object)">
             <summary>
              为选择的T的属性设置一个值(set a value for T's Property which choose)
@@ -2535,7 +2531,8 @@
         </member>
         <member name="M:XExten.XCore.LinqX.ToDescription(System.Enum)">
             <summary>
-            获取DescriptionAttribute值
+            返回指定的枚举描述值
+            (Returns the specified enumeration description value)
             </summary>
             <param name="Param"></param>
             <returns></returns>
@@ -2713,15 +2710,6 @@
             <param name="PageSize"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ToSelectDesAsync``1(``0)">
-            <summary>
-            返回指定的枚举描述值
-            (Returns the specified enumeration description value)
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="Param"></param>
-            <returns></returns>
-        </member>
         <member name="M:XExten.XCore.LinqX.ToSetAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Object)">
             <summary>
              为选择的T的属性设置一个值(set a value for T's Property which choose)
@@ -2797,7 +2785,8 @@
         </member>
         <member name="M:XExten.XCore.LinqX.ToDescriptionAsync(System.Enum)">
             <summary>
-            获取DescriptionAttribute值
+            返回指定的枚举描述值
+            (Returns the specified enumeration description value)
             </summary>
             <param name="Param"></param>
             <returns></returns>
