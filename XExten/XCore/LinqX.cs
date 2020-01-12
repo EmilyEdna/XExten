@@ -359,7 +359,12 @@ namespace XExten.XCore
         /// <returns></returns>
         public static Byte[] ToMsgByte<T>(this T Param, Boolean IsPublic = true)
         {
-            return MessagePackSerializer.Serialize<T>(Param, (IsPublic ? ContractlessStandardResolver.Instance : DynamicObjectResolverAllowPrivate.Instance));
+            MessagePackSerializerOptions Options;
+            if (IsPublic)
+                Options = MessagePackSerializerOptions.Standard.WithResolver(ContractlessStandardResolver.Instance);
+            else
+                Options = MessagePackSerializerOptions.Standard.WithResolver(DynamicObjectResolverAllowPrivate.Instance);
+            return MessagePackSerializer.Serialize<T>(Param, Options);
         }
 
         /// <summary>
@@ -369,7 +374,7 @@ namespace XExten.XCore
         /// <returns></returns>
         public static String ToMsgJson(this Byte[] Param)
         {
-            return MessagePackSerializer.ToJson(Param);
+            return MessagePackSerializer.SerializeToJson(Param);
         }
 
         /// <summary>
@@ -381,7 +386,12 @@ namespace XExten.XCore
         /// <returns></returns>
         public static T ToMsgModel<T>(this Byte[] Param, Boolean IsPublic = true)
         {
-            return MessagePackSerializer.Deserialize<T>(Param, (IsPublic ? ContractlessStandardResolver.Instance : DynamicObjectResolverAllowPrivate.Instance));
+            MessagePackSerializerOptions Options;
+            if (IsPublic)
+                Options = MessagePackSerializerOptions.Standard.WithResolver(ContractlessStandardResolver.Instance);
+            else
+                Options = MessagePackSerializerOptions.Standard.WithResolver(DynamicObjectResolverAllowPrivate.Instance);
+            return MessagePackSerializer.Deserialize<T>(Param, Options);
         }
 
         /// <summary>
@@ -436,19 +446,6 @@ namespace XExten.XCore
                 CurrentPage = (int)Math.Ceiling(PageIndex / (double)PageSize),
                 Queryable = queryable.Skip((PageIndex - 1) * PageSize).Take(PageSize).ToList()
             };
-        }
-
-        /// <summary>
-        /// 返回指定的枚举描述值
-        /// (Returns the specified enumeration description value)
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="Param"></param>
-        /// <returns></returns>
-        public static String ToSelectDes<T>(this T Param)
-        {
-            FieldInfo field = typeof(T).GetField(Enum.GetName(typeof(T), Param));
-            return ((DescriptionAttribute)field.GetCustomAttribute(typeof(DescriptionAttribute), false)).Description.ToString();
         }
 
         /// <summary>
@@ -661,7 +658,8 @@ namespace XExten.XCore
         }
 
         /// <summary>
-        /// 获取DescriptionAttribute值
+        /// 返回指定的枚举描述值
+        /// (Returns the specified enumeration description value)
         /// </summary>
         /// <param name="Param"></param>
         /// <returns></returns>
@@ -908,18 +906,6 @@ namespace XExten.XCore
         }
 
         /// <summary>
-        /// 返回指定的枚举描述值
-        /// (Returns the specified enumeration description value)
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="Param"></param>
-        /// <returns></returns>
-        public static async Task<String> ToSelectDesAsync<T>(this T Param)
-        {
-            return await Task.Run(() => ToSelectDes(Param));
-        }
-
-        /// <summary>
         ///  为选择的T的属性设置一个值(set a value for T's Property which choose)
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -1020,7 +1006,8 @@ namespace XExten.XCore
         }
 
         /// <summary>
-        /// 获取DescriptionAttribute值
+        /// 返回指定的枚举描述值
+        /// (Returns the specified enumeration description value)
         /// </summary>
         /// <param name="Param"></param>
         /// <returns></returns>
@@ -1044,14 +1031,14 @@ namespace XExten.XCore
 
         #endregion Async
 
-            #region IsWhat
+        #region IsWhat
 
-            /// <summary>
-            /// 是否在里面(Is it inside)
-            /// </summary>
-            /// <param name="thisValue"></param>
-            /// <param name="inValues"></param>
-            /// <returns></returns>
+        /// <summary>
+        /// 是否在里面(Is it inside)
+        /// </summary>
+        /// <param name="thisValue"></param>
+        /// <param name="inValues"></param>
+        /// <returns></returns>
         public static bool IsContainsIn(this string thisValue, params string[] inValues)
         {
             return inValues.Any(it => thisValue.Contains(it));

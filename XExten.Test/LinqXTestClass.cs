@@ -145,7 +145,7 @@ namespace XExten.Test
         [Fact]
         public void ToSelectDes_Test()
         {
-            var res = TestC.A.ToSelectDes();
+            var res = TestC.A.ToDescription();
         }
         [Fact]
         public void ToMsgByte_Test()
