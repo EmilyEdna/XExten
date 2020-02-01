@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.421
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XExten", "XExten\XExten.csproj", "{6B44A99B-0B09-4F85-B400-F7D21FB838FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XExten.Test", "XExten.Test\XExten.Test.csproj", "{42A63F0A-13D5-4708-82EB-D1AC0B0FEF87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XExten.Test", "XExten.Test\XExten.Test.csproj", "{42A63F0A-13D5-4708-82EB-D1AC0B0FEF87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

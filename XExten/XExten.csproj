@@ -9,10 +9,10 @@
     <PackageProjectUrl>https://github.com/EmilyEdna/XExten</PackageProjectUrl>
     <PackageTags>Linq、Expression、Cache、Emit、MSGQueue、XML、QrCode</PackageTags>
     <RepositoryUrl>https://github.com/EmilyEdna/XExten</RepositoryUrl>
-    <PackageReleaseNotes>https://github.com/EmilyEdna/XExten/issues/2</PackageReleaseNotes>
-    <Version>2.2.1.8</Version>
-    <AssemblyVersion>2.2.1.8</AssemblyVersion>
-    <FileVersion>2.2.1.8</FileVersion>
+    <PackageReleaseNotes>https://github.com/EmilyEdna/XExten/wiki</PackageReleaseNotes>
+    <Version>2.2.1.9</Version>
+    <AssemblyVersion>2.2.1.9</AssemblyVersion>
+    <FileVersion>2.2.1.9</FileVersion>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
