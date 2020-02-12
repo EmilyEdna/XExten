@@ -3144,6 +3144,20 @@
             Common Extension Class
             </summary>
         </member>
+        <member name="M:XExten.XPlus.XPlusEx.XConvertStamptime(System.String)">
+            <summary>
+            时间戳转时间
+            </summary>
+            <param name="TimeStamp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.XConvertDateTime(System.DateTime)">
+            <summary>
+            时间转时间戳
+            </summary>
+            <param name="TimeStamp"></param>
+            <returns></returns>
+        </member>
         <member name="M:XExten.XPlus.XPlusEx.XCreateQRCode(System.String,System.Int32)">
             <summary>
             生成二维码
