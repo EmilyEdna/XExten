@@ -1011,11 +1011,6 @@
             
             </summary>
         </member>
-        <member name="M:Xmember name="F:XExten.DynamicType.DynamicClassBuilder.Instance">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="M:XExten.DynamicType.DynamicClassBuilder.GetDynamicClass(System.Collections.Generic.IEnumerable{XExten.DynamicType.DynamicProperty},System.String)">
             <summary>
              Create DynamicClass
