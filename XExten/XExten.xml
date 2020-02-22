@@ -1304,6 +1304,12 @@
             <param name="Map"></param>
             <returns></returns>
         </member>
+        <member name="M:XExten.HttpFactory.HttpKeyPairs.RetrunEnumValue``1(System.Reflection.PropertyInfo,``0)">
+            <summary>
+            返回枚举值
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:XExten.HttpFactory.HttpMultiClient">
             <summary>
             负载请求
