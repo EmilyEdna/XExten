@@ -1,8 +1,10 @@
-﻿using System;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XExten.XCore;
 
 namespace XExten.Common
 {
@@ -35,6 +37,10 @@ namespace XExten.Common
         /// <returns></returns>
         public static ResultProvider SetValue(Object ObjKey = null, Dictionary<Object, Object> DicKey = null)
         {
+            DicKey.Where(Item => Item.Value is JObject).Select(Item => Item.Key).ToList().ForEach(Item =>
+            {
+                DicKey[Item] = DicKey[Item].ToJson().ToModel<Dictionary<String, Object>>();
+            });
             return new ResultProvider { ObjectProvider = ObjKey, DictionaryObjectProvider = DicKey };
         }
         /// <summary>
@@ -45,6 +51,10 @@ namespace XExten.Common
         /// <returns></returns>
         public static ResultProvider SetValue(Object ObjKey = null, Dictionary<String, Object> DicKey = null)
         {
+            DicKey.Where(Item => Item.Value is JObject).Select(Item => Item.Key).ToList().ForEach(Item =>
+            {
+                DicKey[Item] = DicKey[Item].ToJson().ToModel<Dictionary<String, Object>>();
+            });
             return new ResultProvider { ObjectProvider = ObjKey, DictionaryStringProvider = DicKey };
         }
         /// <summary>
