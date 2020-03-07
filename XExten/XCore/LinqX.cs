@@ -198,7 +198,7 @@ namespace XExten.XCore
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static IDictionary<String, Object> ToDic<T>(this T Param)
+        public static Dictionary<String, Object> ToDic<T>(this T Param)
         {
             ParameterExpression Parameter = Expression.Parameter(Param.GetType(), "t");
             Dictionary<String, Object> Map = new Dictionary<String, Object>();
@@ -255,9 +255,9 @@ namespace XExten.XCore
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static IList<T> ToEntities<T>(this DataTable Param) where T : new()
+        public static List<T> ToEntities<T>(this DataTable Param) where T : new()
         {
-            IList<T> entities = new List<T>();
+            List<T> entities = new List<T>();
             if (Param == null)
                 return null;
             foreach (DataRow row in Param.Rows)
@@ -341,9 +341,9 @@ namespace XExten.XCore
         /// <typeparam name="K"></typeparam>
         /// <param name="queryable"></param>
         /// <returns></returns>
-        public static IEnumerable<K> ToMappers<T, K>(this IEnumerable<T> queryable)
+        public static List<K> ToMappers<T, K>(this IEnumerable<T> queryable)
         {
-            return queryable.Select(Funcs<T, K>());
+            return queryable.Select(Funcs<T, K>()).ToList();
         }
 
         /// <summary>
@@ -431,10 +431,10 @@ namespace XExten.XCore
         /// <param name="queryable"></param>
         /// <param name="Expres"></param>
         /// <returns></returns>
-        public static IEnumerable<Object> ToOver<T>(this IEnumerable<T> queryable, Expression<Func<T, Object>> Expres)
+        public static List<Object> ToOver<T>(this IEnumerable<T> queryable, Expression<Func<T, Object>> Expres)
         {
             PropertyInfo property = (Expres.Body as MemberExpression).Member as PropertyInfo;
-            IList<Object> Data = new List<Object>();
+            List<Object> Data = new List<Object>();
             queryable.ToEachs(t =>
             {
                 Object value = t.GetType().GetProperty(property.Name).GetValue(t);
@@ -754,7 +754,7 @@ namespace XExten.XCore
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static async Task<IDictionary<String, Object>> ToDicAsync<T>(this T Param)
+        public static async Task<Dictionary<String, Object>> ToDicAsync<T>(this T Param)
         {
             return await Task.Run(() => ToDic(Param));
         }
@@ -799,7 +799,7 @@ namespace XExten.XCore
         /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
         /// <returns></returns>
-        public static async Task<IList<T>> ToEntitiesAsync<T>(this DataTable Param) where T : new()
+        public static async Task<List<T>> ToEntitiesAsync<T>(this DataTable Param) where T : new()
         {
             return await Task.Run(() => ToEntities<T>(Param));
         }
@@ -845,7 +845,7 @@ namespace XExten.XCore
         /// <typeparam name="K"></typeparam>
         /// <param name="queryable"></param>
         /// <returns></returns>
-        public static async Task<IEnumerable<K>> ToMapsAsync<T, K>(this IEnumerable<T> queryable)
+        public static async Task<List<K>> ToMapsAsync<T, K>(this IEnumerable<T> queryable)
         {
             return await Task.Run(() => ToMappers<T, K>(queryable));
         }
@@ -913,7 +913,7 @@ namespace XExten.XCore
         /// <param name="queryable"></param>
         /// <param name="Expres"></param>
         /// <returns></returns>
-        public static async Task<IEnumerable<Object>> ToOverAsync<T>(this IEnumerable<T> queryable, Expression<Func<T, Object>> Expres)
+        public static async Task<List<Object>> ToOverAsync<T>(this IEnumerable<T> queryable, Expression<Func<T, Object>> Expres)
         {
             return await Task.Run(() => ToOver(queryable, Expres));
         }
