@@ -22,8 +22,9 @@ namespace XExten.HttpFactory.MultiImplement
         /// 构建
         /// </summary>
         /// <param name="TimeOut">超时:秒</param>
+        /// <param name="UseHttps"></param>
         /// <returns></returns>
-        public IBuilder Build(int TimeOut = 60)
+        public IBuilder Build(int TimeOut = 60, Boolean UseHttps = false)
         {
             if (HttpMultiClientWare.WeightPath.FirstOrDefault().URL == null)
                 throw new Exception("Request address is not set!");
@@ -35,6 +36,8 @@ namespace XExten.HttpFactory.MultiImplement
                     UseCookies = true,
                     CookieContainer = HttpMultiClientWare.Container
                 };
+                if (UseHttps)
+                    Handler.ClientCertificateOptions = ClientCertificateOption.Automatic;
                 HttpClient Client = new HttpClient(Handler);
                 if (HttpMultiClientWare.HeaderMaps.Count != 0)
                     HttpMultiClientWare.HeaderMaps.ForEach(item =>
@@ -48,7 +51,17 @@ namespace XExten.HttpFactory.MultiImplement
             }
             else
             {
-                HttpClient Client = new HttpClient();
+                HttpClient Client = null;
+                if (UseHttps)
+                {
+                    HttpClientHandler Handler = new HttpClientHandler
+                    {
+                        ClientCertificateOptions = ClientCertificateOption.Automatic
+                    };
+                    Client = new HttpClient(Handler);
+                }
+                else
+                    Client = new HttpClient();
                 if (HttpMultiClientWare.HeaderMaps.Count != 0)
                     HttpMultiClientWare.HeaderMaps.ForEach(item =>
                     {

@@ -20,10 +20,11 @@ namespace XExten.HttpFactory.MultiImplement
         /// 构建
         /// </summary>
         /// <param name="TimeOut">超时:秒</param>
+        /// <param name="UseHttps"></param>
         /// <returns></returns>
-        public IBuilder Build(int TimeOut = 60)
+        public IBuilder Build(int TimeOut = 60, Boolean UseHttps = false)
         {
-            return HttpMultiClientWare.Builder.Build();
+            return HttpMultiClientWare.Builder.Build(TimeOut, UseHttps);
         }
 
         /// <summary>

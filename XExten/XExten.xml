@@ -1153,6 +1153,63 @@
             <param name="methods">The collection of methods to create in the type.</param>
             <returns>The new instance of the type.</returns>
         </member>
+        <member name="T:XExten.Email.EmailSettting">
+            <summary>
+            邮箱配置
+            </summary>
+        </member>
+        <member name="P:XExten.Email.EmailSettting.SmtpHost">
+            <summary>
+            邮箱地址
+            </summary>
+        </member>
+        <member name="P:XExten.Email.EmailSettting.EmailAccount">
+            <summary>
+            邮箱账号
+            </summary>
+        </member>
+        <member name="P:XExten.Email.EmailSettting.EmailPassWord">
+            <summary>
+            邮箱密码
+            </summary>
+        </member>
+        <member name="P:XExten.Email.EmailSettting.SendTitle">
+            <summary>
+            发送标题
+            </summary>
+        </member>
+        <member name="T:XExten.Email.EmailUtil">
+            <summary>
+            邮箱工具类
+            </summary>
+        </member>
+        <member name="M:XExten.Email.EmailUtil.SendMail(XExten.Email.EmailViewModel)">
+            <summary>
+             发送邮件
+            </summary>
+            <param name="View"></param>
+            <returns></returns>
+        </member>
+        <member name="T:XExten.Email.EmailViewModel">
+            <summary>
+            邮箱内容
+            </summary>
+        </member>
+        <member name="P:XExten.Email.EmailViewModel.AcceptedAddress">
+            <summary>
+            收件人邮箱
+            </summary>
+        </member>
+        <member name="P:XExten.Email.EmailViewModel.Title">
+            <summary>
+            发送标题
+            </summary>
+        </member>
+        <member name="P:XExten.Email.EmailViewModel.Content">
+            <summary>
+            内容
+            </summary>
+        </member>
         <member name="T:XExten.Encryption.LzStringEncryption">
             <summary>
             implements LzstringJS
@@ -1423,11 +1480,12 @@
             构建器
             </summary>
         </member>
-        <member name="M:XExten.HttpFactory.MultiImplement.Builder.Build(System.Int32)">
+        <member name="M:XExten.HttpFactory.MultiImplement.Builder.Build(System.Int32,System.Boolean)">
             <summary>
             构建
             </summary>
             <param name="TimeOut">超时:秒</param>
+            <param name="UseHttps"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.HttpFactory.MultiImplement.Builder.CacheTime(System.Int32)">
@@ -1485,11 +1543,12 @@
             Cookie
             </summary>
         </member>
-        <member name="M:XExten.HttpFactory.MultiImplement.Cookies.Build(System.Int32)">
+        <member name="M:XExten.HttpFactory.MultiImplement.Cookies.Build(System.Int32,System.Boolean)">
             <summary>
             构建
             </summary>
             <param name="TimeOut">超时:秒</param>
+            <param name="UseHttps"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.HttpFactory.MultiImplement.Cookies.Cookie(System.String,System.String)">
@@ -1584,11 +1643,12 @@
             Header
             </summary>
         </member>
-        <member name="M:XExten.HttpFactory.MultiImplement.Headers.Build(System.Int32)">
+        <member name="M:XExten.HttpFactory.MultiImplement.Headers.Build(System.Int32,System.Boolean)">
             <summary>
             构建
             </summary>
             <param name="TimeOut">超时:秒</param>
+            <param name="UseHttps"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.HttpFactory.MultiImplement.Headers.Header(System.String,System.String)">
@@ -1683,11 +1743,12 @@
             URL
             </summary>
         </member>
-        <member name="M:XExten.HttpFactory.MultiImplement.Node.Build(System.Int32)">
+        <member name="M:XExten.HttpFactory.MultiImplement.Node.Build(System.Int32,System.Boolean)">
             <summary>
             构建
             </summary>
             <param name="TimeOut">超时:秒</param>
+            <param name="UseHttps"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.HttpFactory.MultiImplement.Node.AddNode(System.String,XExten.HttpFactory.RequestType,System.Boolean,System.Int32)">
@@ -1782,11 +1843,12 @@
             构建
             </summary>
         </member>
-        <member name="M:XExten.HttpFactory.MultiInterface.IBuilder.Build(System.Int32)">
+        <member name="M:XExten.HttpFactory.MultiInterface.IBuilder.Build(System.Int32,System.Boolean)">
             <summary>
             构建
             </summary>
             <param name="TimeOut">超时:秒</param>
+            <param name="UseHttps"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.HttpFactory.MultiInterface.IBuilder.CacheTime(System.Int32)">
@@ -1825,11 +1887,12 @@
             Cookie
             </summary>
         </member>
-        <member name="M:XExten.HttpFactory.MultiInterface.ICookies.Build(System.Int32)">
+        <member name="M:XExten.HttpFactory.MultiInterface.ICookies.Build(System.Int32,System.Boolean)">
             <summary>
             构建
             </summary>
             <param name="TimeOut">超时:秒</param>
+            <param name="UseHttps"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.HttpFactory.MultiInterface.ICookies.AddNode(System.String,XExten.HttpFactory.RequestType,System.Boolean,System.Int32)">
@@ -1924,11 +1987,12 @@
             Header
             </summary>
         </member>
-        <member name="M:XExten.HttpFactory.MultiInterface.IHeaders.Build(System.Int32)">
+        <member name="M:XExten.HttpFactory.MultiInterface.IHeaders.Build(System.Int32,System.Boolean)">
             <summary>
             构建
             </summary>
             <param name="TimeOut">超时:秒</param>
+            <param name="UseHttps"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.HttpFactory.MultiInterface.IHeaders.AddNode(System.String,XExten.HttpFactory.RequestType,System.Boolean,System.Int32)">
@@ -2023,11 +2087,12 @@
             
             </summary>
         </member>
-        <member name="M:XExten.HttpFactory.MultiInterface.INode.Build(System.Int32)">
+        <member name="M:XExten.HttpFactory.MultiInterface.INode.Build(System.Int32,System.Boolean)">
             <summary>
             构建
             </summary>
             <param name="TimeOut">超时:秒</param>
+            <param name="UseHttps"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.HttpFactory.MultiInterface.INode.AddNode(System.String,XExten.HttpFactory.RequestType,System.Boolean,System.Int32)">
@@ -2302,6 +2367,15 @@
             <param name="obj"></param>
             <returns></returns>
         </member>
+        <member name="M:XExten.XCore.LinqX.ToAutoMapper``2(System.Object)">
+            <summary>
+             使用AutoMapper将实体映射到另一个实体并返回该实体(Map an entity to another entity and return the entity by AutoMapper)
+            </summary>
+            <typeparam name="K"></typeparam>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
         <member name="M:XExten.XCore.LinqX.ToAutoMapperWithIgnore``1(System.Object,System.String)">
             <summary>
             使用AutoMapper将实体映射到另一个实体并返回该实体(Map an entity to another entity and return the entity by AutoMapper)
@@ -2552,6 +2626,15 @@
             <summary>
             使用AutoMapper将实体映射到另一个实体并返回该实体(Map an entity to another entity and return the entity by AutoMapper)
             </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ToAutoMapperAsync``2(System.Object)">
+            <summary>
+            使用AutoMapper将实体映射到另一个实体并返回该实体(Map an entity to another entity and return the entity by AutoMapper)
+            </summary>
+            <typeparam name="K"></typeparam>
             <typeparam name="T"></typeparam>
             <param name="obj"></param>
             <returns></returns>
@@ -3149,6 +3232,13 @@
             <summary>
             Common Extension Class
             </summary>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.XSendMail(System.Action{XExten.Email.EmailViewModel})">
+            <summary>
+            发送邮件
+            </summary>
+            <param name="Action"></param>
+            <returns></returns>
         </member>
         <member name="M:XExten.XPlus.XPlusEx.XConvertStamptime(System.String)">
             <summary>

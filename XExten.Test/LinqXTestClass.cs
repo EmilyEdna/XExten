@@ -29,6 +29,21 @@ namespace XExten.Test
         }
 
         [Fact]
+        public void ToAutoMap_Test()
+        {
+            TestA A = new TestA() { Id = 1, Name = "admin" };
+            var res = A.ToAutoMapper<TestB>();
+        }
+
+        [Fact]
+        public void ToAutoMaps_Test()
+        {
+            TestA A = new TestA() { Id = 1, Name = "admin" };
+            List<TestA> LA = new List<TestA>() { A };
+            var res = LA.ToAutoMapper<TestA,TestB>();
+        }
+
+        [Fact]
         public void ToNames_Test()
         {
             TestA A = new TestA();
@@ -107,7 +122,7 @@ namespace XExten.Test
                 Name = "ÀîËÄ",
                 PassWord = "123"
             };
-            List<TestA> Li = new List<TestA>() { T,T1 };
+            List<TestA> Li = new List<TestA>() { T, T1 };
             var res = Li.ToOver(t => t.Name);
         }
 

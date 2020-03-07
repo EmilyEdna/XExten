@@ -9,6 +9,23 @@ namespace XExten.Test
     {
 
         [Fact]
+        public void XMail_Test()
+        {
+            var res = XPlusEx.XSendMail(Item=> {
+                Item.Content = "hello world!";
+                Item.AcceptedAddress = "xxx@gmail.com";
+                Item.Title = "mail test";
+            });
+        }
+
+        [Fact]
+        public void XConvertDateTime_Test()
+        {
+            var res = XPlusEx.XConvertDateTime(DateTime.Now);
+            var res1= XPlusEx.XConvertStamptime(res);
+        }
+
+        [Fact]
         public void XTel_Test()
         {
             var res = XPlusEx.XTel();

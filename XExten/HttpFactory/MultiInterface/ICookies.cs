@@ -15,8 +15,9 @@ namespace XExten.HttpFactory.MultiInterface
         /// 构建
         /// </summary>
         /// <param name="TimeOut">超时:秒</param>
+        /// <param name="UseHttps"></param>
         /// <returns></returns>
-        IBuilder Build(int TimeOut = 60);
+        IBuilder Build(int TimeOut = 60, Boolean UseHttps = false);
         /// <summary>
         /// Add Path
         /// </summary>

@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using XExten.Email;
 using XExten.Encryption;
 using XExten.XCore;
 
@@ -23,6 +24,22 @@ namespace XExten.XPlus
     public class XPlusEx
     {
         #region Func
+
+        /// <summary>
+        /// 发送邮件
+        /// </summary>
+        /// <param name="Action"></param>
+        /// <returns></returns>
+        public static bool XSendMail(Action<EmailViewModel> Action)
+        {
+            return XTry(() =>
+             {
+                 EmailViewModel View = new EmailViewModel();
+                 Action(View);
+                 EmailUtil.SendMail(View);
+                 return true;
+             }, ex => throw ex);
+        }
 
         /// <summary>
         /// 时间戳转时间
@@ -44,7 +61,7 @@ namespace XExten.XPlus
         public static string XConvertDateTime(DateTime TimeStamp)
         {
             DateTime StartTime = TimeZoneInfo.ConvertTime(new DateTime(1970, 1, 1), TimeZoneInfo.Utc, TimeZoneInfo.Local);
-            return (((TimeStamp - StartTime).TotalMilliseconds) / 1000).ToString();
+            return ((int)((TimeStamp - StartTime).TotalMilliseconds / 1000)).ToString();
         }
 
         /// <summary>
@@ -600,7 +617,7 @@ namespace XExten.XPlus
         /// <param name="Exception"></param>
         /// <param name="Finally"></param>
         /// <returns></returns>
-        public static async Task<T> XTry<T>(Func<Task<T>> Executer, Func<Exception, Task<T>> Exception, Action Finally = null) 
+        public static async Task<T> XTry<T>(Func<Task<T>> Executer, Func<Exception, Task<T>> Exception, Action Finally = null)
         {
             try
             {

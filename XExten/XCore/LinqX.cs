@@ -143,6 +143,20 @@ namespace XExten.XCore
         }
 
         /// <summary>
+        ///  使用AutoMapper将实体映射到另一个实体并返回该实体(Map an entity to another entity and return the entity by AutoMapper)
+        /// </summary>
+        /// <typeparam name="K"></typeparam>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static List<T> ToAutoMapper<K,T>(this Object obj)
+        {
+            if (obj == null) return default;
+            IMapper mapper = new MapperConfiguration(t => t.CreateMap(typeof(K), typeof(T))).CreateMapper();
+            return mapper.Map<List<T>>(obj);
+        }
+
+        /// <summary>
         /// 使用AutoMapper将实体映射到另一个实体并返回该实体(Map an entity to another entity and return the entity by AutoMapper)
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -694,6 +708,18 @@ namespace XExten.XCore
         public static async Task<T> ToAutoMapperAsync<T>(this Object obj)
         {
             return await Task.Run(() => ToAutoMapper<T>(obj));
+        }
+
+        /// <summary>
+        /// 使用AutoMapper将实体映射到另一个实体并返回该实体(Map an entity to another entity and return the entity by AutoMapper)
+        /// </summary>
+        /// <typeparam name="K"></typeparam>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static async Task<List<T>> ToAutoMapperAsync<K,T>(this Object obj)
+        {
+            return await Task.Run(() => ToAutoMapper<K,T>(obj));
         }
 
         /// <summary>
