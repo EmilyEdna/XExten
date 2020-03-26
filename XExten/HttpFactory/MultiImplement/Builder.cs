@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
 using XExten.CacheFactory;
@@ -37,7 +38,10 @@ namespace XExten.HttpFactory.MultiImplement
                     CookieContainer = HttpMultiClientWare.Container
                 };
                 if (UseHttps)
-                    Handler.ClientCertificateOptions = ClientCertificateOption.Automatic;
+                {
+                    Handler.SslProtocols = SslProtocols.Tls | SslProtocols.Tls11 | SslProtocols.Tls12;
+                    Handler.ServerCertificateCustomValidationCallback = (Message, Certificate, Chain, Error) => true;
+                }
                 HttpClient Client = new HttpClient(Handler);
                 if (HttpMultiClientWare.HeaderMaps.Count != 0)
                     HttpMultiClientWare.HeaderMaps.ForEach(item =>
@@ -56,8 +60,9 @@ namespace XExten.HttpFactory.MultiImplement
                 {
                     HttpClientHandler Handler = new HttpClientHandler
                     {
-                        ClientCertificateOptions = ClientCertificateOption.Automatic
-                    };
+                        SslProtocols = SslProtocols.Tls | SslProtocols.Tls11 | SslProtocols.Tls12,
+                        ServerCertificateCustomValidationCallback = (Message, Certificate, Chain, Error) => true,
+                };
                     Client = new HttpClient(Handler);
                 }
                 else
