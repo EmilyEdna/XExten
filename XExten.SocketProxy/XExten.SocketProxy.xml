@@ -26,6 +26,11 @@
             <param name="Method"></param>
             <returns></returns>
         </member>
+        <member name="T:XExten.SocketProxy.ProxyBasic">
+            <summary>
+            代理基础类
+            </summary>
+        </member>
         <member name="P:XExten.SocketProxy.ProxyBasic.SockInfoIP">
             <summary>
             通信中心IP
@@ -56,6 +61,7 @@
             初始化通信中心Socket
             </summary>
             <param name="Action"></param>
+            <param name="UseServer"></param>
         </member>
         <member name="M:XExten.SocketProxy.ProxyBasic.ReOpenInternalSocket(System.Action{XExten.SocketProxy.ProxyBasic})">
             <summary>
@@ -69,6 +75,7 @@
             </summary>
             <param name="Ip"></param>
             <param name="Port"></param>
+            <param name="MiddleData"></param>
         </member>
         <member name="M:XExten.SocketProxy.SocketCall.Call.SendInternalInfo(XExten.SocketProxy.SocketConfig.SocketSerializeData,XExten.SocketProxy.SocketInterface.ISocketSession)">
             <summary>

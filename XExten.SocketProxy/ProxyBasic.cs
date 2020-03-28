@@ -13,6 +13,9 @@ using XExten.XCore;
 
 namespace XExten.SocketProxy
 {
+    /// <summary>
+    /// 代理基础类
+    /// </summary>
     public class ProxyBasic
     {
         #region Basic Config
@@ -45,6 +48,7 @@ namespace XExten.SocketProxy
         /// 初始化通信中心Socket
         /// </summary>
         /// <param name="Action"></param>
+        /// <param name="UseServer"></param>
         public static void InitInternalSocket(Action<ProxyBasic> Action, bool UseServer = false)
         {
             ProxyBasic Client = new ProxyBasic();
@@ -74,6 +78,7 @@ namespace XExten.SocketProxy
         /// </summary>
         /// <param name="Ip"></param>
         /// <param name="Port"></param>
+        /// <param name="MiddleData"></param>
         protected virtual void InitInternalSocket(string Ip, int Port, SocketMiddleData MiddleData)
         {
             if (CallHandle == null)
