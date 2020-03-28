@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>XExten.SocketProxyServer</name>
+    </assembly>
+    <members>
+        <member name="T:XExten.SocketProxyServer.MiddleConfig.Configuration">
+            <summary>
+            配置
+            </summary>
+        </member>
+        <member name="F:XExten.SocketProxyServer.MiddleHandler.ExecuteDependency.PacketCache">
+            <summary>
+            缓存Seesion
+            </summary>
+        </member>
+        <member name="M:XExten.SocketProxyServer.MiddleHandler.ExecuteDependency.ExecutePacketCache(XExten.SocketProxyServer.MiddleView.SocketMiddleData,BeetleX.EventArgs.PacketDecodeCompletedEventArgs)">
+            <summary>
+            缓存Session
+            </summary>
+            <param name="Provider"></param>
+            <param name="Event"></param>
+        </member>
+        <member name="M:XExten.SocketProxyServer.MiddleHandler.ExecuteDependency.ExecuteInternalInfo(BeetleX.EventArgs.PacketDecodeCompletedEventArgs,XExten.SocketProxyServer.MiddleView.SocketMiddleData)">
+            <summary>
+            处理内部消息
+            </summary>
+            <param name="Param"></param>
+        </member>
+        <member name="M:XExten.SocketProxyServer.MiddleHandler.IntegrationHandler.CallHandler.ExecuteSocketCallBack(System.Collections.Generic.List{BeetleX.EventArgs.PacketDecodeCompletedEventArgs},XExten.SocketProxyServer.MiddleView.SocketMiddleData)">
+            <summary>
+            执行回调数据
+            </summary>
+        </member>
+        <member name="M:XExten.SocketProxyServer.MiddleHandler.IntegrationHandler.InitHandler.ExecuteSocketApiJson(XExten.SocketProxyServer.MiddleView.ViewInterface.ISocketResult)">
+            <summary>
+            把服务注入的API持久化
+            </summary>
+            <param name="Param"></param>
+        </member>
+        <member name="M:XExten.SocketProxyServer.MiddleHandler.IntegrationHandler.InitHandler.ExecuteSocketApiFile(System.String,System.String)">
+            <summary>
+            API写入文件
+            </summary>
+            <param name="FilePath"></param>
+            <param name="Data"></param>
+        </member>
+        <member name="M:XExten.SocketProxyServer.MiddleHandler.IntegrationHandler.InternalHandler.ExecuteSocketIniternalInfo(XExten.SocketProxyServer.MiddleView.SocketMiddleData,System.Collections.Generic.Dictionary{System.String,BeetleX.EventArgs.PacketDecodeCompletedEventArgs})">
+            <summary>
+            转发数据
+            </summary>
+            <param name="Param"></param>
+            <param name="PacketCache"></param>
+        </member>
+        <member name="M:XExten.SocketProxyServer.MiddleHandler.IntegrationHandler.RequestHandler.ExecuteSocketRequest(BeetleX.EventArgs.PacketDecodeCompletedEventArgs,XExten.SocketProxyServer.MiddleView.SocketMiddleData)">
+            <summary>
+            发送请求
+            </summary>
+            <param name="Event"></param>
+            <param name="Param"></param>
+        </member>
+        <member name="M:XExten.SocketProxyServer.MiddleSocket.Setting.TypeHandler.ReadType(BeetleX.Buffers.PipeStream)">
+            <summary>
+            读取类型
+            </summary>
+            <param name="stream"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.SocketProxyServer.MiddleSocket.Setting.TypeHandler.WriteType(System.Object,BeetleX.Buffers.PipeStream)">
+            <summary>
+            写入类型
+            </summary>
+            <param name="data"></param>
+            <param name="stram"></param>
+        </member>
+        <member name="M:XExten.SocketProxyServer.MiddleSocket.SocketBasic.Bootstrap">
+            <summary>
+            启动Socket服务
+            </summary>
+        </member>
+        <member name="M:XExten.SocketProxyServer.MiddleView.SocketMiddleData.Middle(XExten.SocketProxyServer.MiddleView.ViewEnum.SendTypeEnum,XExten.SocketProxyServer.MiddleView.ViewImpl.SocketResult,XExten.SocketProxyServer.MiddleView.ViewImpl.SocketSession,System.Nullable{System.Int32})">
+            <summary>
+            传输数据
+            </summary>
+            <param name="SendType"></param>
+            <param name="Result"></param>
+            <param name="Session"></param>
+            <param name="SendPort"></param>
+            <returns></returns>
+        </member>
+        <member name="T:XExten.SocketProxyServer.MiddleView.ViewEnum.SendTypeEnum">
+            <summary>
+            Socket发送状态
+            </summary>
+        </member>
+        <member name="F:XExten.SocketProxyServer.MiddleView.ViewEnum.SendTypeEnum.Init">
+            <summary>
+            初始化
+            </summary>
+        </member>
+        <member name="F:XExten.SocketProxyServer.MiddleView.ViewEnum.SendTypeEnum.InternalInfo">
+            <summary>
+            内部通信
+            </summary>
+        </member>
+        <member name="F:XExten.SocketProxyServer.MiddleView.ViewEnum.SendTypeEnum.RequestInfo">
+            <summary>
+            请求通信
+            </summary>
+        </member>
+        <member name="F:XExten.SocketProxyServer.MiddleView.ViewEnum.SendTypeEnum.CallBack">
+            <summary>
+            回调通信
+            </summary>
+        </member>
+        <member name="P:XExten.SocketProxyServer.MiddleView.ViewInterface.ISocketSession.PrimaryKey">
+            <summary>
+            用户主键
+            </summary>
+        </member>
+        <member name="P:XExten.SocketProxyServer.MiddleView.ViewInterface.ISocketSession.SessionAccount">
+            <summary>
+            用户账号
+            </summary>
+        </member>
+        <member name="P:XExten.SocketProxyServer.MiddleView.ViewInterface.ISocketSession.SessionRole">
+            <summary>
+            用户权限
+            </summary>
+        </member>
+        <member name="P:XExten.SocketProxyServer.MiddleView.ViewInterface.ISocketSession.CustomizeData">
+            <summary>
+            自定义数据
+            </summary>
+        </member>
+        <member name="T:XExten.SocketProxyServer.Start">
+            <summary>
+            启动
+            </summary>
+        </member>
+        <member name="M:XExten.SocketProxyServer.Start.Init">
+            <summary>
+            初始化
+            </summary>
+        </member>
+    </members>
+</doc>

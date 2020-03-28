@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Authors>EmilyEdna</Authors>
+    <Product>XExten.SocketProxy</Product>
+    <Description>Internal communication client for microservices using sockets</Description>
+    <RepositoryUrl>https://github.com/EmilyEdna/XExten</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/EmilyEdna/XExten</PackageProjectUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.3</Version>
+    <Copyright>EmilyEdna</Copyright>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\Project\XExten\XExten.SocketProxy\XExten.SocketProxy.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BeetleX" Version="1.5.0.51" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="3.1.0" />
+    <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
+    <PackageReference Include="XExten" Version="2.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ProxyConfig\" />
+  </ItemGroup>
+
+</Project>

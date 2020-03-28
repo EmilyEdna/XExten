@@ -1,0 +1,341 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>XExten.SocketProxy</name>
+    </assembly>
+    <members>
+        <member name="M:XExten.SocketProxy.ProxyAbstract.CallHandleAbstract.ExecuteCallFuncHandler(XExten.SocketProxy.SocketConfig.SocketMiddleData)">
+            <summary>
+            逆向解析方法
+            </summary>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.SocketProxy.ProxyAbstract.CallHandleAbstract.ExecuteCallSessionHandler(System.Reflection.MethodInfo,XExten.SocketProxy.SocketInterface.ISocketSession)">
+            <summary>
+            处理Session
+            </summary>
+            <param name="Method"></param>
+            <param name="Session"></param>
+        </member>
+        <member name="M:XExten.SocketProxy.ProxyAbstract.CallHandleAbstract.ExecuteCallDataHandler(System.Type,System.Reflection.MethodInfo,XExten.SocketProxy.SocketInterface.ISocketResult)">
+            <summary>
+            处理数据
+            </summary>
+            <param name="Controller"></param>
+            <param name="Method"></param>
+            <returns></returns>
+        </member>
+        <member name="P:XExten.SocketProxy.ProxyBasic.SockInfoIP">
+            <summary>
+            通信中心IP
+            </summary>
+        </member>
+        <member name="P:XExten.SocketProxy.ProxyBasic.SockInfoPort">
+            <summary>
+            通信中心端口
+            </summary>
+        </member>
+        <member name="P:XExten.SocketProxy.ProxyBasic.ClientPath">
+            <summary>
+            客服端地址
+            </summary>
+        </member>
+        <member name="P:XExten.SocketProxy.ProxyBasic.ClientPort">
+            <summary>
+            客服端端口
+            </summary>
+        </member>
+        <member name="P:XExten.SocketProxy.ProxyBasic.CallHandle">
+            <summary>
+            回调处理器
+            </summary>
+        </member>
+        <member name="M:XExten.SocketProxy.ProxyBasic.InitInternalSocket(System.Action{XExten.SocketProxy.ProxyBasic},System.Boolean)">
+            <summary>
+            初始化通信中心Socket
+            </summary>
+            <param name="Action"></param>
+        </member>
+        <member name="M:XExten.SocketProxy.ProxyBasic.ReOpenInternalSocket(System.Action{XExten.SocketProxy.ProxyBasic})">
+            <summary>
+            重新连接通信中心
+            </summary>
+            <param name="Action"></param>
+        </member>
+        <member name="M:XExten.SocketProxy.ProxyBasic.InitInternalSocket(System.String,System.Int32,XExten.SocketProxy.SocketConfig.SocketMiddleData)">
+            <summary>
+            初始化内部通信
+            </summary>
+            <param name="Ip"></param>
+            <param name="Port"></param>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketCall.Call.SendInternalInfo(XExten.SocketProxy.SocketConfig.SocketSerializeData,XExten.SocketProxy.SocketInterface.ISocketSession)">
+            <summary>
+            发送内部通信
+            </summary>
+            <param name="Param"></param>
+            <param name="Session"></param>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketCall.Call.CallBackHandler(XExten.SocketProxy.SocketConfig.SocketMiddleData,XExten.SocketProxy.ProxyAbstract.CallHandleAbstract)">
+            <summary>
+            处理数据然后回发数据
+            </summary>
+            <param name="Param"></param>
+            <param name="CallHandle"></param>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketCall.Call.CallBackInternalInfo(XExten.SocketProxy.SocketInterface.ISocketResult,System.Nullable{System.Int32})">
+            <summary>
+            回调数据
+            </summary>
+            <param name="Param"></param>
+            <param name="SendPort"></param>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketCall.CallHandle.ExecuteCallFuncHandler(XExten.SocketProxy.SocketConfig.SocketMiddleData)">
+            <summary>
+            逆向解析方法
+            </summary>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketCall.CallHandle.ExecuteCallSessionHandler(System.Reflection.MethodInfo,XExten.SocketProxy.SocketInterface.ISocketSession)">
+            <summary>
+            处理Session
+            </summary>
+            <param name="Controller"></param>
+            <param name="Method"></param>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketCall.CallHandle.ExecuteCallDataHandler(System.Type,System.Reflection.MethodInfo,XExten.SocketProxy.SocketInterface.ISocketResult)">
+            <summary>
+            处理数据
+            </summary>
+            <param name="Controller"></param>
+            <param name="Method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketConfig.SocketMiddleData.Middle(XExten.SocketProxy.SocketEnum.SendTypeEnum,XExten.SocketProxy.SocketInterface.ISocketResult,XExten.SocketProxy.SocketInterface.ISocketSession,System.Nullable{System.Int32})">
+            <summary>
+            传输数据
+            </summary>
+            <param name="SendType"></param>
+            <param name="Result"></param>
+            <param name="Session"></param>
+            <param name="SendPort"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketConfig.TypeHandler.ReadType(BeetleX.Buffers.PipeStream)">
+            <summary>
+            读取类型
+            </summary>
+            <param name="stream"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketConfig.TypeHandler.WriteType(System.Object,BeetleX.Buffers.PipeStream)">
+            <summary>
+            写入类型
+            </summary>
+            <param name="data"></param>
+            <param name="stram"></param>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketDependency.DependencyCondition.ExecuteMapper(System.Object)">
+            <summary>
+            转化结果
+            </summary>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketDependency.DependencyCondition.ExecuteIsCall(System.Object)">
+            <summary>
+            是否回调
+            </summary>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketDependency.DependencyCondition.ExecuteCallData(System.Object)">
+            <summary>
+            映射值
+            </summary>
+            <param name="Param"></param>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketDependency.DependencyError.ExecuteRecordLog(BeetleX.Clients.ClientErrorArgs)">
+            <summary>
+            记录异常错误
+            </summary>
+            <param name="Error"></param>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketDependency.DependencyExecute.FindLibrary">
+            <summary>
+            查询需要生成APIJson的接口
+            </summary>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketDependency.DependencyExecute.CreateSocketApiJsonScript">
+            <summary>
+            创建API文件
+            </summary>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketDependency.DependencyExecute.CreateSocketFileContent(System.String)">
+            <summary>
+            添加文件内容
+            </summary>
+            <param name="FilePath"></param>
+        </member>
+        <member name="P:XExten.SocketProxy.SocketDependency.DependencyLibrary.Assembly">
+            <summary>
+            所有程序集
+            </summary>
+        </member>
+        <member name="P:XExten.SocketProxy.SocketDependency.DependencyLibrary.Dependency">
+            <summary>
+            获取SocketApi
+            </summary>
+        </member>
+        <member name="P:XExten.SocketProxy.SocketDependency.DependencyLibrary.SessionDependency">
+            <summary>
+            自定义Session处理
+            </summary>
+        </member>
+        <member name="T:XExten.SocketProxy.SocketEnum.SendTypeEnum">
+            <summary>
+            Socket发送状态
+            </summary>
+        </member>
+        <member name="F:XExten.SocketProxy.SocketEnum.SendTypeEnum.Init">
+            <summary>
+            初始化
+            </summary>
+        </member>
+        <member name="F:XExten.SocketProxy.SocketEnum.SendTypeEnum.InternalInfo">
+            <summary>
+            内部通信
+            </summary>
+        </member>
+        <member name="F:XExten.SocketProxy.SocketEnum.SendTypeEnum.RequestInfo">
+            <summary>
+            请求通信
+            </summary>
+        </member>
+        <member name="F:XExten.SocketProxy.SocketEnum.SendTypeEnum.CallBack">
+            <summary>
+            回调通信
+            </summary>
+        </member>
+        <member name="E:XExten.SocketProxy.SocketEvent.CallEvent.Changed">
+            <summary>
+            事件
+            </summary>
+        </member>
+        <member name="T:XExten.SocketProxy.SocketEvent.CallEvent.ResultEventHandler">
+            <summary>
+            委托事件
+            </summary>
+            <param name="Sender"></param>
+            <param name="Args"></param>
+        </member>
+        <member name="F:XExten.SocketProxy.SocketEvent.CallEvent.Cache">
+            <summary>
+            保证是同一个对象
+            </summary>
+        </member>
+        <member name="P:XExten.SocketProxy.SocketEvent.CallEvent.Response">
+            <summary>
+            结果
+            </summary>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketEvent.CallEvent.Instance">
+            <summary>
+            创建对象
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketEvent.CallEvent.OnChanged(System.EventArgs)">
+            <summary>
+            事件
+            </summary>
+            <param name="Args"></param>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketEvent.CallEventAction.Instance">
+            <summary>
+            实例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketEvent.CallEventAction.OnResponse(System.Object,System.EventArgs)">
+            <summary>
+            返回结果
+            </summary>
+            <param name="Sender"></param>
+            <param name="Event"></param>
+        </member>
+        <member name="P:XExten.SocketProxy.SocketEvent.CallEventAction.DelegateResult">
+            <summary>
+            事件结果
+            </summary>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketEvent.CallEventAction.IsNull">
+            <summary>
+            处理空结果
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:XExten.SocketProxy.SocketEvent.CallResultEvent.ResultCheck">
+            <summary>
+            结果检查
+            </summary>
+        </member>
+        <member name="T:XExten.SocketProxy.SocketInterface.ISocketDependency">
+            <summary>
+            内部通信标识接口
+            </summary>
+        </member>
+        <member name="P:XExten.SocketProxy.SocketInterface.ISocketSession.PrimaryKey">
+            <summary>
+            用户主键
+            </summary>
+        </member>
+        <member name="P:XExten.SocketProxy.SocketInterface.ISocketSession.SessionAccount">
+            <summary>
+            用户账号
+            </summary>
+        </member>
+        <member name="P:XExten.SocketProxy.SocketInterface.ISocketSession.SessionRole">
+            <summary>
+            用户权限
+            </summary>
+        </member>
+        <member name="P:XExten.SocketProxy.SocketInterface.ISocketSession.CustomizeData">
+            <summary>
+            自定义数据
+            </summary>
+        </member>
+        <member name="T:XExten.SocketProxy.SocketRoute.SocketMethodAttribute">
+            <summary>
+            Socket方法
+            </summary>
+        </member>
+        <member name="P:XExten.SocketProxy.SocketRoute.SocketMethodAttribute.MethodName">
+            <summary>
+            自定义方法名称
+            </summary>
+        </member>
+        <member name="P:XExten.SocketProxy.SocketRoute.SocketMethodAttribute.MethodVersion">
+            <summary>
+            自定义方法版本
+            </summary>
+        </member>
+        <member name="T:XExten.SocketProxy.SocketRoute.SocketRouteAttribute">
+            <summary>
+            Socket路由
+            </summary>
+        </member>
+        <member name="P:XExten.SocketProxy.SocketRoute.SocketRouteAttribute.InternalServer">
+            <summary>
+            内部服务名称
+            </summary>
+        </member>
+        <member name="P:XExten.SocketProxy.SocketRoute.SocketRouteAttribute.ControllerName">
+            <summary>
+            自定义控制器名称
+            </summary>
+        </member>
+    </members>
+</doc>
