@@ -1294,20 +1294,33 @@ namespace XExten.XCore
         /// RSA解密（RSA Decryption）
         /// </summary>
         /// <param name="Param"></param>
+        /// <param name="PrivateKey"></param>
         /// <returns></returns>
-        public static String ToRSADec(this String Param)
+        public static String ToRSADec(this String Param,String PrivateKey)
         {
-            return RSAEncryption.Instance.RSADecrypt(Param);
+            return RSAEncryption.RSADecrypt(Param, PrivateKey);
         }
 
         /// <summary>
         /// RSA加密（RSA Encryption）
         /// </summary>
         /// <param name="Param"></param>
+        /// <param name="PublicKey"></param>
         /// <returns></returns>
-        public static String ToRSAEnc(this String Param)
+        public static String ToRSAEnc(this String Param,String PublicKey)
         {
-            return RSAEncryption.Instance.RSAEncrypt(Param);
+            return RSAEncryption.RSAEncrypt(Param,PublicKey);
+        }
+
+        /// <summary>
+        /// 签名
+        /// </summary>
+        /// <param name="Param"></param>
+        /// <param name="PrivateKey"></param>
+        /// <returns></returns>
+        public static String ToSign(this String Param, String PrivateKey) 
+        {
+            return RSAEncryption.Sign(Param, PrivateKey);
         }
 
         /// <summary>

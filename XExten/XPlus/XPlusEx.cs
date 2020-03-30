@@ -201,20 +201,22 @@ namespace XExten.XPlus
         /// RSA解密
         /// </summary>
         /// <param name="Input"></param>
+        /// <param name="PrivateKey"></param>
         /// <returns></returns>
-        public static string XRSADecryp(string Input)
+        public static string XRSADecryp(string Input, string PrivateKey)
         {
-            return RSAEncryption.Instance.RSADecrypt(Input);
+            return RSAEncryption.RSADecrypt(Input, PrivateKey);
         }
 
         /// <summary>
         /// RSA加密
         /// </summary>
         /// <param name="Input"></param>
+        /// <param name="PublicKey"></param>
         /// <returns></returns>
-        public static string XRSAEncryp(string Input)
+        public static string XRSAEncryp(string Input, string PublicKey)
         {
-            return RSAEncryption.Instance.RSAEncrypt(Input);
+            return RSAEncryption.RSAEncrypt(Input, PublicKey);
         }
 
         /// <summary>
