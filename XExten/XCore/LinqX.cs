@@ -1389,20 +1389,22 @@ namespace XExten.XCore
         /// RSA解密（RSA Decryption）
         /// </summary>
         /// <param name="Param"></param>
+        /// <param name="PrivateKey"></param>
         /// <returns></returns>
-        public static async Task<String> ToRSAAsyncDec(this String Param)
+        public static async Task<String> ToRSAAsyncDec(this String Param,String PrivateKey)
         {
-            return await Task.Run(() => ToRSAAsyncDec(Param));
+            return await Task.Run(() => ToRSADec(Param, PrivateKey));
         }
 
         /// <summary>
         /// RSA加密（RSA Encryption）
         /// </summary>
         /// <param name="Param"></param>
+        /// <param name="PublicKey"></param>
         /// <returns></returns>
-        public static async Task<String> ToRSAAsyncEnc(this String Param)
+        public static async Task<String> ToRSAAsyncEnc(this String Param, String PublicKey)
         {
-            return await Task.Run(() => ToRSAEnc(Param));
+            return await Task.Run(() => ToRSAEnc(Param, PublicKey));
         }
 
         /// <summary>
