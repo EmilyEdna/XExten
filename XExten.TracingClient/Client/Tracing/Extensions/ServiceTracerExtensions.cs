@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using XExten.TracingClient.Client.Tracing.Interface;
-using XExten.TracingClient.OpenTracing.Interface;
+using XExten.TracingClient.OpenTracing.Extensions;
+using XExten.TracingClient.OpenTracing.Spans.Implement;
+using XExten.TracingClient.OpenTracing.Spans.Interface;
 
 namespace XExten.TracingClient.Client.Tracing.Extensions
 {

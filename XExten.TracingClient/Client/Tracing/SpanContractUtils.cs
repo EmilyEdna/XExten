@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using XExten.TracingClient.OpenTracing.Interface;
 using BaggageContract = XExten.TracingClient.Client.DataContract.Baggage;
 using LogFieldContract = XExten.TracingClient.Client.DataContract.LogField;
 using SpanReferenceContract = XExten.TracingClient.Client.DataContract.SpanReference;
@@ -8,6 +7,7 @@ using LogContract = XExten.TracingClient.Client.DataContract.Log;
 using TagContract = XExten.TracingClient.Client.DataContract.Tag;
 using XExten.TracingClient.Client.DataContract;
 using XExten.TracingClient.Client.Extensions;
+using XExten.TracingClient.OpenTracing.Spans.Interface;
 
 namespace XExten.TracingClient.Client.Tracing
 {

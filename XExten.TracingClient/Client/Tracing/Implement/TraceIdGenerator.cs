@@ -1,4 +1,5 @@
 ﻿using XExten.TracingClient.Client.Tracing.Interface;
+using XExten.TracingClient.OpenTracing;
 
 namespace XExten.TracingClient.Client.Tracing.Implement
 {

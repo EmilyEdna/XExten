@@ -1,6 +1,7 @@
-﻿using XExten.TracingClient.Client.DataContract;
-using XExten.TracingClient.Client.Tracing.Interface;
-using XExten.TracingClient.OpenTracing.Interface;
+﻿using XExten.TracingClient.Client.Tracing.Interface;
+using XExten.TracingClient.OpenTracing;
+using XExten.TracingClient.OpenTracing.Spans.Implement;
+using XExten.TracingClient.OpenTracing.Spans.Interface;
 
 namespace XExten.TracingClient.Client.Tracing
 {

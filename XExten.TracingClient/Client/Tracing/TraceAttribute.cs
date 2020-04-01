@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 using AspectCore.Configuration;
 using AspectCore.DynamicProxy;
 using AspectCore.Extensions.Reflection;
+using XExten.TracingClient.Client.Tracing.Extensions;
 using XExten.TracingClient.Client.Tracing.Interface;
+using XExten.TracingClient.OpenTracing.Extensions;
+using XExten.TracingClient.OpenTracing.Logs;
 
 namespace XExten.TracingClient.Client.Tracing
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 using XExten.TracingClient.Client.Dispatcher.Interface;
-using XExten.TracingClient.OpenTracing.Interface;
+using XExten.TracingClient.OpenTracing.Spans.Interface;
 
 namespace XExten.TracingClient.Client.Tracing
 {

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using XExten.TracingClient.OpenTracing.Extensions;
+using XExten.TracingClient.OpenTracing.Logs;
 
 namespace XExten.TracingClient.Client.Tracing.Extensions
 {
