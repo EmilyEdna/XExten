@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Text;
 using XExten.Profile.Abstractions;
+using XExten.Profile.Core.Common;
 
 namespace XExten.Profile.Core.Diagnostics
 {
+    /// <summary>
+    /// 追踪执行器
+    /// </summary>
     public class TracingDiagnosticProcessorObserver : IObserver<DiagnosticListener>
     {
         private readonly IEnumerable<ITracingDiagnosticProcessor> _TracingDiagnosticProcessors;
@@ -17,21 +20,22 @@ namespace XExten.Profile.Core.Diagnostics
 
         public void OnCompleted()
         {
-            throw new NotImplementedException();
+
         }
 
         public void OnError(Exception error)
         {
-            throw new NotImplementedException();
+
         }
 
-        public void OnNext(DiagnosticListener value)
+        public void OnNext(DiagnosticListener Listener)
         {
-            
+            foreach (var item in _TracingDiagnosticProcessors.Distinct(t => t.ListenerName))
+            {
+                if (Listener.Name == item.ListenerName)
+                    Listener.Subscribe(new TracingDiagnosticObserver(item));
+            }
         }
-        protected virtual void Subscribe(DiagnosticListener Listener, ITracingDiagnosticProcessor TracingDiagnosticProcessor)
-        {
-            Listener.Subscribe(new TracingDiagnosticObserver(TracingDiagnosticProcessor));
-        }
+
     }
 }

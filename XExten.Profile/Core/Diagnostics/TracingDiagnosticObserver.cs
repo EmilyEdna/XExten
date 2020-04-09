@@ -5,11 +5,15 @@ using XExten.Profile.Abstractions;
 
 namespace XExten.Profile.Core.Diagnostics
 {
+    /// <summary>
+    /// 探针值
+    /// </summary>
     public class TracingDiagnosticObserver : IObserver<KeyValuePair<string, object>>
     {
+        private readonly TracingDiagnosticMethodCollection  _TracingDiagnosticMethodCollection;
         public TracingDiagnosticObserver(ITracingDiagnosticProcessor TracingDiagnosticProcessor)
         {
-            //_eventCollection = new DiagnosticEventCollection(diagnosticProcessor);
+            _TracingDiagnosticMethodCollection = new TracingDiagnosticMethodCollection(TracingDiagnosticProcessor);
         }
 
 
@@ -25,7 +29,11 @@ namespace XExten.Profile.Core.Diagnostics
 
         public void OnNext(KeyValuePair<string, object> value)
         {
-            throw new NotImplementedException();
+            foreach (var method in _TracingDiagnosticMethodCollection)
+            {
+                method.in
+
+            }
         }
     }
 }
