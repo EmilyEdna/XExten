@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using XExten.Profile.Abstractions;
+using XExten.XPlus;
 
 namespace XExten.Profile.Core.Diagnostics
 {
@@ -31,8 +32,7 @@ namespace XExten.Profile.Core.Diagnostics
         {
             foreach (var method in _TracingDiagnosticMethodCollection)
             {
-                method.in
-
+                XPlusEx.XTry(() => method.Invoke(value.Key, value.Value), ex => Console.WriteLine(ex));
             }
         }
     }
