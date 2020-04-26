@@ -668,22 +668,75 @@ namespace XExten.XPlus
             {
                 LastIndex--;
             }
-
-            //http://code1.okbase.net/codefile/Douglasclass.cs_2013100324506_11.htm
+            DouglasPeuckerReduction(Points, FirstIndex, LastIndex, Tolerance, ref KeepPointIndex);//道格拉斯-普克压缩
+            List<IPoint> returnPoints = new List<IPoint>();
+            KeepPointIndex.Sort();//对保留下来的序号进行排序
+            foreach (int index in KeepPointIndex)
+            {
+                returnPoints.Add(Points[index]);//将对应序号的点加入
+            }
+            return returnPoints;//返回压缩后的点
         }
+        #endregion Func
 
+        #region PrivateFunc
+        /// <summary>
+        /// 道格拉斯-普克算法
+        /// </summary>
+        /// <param name="points"></param>
+        /// <param name="firstPoint"></param>
+        /// <param name="lastPoint"></param>
+        /// <param name="tolerance"></param>
+        /// <param name="pointIndexsToKeep"></param>
+        private static void DouglasPeuckerReduction(List<IPoint> points, int firstPoint, int lastPoint, double tolerance, ref List<int> pointIndexsToKeep)
+        {
+            double maxDistance = 0;
+            int indexFarthest = 0;
+            for (int index = firstPoint; index < lastPoint; index++)//获取离直线距离最大的点
+            {
+                double distance = PerpendicularDistance(points[firstPoint], points[lastPoint], points[index]);
+                if (distance > maxDistance)
+                {
+                    maxDistance = distance;
+                    indexFarthest = index;
+                }
+            }
+            if (points[0].Equals(points[points.Count - 1]) && lastPoint == points.Count - 2
+                && PerpendicularDistance(points[lastPoint - 1], points[points.Count - 1], points[lastPoint]) > tolerance && !pointIndexsToKeep.Contains(lastPoint))
+            {
+                pointIndexsToKeep.Add(lastPoint);
+            }
+            if (maxDistance > tolerance && indexFarthest != 0)//如果最大距离大于极差而且不是第一个点
+            {
+                //加入超过极差的最远的点
+                pointIndexsToKeep.Add(indexFarthest);
+                DouglasPeuckerReduction(points, firstPoint, indexFarthest, tolerance, ref pointIndexsToKeep);
+                DouglasPeuckerReduction(points, indexFarthest, lastPoint, tolerance, ref pointIndexsToKeep);
+            }
+        }
+        /// <summary>
+        /// 点到直线距离
+        /// </summary>
+        /// <param name="Point1"></param>
+        /// <param name="Point2"></param>
+        /// <param name="Point3"></param>
+        /// <returns></returns>
         private static double PerpendicularDistance(IPoint Point1, IPoint Point2, IPoint Point3)
         {
             var AB = Distance(Point2, Point3);
             var AC = Distance(Point1, Point3);
-            var BC= Distance(Point1, Point2);
-
-            var P = (BC + AC + AB) / 2; //周长
-            //使用海伦公式
-            Math.Sqrt(P * (P - BC) * (P - AC) * (P - AB));
-
+            var BC = Distance(Point1, Point2);
+            //面积
+            var Area = TriangleArea(AB, AC, BC);
+            //点到直线的距离
+            return 2 * Area / AB;
         }
-
+        /// <summary>
+        /// 两点的距离
+        /// </summary>
+        /// <param name="Point1"></param>
+        /// <param name="Point2"></param>
+        /// <returns></returns>
         private static double Distance(IPoint Point1, IPoint Point2)
         {
             double x1 = Point1.Latitude;
@@ -694,6 +747,19 @@ namespace XExten.XPlus
 
             return Math.Sqrt(Math.Pow((x1 - x2), 2) + Math.Pow((y1 - y2), 2));
         }
-        #endregion Func
+        /// <summary>
+        /// 三角形面积
+        /// </summary>
+        /// <param name="AB"></param>
+        /// <param name="AC"></param>
+        /// <param name="BC"></param>
+        /// <returns></returns>
+        private static double TriangleArea(double AB, double AC, double BC)
+        {
+            var Side = (BC + AC + AB) / 2; //周长
+            //使用海伦公式
+            return Math.Sqrt(Side * (Side - BC) * (Side - AC) * (Side - AB));
+        }
+        #endregion PrivateFunc
     }
 }
