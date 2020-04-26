@@ -27,9 +27,9 @@ namespace XExten.ProfileTest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IHostedService, InstrumentationHostedService>();
-            services.AddSingleton<TracingDiagnosticProcessorObserver>();
             services.AddSingleton<ITracingDiagnosticProcessor, TestTracingDiagnosticProcessor>();
+            services.AddSingleton<TracingDiagnosticProcessorObserver>();
+            services.AddSingleton<IHostedService, InstrumentationHostedService>();
             services.AddControllers();
         }
 
