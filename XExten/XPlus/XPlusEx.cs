@@ -1,4 +1,5 @@
-﻿using ProtoBuf;
+﻿using Microsoft.Extensions.DependencyModel;
+using ProtoBuf;
 using QRCoder;
 using System;
 using System.Collections;
@@ -6,12 +7,15 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.Loader;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using XExten.Common.CommonAbstraction;
 using XExten.Email;
 using XExten.Encryption;
 using XExten.XCore;
@@ -459,17 +463,6 @@ namespace XExten.XPlus
         }
 
         /// <summary>
-        /// 过滤字符(Filter characters)
-        /// </summary>
-        /// <param name="Param"></param>
-        /// <param name="regex"></param>
-        /// <returns></returns>
-        public static bool XFilterStr(string Param, Regex regex)
-        {
-            return regex.IsMatch(Param);
-        }
-
-        /// <summary>
         /// 反系列化XML(XmlDeserialize)
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -633,6 +626,73 @@ namespace XExten.XPlus
             {
                 if (Finally != null) Finally.Invoke();
             }
+        }
+
+        /// <summary>
+        /// 获取系统依赖项
+        /// </summary>
+        /// <returns></returns>
+        public static List<Assembly> XAssembly()
+        {
+            List<Assembly> Assemblies = new List<Assembly>();
+            var lib = DependencyContext.Default;
+            var libs = lib.CompileLibraries.Where(t => !t.Serviceable).Where(t => t.Type == "project").ToList();
+            foreach (var item in libs)
+            {
+                Assembly assembly = AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName(item.Name));
+                Assemblies.Add(assembly);
+            }
+            return Assemblies;
+        }
+
+        /// <summary>
+        /// GPS定位轨迹抽稀
+        /// </summary>
+        /// <param name="Points">需要减少的点</param>
+        /// <param name="Tolerance">偏差</param>
+        /// <returns></returns>
+        public static List<IPoint> XDouglasPeuker(List<IPoint> Points, double Tolerance)
+        {
+            //如果点的数量小于3个则返回
+            if (Points.Count == 0 || Points.Count < 3) return Points;
+            //第一个点
+            int FirstIndex = 0;
+            int LastIndex = Points.Count - 1;
+            //保存点索引
+            List<int> KeepPointIndex = new List<int>
+            {
+                FirstIndex,
+                LastIndex
+            };
+            while (Points[FirstIndex].Equals(Points[LastIndex]))
+            {
+                LastIndex--;
+            }
+
+            //http://code1.okbase.net/codefile/Douglasclass.cs_2013100324506_11.htm
+        }
+
+        private static double PerpendicularDistance(IPoint Point1, IPoint Point2, IPoint Point3)
+        {
+            var AB = Distance(Point2, Point3);
+            var AC = Distance(Point1, Point3);
+            var BC= Distance(Point1, Point2);
+
+            var P = (BC + AC + AB) / 2; //周长
+            //使用海伦公式
+            Math.Sqrt(P * (P - BC) * (P - AC) * (P - AB));
+
+        }
+
+        private static double Distance(IPoint Point1, IPoint Point2)
+        {
+            double x1 = Point1.Latitude;
+            double y1 = Point1.Longtitude;
+
+            double x2 = Point2.Latitude;
+            double y2 = Point2.Longtitude;
+
+            return Math.Sqrt(Math.Pow((x1 - x2), 2) + Math.Pow((y1 - y2), 2));
         }
         #endregion Func
     }

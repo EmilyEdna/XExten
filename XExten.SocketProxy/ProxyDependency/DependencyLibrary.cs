@@ -9,6 +9,9 @@ using System.Text;
 
 namespace XExten.SocketProxy.SocketDependency
 {
+    /// <summary>
+    /// 依赖库
+    /// </summary>
     public class DependencyLibrary
     {
         /// <summary>
