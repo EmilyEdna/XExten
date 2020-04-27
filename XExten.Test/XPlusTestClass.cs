@@ -11,7 +11,8 @@ namespace XExten.Test
         [Fact]
         public void XMail_Test()
         {
-            var res = XPlusEx.XSendMail(Item=> {
+            var res = XPlusEx.XSendMail(Item =>
+            {
                 Item.Content = "hello world!";
                 Item.AcceptedAddress = "xxx@gmail.com";
                 Item.Title = "mail test";
@@ -22,7 +23,7 @@ namespace XExten.Test
         public void XConvertDateTime_Test()
         {
             var res = XPlusEx.XConvertDateTime(DateTime.Now);
-            var res1= XPlusEx.XConvertStamptime(res);
+            var res1 = XPlusEx.XConvertStamptime(res);
         }
 
         [Fact]
@@ -138,13 +139,6 @@ namespace XExten.Test
                 Console.WriteLine(ex.Message);
                 return 1;
             });
-        }
-
-        [Fact]
-        public void XRSA_Test()
-        {
-            var enc = XPlusEx.XRSAEncryp("emily");
-            var dec = XPlusEx.XRSADecryp(enc);
         }
     }
 }
