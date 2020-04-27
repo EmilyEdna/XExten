@@ -10,9 +10,9 @@
     <PackageTags>Linq、Expression、Cache、Emit、MSGQueue、XML、QrCode</PackageTags>
     <RepositoryUrl>https://github.com/EmilyEdna/XExten</RepositoryUrl>
     <PackageReleaseNotes>https://github.com/EmilyEdna/XExten/wiki</PackageReleaseNotes>
-    <Version>2.2.3</Version>
-    <AssemblyVersion>2.2.3.0</AssemblyVersion>
-    <FileVersion>2.2.3.0</FileVersion>
+    <Version>2.2.4</Version>
+    <AssemblyVersion>2.2.4.0</AssemblyVersion>
+    <FileVersion>2.2.4.0</FileVersion>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
