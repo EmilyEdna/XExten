@@ -12,7 +12,7 @@ namespace XExten.Profile.Attributes
 
         public override object Resolve(object value)
         {
-            if (value != null || Name.IsNullOrEmpty()) return null;
+            if (value == null || Name.IsNullOrEmpty()) return null;
             var Property = value.GetType().GetProperty(Name);
             return Property?.GetReflector()?.GetValue(value);
         }

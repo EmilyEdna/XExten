@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using XExten.Profile.Abstractions;
+using XExten.Profile.Abstractions.Common;
 using XExten.Profile.Core.Common;
 
 namespace XExten.Profile.Core.Diagnostics
@@ -10,7 +11,7 @@ namespace XExten.Profile.Core.Diagnostics
     /// <summary>
     /// 追踪执行器
     /// </summary>
-    public class TracingDiagnosticProcessorObserver : IObserver<DiagnosticListener>
+    public class TracingDiagnosticProcessorObserver : IObserver<DiagnosticListener>, ISingletonDependency
     {
         private readonly IEnumerable<ITracingDiagnosticProcessor> _TracingDiagnosticProcessors;
         public TracingDiagnosticProcessorObserver(IEnumerable<ITracingDiagnosticProcessor> TracingDiagnosticProcessors)

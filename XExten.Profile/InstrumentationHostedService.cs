@@ -5,11 +5,12 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using XExten.Profile.Abstractions.Common;
 using XExten.Profile.Core.Diagnostics;
 
 namespace XExten.Profile
 {
-    public class InstrumentationHostedService : IHostedService
+    public class InstrumentationHostedService : IHostedService, IDependency
     {
         private readonly TracingDiagnosticProcessorObserver _observer;
 

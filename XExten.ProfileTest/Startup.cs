@@ -11,6 +11,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using XExten.Profile;
 using XExten.Profile.Abstractions;
+using XExten.Profile.AspNetCore;
+using XExten.Profile.AspNetCore.DependencyInject;
 using XExten.Profile.Core.Diagnostics;
 
 namespace XExten.ProfileTest
@@ -27,9 +29,10 @@ namespace XExten.ProfileTest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<ITracingDiagnosticProcessor, TestTracingDiagnosticProcessor>();
-            services.AddSingleton<TracingDiagnosticProcessorObserver>();
-            services.AddSingleton<IHostedService, InstrumentationHostedService>();
+            services.RegistXExtenService();
+            //services.AddSingleton<ITracingDiagnosticProcessor, HostingTracingDiagnosticProcessor>();
+            //services.AddSingleton<TracingDiagnosticProcessorObserver>();
+            //services.AddSingleton<IHostedService, InstrumentationHostedService>();
             services.AddControllers();
         }
 

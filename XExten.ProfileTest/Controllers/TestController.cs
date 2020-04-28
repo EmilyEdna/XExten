@@ -12,14 +12,14 @@ namespace XExten.ProfileTest.Controllers
     [Route("Api/[controller]")]
     public class TestController : ControllerBase
     {
-        private static readonly DiagnosticSource testDiagnosticListener = new DiagnosticListener("HttpTest");
+        //private static readonly DiagnosticSource testDiagnosticListener = new DiagnosticListener("Microsoft.AspNetCore");
         [HttpGet("Get")]
         public List<string> Get()
         {
-            if (testDiagnosticListener.IsEnabled("HttpTests"))
-            {
-                testDiagnosticListener.Write("HttpTests", "hello world");
-            }
+            //if (testDiagnosticListener.IsEnabled("Microsoft.AspNetCore.Hosting.BeginRequest"))
+            //{
+            //    testDiagnosticListener.Write("Microsoft.AspNetCore.Hosting.BeginRequest", HttpContext);
+            //}
 
             return new List<string>();
         }
