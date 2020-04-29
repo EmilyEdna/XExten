@@ -9,6 +9,11 @@ namespace XExten.Profile.Tracing
 {
     public class TracingContext : ITracingContext
     {
+        private readonly IEntryContextAccessor Accessor;
+        public TracingContext(IEntryContextAccessor accessor)
+        {
+            Accessor = accessor;
+        }
         /// <summary>
         /// 创建请求
         /// </summary>
@@ -18,15 +23,17 @@ namespace XExten.Profile.Tracing
         public PartialContext CreateEntryPartialContext(string operationName, ICarrierHeaderCollection carrierHeader)
         {
             if (operationName.IsNullOrEmpty()) throw new ArgumentNullException(nameof(operationName));
-            return new PartialContext
+            PartialContext Partial = new PartialContext
             {
                 RequirId = Guid.NewGuid(),
                 OperationName = operationName,
                 BeginTime = DateTime.Now,
                 Channel = ChannelType.Entry,
-                HeaderValue= carrierHeader.CurrentSpan,
-               Context= new PartialSpanContext()
+                HeaderValue = carrierHeader.CurrentSpan,
+                Context = new PartialSpanContext()
             };
+            Accessor.Context = Partial;
+            return Partial;
         }
 
         /// <summary>

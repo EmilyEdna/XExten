@@ -13,12 +13,14 @@ namespace XExten.Profile.AspNetCore
         public string ListenerName { get; } = ProcessorName.MicrosoftAspNetCore;
 
         private readonly ITracingContext _tracingContext;
+        private readonly IEntryContextAccessor Accessor;
         private readonly IEnumerable<IHostingDiagnosticHandler> _diagnosticHandlers;
 
-        public HostingTracingDiagnosticProcessor(ITracingContext tracingContext, IEnumerable<IHostingDiagnosticHandler> diagnosticHandlers)
+        public HostingTracingDiagnosticProcessor(ITracingContext tracingContext, IEnumerable<IHostingDiagnosticHandler> diagnosticHandlers, IEntryContextAccessor accessor)
         {
             _tracingContext = tracingContext;
             _diagnosticHandlers = diagnosticHandlers;
+            Accessor = accessor;
         }
 
         [DiagnosticName(ProcessorName.BeginRequest)]
@@ -28,7 +30,7 @@ namespace XExten.Profile.AspNetCore
             {
                 if (handler.OnlyMatch(httpContext))
                 {
-                    handler.BeginRequest(_tracingContext,httpContext);
+                    handler.BeginRequest(_tracingContext, httpContext);
                     return;
                 }
             }
@@ -37,7 +39,16 @@ namespace XExten.Profile.AspNetCore
         [DiagnosticName(ProcessorName.EndRequest)]
         public void EndRequest([Property] HttpContext httpContext)
         {
-
+            var Context = Accessor.Context;
+            if (Context == null) return;
+            foreach (var handler in _diagnosticHandlers)
+            {
+                if (handler.OnlyMatch(httpContext))
+                {
+                    handler.EndRequest(Context, httpContext);
+                    break;
+                }
+            }
         }
 
         [DiagnosticName(ProcessorName.UnhandledException)]

@@ -12,18 +12,20 @@ namespace XExten.Profile.Tracing
     {
         public void BeginRequest(ITracingContext tracingContext, HttpContext httpContext)
         {
-            var context = tracingContext.CreateEntryPartialContext(httpContext.Request.Path, new CarrierHeaderCollection(httpContext));
-            context.Context.Component = "ASPNETCORE";
-            context.Context.LayerType = ChannelLayerType.HTTP;
-            context.Context.Method = httpContext.Request.Method;
-            context.Context.URL = httpContext.Request.GetDisplayUrl();
-            context.Context.Path = httpContext.Request.Path;
-            context.Context.Router = httpContext.Connection.RemoteIpAddress.ToString();
+            var Partial = tracingContext.CreateEntryPartialContext(httpContext.Request.Path, new CarrierHeaderCollection(httpContext));
+            Partial.Context.Component = "ASPNETCORE";
+            Partial.Context.LayerType = ChannelLayerType.HTTP;
+            Partial.Context.Method = httpContext.Request.Method;
+            Partial.Context.URL = httpContext.Request.GetDisplayUrl();
+            Partial.Context.Path = httpContext.Request.Path;
+            Partial.Context.Router = httpContext.Connection.RemoteIpAddress.ToString();
         }
 
         public void EndRequest(PartialContext partialContext, HttpContext httpContext)
         {
-            throw new NotImplementedException();
+            partialContext.Context.StatusCode = httpContext.Response.StatusCode;
+            partialContext.Context.PenddingEnd = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            partialContext.Context.RequestMilliseconds = partialContext.Context.PenddingEnd - partialContext.Context.PenddingStar;
         }
 
         public bool OnlyMatch(HttpContext httpContext)
