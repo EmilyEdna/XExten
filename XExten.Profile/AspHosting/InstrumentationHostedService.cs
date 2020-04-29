@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using XExten.Profile.Abstractions.Common;
 using XExten.Profile.Core.Diagnostics;
 
-namespace XExten.Profile
+namespace XExten.Profile.AspHosting
 {
     public class InstrumentationHostedService : IHostedService, IDependency
     {
