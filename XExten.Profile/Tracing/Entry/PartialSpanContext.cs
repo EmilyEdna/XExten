@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using XExten.Profile.Tracing.Entry.Enum;
 
 namespace XExten.Profile.Tracing.Entry
 {
@@ -46,5 +47,15 @@ namespace XExten.Profile.Tracing.Entry
         /// 请求间隔
         /// </summary>
         public long RequestMilliseconds { get; set; }
+        /// <summary>
+        /// 标签
+        /// </summary>
+        public PartialSpanContextTagCollection Tags { get; } = new PartialSpanContextTagCollection();
+
+        public PartialSpanContext Add(string key, string value)
+        {
+            Tags.Add(key, value);
+            return this;
+        }
     }
 }

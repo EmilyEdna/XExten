@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using XExten.Profile.Abstractions;
 using System.Linq;
-using XExten.Profile.Tracing.Entry;
+using XExten.Profile.Tracing.Entry.Struct;
 
 namespace XExten.Profile.Tracing
 {

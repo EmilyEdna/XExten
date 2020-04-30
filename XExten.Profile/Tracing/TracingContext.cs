@@ -4,15 +4,24 @@ using System.Text;
 using XExten.Profile.Abstractions;
 using XExten.Profile.Tracing.Entry;
 using XExten.XCore;
+using XExten.Profile.Tracing.Entry.Enum;
+using XExten.Profile.Tracing.Entry.Struct;
+using System.Threading;
+using System.Linq;
 
 namespace XExten.Profile.Tracing
 {
     public class TracingContext : ITracingContext
     {
-        private readonly IEntryContextAccessor Accessor;
-        public TracingContext(IEntryContextAccessor accessor)
+        private readonly IExitContextAccessor ExitAccessor;
+        private readonly ILocalContextAccessor LocalAccessor;
+        private readonly IEntryContextAccessor EntryAccessor;
+        private readonly ThreadLocal<long> Sequence = new ThreadLocal<long>(() => 0);
+        public TracingContext(IExitContextAccessor exit, ILocalContextAccessor local, IEntryContextAccessor entry)
         {
-            Accessor = accessor;
+            ExitAccessor = exit;
+            LocalAccessor = local;
+            EntryAccessor = entry;
         }
         /// <summary>
         /// 创建请求
@@ -23,16 +32,8 @@ namespace XExten.Profile.Tracing
         public PartialContext CreateEntryPartialContext(string operationName, ICarrierHeaderCollection carrierHeader)
         {
             if (operationName.IsNullOrEmpty()) throw new ArgumentNullException(nameof(operationName));
-            PartialContext Partial = new PartialContext
-            {
-                RequirId = Guid.NewGuid(),
-                OperationName = operationName,
-                BeginTime = DateTime.Now,
-                Channel = ChannelType.Entry,
-                HeaderValue = carrierHeader.CurrentSpan,
-                Context = new PartialSpanContext()
-            };
-            Accessor.Context = Partial;
+            PartialContext Partial = new PartialContext(GetTraceId(), carrierHeader.CurrentSpan, ChannelType.Entry, operationName);
+            EntryAccessor.Context = Partial;
             return Partial;
         }
 
@@ -43,9 +44,20 @@ namespace XExten.Profile.Tracing
         /// <param name="networkAddress"></param>
         /// <param name="carrierHeader"></param>
         /// <returns></returns>
-        public PartialContext CreateExitPartialContext(string operationName, string networkAddress, ICarrierHeaderCollection carrierHeader = null)
+        public PartialContext CreateExitPartialContext(string operationName)
         {
-            throw new NotImplementedException();
+            PartialContext Context = GetParentPartialContext(ChannelType.Exit);
+            PartialContext Partial = new PartialContext(GetTraceId(Context), Context.HeaderValue, ChannelType.Exit, operationName);
+            if (Context != null)
+            {
+                var ParentReference = Context.References.FirstOrDefault();
+                ReferencePartialSpanContext Reference = new ReferencePartialSpanContext
+                {
+
+                };
+            }
+            ExitAccessor.Context = Partial;
+            return Partial;
         }
 
         /// <summary>
@@ -58,9 +70,52 @@ namespace XExten.Profile.Tracing
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 释放
+        /// </summary>
+        /// <param name="partialContext"></param>
         public void Release(PartialContext partialContext)
         {
-            throw new NotImplementedException();
+            if (partialContext == null) return;
+            switch (partialContext.Channel)
+            {
+                case ChannelType.Entry:
+                    EntryAccessor.Context = null;
+                    break;
+                case ChannelType.Local:
+                    LocalAccessor.Context = null;
+                    break;
+                case ChannelType.Exit:
+                    ExitAccessor.Context = null;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(ChannelType), partialContext.Channel, "Invalid Chanel");
+            }
         }
+
+        #region Private Method
+        private PartialContext GetParentPartialContext(ChannelType channel)
+        {
+            switch (channel)
+            {
+                case ChannelType.Entry:
+                    return null;
+                case ChannelType.Local:
+                    return EntryAccessor.Context;
+                case ChannelType.Exit:
+                    return LocalAccessor.Context ?? EntryAccessor.Context;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(ChannelType), channel, "Invalid Chanel");
+            }
+        }
+
+        private UniqueId GetTraceId(PartialContext context = null) => context?.TraceId ?? new UniqueId(0, Thread.CurrentThread.ManagedThreadId, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() * 1000 + GetSequence());
+
+        private long GetSequence()
+        {
+            if (Sequence.Value++ >= 9999) return 0;
+            return Sequence.Value;
+        }
+        #endregion
     }
 }

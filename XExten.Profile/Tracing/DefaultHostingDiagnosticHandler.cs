@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using XExten.Profile.Abstractions;
 using XExten.Profile.Tracing.Entry;
+using XExten.Profile.Tracing.Entry.Enum;
 
 namespace XExten.Profile.Tracing
 {
@@ -15,10 +16,10 @@ namespace XExten.Profile.Tracing
             var Partial = tracingContext.CreateEntryPartialContext(httpContext.Request.Path, new CarrierHeaderCollection(httpContext));
             Partial.Context.Component = "ASPNETCORE";
             Partial.Context.LayerType = ChannelLayerType.HTTP;
-            Partial.Context.Method = httpContext.Request.Method;
-            Partial.Context.URL = httpContext.Request.GetDisplayUrl();
-            Partial.Context.Path = httpContext.Request.Path;
-            Partial.Context.Router = httpContext.Connection.RemoteIpAddress.ToString();
+            Partial.Context.Add("Method", httpContext.Request.Method);
+            Partial.Context.Add("URL", httpContext.Request.GetDisplayUrl());
+            Partial.Context.Add("Path", httpContext.Request.Path);
+            Partial.Context.Add("Router", httpContext.Connection.RemoteIpAddress.ToString());
         }
 
         public void EndRequest(PartialContext partialContext, HttpContext httpContext)

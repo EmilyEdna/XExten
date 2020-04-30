@@ -28,7 +28,7 @@ namespace XExten.Profile.Abstractions
         /// <param name="networkAddress"></param>
         /// <param name="carrierHeader"></param>
         /// <returns></returns>
-        PartialContext CreateExitPartialContext(string operationName, string networkAddress, ICarrierHeaderCollection carrierHeader = default);
+        PartialContext CreateExitPartialContext(string operationName);
         void Release(PartialContext partialContext);
     }
 }

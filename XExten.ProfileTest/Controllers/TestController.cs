@@ -20,7 +20,16 @@ namespace XExten.ProfileTest.Controllers
             //{
             //    testDiagnosticListener.Write("Microsoft.AspNetCore.Hosting.BeginRequest", HttpContext);
             //}
+            var xx = Sugar.DB.Queryable<WarnInfo>().Select(t => new WarnInfo
+            {
+                Title = t.Title,
+                ZhaiYao = t.ZhaiYao
+            }).ToList();
 
+
+           var x =  xx.FirstOrDefault();
+            x.Title = "测试1";
+            Sugar.DB.Updateable(x).UpdateColumns(t => t.Title).Where(t => t.ZhaiYao == "111").ExecuteCommand();
             return new List<string>();
         }
     }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using XExten.Profile.Tracing.Entry;
+using XExten.Profile.Tracing.Entry.Struct;
 
 namespace XExten.Profile.Abstractions
 {

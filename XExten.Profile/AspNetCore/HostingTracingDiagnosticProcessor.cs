@@ -12,25 +12,25 @@ namespace XExten.Profile.AspNetCore
     {
         public string ListenerName { get; } = ProcessorName.MicrosoftAspNetCore;
 
-        private readonly ITracingContext _tracingContext;
+        private readonly ITracingContext TracingContext;
         private readonly IEntryContextAccessor Accessor;
-        private readonly IEnumerable<IHostingDiagnosticHandler> _diagnosticHandlers;
+        private readonly IEnumerable<IHostingDiagnosticHandler> DiagnosticHandlers;
 
         public HostingTracingDiagnosticProcessor(ITracingContext tracingContext, IEnumerable<IHostingDiagnosticHandler> diagnosticHandlers, IEntryContextAccessor accessor)
         {
-            _tracingContext = tracingContext;
-            _diagnosticHandlers = diagnosticHandlers;
+            TracingContext = tracingContext;
+            DiagnosticHandlers = diagnosticHandlers;
             Accessor = accessor;
         }
 
         [DiagnosticName(ProcessorName.BeginRequest)]
         public void BeginRequest([Property] HttpContext httpContext)
         {
-            foreach (var handler in _diagnosticHandlers)
+            foreach (var handler in DiagnosticHandlers)
             {
                 if (handler.OnlyMatch(httpContext))
                 {
-                    handler.BeginRequest(_tracingContext, httpContext);
+                    handler.BeginRequest(TracingContext, httpContext);
                     return;
                 }
             }
@@ -41,7 +41,7 @@ namespace XExten.Profile.AspNetCore
         {
             var Context = Accessor.Context;
             if (Context == null) return;
-            foreach (var handler in _diagnosticHandlers)
+            foreach (var handler in DiagnosticHandlers)
             {
                 if (handler.OnlyMatch(httpContext))
                 {
@@ -49,6 +49,7 @@ namespace XExten.Profile.AspNetCore
                     break;
                 }
             }
+            TracingContext.Release(Context);
         }
 
         [DiagnosticName(ProcessorName.UnhandledException)]

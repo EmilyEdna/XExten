@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace XExten.Profile.Tracing.Entry
+namespace XExten.Profile.Tracing.Entry.Enum
 {
     public enum ChannelLayerType
     {
