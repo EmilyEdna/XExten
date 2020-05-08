@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using XExten.HttpFactory;
 using Microsoft.Extensions.Logging;
 
 namespace XExten.ProfileTest.Controllers
@@ -20,16 +21,20 @@ namespace XExten.ProfileTest.Controllers
             //{
             //    testDiagnosticListener.Write("Microsoft.AspNetCore.Hosting.BeginRequest", HttpContext);
             //}
-            var xx = Sugar.DB.Queryable<WarnInfo>().Select(t => new WarnInfo
-            {
-                Title = t.Title,
-                ZhaiYao = t.ZhaiYao
-            }).ToList();
+
+            HttpMultiClient.HttpMulti.AddNode("https://www.baidu.com").Build().RunString();
 
 
-           var x =  xx.FirstOrDefault();
-            x.Title = "测试1";
-            Sugar.DB.Updateable(x).UpdateColumns(t => t.Title).Where(t => t.ZhaiYao == "111").ExecuteCommand();
+           // var xx = Sugar.DB.Queryable<WarnInfo>().Select(t => new WarnInfo
+           // {
+           //     Title = t.Title,
+           //     ZhaiYao = t.ZhaiYao
+           // }).ToList();
+
+
+           //var x =  xx.FirstOrDefault();
+           // x.Title = "测试1";
+           // Sugar.DB.Updateable(x).UpdateColumns(t => t.Title).Where(t => t.ZhaiYao == "111").ExecuteCommand();
             return new List<string>();
         }
     }

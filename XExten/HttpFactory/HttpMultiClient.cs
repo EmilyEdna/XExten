@@ -77,6 +77,7 @@ namespace XExten.HttpFactory
         public ICookies Cookies(string name, string value)
         {
             Cookie Cookie = new Cookie(name, value);
+            if (HttpMultiClientWare.Container == null) throw new NullReferenceException("Please initialize the InitCookieContainer method before calling the cookie method");
             HttpMultiClientWare.Container.Add(Cookie);
             return HttpMultiClientWare.Cookies;
         }
@@ -90,6 +91,7 @@ namespace XExten.HttpFactory
         public ICookies Cookies(string name, string value, string path)
         {
             Cookie Cookie = new Cookie(name, value, path);
+            if (HttpMultiClientWare.Container == null) throw new NullReferenceException("Please initialize the InitCookieContainer method before calling the cookie method");
             HttpMultiClientWare.Container.Add(Cookie);
             return HttpMultiClientWare.Cookies;
         }
@@ -104,6 +106,7 @@ namespace XExten.HttpFactory
         public ICookies Cookies(string name, string value, string path, string domain)
         {
             Cookie Cookie = new Cookie(name, value, path, domain);
+            if (HttpMultiClientWare.Container == null) throw new NullReferenceException("Please initialize the InitCookieContainer method before calling the cookie method");
             HttpMultiClientWare.Container.Add(Cookie);
             return HttpMultiClientWare.Cookies;
         }
