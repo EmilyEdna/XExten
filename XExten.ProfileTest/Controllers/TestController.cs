@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using XExten.HttpFactory;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
+using XExten.Profile.AspNetCore.MethodSource;
 
 namespace XExten.ProfileTest.Controllers
 {
@@ -43,37 +44,18 @@ namespace XExten.ProfileTest.Controllers
 
     public class TestClass
     {
-
-        private static readonly DiagnosticSource testDiagnosticListener = new DiagnosticListener("MethodHandlerDiagnosticListener");
-
         public void TestMethod(string name, int index)
         {
-            if (testDiagnosticListener.IsEnabled("ExecuteCommandMethodStar"))
-            {
-                testDiagnosticListener.Write("ExecuteCommandMethodStar", );
-            }
+            MethodHandlerDiagnosticListener.MethodListener.ExecuteCommandMethodStar("data");
             XPlus.XPlusEx.XTry(() =>
             {
                 Convert.ToInt32(name);
                 Convert.ToString(index);
-                if (testDiagnosticListener.IsEnabled("ExecuteCommandMethodEnd"))
-                {
-                    testDiagnosticListener.Write("ExecuteCommandMethodEnd", "time");
-                }
+                MethodHandlerDiagnosticListener.MethodListener.ExecuteCommandMethodEnd("data");
             }, ex =>
             {
-                if (testDiagnosticListener.IsEnabled("ExecuteCommandMethodException"))
-                {
-                    testDiagnosticListener.Write("ExecuteCommandMethodException", ex);
-                }
+                MethodHandlerDiagnosticListener.MethodListener.ExecuteCommandMethodException(ex);
             });
-
-
-
-        }
-        public void TestMethod2(string xxx)
-        {
-
         }
     }
 }
