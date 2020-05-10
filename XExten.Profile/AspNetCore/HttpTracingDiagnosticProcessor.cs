@@ -8,14 +8,14 @@ using XExten.Profile.Attributes;
 
 namespace XExten.Profile.AspNetCore
 {
-    public class HttpWareTracingDiagnosticProcessor : ITracingDiagnosticProcessor
+    public class HttpTracingDiagnosticProcessor : ITracingDiagnosticProcessor
     {
         public string ListenerName { get; } = ProcessorName.HttpClinet;
 
         private readonly ITracingContext TracingContext;
         private readonly ILocalContextAccessor Accessor;
 
-        public HttpWareTracingDiagnosticProcessor(ITracingContext tracingContext, ILocalContextAccessor accessor)
+        public HttpTracingDiagnosticProcessor(ITracingContext tracingContext, ILocalContextAccessor accessor)
         {
             TracingContext = tracingContext;
             Accessor = accessor;

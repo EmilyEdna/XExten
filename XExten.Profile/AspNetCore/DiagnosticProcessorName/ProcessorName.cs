@@ -36,5 +36,10 @@ namespace XExten.Profile.AspNetCore.DiagnosticProcessorName
         public const string HttpClientRequest = "System.Net.Http.Request";
         public const string HttpClientResponse = "System.Net.Http.Response";
         public const string HttpClientException = "System.Net.Http.Exception";
+
+        public const string MethodClient = "MethodHandlerDiagnosticListener";
+        public const string MethodBegin = "ExecuteCommandMethodStar";
+        public const string MethodEnd = "ExecuteCommandMethodEnd";
+        public const string MethodException = "ExecuteCommandMethodException";
     }
 }

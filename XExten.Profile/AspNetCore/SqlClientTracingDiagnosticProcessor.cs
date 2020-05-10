@@ -41,7 +41,7 @@ namespace XExten.Profile.AspNetCore
 
         }
         [DiagnosticName(ProcessorName.SqlBeforeExecuteCommand)]
-        public void ErrorExecuteCommand([Property(Name = "Exception")] Exception ex)
+        public void ErrorExecuteCommand([Property(Name = "Exception")] Exception exception)
         {
 
         }

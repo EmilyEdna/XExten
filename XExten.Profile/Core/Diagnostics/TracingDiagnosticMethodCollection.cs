@@ -20,7 +20,7 @@ namespace XExten.Profile.Core.Diagnostics
             _Method = new List<TracingDiagnosticMethod>();
             foreach (var Method in TracingDiagnosticProcessor.GetType().GetMethods())
             {
-                var diagnosticName = Method.GetCustomAttribute<DiagnosticName>();
+                var diagnosticName = Method.GetCustomAttribute<DiagnosticNameAttribute>();
                 if (diagnosticName == null)
                     continue;
                 _Method.Add(new TracingDiagnosticMethod(TracingDiagnosticProcessor, Method, diagnosticName.Name));

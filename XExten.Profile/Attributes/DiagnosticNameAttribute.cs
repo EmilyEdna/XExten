@@ -4,10 +4,10 @@ using System.Text;
 
 namespace XExten.Profile.Attributes
 {
-    public class DiagnosticName : Attribute
+    public class DiagnosticNameAttribute : Attribute
     {
         public string Name { get; }
-        public DiagnosticName(string name)
+        public DiagnosticNameAttribute(string name)
         {
             Name = name;
         }

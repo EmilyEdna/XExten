@@ -867,6 +867,11 @@
             
              </summary>
         </member>
+        <member name="F:XExten.CacheFactory.RunTimeCache.MemoryCaches.Cache">
+            <summary>
+            MemoryCaches
+            </summary>
+        </member>
         <member name="M:XExten.CacheFactory.RunTimeCache.MemoryCaches.AddCache``1(System.String,``0,System.Int32,System.Boolean)">
             <summary>
             添加缓存
@@ -883,13 +888,24 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Key"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.CacheFactory.RunTimeCache.MemoryCaches.RemoveCache(System.String)">
-            <summary>
-            删除指定缓存
+            <returns></ret��缓存
             </summary>
             <param name="Key"></param>
+        </member>
+        <member name="T:XExten.Common.CommonAbstraction.IPoint">
+            <summary>
+            GPS Ponit 轨迹点
+            </summary>
+        </member>
+        <member name="P:XExten.Common.CommonAbstraction.IPoint.Latitude">
+            <summary>
+            维度-X
+            </summary>
+        </member>
+        <member name="P:XExten.Common.CommonAbstraction.IPoint.Longtitude">
+            <summary>
+            经度-Y
+            </summary>
         </member>
         <member name="T:XExten.Common.IgnoreMappedAttribute">
             <summary>
@@ -1250,6 +1266,11 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:XExten.Encryp��用URI编码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:XExten.Encryption.LzStringEncryption.DecompressFromEncodedURIComponent(System.String)">
             <summary>
             解析URI编码
@@ -1292,22 +1313,74 @@
         </member>
         <member name="T:XExten.Encryption.RSAEncryption">
             <summary>
+            RSAPKCS8
+            </summary>
+        </member>
+        <member name="M:XExten.Encryption.RSAEncryption.Sign(System.String,System.String)">
+            <summary>  
+            签名  
+            </summary>  
+            <param name="content">待签名字符串</param>  
+            <param name="privateKey">私钥</param>  
+            <returns>签名后字符串</returns>  
+        </member>
+        <member name="M:XExten.Encryption.RSAEncryption.Verify(System.String,System.String,System.String)">
+            <summary>  
+            验签  
+            </summary>  
+            <param name="content">待验签字符串</param>  
+            <param name="signedString">签名</param>  
+            <param name="publicKey">公钥</param>  
+            <returns>true(通过)，false(不通过)</returns>  
+        </member>
+        <member name="M:XExten.Encryption.RSAEncryption.RSAEncrypt(System.String,System.String)">
+            <summary>  
+            加密  
+            </summary>  
+            <param name="Content">需要加密的字符串</param>  
+            <param name="publicKey">公钥</param>  
+            <returns>明文</returns>  
+        </member>
+        <member name="M:XExten.Encryption.RSAEncryption.RSADecrypt(System.String,System.String)">
+            <summary>  
+            解密  
+            </summary>  
+            <param name="Content">加密字符串</param>  
+            <param name="privateKey">私钥</param>  
+            <returns>明文</returns>  
+        </member>
+        <member name="M:XExten.Encryption.RSAEncryption.ConvertFromPublicKey(System.String)">
+            <summary>
+            将pem格式公钥(1024 or 2048)转换为RSAParameters
+            </summary>
+            <param name="pemFileConent">转换得到的RSAParamenters</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Encryption.RSAEncryption.ConvertFromPrivateKey(System.String)">
+            <summary>
+            将pem格式私钥(1024 or 2048)转换为RSAParameters
+            </summary>
+            <param name="pemFileConent">pem私钥内容</param>
+            <returns>转换得到的RSAParamenters</returns>
+        </member>
+        <member name="T:XExten.Encryption.RSAEncryptionFix">
+            <summary>
             RSA
             </summary>
         </member>
-        <member name="P:XExten.Encryption.RSAEncryption.Instance">
+        <member name="P:XExten.Encryption.RSAEncryptionFix.Instance">
             <summary>
             实例
             </summary>
         </member>
-        <member name="M:XExten.Encryption.RSAEncryption.RSAEncrypt(System.String)">
+        <member name="M:XExten.Encryption.RSAEncryptionFix.RSAEncrypt(System.String)">
             <summary>
             RSA加密
             </summary>
             <param name="Source"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.Encryption.RSAEncryption.RSADecrypt(System.String)">
+        <member name="M:XExten.Encryption.RSAEncryptionFix.RSADecrypt(System.String)">
             <summary>
             RSA解密
             </summary>
@@ -2062,11 +2135,7 @@
             <param name="name"></param>
             <param name="value"></param>
             <returns></returns>
-        </member>
-        <member name="M:XExten.HttpFactory.MultiInterface.IHeaders.Cookie(System.String,System.String,System.String)">
-            <summary>
-            Add Cookie
-            </summary>
+        </member           </summary>
             <param name="name"></param>
             <param name="value"></param>
             <param name="path"></param>
@@ -2156,6 +2225,11 @@
             <returns></returns>
         </member>
         <member name="M:XExten.HttpFactory.MultiInterface.INode.Cookie(System.String,System.String)">
+            <summary>
+            Add Cookie
+            </summary>
+            <param name="name"></param>
+       erface.INode.Cookie(System.String,System.String)">
             <summary>
             Add Cookie
             </summary>
@@ -2277,13 +2351,7 @@
             项目说明（主要用于调试）
             </summary>
         </member>
-        <member name="M:XExten.MessageQueue.QueueItem.#ctor(System.String,System.Action,System.String)">
-            <summary>
-            实例化
-            </summary>
-            <param name="key"></param>
-            <param name="action"></param>
-            <param name="description"></param>
+        <member name="M:XExten.MessageQueue.QueueItem.#ctor(System.String,System.Action,System.     <param name="description"></param>
         </member>
         <member name="T:XExten.MessageQueue.XQueue">
              <summary>
@@ -2381,6 +2449,9 @@
             使用AutoMapper将实体映射到另一个实体并返回该实体(Map an entity to another entity and return the entity by AutoMapper)
             </summary>
             <typeparam name="T"></typeparam>
+            <param name="obj"></paran entity to another entity and return the entity by AutoMapper)
+            </summary>
+            <typeparam name="T"></typeparam>
             <param name="obj"></param>
             <param name="IgnoreNames"></param>
             <returns></returns>
@@ -2466,10 +2537,6 @@
             <summary>
              将集合映射到另一个集合并返回该集合(Map a collection to another collection and return the collection)
             </summary>
-            <typeparam name="T"></typeparam>
-            <typeparam name="K"></typeparam>
-            <param name="queryable"></param>
-            <returns></returns>
         </member>
         <member name="M:XExten.XCore.LinqX.ToModel``1(System.String)">
             <summary>
@@ -2556,6 +2623,9 @@
             <param name="queryable"></param>
             <param name="PageIndex"></param>
             <param name="PageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ToTables``1(System.Collections.Generic.IList{``0})"ame="PageSize"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.XCore.LinqX.ToTables``1(System.Collections.Generic.IList{``0})">
@@ -3036,18 +3106,28 @@
             <param name="type">位数：16 32</param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ToRSADec(System.String)">
+        <member name="M:XExten.XCore.LinqX.ToRSADec(System.String,System.String)">
             <summary>
             RSA解密（RSA Decryption）
             </summary>
             <param name="Param"></param>
+            <param name="PrivateKey"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ToRSAEnc(System.String)">
+        <member name="M:XExten.XCore.LinqX.ToRSAEnc(System.String,System.String)">
             <summary>
             RSA加密（RSA Encryption）
             </summary>
             <param name="Param"></param>
+            <param name="PublicKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ToSign(System.String,System.String)">
+            <summary>
+            签名
+            </summary>
+            <param name="Param"></param>
+            <param name="PrivateKey"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.XCore.LinqX.ToSHA(System.String,System.Int32)">
@@ -3080,18 +3160,20 @@
             <param name="type">位数：16 32</param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ToRSAAsyncDec(System.String)">
+        <member name="M:XExten.XCore.LinqX.ToRSAAsyncDec(System.String,System.String)">
             <summary>
             RSA解密（RSA Decryption）
             </summary>
             <param name="Param"></param>
+            <param name="PrivateKey"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ToRSAAsyncEnc(System.String)">
+        <member name="M:XExten.XCore.LinqX.ToRSAAsyncEnc(System.String,System.String)">
             <summary>
             RSA加密（RSA Encryption）
             </summary>
             <param name="Param"></param>
+            <param name="PublicKey"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.XCore.LinqX.ToSHAAsync(System.String,System.Int32)">
@@ -3303,18 +3385,20 @@
             <param name="NodeKey">根节点下Key节点</param>
             <param name="NodeValue">根节点下Value节点</param>
         </member>
-        <member name="M:XExten.XPlus.XPlusEx.XRSADecryp(System.String)">
+        <member name="M:XExten.XPlus.XPlusEx.XRSADecryp(System.String,System.String)">
             <summary>
             RSA解密
             </summary>
             <param name="Input"></param>
+            <param name="PrivateKey"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XPlus.XPlusEx.XRSAEncryp(System.String)">
+        <member name="M:XExten.XPlus.XPlusEx.XRSAEncryp(System.String,System.String)">
             <summary>
             RSA加密
             </summary>
             <param name="Input"></param>
+            <param name="PublicKey"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.XPlus.XPlusEx.XSHA(System.String,System.Int32)">
@@ -3394,14 +3478,6 @@
             <param name="LngEnd">第二点的经度坐标</param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XPlus.XPlusEx.XFilterStr(System.String,System.Text.RegularExpressions.Regex)">
-            <summary>
-            过滤字符(Filter characters)
-            </summary>
-            <param name="Param"></param>
-            <param name="regex"></param>
-            <returns></returns>
-        </member>
         <member name="M:XExten.XPlus.XPlusEx.XmlDeserialize``1(System.String)">
             <summary>
             反系列化XML(XmlDeserialize)
@@ -3465,6 +3541,56 @@
             <param name="Executer"></param>
             <param name="Exception"></param>
             <param name="Finally"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.XAssembly">
+            <summary>
+            获取系统依赖项
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.XDouglasPeuker(System.Collections.Generic.List{XExten.Common.CommonAbstraction.IPoint},System.Double)">
+            <summary>
+            GPS定位轨迹抽稀
+            </summary>
+            <param name="Points">需要减少的点</param>
+            <param name="Tolerance">偏差</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.DouglasPeuckerReduction(System.Collections.Generic.List{XExten.Common.CommonAbstraction.IPoint},System.Int32,System.Int32,System.Double,System.Collections.Generic.List{System.Int32}@)">
+            <summary>
+            道格拉斯-普克算法
+            </summary>
+            <param name="points"></param>
+            <param name="firstPoint"></param>
+            <param name="lastPoint"></param>
+            <param name="tolerance"></param>
+            <param name="pointIndexsToKeep"></param>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.PerpendicularDistance(XExten.Common.CommonAbstraction.IPoint,XExten.Common.CommonAbstraction.IPoint,XExten.Common.CommonAbstraction.IPoint)">
+            <summary>
+            点到直线距离
+            </summary>
+            <param name="Point1"></param>
+            <param name="Point2"></param>
+            <param name="Point3"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.Distance(XExten.Common.CommonAbstraction.IPoint,XExten.Common.CommonAbstraction.IPoint)">
+            <summary>
+            两点的距离
+            </summary>
+            <param name="Point1"></param>
+            <param name="Point2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.TriangleArea(System.Double,System.Double,System.Double)">
+            <summary>
+            三角形面积
+            </summary>
+            <param name="AB"></param>
+            <param name="AC"></param>
+            <param name="BC"></param>
             <returns></returns>
         </member>
     </members>
