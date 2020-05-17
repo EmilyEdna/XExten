@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 
-namespace XExten.Profile.AspNetCore.MethodSource
+namespace XExten.Profile.AspNetCore.Source
 {
     public class MethodHandlerDiagnosticListener
     {

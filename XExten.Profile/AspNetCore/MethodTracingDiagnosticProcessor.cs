@@ -10,6 +10,14 @@ namespace XExten.Profile.AspNetCore
     public class MethodTracingDiagnosticProcessor : ITracingDiagnosticProcessor
     {
         public string ListenerName { get; } = ProcessorName.MethodClient;
+        private readonly ITracingContext TracingContext;
+        private readonly ILocalContextAccessor Accessor;
+
+        public MethodTracingDiagnosticProcessor(ITracingContext tracingContext, ILocalContextAccessor accessor)
+        {
+            TracingContext = tracingContext;
+            Accessor = accessor;
+        }
 
         [DiagnosticName(ProcessorName.MethodBegin)]
         public void MethodBeginInvoke([Object]Object data)
@@ -18,7 +26,7 @@ namespace XExten.Profile.AspNetCore
         }
 
         [DiagnosticName(ProcessorName.MethodEnd)]
-        public void MethodEndInvoke([Object]object data)
+        public void MethodEndInvoke([Object]Object data)
         {
 
         }

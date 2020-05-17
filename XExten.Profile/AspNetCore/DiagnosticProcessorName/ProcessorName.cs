@@ -41,5 +41,10 @@ namespace XExten.Profile.AspNetCore.DiagnosticProcessorName
         public const string MethodBegin = "ExecuteCommandMethodStar";
         public const string MethodEnd = "ExecuteCommandMethodEnd";
         public const string MethodException = "ExecuteCommandMethodException";
+
+        public const string SocketClient = "SocketHandlerDiagnosticListener";
+        public const string SocketBegin = "ExcuteSocketBeginReceive";
+        public const string SocketEnd = "ExcuteSocketBeginEnd";
+        public const string SocketException = "ExcuteSocketException";
     }
 }

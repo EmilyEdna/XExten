@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using XExten.HttpFactory;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
-using XExten.Profile.AspNetCore.MethodSource;
+using XExten.Profile.AspNetCore.Source;
 
 namespace XExten.ProfileTest.Controllers
 {
