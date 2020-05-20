@@ -18,10 +18,13 @@ namespace XExten.ProfileTest.Controllers
         [HttpGet("Get")]
         public List<string> Get()
         {
-            //TestClass tc = new TestClass();
+            TestClass tc = new TestClass();
+            var xx = tc.GetType().GetMethod("TestMethod");
+
+
             //tc.TestMethod("a", 11);
 
-            HttpMultiClient.HttpMulti.AddNode("https://www.baidu.com").Build().RunString();
+            //HttpMultiClient.HttpMulti.AddNode("https://www.baidu.com").Build().RunString();
 
             // var xx = Sugar.DB.Queryable<WarnInfo>().Select(t => new WarnInfo
             // {

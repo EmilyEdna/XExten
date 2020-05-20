@@ -12,11 +12,13 @@ namespace XExten.Profile.AspNetCore
         public string ListenerName { get; } = ProcessorName.MethodClient;
         private readonly ITracingContext TracingContext;
         private readonly ILocalContextAccessor Accessor;
+        private readonly IEnumerable<IMethondDiagnosticHandler> MethondDiagnosticHandler;
 
-        public MethodTracingDiagnosticProcessor(ITracingContext tracingContext, ILocalContextAccessor accessor)
+        public MethodTracingDiagnosticProcessor(ITracingContext tracingContext, ILocalContextAccessor accessor, IEnumerable<IMethondDiagnosticHandler> methondDiagnosticHandler)
         {
             TracingContext = tracingContext;
             Accessor = accessor;
+            MethondDiagnosticHandler = methondDiagnosticHandler;
         }
 
         [DiagnosticName(ProcessorName.MethodBegin)]
