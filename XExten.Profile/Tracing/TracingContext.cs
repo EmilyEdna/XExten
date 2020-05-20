@@ -67,7 +67,24 @@ namespace XExten.Profile.Tracing
         /// <returns></returns>
         public PartialContext CreateLocalPartialContext(string operationName)
         {
-            throw new NotImplementedException();
+            if (operationName == null) throw new ArgumentNullException(nameof(operationName));
+            PartialContext Context = GetParentPartialContext(ChannelType.Local);
+            PartialContext Partial = new PartialContext(GetTraceId(Context), Context.HeaderValue, ChannelType.Local, operationName);
+            if (Context != null)
+            {
+                ReferencePartialSpanContext Reference = new ReferencePartialSpanContext
+                {
+                    Component= Context.Context.Component,
+                    EntryServiceId=Context.RequirId,
+                    LayerType=Context.Context.LayerType,
+                    OperationName=Context.OperationName,
+                    Tags=Context.Context.Tags,
+                    RequirId=Guid.NewGuid()
+                };
+                Partial.References.Add(Reference);
+            }
+            LocalAccessor.Context = Partial;
+            return Partial;
         }
 
         /// <summary>

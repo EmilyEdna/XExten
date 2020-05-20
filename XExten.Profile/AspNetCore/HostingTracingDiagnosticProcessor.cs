@@ -55,13 +55,13 @@ namespace XExten.Profile.AspNetCore
         [DiagnosticName(ProcessorName.UnhandledException)]
         public void DiagnosticUnhandledException([Property]HttpContext httpContext, [Property] Exception exception)
         {
-
+            Accessor.Context?.Context?.Add(exception);
         }
 
         [DiagnosticName(ProcessorName.HostingException)]
         public void HostingUnhandledException([Property]HttpContext httpContext, [Property] Exception exception)
         {
-
+            Accessor.Context?.Context?.Add(exception);
         }
     }
 }

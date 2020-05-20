@@ -30,12 +30,6 @@ namespace XExten.Profile.Tracing.Entry
         /// <summary>
         /// 标签
         /// </summary>
-        public PartialSpanContextTagCollection Tags => new PartialSpanContextTagCollection();
-
-        public ReferencePartialSpanContext Add(string key, string value)
-        {
-            Tags.Add(key, value);
-            return this;
-        }
+        public PartialSpanContextTagCollection Tags { get; set; }
     }
 }

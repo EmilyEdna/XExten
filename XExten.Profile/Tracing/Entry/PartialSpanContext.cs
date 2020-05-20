@@ -51,10 +51,20 @@ namespace XExten.Profile.Tracing.Entry
         /// 标签
         /// </summary>
         public PartialSpanContextTagCollection Tags { get; } = new PartialSpanContextTagCollection();
+        /// <summary>
+        /// 异常信息
+        /// </summary>
+        public PartialSpanContextExceptionCollection Exceptions { get; } = new PartialSpanContextExceptionCollection();
 
         public PartialSpanContext Add(string key, string value)
         {
             Tags.Add(key, value);
+            return this;
+        }
+
+        public PartialSpanContext Add(Exception exception)
+        {
+            Exceptions.Add(exception);
             return this;
         }
     }

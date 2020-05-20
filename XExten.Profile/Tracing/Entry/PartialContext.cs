@@ -35,17 +35,17 @@ namespace XExten.Profile.Tracing.Entry
         /// <summary>
         /// 引用
         /// </summary>
-        public ReferencePartialSpanContextCollection References => new ReferencePartialSpanContextCollection();
+        public ReferencePartialSpanContextCollection References { get; } = new ReferencePartialSpanContextCollection();
         /// <summary>
         /// 请求信息
         /// </summary>
         public PartialSpanContext Context { get; }
 
-        public PartialContext(UniqueId traceId, List<HeaderValue> headers, ChannelType channel,string operationName)
+        public PartialContext(UniqueId traceId, List<HeaderValue> headers, ChannelType channel, string operationName)
         {
             RequirId = Guid.NewGuid();
             TraceId = traceId;
-            BeginTime= Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            BeginTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             Channel = channel;
             HeaderValue = headers;
             OperationName = operationName;

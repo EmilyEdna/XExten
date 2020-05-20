@@ -17,15 +17,12 @@ namespace XExten.Profile.Core.Diagnostics
             _TracingDiagnosticMethodCollection = new TracingDiagnosticMethodCollection(TracingDiagnosticProcessor);
         }
 
-
         public void OnCompleted()
         {
-            throw new NotImplementedException();
         }
 
         public void OnError(Exception error)
         {
-            throw new NotImplementedException();
         }
 
         public void OnNext(KeyValuePair<string, object> value)

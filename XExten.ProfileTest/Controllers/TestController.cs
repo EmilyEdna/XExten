@@ -15,19 +15,13 @@ namespace XExten.ProfileTest.Controllers
     [Route("Api/[controller]")]
     public class TestController : ControllerBase
     {
-        //private static readonly DiagnosticSource testDiagnosticListener = new DiagnosticListener("Microsoft.AspNetCore");
         [HttpGet("Get")]
         public List<string> Get()
         {
-            TestClass tc = new TestClass();
-            tc.TestMethod("a", 11);
+            //TestClass tc = new TestClass();
+            //tc.TestMethod("a", 11);
 
-            //if (testDiagnosticListener.IsEnabled("Microsoft.AspNetCore.Hosting.BeginRequest"))
-            //{
-            //    testDiagnosticListener.Write("Microsoft.AspNetCore.Hosting.BeginRequest", HttpContext);
-            //}
-
-            //HttpMultiClient.HttpMulti.AddNode("https://www.baidu.com").Build().RunString();
+            HttpMultiClient.HttpMulti.AddNode("https://www.baidu.com").Build().RunString();
 
             // var xx = Sugar.DB.Queryable<WarnInfo>().Select(t => new WarnInfo
             // {
