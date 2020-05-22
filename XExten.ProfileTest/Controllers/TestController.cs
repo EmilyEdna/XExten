@@ -8,6 +8,7 @@ using XExten.HttpFactory;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 using XExten.Profile.AspNetCore.Source;
+using XExten.Profile.AspNetCore.InvokeTracing;
 
 namespace XExten.ProfileTest.Controllers
 {
@@ -19,7 +20,7 @@ namespace XExten.ProfileTest.Controllers
         public List<string> Get()
         {
             TestClass tc = new TestClass();
-            var xx = tc.GetType().GetMethod("TestMethod");
+            var xx = tc.GetType().GetMethod("TestMethod").ByTraceInvoke(tc, new object[] { "123a", 111 });
 
 
             //tc.TestMethod("a", 11);
@@ -41,18 +42,18 @@ namespace XExten.ProfileTest.Controllers
 
     public class TestClass
     {
-        public void TestMethod(string name, int index)
+        public async Task<int> TestMethod(string name, int index)
         {
-            MethodHandlerDiagnosticListener.MethodListener.ExecuteCommandMethodStar("data");
-            XPlus.XPlusEx.XTry(() =>
-            {
-                Convert.ToInt32(name);
-                Convert.ToString(index);
-                MethodHandlerDiagnosticListener.MethodListener.ExecuteCommandMethodEnd("data");
-            }, ex =>
-            {
-                MethodHandlerDiagnosticListener.MethodListener.ExecuteCommandMethodException(ex);
-            });
+            Convert.ToInt32(name);
+            Convert.ToString(index);
+            return await Task.FromResult(123);
+        }
+
+        public  int TestMethodNo(string name, int index)
+        {
+            Convert.ToInt32(name);
+            Convert.ToString(index);
+            return 123;
         }
     }
 }
