@@ -27,7 +27,6 @@ namespace XExten.Profile.AspNetCore
         [DiagnosticName(ProcessorName.HttpClientRequest)]
         public void HttpRequest([Property(Name = "Request")] HttpRequestMessage request)
         {
-
             foreach (var handler in RequestDiagnosticHandlers)
             {
                 if (handler.OnlyMatch(request))
@@ -41,7 +40,7 @@ namespace XExten.Profile.AspNetCore
         public void HttpResponse([Property(Name = "Response")] HttpResponseMessage response)
         {
             var Context = Accessor.Context;
-            if (Context != null) return;
+            if (Context == null) return;
             if (response != null)
             {
                 if (response.StatusCode != HttpStatusCode.OK)

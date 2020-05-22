@@ -20,9 +20,6 @@ namespace XExten.Profile.Tracing
             Partial.Context.Add("Router", request.RequestUri.Host);
         }
 
-        public bool OnlyMatch(HttpRequestMessage request)
-        {
-            return true;
-        }
+        public bool OnlyMatch(HttpRequestMessage request) => true;
     }
 }

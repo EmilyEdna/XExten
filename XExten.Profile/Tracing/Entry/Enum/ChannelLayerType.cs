@@ -7,6 +7,7 @@ namespace XExten.Profile.Tracing.Entry.Enum
     public enum ChannelLayerType
     {
         HTTP,
-        DB
+        DB,
+        Method
     }
 }

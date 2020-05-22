@@ -24,19 +24,28 @@ namespace XExten.Profile.AspNetCore
         [DiagnosticName(ProcessorName.MethodBegin)]
         public void MethodBeginInvoke([Object]Object data)
         {
-
+            foreach (var handler in MethondDiagnosticHandler)
+            {
+                if (handler.OnlyMatch(data))
+                {
+                    handler.Handle(TracingContext, data);
+                    return;
+                }
+            }
         }
 
         [DiagnosticName(ProcessorName.MethodEnd)]
         public void MethodEndInvoke([Object]Object data)
         {
-
+            var Context = Accessor.Context;
+            if (Context != null) return;
+            TracingContext.Release(Context);
         }
 
         [DiagnosticName(ProcessorName.MethodException)]
         public void MethodExceptionInvoke([Object]Exception exception)
         {
-
+            Accessor.Context?.Context?.Add(exception);
         }
     }
 }

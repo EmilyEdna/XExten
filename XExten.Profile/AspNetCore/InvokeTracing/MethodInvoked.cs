@@ -29,6 +29,8 @@ namespace XExten.Profile.AspNetCore.InvokeTracing
 
             if (ParameterNames.Count != parameters?.Length) throw new TargetParameterCountException("The number of parameters does not match");
 
+            keyValues.Add("MethodName", method.Name);
+
             for (int index = 0; index < ParameterNames.Count; index++)
             {
                 keyValues.Add(ParameterNames[index], parameters[index]);

@@ -7,7 +7,7 @@ namespace XExten.Profile.Abstractions
 {
     public interface IMethondDiagnosticHandler: IDependency
     {
-        bool OnlyMatch();
-        void Handle(ITracingContext tracingContext);
+        bool OnlyMatch(Object Data);
+        void Handle(ITracingContext tracingContext, Object Provider);
     }
 }
