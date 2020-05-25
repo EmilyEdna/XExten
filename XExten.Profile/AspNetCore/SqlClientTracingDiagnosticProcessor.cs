@@ -38,12 +38,14 @@ namespace XExten.Profile.AspNetCore
         [DiagnosticName(ProcessorName.SqlAfterExecuteCommand)]
         public void AfterExecuteCommand()
         {
-
+            var Context = Accessor.Context;
+            if (Context != null) return;
+            TracingContext.Release(Context);
         }
         [DiagnosticName(ProcessorName.SqlBeforeExecuteCommand)]
         public void ErrorExecuteCommand([Property(Name = "Exception")] Exception exception)
         {
-
+            Accessor.Context?.Context?.Add(exception);
         }
     }
 }
