@@ -23,9 +23,7 @@ namespace XExten.Profile.Tracing
                 Partial.Context.Add("Method", MethodName);
                 Partial.Context.Add("Parameters", Parameters);
             }
-
         }
-
 
         public bool OnlyMatch(Object Data) => true;
     }

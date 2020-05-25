@@ -12,11 +12,12 @@ namespace XExten.Profile.Tracing
     public class CarrierHeaderCollection : ICarrierHeaderCollection
     {
         private readonly IEnumerable<KeyValuePair<string, string>> _headers;
+        private const string DefaultHeader = "Connection|Cache-Control|Accept|Accept-Encoding|Accept-Language|Host|User-Agent|Upgrade-Insecure-Requests|Sec-Fetch-User|Sec-Fetch-Site|Sec-Fetch-Mode";
         public CarrierHeaderCollection(HttpContext httpContext)
         {
             _headers = httpContext.Request.Headers.Select(t => new KeyValuePair<string, string>(t.Key, t.Value)).ToArray();
         }
-        public List<HeaderValue> CurrentSpan => _headers.Select(t => new HeaderValue(t.Key, t.Value)).ToList();
+        public List<HeaderValue> CurrentSpan => _headers.Where(t=> !DefaultHeader.Contains(t.Key)).Select(t => new HeaderValue(t.Key, t.Value)).ToList();
         public void Add(string key, string value)
         {
             _headers.ToList().Add(new KeyValuePair<string, string>(key, value));
