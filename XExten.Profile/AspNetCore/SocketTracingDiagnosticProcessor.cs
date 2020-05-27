@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using XExten.Profile.Abstractions;
 using XExten.Profile.AspNetCore.DiagnosticProcessorName;
+using XExten.Profile.Attributes;
 
 namespace XExten.Profile.AspNetCore
 {
@@ -11,12 +12,31 @@ namespace XExten.Profile.AspNetCore
         public string ListenerName { get; } = ProcessorName.SocketClient;
 
         private readonly ITracingContext TracingContext;
-        private readonly ILocalContextAccessor Accessor;
-
-        public SocketTracingDiagnosticProcessor(ITracingContext tracingContext, ILocalContextAccessor accessor)
+        private readonly IEntryContextAccessor Accessor;
+        private readonly IEnumerable<ISocketDiagnosticHandler> SocketDiagnosticHandler;
+        public SocketTracingDiagnosticProcessor(ITracingContext tracingContext, IEntryContextAccessor accessor, IEnumerable<ISocketDiagnosticHandler> socketDiagnosticHandler)
         {
             TracingContext = tracingContext;
             Accessor = accessor;
+            SocketDiagnosticHandler = socketDiagnosticHandler;
+        }
+
+        [DiagnosticName(ProcessorName.SocketBegin)]
+        public void ExcuteSocketBeginReceive([Object]Object data) 
+        { 
+        
+        }
+
+        [DiagnosticName(ProcessorName.SocketEnd)]
+        public void ExcuteSocketBeginEnd([Object]Object data)
+        {
+
+        }
+
+        [DiagnosticName(ProcessorName.SocketException)]
+        public void SocketException([Object]Exception exception)
+        {
+
         }
     }
 }
