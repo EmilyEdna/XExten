@@ -867,11 +867,6 @@
             
              </summary>
         </member>
-        <member name="F:XExten.CacheFactory.RunTimeCache.MemoryCaches.Cache">
-            <summary>
-            MemoryCaches
-            </summary>
-        </member>
         <member name="M:XExten.CacheFactory.RunTimeCache.MemoryCaches.AddCache``1(System.String,``0,System.Int32,System.Boolean)">
             <summary>
             添加缓存
@@ -888,7 +883,11 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Key"></param>
-            <returns></ret��缓存
+            <returns></returns>
+        </member>
+        <member name="M:XExten.CacheFactory.RunTimeCache.MemoryCaches.RemoveCache(System.String)">
+            <summary>
+            删除指定缓存
             </summary>
             <param name="Key"></param>
         </member>
@@ -1262,11 +1261,6 @@
         <member name="M:XExten.Encryption.LzStringEncryption.CompressToEncodedURIComponent(System.String)">
             <summary>
             采用URI编码
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.Encryp��用URI编码
             </summary>
             <param name="input"></param>
             <returns></returns>
@@ -2135,7 +2129,11 @@
             <param name="name"></param>
             <param name="value"></param>
             <returns></returns>
-        </member           </summary>
+        </member>
+        <member name="M:XExten.HttpFactory.MultiInterface.IHeaders.Cookie(System.String,System.String,System.String)">
+            <summary>
+            Add Cookie
+            </summary>
             <param name="name"></param>
             <param name="value"></param>
             <param name="path"></param>
@@ -2225,11 +2223,6 @@
             <returns></returns>
         </member>
         <member name="M:XExten.HttpFactory.MultiInterface.INode.Cookie(System.String,System.String)">
-            <summary>
-            Add Cookie
-            </summary>
-            <param name="name"></param>
-       erface.INode.Cookie(System.String,System.String)">
             <summary>
             Add Cookie
             </summary>
@@ -2351,7 +2344,13 @@
             项目说明（主要用于调试）
             </summary>
         </member>
-        <member name="M:XExten.MessageQueue.QueueItem.#ctor(System.String,System.Action,System.     <param name="description"></param>
+        <member name="M:XExten.MessageQueue.QueueItem.#ctor(System.String,System.Action,System.String)">
+            <summary>
+            实例化
+            </summary>
+            <param name="key"></param>
+            <param name="action"></param>
+            <param name="description"></param>
         </member>
         <member name="T:XExten.MessageQueue.XQueue">
              <summary>
@@ -2449,9 +2448,6 @@
             使用AutoMapper将实体映射到另一个实体并返回该实体(Map an entity to another entity and return the entity by AutoMapper)
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="obj"></paran entity to another entity and return the entity by AutoMapper)
-            </summary>
-            <typeparam name="T"></typeparam>
             <param name="obj"></param>
             <param name="IgnoreNames"></param>
             <returns></returns>
@@ -2537,6 +2533,10 @@
             <summary>
              将集合映射到另一个集合并返回该集合(Map a collection to another collection and return the collection)
             </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="K"></typeparam>
+            <param name="queryable"></param>
+            <returns></returns>
         </member>
         <member name="M:XExten.XCore.LinqX.ToModel``1(System.String)">
             <summary>
@@ -2623,9 +2623,6 @@
             <param name="queryable"></param>
             <param name="PageIndex"></param>
             <param name="PageSize"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XCore.LinqX.ToTables``1(System.Collections.Generic.IList{``0})"ame="PageSize"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.XCore.LinqX.ToTables``1(System.Collections.Generic.IList{``0})">

@@ -53,8 +53,15 @@ namespace XExten.Profile.Tracing
                 var ParentReference = Context.References.FirstOrDefault();
                 ReferencePartialSpanContext Reference = new ReferencePartialSpanContext
                 {
-
+                    Component= Context.Context.Component,
+                    EntryServiceId=Context.RequirId,
+                    LayerType = Context.Context.LayerType,
+                    OperationName = Context.OperationName,
+                    Tags = Context.Context.Tags,
+                    RequirId = Guid.NewGuid()
                 };
+                Partial.References.Add(Reference);
+                if(ParentReference!=null) Partial.References.Add(ParentReference);
             }
             ExitAccessor.Context = Partial;
             return Partial;

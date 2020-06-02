@@ -33,13 +33,12 @@ namespace XExten.Profile.AspNetCore
             ExitPartial.Context.Add("Type", "SQL");
             ExitPartial.Context.Add("DbInstance", sqlCommand.Connection.Database);
             ExitPartial.Context.Add("Statement", sqlCommand.CommandText);
-
         }
         [DiagnosticName(ProcessorName.SqlAfterExecuteCommand)]
         public void AfterExecuteCommand()
         {
             var Context = Accessor.Context;
-            if (Context != null) return;
+            if (Context == null) return;
             TracingContext.Release(Context);
         }
         [DiagnosticName(ProcessorName.SqlBeforeExecuteCommand)]

@@ -38,7 +38,7 @@ namespace XExten.Profile.AspNetCore
         public void MethodEndInvoke([Object]Object data)
         {
             var Context = Accessor.Context;
-            if (Context != null) return;
+            if (Context == null) return;
             TracingContext.Release(Context);
         }
 
