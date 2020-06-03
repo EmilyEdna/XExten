@@ -40,6 +40,10 @@ namespace XExten.Profile.Tracing.Entry
         /// 请求信息
         /// </summary>
         public PartialSpanContext Context { get; }
+        /// <summary>
+        /// 结果信息
+        /// </summary>
+        public PartialSpanResultContext ResultContext { get; }
 
         public PartialContext(UniqueId traceId, List<HeaderValue> headers, ChannelType channel, string operationName)
         {
@@ -50,6 +54,7 @@ namespace XExten.Profile.Tracing.Entry
             HeaderValue = headers;
             OperationName = operationName;
             Context = new PartialSpanContext();
+            ResultContext = new PartialSpanResultContext();
         }
     }
 }

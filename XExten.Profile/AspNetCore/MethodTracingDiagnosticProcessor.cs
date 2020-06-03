@@ -39,6 +39,7 @@ namespace XExten.Profile.AspNetCore
         {
             var Context = Accessor.Context;
             if (Context == null) return;
+            Context.ResultContext.SetResult(data);
             TracingContext.Release(Context);
         }
 

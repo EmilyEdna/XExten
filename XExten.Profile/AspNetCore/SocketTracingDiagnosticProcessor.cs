@@ -37,13 +37,16 @@ namespace XExten.Profile.AspNetCore
         [DiagnosticName(ProcessorName.SocketEnd)]
         public void ExcuteSocketBeginEnd([Object]Object data)
         {
-
+            var Context = Accessor.Context;
+            if (Context == null) return;
+            Context.ResultContext.SetResult(data);
+            TracingContext.Release(Context);
         }
 
         [DiagnosticName(ProcessorName.SocketException)]
         public void SocketException([Object]Exception exception)
         {
-
+            Accessor.Context?.Context?.Add(exception);
         }
     }
 }
