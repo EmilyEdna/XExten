@@ -6,6 +6,7 @@ using XExten.Profile.AspNetCore.Source;
 using System.Linq;
 using XExten.XPlus;
 using System.Threading.Tasks;
+using XExten.XCore;
 
 namespace XExten.Profile.AspNetCore.InvokeTracing
 {
@@ -14,14 +15,18 @@ namespace XExten.Profile.AspNetCore.InvokeTracing
         /// <summary>
         /// Invoke method with diagnostic and tracing
         /// </summary>
-        /// <param name="method"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Class"></param>
+        /// <param name="methodName"></param>
         /// <param name="obj"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public static Object? ByTraceInvoke(this MethodInfo? method, Object? obj, Object?[]? parameters)
+        public static Object? ByTraceInvoke<T>(this T Class,string methodName, Object?[]? parameters)
         {
+            if (methodName.IsNullOrEmpty()) return null;
+            var obj = Class.GetType();
+            var method = obj.GetMethod(methodName);
             if (method == null) return null;
-            if (obj == null) return null;
 
             Dictionary<string, object> keyValues = new Dictionary<string, object>();
 
@@ -40,13 +45,13 @@ namespace XExten.Profile.AspNetCore.InvokeTracing
              {
                  if (!method.ReturnType.Name.Contains("Task"))
                  {
-                     var result = method.Invoke(obj, parameters);
+                     var result = method.Invoke(Class, parameters);
                      MethodHandlerDiagnosticListener.MethodListener.ExecuteCommandMethodEnd(result);
                      return result;
                  }
                  else
                  {
-                     var result = (dynamic)method.Invoke(obj, parameters);
+                     var result = (dynamic)method.Invoke(Class, parameters);
                      if (((TaskStatus)result.Status) == TaskStatus.Faulted) 
                          throw (AggregateException)result.Exception;
                      MethodHandlerDiagnosticListener.MethodListener.ExecuteCommandMethodEnd(result.Result);

@@ -23,7 +23,7 @@ namespace XExten.ProfileTest.Controllers
             TestClass tc = new TestClass();
             //var xx = tc.GetType().GetMethod("TestMethod").ByTraceInvoke(tc, new object[] { "123", 111 });
             var data = ResultProvider.SetValue("Name", new Dictionary<object, object> { { "Key", "Value" } });
-            tc.GetType().GetMethod("TestMethods").ByTraceInvoke(tc, new object[] { data });
+            tc.ByTraceInvoke("TestMethods", new object[] { data });
 
             //tc.TestMethod("a", 11);
 

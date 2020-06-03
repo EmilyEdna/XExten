@@ -7,6 +7,7 @@ using XExten.Profile.Abstractions;
 using System.Linq;
 using XExten.Profile.Tracing.Entry.Struct;
 using System.Text.RegularExpressions;
+using System.Net.Sockets;
 
 namespace XExten.Profile.Tracing
 {
@@ -19,8 +20,12 @@ namespace XExten.Profile.Tracing
         {
             _headers = httpContext.Request.Headers.Select(t => new KeyValuePair<string, string>(t.Key, t.Value)).ToArray();
         }
-        public List<HeaderValue> CurrentSpan => _headers.Where(t=> !DefaultHeader.Contains(t.Key))
-            .Where(t=>!Regex.IsMatch(t.Key,DefaultRegexHeader)).Select(t => new HeaderValue(t.Key, t.Value)).ToList();
+        public CarrierHeaderCollection(IEnumerable<KeyValuePair<string, string>> header)
+        {
+            _headers = header;
+        }
+        public List<HeaderValue> CurrentSpan => _headers.Where(t => !DefaultHeader.Contains(t.Key))
+            .Where(t => !Regex.IsMatch(t.Key, DefaultRegexHeader)).Select(t => new HeaderValue(t.Key, t.Value)).ToList();
         public void Add(string key, string value)
         {
             _headers.ToList().Add(new KeyValuePair<string, string>(key, value));

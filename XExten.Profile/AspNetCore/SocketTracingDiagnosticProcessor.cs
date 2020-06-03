@@ -23,8 +23,15 @@ namespace XExten.Profile.AspNetCore
 
         [DiagnosticName(ProcessorName.SocketBegin)]
         public void ExcuteSocketBeginReceive([Object]Object data) 
-        { 
-        
+        {
+            foreach (var handler in SocketDiagnosticHandler)
+            {
+                if (handler.OnlyMatch(data))
+                {
+                    handler.Handle(TracingContext, data);
+                    return;
+                }
+            }
         }
 
         [DiagnosticName(ProcessorName.SocketEnd)]
