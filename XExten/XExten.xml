@@ -867,6 +867,11 @@
             
              </summary>
         </member>
+        <member name="F:XExten.CacheFactory.RunTimeCache.MemoryCaches.Cache">
+            <summary>
+            MemoryCaches
+            </summary>
+        </member>
         <member name="M:XExten.CacheFactory.RunTimeCache.MemoryCaches.AddCache``1(System.String,``0,System.Int32,System.Boolean)">
             <summary>
             添加缓存
@@ -1005,12 +1010,7 @@
             <param name="DynKey"></param>
             <returns></returns>
         </member>
-        <member name="T:XExten.DynamicType.DynamicClass">
-            <summary>
-            DynamicClass
-            </summary>
-        </member>
-        <member name="M:XExten.DynamicType.DynamicClass.ToString">
+   :XExten.DynamicType.DynamicClass.ToString">
             <summary>
             转字符
             </summary>
@@ -1080,6 +1080,7 @@
             </summary>
             <param name="typeName">The name of the type.</param>
             <param name="properties">The collection of properties to create in the type.</param>
+            <param name="methods">The collection of methods to create in the type    <param name="properties">The collection of properties to create in the type.</param>
             <param name="methods">The collection of methods to create in the type.</param>
             <returns>The new instance of the type.</returns>
         </member>
@@ -1260,12 +1261,7 @@
         </member>
         <member name="M:XExten.Encryption.LzStringEncryption.CompressToEncodedURIComponent(System.String)">
             <summary>
-            采用URI编码
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.Encryption.LzStringEncryption.DecompressFromEncodedURIComponent(System.String)">
+            �tion.LzStringEncryption.DecompressFromEncodedURIComponent(System.String)">
             <summary>
             解析URI编码
             </summary>
@@ -1363,6 +1359,11 @@
             </summary>
         </member>
         <member name="P:XExten.Encryption.RSAEncryptionFix.Instance">
+            <summary>
+            实例
+            </summary>
+        </member>
+        <member name="M:XExten.Encryption.RSAEncryptionFRSAEncryptionFix.Instance">
             <summary>
             实例
             </summary>
@@ -1474,11 +1475,7 @@
             <summary>
             Add Cookie
             </summary>
-            <param name="name"></param>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.HttpFactory.HttpMultiClient.Cookies(System.String,System.String,System.String)">
+        ttpMultiClient.Cookies(System.String,System.String,System.String)">
             <summary>
             Add Cookie
             </summary>
@@ -1671,6 +1668,8 @@
             <returns></returns>
         </member>
         <member name="M:XExten.HttpFactory.MultiImplement.Cookies.AddNode(System.String,System.String,XExten.HttpFactory.RequestType,System.Boolean,System.Int32)">
+            <summary>
+      :XExten.HttpFactory.MultiImplement.Cookies.AddNode(System.String,System.String,XExten.HttpFactory.RequestType,System.Boolean,System.Int32)">
             <summary>
             Add Path
             </summary>
@@ -2222,12 +2221,7 @@
             <param name="headers"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.HttpFactory.MultiInterface.INode.Cookie(System.String,System.String)">
-            <summary>
-            Add Cookie
-            </summary>
-            <param name="name"></param>
-            <param name="value"></param>
+        <member name="M:XExten.HttpFactory.MultiInt     <param name="value"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.HttpFactory.MultiInterface.INode.Cookie(System.String,System.String,System.String)">
@@ -2345,6 +2339,12 @@
             </summary>
         </member>
         <member name="M:XExten.MessageQueue.QueueItem.#ctor(System.String,System.Action,System.String)">
+            <summary>
+            实例化
+            </summary>
+            <param name="key"></param>
+            <param name="action"></param>
+       String)">
             <summary>
             实例化
             </summary>
@@ -2799,11 +2799,7 @@
             <typeparam name="T"></typeparam>
             <typeparam name="K"></typeparam>
             <param name="queryable"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XCore.LinqX.ToModelAsync``1(System.String)">
-            <summary>
-            返序列化(DeserializeObject)
+��化(DeserializeObject)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
@@ -2889,6 +2885,8 @@
             <returns></returns>
         </member>
         <member name="M:XExten.XCore.LinqX.ToTablesAsync``1(System.Collections.Generic.IList{``0})">
+            <summary>
+            将集合转换为数据表并返回数据表(Cor name="M:XExten.XCore.LinqX.ToTablesAsync``1(System.Collections.Generic.IList{``0})">
             <summary>
             将集合转换为数据表并返回数据表(Convert the collection to a data table and return the data table)
             </summary>

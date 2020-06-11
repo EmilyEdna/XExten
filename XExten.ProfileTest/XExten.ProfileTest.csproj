@@ -1,13 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>aa78ebe1-d747-42eb-8315-7efc0ea49d52</UserSecretsId>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<UserSecretsId>aa78ebe1-d747-42eb-8315-7efc0ea49d52</UserSecretsId>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\XExten.Profile\XExten.Profile.csproj" />
-  </ItemGroup>
-
+	<ItemGroup>
+		<ProjectReference Include="..\XExten.Profile\XExten.Profile.csproj" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="sqlSugarCore" Version="5.0.0.15" />
+	</ItemGroup>
 
 </Project>
