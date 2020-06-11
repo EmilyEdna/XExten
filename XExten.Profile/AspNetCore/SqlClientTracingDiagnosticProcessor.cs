@@ -27,7 +27,7 @@ namespace XExten.Profile.AspNetCore
         {
             var commandType = $"SqlClient.{sqlCommand.CommandText?.Split(' ')?.FirstOrDefault()}";
             var ExitPartial = TracingContext.CreateExitPartialContext(commandType);
-            ExitPartial.Context.Component = "SQLCLINET";
+            ExitPartial.Context.Component = "SqlClient";
             ExitPartial.Context.LayerType = ChannelLayerType.DB;
             ExitPartial.Context.Add("DataSource", sqlCommand.Connection.DataSource);
             ExitPartial.Context.Add("Type", "SQL");

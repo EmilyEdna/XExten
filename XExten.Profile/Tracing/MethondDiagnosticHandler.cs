@@ -18,7 +18,7 @@ namespace XExten.Profile.Tracing
                 ProviderData.Remove("MethodName");
                 var Parameters = ProviderData.ToJson();
                 var Partial = tracingContext.CreateLocalPartialContext(MethodName);
-                Partial.Context.Component = "METHODINVOKE";
+                Partial.Context.Component = "MethodInvoke";
                 Partial.Context.LayerType = ChannelLayerType.Method;
                 Partial.Context.Add("Method", MethodName);
                 Partial.Context.Add("Parameters", Parameters);

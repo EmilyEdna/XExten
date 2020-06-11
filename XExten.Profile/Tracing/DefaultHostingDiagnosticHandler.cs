@@ -14,7 +14,7 @@ namespace XExten.Profile.Tracing
         public void BeginRequest(ITracingContext tracingContext, HttpContext httpContext)
         {
             var Partial = tracingContext.CreateEntryPartialContext(httpContext.Request.Path, new CarrierHeaderCollection(httpContext));
-            Partial.Context.Component = "ASPNETCORE";
+            Partial.Context.Component = "AspNetCore";
             Partial.Context.LayerType = ChannelLayerType.HTTP;
             Partial.Context.Add("Method", httpContext.Request.Method);
             Partial.Context.Add("URL", httpContext.Request.GetDisplayUrl());

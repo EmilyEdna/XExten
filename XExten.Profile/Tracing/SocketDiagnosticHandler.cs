@@ -18,7 +18,7 @@ namespace XExten.Profile.Tracing
                        new KeyValuePair<string, string>("Type",  ProviderData["Ways"].ToString())
                 };
                 var Partial = tracingContext.CreateEntryPartialContext(Ways, new CarrierHeaderCollection(Header));
-                Partial.Context.Component = "SOCKET";
+                Partial.Context.Component = "Socket";
                 Partial.Context.LayerType = ChannelLayerType.Socket;
                 Partial.Context.Router = ProviderData["Remote"].ToString();
                 Partial.Context.Method = $"{ProviderData["AddressWays"]}_{ProviderData["Ways"]}";

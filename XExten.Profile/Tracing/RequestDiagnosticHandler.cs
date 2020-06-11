@@ -12,7 +12,7 @@ namespace XExten.Profile.Tracing
         public void Handle(ITracingContext tracingContext, HttpRequestMessage request)
         {
             var Partial = tracingContext.CreateLocalPartialContext(request.RequestUri.ToString());
-            Partial.Context.Component = "HTTPCLIENT";
+            Partial.Context.Component = "HttpClient";
             Partial.Context.LayerType = ChannelLayerType.HTTP;
             Partial.Context.Add("Method", request.Method.ToString());
             Partial.Context.Add("URL", request.RequestUri.ToString());

@@ -11,26 +11,20 @@ namespace XExten.Profile.Tracing
 
         public string GetPeer(DbConnection connection)
         {
-            throw new NotImplementedException();
+            return connection.DataSource;
         }
 
         public bool Match(DbConnection connection)
         {
-            switch (connection.GetType().FullName)
+            return connection.GetType().FullName switch
             {
-                case "Microsoft.Data.Sqlite.SqliteConnection":
-                    return true;
-                case "MySql.Data.MySqlClient.MySqlConnection":
-                    return true;
-                case "Npgsql.NpgsqlConnection":
-                    return true;
-                case "Microsoft.Data.SqlClient.SqlConnection":
-                    return true;
-                default:
-                    return false;
-            }
+                "Microsoft.Data.Sqlite.SqliteConnection" => true,
+                "MySql.Data.MySqlClient.MySqlConnection" => true,
+                "Npgsql.NpgsqlConnection" => true,
+                "Microsoft.Data.SqlClient.SqlConnection" => true,
+                _ => false,
+            };
         }
-
 
     }
 }
