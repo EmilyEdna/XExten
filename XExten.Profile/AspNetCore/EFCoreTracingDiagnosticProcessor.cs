@@ -8,6 +8,7 @@ using System.Text;
 using XExten.Profile.Abstractions;
 using XExten.Profile.AspNetCore.DiagnosticProcessorName;
 using XExten.Profile.Attributes;
+using XExten.Profile.Core.Common;
 using XExten.Profile.Tracing.Entry;
 using XExten.Profile.Tracing.Entry.Enum;
 
@@ -39,10 +40,10 @@ namespace XExten.Profile.AspNetCore
             PartialContext Context = CreateContext(EventData.Command, operationName);
             Context.Context.LayerType = ChannelLayerType.DB;
             Context.Context.Add("DataSource", EventData.Command.Connection.DataSource);
-            Context.Context.Add("Type", "SQL");
+            Context.Context.Add("Type", (CommandType.FirstOrDefault() ?? EventData.ExecuteMethod.ToString()).GetSqlHandlerType());
             Context.Context.Add("DbInstance", EventData.Command.Connection.Database);
             Context.Context.Add("BindData", EventData.Command.Parameters?.FormatParameters(false));
-            Context.Context.Add("Statement", EventData.Command.CommandText);
+            Context.Context.Add("TSQL", EventData.Command.CommandText);
         }
 
         [DiagnosticName(ProcessorName.EntityFrameworkCoreCommandExecuted)]
@@ -50,6 +51,7 @@ namespace XExten.Profile.AspNetCore
         {
             if (EventData == null) return;
             var Context = GetCurrentContext(EventData.Command);
+            Context.Context.Add("Duration", Math.Truncate(EventData.Duration.TotalMilliseconds).ToString());
             if (Context != null) TracingContext.Release(Context);
         }
 

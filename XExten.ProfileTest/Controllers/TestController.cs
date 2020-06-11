@@ -10,6 +10,7 @@ using System.Reflection;
 using XExten.Profile.AspNetCore.Source;
 using XExten.Profile.AspNetCore.InvokeTracing;
 using XExten.Common;
+using Microsoft.EntityFrameworkCore;
 
 namespace XExten.ProfileTest.Controllers
 {
@@ -21,11 +22,8 @@ namespace XExten.ProfileTest.Controllers
         public List<string> Get()
         {
             TestClass tc = new TestClass();
-            //var xx = tc.GetType().GetMethod("TestMethod").ByTraceInvoke(tc, new object[] { "123", 111 });
             var data = ResultProvider.SetValue("Name", new Dictionary<object, object> { { "Key", "Value" } });
             tc.ByTraceInvoke("TestMethods", new object[] { data });
-
-            //tc.TestMethod("a", 11);
 
             //HttpMultiClient.HttpMulti.AddNode("https://www.baidu.com").Build().RunString();
 
@@ -39,6 +37,13 @@ namespace XExten.ProfileTest.Controllers
             // x.Title = "测试1";
             // Sugar.DB.Updateable(x).UpdateColumns(t => t.Title).Where(t => t.ZhaiYao == "111").ExecuteCommand();
             return new List<string>();
+        }
+
+        [HttpGet("Gets")]
+        public string Gets() {
+            SugarContext db = new SugarContext();
+           var data =  db.warnInfos.FromSqlRaw("select Title,ZhaiYao from WarnInfo").FirstOrDefault();
+            return "123";
         }
     }
 

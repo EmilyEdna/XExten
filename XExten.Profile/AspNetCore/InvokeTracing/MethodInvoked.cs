@@ -20,7 +20,7 @@ namespace XExten.Profile.AspNetCore.InvokeTracing
         /// <param name="methodName"></param>
         /// <param name="obj"></param>
         /// <param name="parameters"></param>
-        /// <returns></returns>
+        /// <returns>方法的结果对象</returns>
         public static Object? ByTraceInvoke<T>(this T Class,string methodName, Object?[]? parameters)
         {
             if (methodName.IsNullOrEmpty()) return null;

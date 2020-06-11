@@ -676,7 +676,7 @@ namespace XExten.XCore
         /// (Returns the specified enumeration description value)
         /// </summary>
         /// <param name="Param"></param>
-        /// <returns></returns>
+        /// <returns>枚举描叙</returns>
         public static string ToDescription(this Enum Param)
         {
             return (Param.GetType().GetField(Param.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), false).FirstOrDefault() as DescriptionAttribute).Description;
@@ -685,11 +685,11 @@ namespace XExten.XCore
         /// <summary>
         /// 获取指定字段的Attribute
         /// </summary>
-        /// <typeparam name="TSource"></typeparam>
-        /// <typeparam name="TAttribute"></typeparam>
-        /// <param name="Param"></param>
+        /// <typeparam name="TSource">指定实体</typeparam>
+        /// <typeparam name="TAttribute">特性</typeparam>
+        /// <param name="Param">指定实体</param>
         /// <param name="FieldName">字段名</param>
-        /// <returns></returns>
+        /// <returns>Attribute</returns>
         public static TAttribute ToAttribute<TSource, TAttribute>(this TSource Param, string FieldName) where TAttribute : Attribute
         {
             return (Param.GetType().GetField(FieldName).GetCustomAttributes(typeof(TAttribute), false).FirstOrDefault() as TAttribute);

@@ -7,6 +7,7 @@ using XExten.Profile.AspNetCore.DiagnosticProcessorName;
 using XExten.Profile.Attributes;
 using System.Linq;
 using XExten.Profile.Tracing.Entry.Enum;
+using XExten.Profile.Core.Common;
 
 namespace XExten.Profile.AspNetCore
 {
@@ -30,9 +31,9 @@ namespace XExten.Profile.AspNetCore
             ExitPartial.Context.Component = "SqlClient";
             ExitPartial.Context.LayerType = ChannelLayerType.DB;
             ExitPartial.Context.Add("DataSource", sqlCommand.Connection.DataSource);
-            ExitPartial.Context.Add("Type", "SQL");
+            ExitPartial.Context.Add("Type", sqlCommand.CommandText?.Split(' ')?.FirstOrDefault().GetSqlHandlerType());
             ExitPartial.Context.Add("DbInstance", sqlCommand.Connection.Database);
-            ExitPartial.Context.Add("Statement", sqlCommand.CommandText);
+            ExitPartial.Context.Add("TSQL", sqlCommand.CommandText);
         }
         [DiagnosticName(ProcessorName.SqlAfterExecuteCommand)]
         public void AfterExecuteCommand()

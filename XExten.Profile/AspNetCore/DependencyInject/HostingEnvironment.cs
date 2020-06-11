@@ -14,7 +14,7 @@ namespace XExten.Profile.AspNetCore.DependencyInject
         /// 注册XExten服务
         /// </summary>
         /// <param name="services"></param>
-        /// <returns></returns>
+        /// <returns>IServiceCollection</returns>
         public static IServiceCollection RegistXExtenService(this IServiceCollection services)
         {
             var Ass = XPlusEx.XAssembly();
