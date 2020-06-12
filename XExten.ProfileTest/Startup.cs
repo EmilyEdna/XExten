@@ -46,6 +46,8 @@ namespace XExten.ProfileTest
 
             app.UseRouting();
 
+            app.UseTraceUI("127.0.0.1:5000");
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -5,6 +5,9 @@ using System.Text;
 using XExten.XPlus;
 using System.Linq;
 using XExten.Profile.Abstractions.Common;
+using Microsoft.AspNetCore.Builder;
+using XExten.Profile.Core.Common;
+using XExten.XCore;
 
 namespace XExten.Profile.AspNetCore.DependencyInject
 {
@@ -34,6 +37,19 @@ namespace XExten.Profile.AspNetCore.DependencyInject
                     services.AddSingleton(Item);
             }
             return services;
+        }
+        /// <summary>
+        /// 配套使用追踪可视化界面
+        /// </summary>
+        /// <param name="UIHost">可视化界面地址 exp:127.0.0.1:9374</param>
+        /// <returns>IApplicationBuilder</returns>
+        public static IApplicationBuilder UseTraceUI(this IApplicationBuilder application, string UIHost = null)
+        {
+            if (UIHost.IsNullOrEmpty())
+                TracingUIExtension.UIHost = "http://127.0.0.1:9374/Api/Trace/SetTrace";
+            else
+                TracingUIExtension.UIHost = $"http://{UIHost}/Api/Trace/SetTrace";
+            return application;
         }
     }
 }

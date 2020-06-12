@@ -8,6 +8,7 @@ using XExten.Profile.Tracing.Entry.Enum;
 using XExten.Profile.Tracing.Entry.Struct;
 using System.Threading;
 using System.Linq;
+using XExten.Profile.Core.Common;
 
 namespace XExten.Profile.Tracing
 {
@@ -101,6 +102,7 @@ namespace XExten.Profile.Tracing
         public void Release(PartialContext partialContext)
         {
             if (partialContext == null) return;
+            partialContext.OpenUI();
             switch (partialContext.Channel)
             {
                 case ChannelType.Entry:

@@ -186,6 +186,11 @@
             </summary>
             <param name="FilePath"></param>
         </member>
+        <member name="T:XExten.SocketProxy.SocketDependency.DependencyLibrary">
+            <summary>
+            依赖库
+            </summary>
+        </member>
         <member name="P:XExten.SocketProxy.SocketDependency.DependencyLibrary.Assembly">
             <summary>
             所有程序集
