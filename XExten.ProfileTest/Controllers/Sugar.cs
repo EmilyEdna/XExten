@@ -14,7 +14,7 @@ namespace XExten.ProfileTest.Controllers
 			{
 				SqlSugarClient Client = new SqlSugarClient(new ConnectionConfig
 				{
-					ConnectionString = "Data Source=106.58.174.64;Initial Catalog=ZSY;uid=zsy;pwd=zsy123456!",
+					ConnectionString = "Data Source=106.58.174.64;Initial Catalog=ZSY;uid=zsy;pwd=zsy123456!@#$!",
 					DbType = DbType.SqlServer,
 					IsAutoCloseConnection = true,
 					InitKeyType = InitKeyType.SystemTable

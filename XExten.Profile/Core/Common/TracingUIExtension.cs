@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using XExten.Profile.Tracing.Entry;
 using XExten.XCore;
-using XExten.HttpFactory;
 
 namespace XExten.Profile.Core.Common
 {
@@ -19,9 +19,9 @@ namespace XExten.Profile.Core.Common
         /// <param name="Context"></param>
         internal static void OpenUI(this PartialContext Context)
         {
-            var xx = HttpMultiClient.HttpMulti.AddNode("https://www.baidu.com").Build().RunBytes();
-
-            var data = HttpMultiClient.HttpMulti.AddNode(UIHost, Context.ToJson(), RequestType.POST).Build().RunBytes();
+            WebClient Client = new WebClient();
+            Client.Headers.Add("Content-Type", "application/json");
+            Client.UploadData(UIHost, "POST", Encoding.UTF8.GetBytes(Context.ToJson()));
         }
     }
 }
