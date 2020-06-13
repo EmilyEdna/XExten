@@ -56,12 +56,16 @@ namespace XExten.Profile.AspNetCore
         public void DiagnosticUnhandledException([Property]HttpContext httpContext, [Property] Exception exception)
         {
             Accessor.Context?.Context?.Add(exception);
+            if (Accessor.Context == null) return;
+            TracingContext.Release(Accessor.Context);
         }
 
         [DiagnosticName(ProcessorName.HostingException)]
         public void HostingUnhandledException([Property]HttpContext httpContext, [Property] Exception exception)
         {
             Accessor.Context?.Context?.Add(exception);
+            if (Accessor.Context == null) return;
+            TracingContext.Release(Accessor.Context);
         }
     }
 }

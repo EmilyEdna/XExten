@@ -46,6 +46,8 @@ namespace XExten.Profile.AspNetCore
         public void ErrorExecuteCommand([Property(Name = "Exception")] Exception exception)
         {
             Accessor.Context?.Context?.Add(exception);
+            if (Accessor.Context == null) return;
+            TracingContext.Release(Accessor.Context);
         }
     }
 }

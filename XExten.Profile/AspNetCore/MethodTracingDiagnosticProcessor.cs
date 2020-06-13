@@ -47,6 +47,8 @@ namespace XExten.Profile.AspNetCore
         public void MethodExceptionInvoke([Object]Exception exception)
         {
             Accessor.Context?.Context?.Add(exception);
+            if (Accessor.Context == null) return;
+            TracingContext.Release(Accessor.Context);
         }
     }
 }

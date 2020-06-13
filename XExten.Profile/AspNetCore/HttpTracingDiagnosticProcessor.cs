@@ -53,6 +53,8 @@ namespace XExten.Profile.AspNetCore
         public void HttpException([Property(Name = "Request")] HttpRequestMessage request, [Property(Name = "Exception")] Exception exception)
         {
             Accessor.Context?.Context?.Add(exception);
+            if (Accessor.Context == null) return;
+            TracingContext.Release(Accessor.Context);
         }
     }
 }
