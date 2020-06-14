@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
-using XExten.ProfileUI.ViewModel;
 
 namespace XExten.ProfileUI.APM
 {
-    public class Machine
+    public class MachineMemory
     {
         [DllImport("kernel32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]

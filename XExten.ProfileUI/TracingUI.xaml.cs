@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using XExten.ProfileUI.APM;
+using XExten.ProfileUI.SocketService;
 using XExten.ProfileUI.ViewModel;
 
 namespace XExten.ProfileUI
@@ -22,14 +23,8 @@ namespace XExten.ProfileUI
         public TracingUI()
         {
             InitializeComponent();
-            BindMemory();
-        }
-
-        public void BindMemory()
-        {
-            A1.Text = "总内存：" + Machine.FormatSize(Machine.GetTotalPhys());
-            A2.Text = "可用内存：" + Machine.FormatSize(Machine.GetAvailPhys());
-            A3.Text = "已用内存：" + Machine.FormatSize(Machine.GetUsedPhys());
+            SocketCommon.InitSocket();
+            DataContext = new MemoryViewModel();
         }
     }
 }

@@ -46,9 +46,9 @@ namespace XExten.Profile.AspNetCore.DependencyInject
         public static IApplicationBuilder UseTraceUI(this IApplicationBuilder application, string UIHost = null)
         {
             if (UIHost.IsNullOrEmpty())
-                TracingUIExtension.UIHost = "http://127.0.0.1:9374/Trace/SetTrace";
+                TracingUIExtension.UIHost = "127.0.0.1:9374";
             else
-                TracingUIExtension.UIHost = $"http://{UIHost}/Trace/SetTrace";
+                TracingUIExtension.UIHost = UIHost;
             return application;
         }
     }

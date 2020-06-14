@@ -11,7 +11,7 @@ namespace XExten.Profile.Tracing
     {
         public void Handle(ITracingContext tracingContext, HttpRequestMessage request)
         {
-            var Partial = tracingContext.CreateLocalPartialContext(request.RequestUri.ToString());
+            var Partial = tracingContext.CreateExitPartialContext(request.RequestUri.ToString());
             Partial.Context.Component = "HttpClient";
             Partial.Context.LayerType = ChannelLayerType.HTTP;
             Partial.Context.Add("Method", request.Method.ToString());
@@ -20,6 +20,6 @@ namespace XExten.Profile.Tracing
             Partial.Context.Add("Router", request.RequestUri.Host);
         }
 
-        public bool OnlyMatch(HttpRequestMessage request) => true;
+        public bool OnlyMatch(HttpRequestMessage request) => !request.RequestUri.LocalPath.Contains("/Trace/SetTrace");
     }
 }

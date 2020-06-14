@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace XExten.ProfileUI.ViewModel
+namespace XExten.ProfileUI.APM
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct MemoryInfo

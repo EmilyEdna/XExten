@@ -5,16 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:XExten.ProfileUI"
         mc:Ignorable="d"
-        Title="TracingUI" Height="450" Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0">
-            <TextBlock x:Name="A1"/>
-            <TextBlock x:Name="A2"/>
-            <TextBlock x:Name="A3"/>
-        </StackPanel>
-    </Grid>
+        Title="APMUI" Height="83" Width="190" ResizeMode="NoResize" Icon="/Resource/Trace.png">
+    <StackPanel>
+        <ListView ItemsSource="{Binding Item}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="总内存"  DisplayMemberBinding="{Binding TotalMemory}"></GridViewColumn>
+                    <GridViewColumn Header="可用内存" DisplayMemberBinding="{Binding AvailMemory}"></GridViewColumn>
+                    <GridViewColumn Header="已用内存" DisplayMemberBinding="{Binding UsedMemory}"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </StackPanel>
 </Window>
