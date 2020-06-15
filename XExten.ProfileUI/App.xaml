@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:XExten.ProfileUI"
              StartupUri="TracingUI.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="NotifyResource.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
