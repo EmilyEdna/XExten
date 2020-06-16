@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using XExten.Profile.Tracing.Entry.Enum;
+using XExten.Profile.Tracing.Entry.JsonDate;
 using XExten.Profile.Tracing.Entry.Struct;
 
 namespace XExten.Profile.Tracing.Entry
@@ -19,6 +21,7 @@ namespace XExten.Profile.Tracing.Entry
         /// <summary>
         /// 开始时间
         /// </summary>
+        [JsonConverter(typeof(JsonDateConvert))]
         public DateTime BeginTime { get; }
         /// <summary>
         /// 通道类型

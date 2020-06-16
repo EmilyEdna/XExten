@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,7 +10,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using XExten.ProfileUI.APM;
 using XExten.ProfileUI.SocketService;
 using XExten.ProfileUI.ViewModel;
 
@@ -24,6 +24,7 @@ namespace XExten.ProfileUI
         {
             InitializeComponent();
             SocketCommon.InitSocket();
+            HttpCommon.InitHttp();
             DataContext = new MemoryViewModel();
         }
     }

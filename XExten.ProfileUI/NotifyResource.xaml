@@ -7,6 +7,8 @@
         <MenuItem Header="显示窗口" Command="{Binding ShowWindowCommand}" />
         <MenuItem Header="隐藏窗口" Command="{Binding HideWindowCommand}" />
         <Separator />
+        <MenuItem Header="显示追踪" Command="{Binding ShowTraceCommand}"/>
+        <Separator />
         <MenuItem Header="退出" Command="{Binding ExitApplicationCommand}" />
     </ContextMenu>
 

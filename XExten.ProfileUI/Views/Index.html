@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>APM追踪</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/jquery-jsonview/1.2.3/jquery.jsonview.min.css" rel="stylesheet">
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery-jsonview/1.2.3/jquery.jsonview.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div ref="a1"> </div>
+    </div>
+</body>
+</html>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            PageData: {
+                PageIndex: 1,
+                PageSize: 10
+            },
+            reslut: {}
+        },
+        created() {
+            this.Init();
+        },
+        methods: {
+            Init() {
+                axios({
+                    url: "/Trace/GetTraceData",
+                    method: "post",
+                    data: this.PageData
+                }).then(res => {
+                    this.reslut = res.data.Data.Queryable;
+                    this.$refs.JSONView(res.data.Data.Queryable)
+                });
+                //定时清空内存数据
+                setInterval(() => {
+                    axios({
+                        url: "/Trace/ClearMemory",
+                        method: "get"
+                    }).then(res => { });
+                }, 300000)
+            }
+        }
+    });
+</script>

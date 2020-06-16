@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using XExten.ProfileUI.Command;
+using XExten.ProfileUI.ConfigHelp;
 
 namespace XExten.ProfileUI
 {
@@ -48,6 +50,17 @@ namespace XExten.ProfileUI
             get
             {
                 return new DelegateCommand { CommandAction = () => Application.Current.Shutdown() };
+            }
+        }
+
+        /// <summary>
+        /// Show the trace data
+        /// </summary>
+        public ICommand ShowTraceCommand
+        {
+            get
+            {
+                return new DelegateCommand { CommandAction = () => Process.Start("explorer.exe", $"http://127.0.1:{ConfigReader.GetSecetion("HttpPort")}/Index.html") };
             }
         }
     }

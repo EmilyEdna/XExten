@@ -4,6 +4,7 @@
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 		<UseWPF>true</UseWPF>
+		<ApplicationIcon>Resource\Trace.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -23,10 +24,21 @@
 	<ItemGroup>
 		<PackageReference Include="BeetleX.FastHttpApi" Version="1.8.2.7" />
 		<PackageReference Include="Hardcodet.NotifyIcon.Wpf.NetCore" Version="1.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.5" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.5" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\XExten\XExten.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="UI.config">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Views\Index.html">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 	
 </Project>
