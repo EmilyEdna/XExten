@@ -34,4 +34,3 @@
 https://github.com/EmilyEdna/XExten/releases
 
 ![image](https://github.com/EmilyEdna/XExten/blob/master/Image/Img1.jpg)
-![image](https://github.com/EmilyEdna/XExten/blob/master/Image/Img2.jpg)
