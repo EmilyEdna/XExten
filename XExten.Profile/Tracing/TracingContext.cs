@@ -12,12 +12,21 @@ using XExten.Profile.Core.Common;
 
 namespace XExten.Profile.Tracing
 {
+    /// <summary>
+    /// 跟踪上下文
+    /// </summary>
     public class TracingContext : ITracingContext
     {
         private readonly IExitContextAccessor ExitAccessor;
         private readonly ILocalContextAccessor LocalAccessor;
         private readonly IEntryContextAccessor EntryAccessor;
         private readonly ThreadLocal<long> Sequence = new ThreadLocal<long>(() => 0);
+        /// <summary>
+        /// 构造
+        /// </summary>
+        /// <param name="exit"></param>
+        /// <param name="local"></param>
+        /// <param name="entry"></param>
         public TracingContext(IExitContextAccessor exit, ILocalContextAccessor local, IEntryContextAccessor entry)
         {
             ExitAccessor = exit;
@@ -42,12 +51,11 @@ namespace XExten.Profile.Tracing
         /// 创建退出
         /// </summary>
         /// <param name="operationName"></param>
-        /// <param name="networkAddress"></param>
-        /// <param name="carrierHeader"></param>
         /// <returns></returns>
         public PartialContext CreateExitPartialContext(string operationName)
         {
             PartialContext Context = GetParentPartialContext(ChannelType.Exit);
+            if (Context == null) throw  new NullReferenceException(nameof(Context));
             PartialContext Partial = new PartialContext(GetTraceId(Context), Context.HeaderValue, ChannelType.Exit, operationName);
             if (Context != null)
             {
@@ -77,6 +85,7 @@ namespace XExten.Profile.Tracing
         {
             if (operationName == null) throw new ArgumentNullException(nameof(operationName));
             PartialContext Context = GetParentPartialContext(ChannelType.Local);
+            if (Context == null) throw new NullReferenceException(nameof(Context));
             PartialContext Partial = new PartialContext(GetTraceId(Context), Context.HeaderValue, ChannelType.Local, operationName);
             if (Context != null)
             {
