@@ -3,12 +3,14 @@
 	<PropertyGroup>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 		<Authors>EmilyEdna</Authors>
-		<Description>Diagnose and track exceptions or requests for distributed services and send them to specific UI addresses for display.</Description>
+		<Description>Diagnose and track exceptions or requests for distributed services and send them to specific UI addresses for display. UI download address : https://github.com/EmilyEdna/XExten/releases</Description>
 		<Copyright>EmilyEdna 847432003@qq.com</Copyright>
 		<PackageProjectUrl>https://github.com/EmilyEdna/XExten</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/EmilyEdna/XExten</RepositoryUrl>
 		<PackageTags>APM</PackageTags>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Version>1.0.1</Version>
+		<AssemblyVersion>1.0.1.0</AssemblyVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
