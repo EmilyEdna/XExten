@@ -9,8 +9,8 @@
     <Description>Internal communication server using socket to implement microservices</Description>
     <PackageProjectUrl>https://github.com/EmilyEdna/XExten</PackageProjectUrl>
     <RepositoryUrl>https://github.com/EmilyEdna/XExten</RepositoryUrl>
-    <Copyright>EmilyEdna</Copyright>
-    <Version>1.0.3</Version>
+    <Copyright>EmilyEdna 847432003@qq.com</Copyright>
+    <Version>1.0.4</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

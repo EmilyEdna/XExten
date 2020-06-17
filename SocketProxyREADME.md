@@ -1,6 +1,6 @@
 #### 注意！使用该包需配合服务端XExten.SocketProxyServer使用
 [![](https://img.shields.io/badge/build-success-brightgreen.svg)](https://github.com/EmilyEdna/XExten.SocketProxy)
-[![](https://img.shields.io/badge/nuget-v1.0.3-blue.svg)](https://www.nuget.org/packages/XExten.SocketProxy/1.0.3)
+[![](https://img.shields.io/badge/nuget-v1.0.4-blue.svg)](https://www.nuget.org/packages/XExten.SocketProxy/1.0.4)
 ## 使用方法
 ------------------------------------
 1.在一个控制器中定义方法如下：

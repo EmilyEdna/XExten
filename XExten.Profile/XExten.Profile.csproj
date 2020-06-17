@@ -2,6 +2,12 @@
 
 	<PropertyGroup>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<Authors>EmilyEdna</Authors>
+		<Description>Diagnose and track exceptions or requests for distributed services and send them to specific UI addresses for display.</Description>
+		<Copyright>EmilyEdna 847432003@qq.com</Copyright>
+		<PackageProjectUrl>https://github.com/EmilyEdna/XExten</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/EmilyEdna/XExten</RepositoryUrl>
+		<PackageTags>APM</PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>

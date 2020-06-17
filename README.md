@@ -1,8 +1,8 @@
-### [<font color=red>XExten</font>](https://github.com/EmilyEdna/XExten/blob/master/README.md)|[<font color=red>SocketProxy</font>](https://github.com/EmilyEdna/XExten/blob/master/SocketProxyREADME.md)|[<font color=red>SocketProxyServer</font>](https://github.com/EmilyEdna/XExten/blob/master/SocketProxyServerREADME.md)
+### [<font color=red>XExten</font>](https://github.com/EmilyEdna/XExten/blob/master/README.md)|[<font color=red>SocketProxy</font>](https://github.com/EmilyEdna/XExten/blob/master/SocketProxyREADME.md)|[<font color=red>SocketProxyServer</font>](https://github.com/EmilyEdna/XExten/blob/master/SocketProxyServerREADME.md)|[<font color=red>Profile</font>](https://github.com/EmilyEdna/XExten/blob/master/TraceDiagnosticREADME.md)
 --------------
 #### 对LINQ进行了扩展和修改，扩展了表达式和httpclient的封装。支持Redis、mongodb、memorycache等缓存机制。通过emit创建动态类，读取XML，创建二维码，支持protobuf序列化，支持MessagePack序列化，支持简单的消息队列。
 [![](https://img.shields.io/badge/build-success-brightgreen.svg)](https://github.com/EmilyEdna/XExten)
-[![](https://img.shields.io/badge/nuget-v2.2.3-blue.svg)](https://www.nuget.org/packages/XExten/2.2.3)
+[![](https://img.shields.io/badge/nuget-v2.2.3.1-blue.svg)](https://www.nuget.org/packages/XExten/2.2.3.1)
 ![](https://img.shields.io/badge/Download-3.5K-brightgreen)
 ### [如何使用](https://github.com/EmilyEdna/XExten/wiki) 
 --------------
