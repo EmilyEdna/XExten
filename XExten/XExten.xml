@@ -3542,8 +3542,15 @@
         </member>
         <member name="M:XExten.XPlus.XPlusEx.XAssembly">
             <summary>
-            获取系统依赖项
+            获取项目程序集
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.XAssembly(System.String)">
+            <summary>
+            获取指定的程序集
+            </summary>
+            <param name="AssemblyName"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.XPlus.XPlusEx.XDouglasPeuker(System.Collections.Generic.List{XExten.Common.CommonAbstraction.IPoint},System.Double)">

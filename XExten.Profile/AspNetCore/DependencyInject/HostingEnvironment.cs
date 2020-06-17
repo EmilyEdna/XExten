@@ -17,10 +17,11 @@ namespace XExten.Profile.AspNetCore.DependencyInject
         /// 注册XExten服务
         /// </summary>
         /// <param name="services"></param>
+        /// <param name="AssemblyName"></param>
         /// <returns>IServiceCollection</returns>
-        public static IServiceCollection RegistXExtenService(this IServiceCollection services)
+        public static IServiceCollection RegistXExtenService(this IServiceCollection services, string AssemblyName = "XExten")
         {
-            var Ass = XPlusEx.XAssembly();
+            var Ass = XPlusEx.XAssembly(AssemblyName);
             List<Type> DependencyAssembly = Ass.SelectMany(opt => opt.ExportedTypes.Where(t => t.GetInterfaces().Contains(typeof(IDependency)))).ToList();
             List<Type> SingletonDependencyAssembly = Ass.SelectMany(opt => opt.ExportedTypes.Where(t => t.GetInterfaces().Contains(typeof(ISingletonDependency)))).ToList();
             foreach (Type Item in DependencyAssembly)
@@ -41,6 +42,7 @@ namespace XExten.Profile.AspNetCore.DependencyInject
         /// <summary>
         /// 配套使用追踪可视化界面
         /// </summary>
+        /// <param name="application"></param>
         /// <param name="UIHost">可视化界面地址 exp:127.0.0.1:9374</param>
         /// <returns>IApplicationBuilder</returns>
         public static IApplicationBuilder UseTraceUI(this IApplicationBuilder application, string UIHost = null)

@@ -10,7 +10,6 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Xml.Linq;
@@ -629,7 +628,7 @@ namespace XExten.XPlus
         }
 
         /// <summary>
-        /// 获取系统依赖项
+        /// 获取项目程序集
         /// </summary>
         /// <returns></returns>
         public static List<Assembly> XAssembly()
@@ -637,6 +636,24 @@ namespace XExten.XPlus
             List<Assembly> Assemblies = new List<Assembly>();
             var lib = DependencyContext.Default;
             var libs = lib.CompileLibraries.Where(t => !t.Serviceable).Where(t => t.Type == "project").ToList();
+            foreach (var item in libs)
+            {
+                Assembly assembly = AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName(item.Name));
+                Assemblies.Add(assembly);
+            }
+            return Assemblies;
+        }
+
+        /// <summary>
+        /// 获取指定的程序集
+        /// </summary>
+        /// <param name="AssemblyName"></param>
+        /// <returns></returns>
+        public static List<Assembly> XAssembly(string AssemblyName)
+        {
+            List<Assembly> Assemblies = new List<Assembly>();
+            var lib = DependencyContext.Default;
+            var libs = lib.CompileLibraries.Where(t => !t.Serviceable).Where(t=>t.Name.Contains(AssemblyName)).ToList();
             foreach (var item in libs)
             {
                 Assembly assembly = AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName(item.Name));
