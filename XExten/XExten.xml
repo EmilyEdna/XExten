@@ -867,11 +867,6 @@
             
              </summary>
         </member>
-        <member name="F:XExten.CacheFactory.RunTimeCache.MemoryCaches.Cache">
-            <summary>
-            MemoryCaches
-            </summary>
-        </member>
         <member name="M:XExten.CacheFactory.RunTimeCache.MemoryCaches.AddCache``1(System.String,``0,System.Int32,System.Boolean)">
             <summary>
             添加缓存

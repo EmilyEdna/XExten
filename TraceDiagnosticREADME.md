@@ -31,4 +31,4 @@
     //方式二是根据客户自己自定义的方式实现这里不作演示
 ```
 #UI下载地址
-https://github.com/EmilyEdna/XExten/Release
+https://github.com/EmilyEdna/XExten/releases

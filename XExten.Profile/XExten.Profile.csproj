@@ -8,6 +8,11 @@
 		<PackageProjectUrl>https://github.com/EmilyEdna/XExten</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/EmilyEdna/XExten</RepositoryUrl>
 		<PackageTags>APM</PackageTags>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <DocumentationFile>D:\Project\XExten\XExten.Profile\XExten.Profile.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>

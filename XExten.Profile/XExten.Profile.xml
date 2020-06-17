@@ -1,0 +1,343 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>XExten.Profile</name>
+    </assembly>
+    <members>
+        <member name="T:XExten.Profile.AbstractionsDefault.NullParameterResolver">
+            <summary>
+            空参
+            </summary>
+        </member>
+        <member name="M:XExten.Profile.Abstractions.ITracingContext.CreateEntryPartialContext(System.String,XExten.Profile.Abstractions.ICarrierHeaderCollection)">
+            <summary>
+            创建登录
+            </summary>
+            <param name="operationName"></param>
+            <param name="carrierHeader"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Profile.Abstractions.ITracingContext.CreateLocalPartialContext(System.String)">
+            <summary>
+            创建执行
+            </summary>
+            <param name="operationName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Profile.Abstractions.ITracingContext.CreateExitPartialContext(System.String)">
+            <summary>
+            创建退出
+            </summary>
+            <param name="operationName"></param>
+            <param name="networkAddress"></param>
+            <param name="carrierHeader"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Profile.AspNetCore.DependencyInject.HostingEnvironment.RegistXExtenService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            注册XExten服务
+            </summary>
+            <param name="services"></param>
+            <returns>IServiceCollection</returns>
+        </member>
+        <member name="M:XExten.Profile.AspNetCore.DependencyInject.HostingEnvironment.UseTraceUI(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.String)">
+            <summary>
+            配套使用追踪可视化界面
+            </summary>
+            <param name="UIHost">可视化界面地址 exp:127.0.0.1:9374</param>
+            <returns>IApplicationBuilder</returns>
+        </member>
+        <member name="M:XExten.Profile.AspNetCore.InvokeTracing.MethodInvoked.ByTraceInvoke``1(``0,System.String,System.Object[])">
+            <summary>
+            Invoke method with diagnostic and tracing
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Class"></param>
+            <param name="methodName"></param>
+            <param name="obj"></param>
+            <param name="parameters"></param>
+            <returns>方法的结果对象</returns>
+        </member>
+        <member name="M:XExten.Profile.Core.Common.SqlHandlerTypeExtension.GetSqlHandlerType(System.String)">
+            <summary>
+            获取执行数据库命令时的操作类型
+            </summary>
+            <param name="SqlHandle"></param>
+            <returns>操作类型</returns>
+        </member>
+        <member name="P:XExten.Profile.Core.Common.TracingUIExtension.UIHost">
+            <summary>
+            UI界面地址
+            </summary>
+        </member>
+        <member name="F:XExten.Profile.Core.Common.TracingUIExtension.Clients">
+            <summary>
+            客户端
+            </summary>
+        </member>
+        <member name="M:XExten.Profile.Core.Common.TracingUIExtension.OpenUI(XExten.Profile.Tracing.Entry.PartialContext)">
+            <summary>
+            将数据绘制到UI界面
+            </summary>
+            <param name="Context"></param>
+        </member>
+        <member name="T:XExten.Profile.Core.Diagnostics.TracingDiagnosticMethod">
+            <summary>
+            追踪调用方法
+            </summary>
+        </member>
+        <member name="M:XExten.Profile.Core.Diagnostics.TracingDiagnosticMethod.Invoke(System.String,System.Object)">
+            <summary>
+            调用方法
+            </summary>
+            <param name="DiagnosticName"></param>
+        </member>
+        <member name="M:XExten.Profile.Core.Diagnostics.TracingDiagnosticMethod.GetParameterResolvers(System.Reflection.MethodInfo)">
+            <summary>
+            获取每一个方法的参数
+            </summary>
+            <param name="MethodInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="T:XExten.Profile.Core.Diagnostics.TracingDiagnosticMethodCollection">
+            <summary>
+            追踪方法集合
+            </summary>
+        </member>
+        <member name="T:XExten.Profile.Core.Diagnostics.TracingDiagnosticObserver">
+            <summary>
+            探针值
+            </summary>
+        </member>
+        <member name="T:XExten.Profile.Core.Diagnostics.TracingDiagnosticProcessorObserver">
+            <summary>
+            追踪执行器
+            </summary>
+        </member>
+        <member name="F:XExten.Profile.Tracing.Entry.Enum.ChannelType.Entry">
+            <summary>
+            进入
+            </summary>
+        </member>
+        <member name="F:XExten.Profile.Tracing.Entry.Enum.ChannelType.Local">
+            <summary>
+            本地
+            </summary>
+        </member>
+        <member name="F:XExten.Profile.Tracing.Entry.Enum.ChannelType.Exit">
+            <summary>
+            退出
+            </summary>
+        </member>
+        <member name="F:XExten.Profile.Tracing.Entry.Enum.SqlHandlerType.Select">
+            <summary>
+            查询
+            </summary>
+        </member>
+        <member name="F:XExten.Profile.Tracing.Entry.Enum.SqlHandlerType.Update">
+            <summary>
+            更新
+            </summary>
+        </member>
+        <member name="F:XExten.Profile.Tracing.Entry.Enum.SqlHandlerType.Delete">
+            <summary>
+            删除
+            </summary>
+        </member>
+        <member name="F:XExten.Profile.Tracing.Entry.Enum.SqlHandlerType.Insert">
+            <summary>
+            新增
+            </summary>
+        </member>
+        <member name="F:XExten.Profile.Tracing.Entry.Enum.SqlHandlerType.Store">
+            <summary>
+            存储过程
+            </summary>
+        </member>
+        <member name="F:XExten.Profile.Tracing.Entry.Enum.SqlHandlerType.Onthor">
+            <summary>
+            其他
+            </summary>
+        </member>
+        <member name="T:XExten.Profile.Tracing.Entry.JsonDate.JsonDateConvert">
+            <summary>
+            Json时间转换格式
+            </summary>
+        </member>
+        <member name="M:XExten.Profile.Tracing.Entry.JsonDate.JsonDateConvert.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.PartialContext.RequirId">
+            <summary>
+            唯一标识
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.PartialContext.OperationName">
+            <summary>
+            行为
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.PartialContext.BeginTime">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.PartialContext.Channel">
+            <summary>
+            通道类型
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.PartialContext.HeaderValue">
+            <summary>
+            头信息
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.PartialContext.TraceId">
+            <summary>
+            跟踪Id
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.PartialContext.References">
+            <summary>
+            引用
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.PartialContext.Context">
+            <summary>
+            请求信息
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.PartialContext.ResultContext">
+            <summary>
+            结果信息
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.PartialSpanContext.LayerType">
+            <summary>
+            方式
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.PartialSpanContext.URL">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.PartialSpanContext.Method">
+            <summary>
+            方法
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.PartialSpanContext.Component">
+            <summary>
+            组件
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.PartialSpanContext.Router">
+            <summary>
+            IP
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.PartialSpanContext.Path">
+            <summary>
+            路劲
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.PartialSpanContext.PenddingStar">
+            <summary>
+            请求时间
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.PartialSpanContext.StatusCode">
+             <summary>
+            状态码
+             </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.PartialSpanContext.PenddingEnd">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.PartialSpanContext.RequestMilliseconds">
+            <summary>
+            请求间隔
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.PartialSpanContext.Tags">
+            <summary>
+            标签
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.PartialSpanContext.Exceptions">
+            <summary>
+            异常信息
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.PartialSpanResultContext.Results">
+            <summary>
+            结果
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.ReferencePartialSpanContext.RequirId">
+            <summary>
+            唯一标识
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.ReferencePartialSpanContext.EntryServiceId">
+            <summary>
+            请求Id
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.ReferencePartialSpanContext.OperationName">
+            <summary>
+            行为
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.ReferencePartialSpanContext.Component">
+            <summary>
+            组件
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.ReferencePartialSpanContext.LayerType">
+            <summary>
+            方式
+            </summary>
+        </member>
+        <member name="P:XExten.Profile.Tracing.Entry.ReferencePartialSpanContext.Tags">
+            <summary>
+            标签
+            </summary>
+        </member>
+        <member name="M:XExten.Profile.Tracing.TracingContext.CreateEntryPartialContext(System.String,XExten.Profile.Abstractions.ICarrierHeaderCollection)">
+            <summary>
+            创建请求
+            </summary>
+            <param name="operationName"></param>
+            <param name="carrierHeader"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Profile.Tracing.TracingContext.CreateExitPartialContext(System.String)">
+            <summary>
+            创建退出
+            </summary>
+            <param name="operationName"></param>
+            <param name="networkAddress"></param>
+            <param name="carrierHeader"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Profile.Tracing.TracingContext.CreateLocalPartialContext(System.String)">
+            <summary>
+            创建本地
+            </summary>
+            <param name="operationName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Profile.Tracing.TracingContext.Release(XExten.Profile.Tracing.Entry.PartialContext)">
+            <summary>
+            释放
+            </summary>
+            <param name="partialContext"></param>
+        </member>
+    </members>
+</doc>
