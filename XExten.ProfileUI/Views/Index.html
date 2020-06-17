@@ -14,8 +14,29 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery-jsonview/1.2.3/jquery.jsonview.min.js"></script>
 </head>
 <body>
+    <h2>APM简易版可视化追踪UI</h2>
+    <h2 class="text text-info">https://github.com/EmilyEdna</h2>
+    <h3 class="text text-danger">---------------------------------------------------------------------</h3>
     <div id="app">
-        <div ref="a1"> </div>
+        <ul class="list-group">
+            <li v-for="(Entity,Index) in reslut" class="list-group-item">
+                <div data-toggle="collapse" :data-target="GetElement(Index,false)">
+                    <small class="text text-info">序号：{{Index+1}}</small>
+                    <small class="text text-success" style="margin-left:50px;">{{Entity.OperationName}}</small>
+                    <span class="badge badge-pill badge-warning" style="margin-left:100px;">{{Entity.Channel==0?"入口":(Entity.Channel==1?"进行中":"完成")}}_{{Entity.RequirId}}</span>
+                </div>
+                <div class="collapse" :id="GetElement(Index,true)">
+                    <h5 :id="Index" ref="Indexs">{{JSON.stringify(Entity)}}</h5>
+                    <button class="btn btn-sm btn-outline-primary" type="button" @click="SerliazeJson(Entity,Index,true)">美化JSON</button>
+                    <button class="btn btn-sm btn-outline-primary" type="button" @click="SerliazeJson(Entity,Index,false)">还原JSON</button>
+                </div>
+            </li>
+        </ul>
+        <div class="col-sm-12 text-center" style="margin-top:10px;">
+            <button type="button" class="btn btn-sm btn-outline-primary" @click="Page(-1,true)">上一页</button>
+            <a href="#" style="margin-left:1px;margin-right:1px;" class="text text-danger" v-for="Index in TotalPage" @click="Page(Index,false)"> {{Index}}</a>
+            <button type="button" class="btn btn-sm btn-outline-primary" @click="Page(1,true)">下一页</button>
+        </div>
     </div>
 </body>
 </html>
@@ -25,9 +46,11 @@
         data: {
             PageData: {
                 PageIndex: 1,
-                PageSize: 10
+                PageSize: 15
             },
-            reslut: {}
+            reslut: {},
+            TotalPage: 0,
+            CurrentPage: 1,
         },
         created() {
             this.Init();
@@ -40,7 +63,8 @@
                     data: this.PageData
                 }).then(res => {
                     this.reslut = res.data.Data.Queryable;
-                    this.$refs.JSONView(res.data.Data.Queryable)
+                    this.TotalPage = res.data.Data.TotalPage;
+                    this.CurrentPage = res.data.Data.CurrentPage;
                 });
                 //定时清空内存数据
                 setInterval(() => {
@@ -49,6 +73,31 @@
                         method: "get"
                     }).then(res => { });
                 }, 300000)
+            },
+            GetElement(Index, flag) {
+                return (flag ? "trace_" : "#trace_") + Index;
+            },
+            SerliazeJson(JsonData, Index, flag) {
+                if (flag) {
+                    $(document).ready(() => {
+                        $("#" + Index).JSONView(JsonData);
+                    });
+                } else {
+                    this.$refs.Indexs[Index].innerHTML = JSON.stringify(JsonData);
+                }
+            },
+            Page(Index, flag) {
+                var CurrentPage = this.CurrentPage;
+                if (flag) {
+                    CurrentPage = CurrentPage + (Index);
+                    if (CurrentPage <= 0)
+                        CurrentPage = 1;
+                    if (CurrentPage > this.TotalPage)
+                        CurrentPage = this.TotalPage;
+                } else 
+                    CurrentPage = Index;
+                this.PageData.PageIndex = CurrentPage;
+                this.Init();
             }
         }
     });
