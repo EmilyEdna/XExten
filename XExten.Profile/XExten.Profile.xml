@@ -33,17 +33,19 @@
             <param name="carrierHeader"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.Profile.AspNetCore.DependencyInject.HostingEnvironment.RegistXExtenService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+        <member name="M:XExten.Profile.AspNetCore.DependencyInject.HostingEnvironment.RegistXExtenService(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)">
             <summary>
             注册XExten服务
             </summary>
             <param name="services"></param>
+            <param name="AssemblyName"></param>
             <returns>IServiceCollection</returns>
         </member>
         <member name="M:XExten.Profile.AspNetCore.DependencyInject.HostingEnvironment.UseTraceUI(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.String)">
             <summary>
             配套使用追踪可视化界面
             </summary>
+            <param name="application"></param>
             <param name="UIHost">可视化界面地址 exp:127.0.0.1:9374</param>
             <returns>IApplicationBuilder</returns>
         </member>
@@ -309,6 +311,19 @@
             标签
             </summary>
         </member>
+        <member name="T:XExten.Profile.Tracing.TracingContext">
+            <summary>
+            跟踪上下文
+            </summary>
+        </member>
+        <member name="M:XExten.Profile.Tracing.TracingContext.#ctor(XExten.Profile.Abstractions.IExitContextAccessor,XExten.Profile.Abstractions.ILocalContextAccessor,XExten.Profile.Abstractions.IEntryContextAccessor)">
+            <summary>
+            构造
+            </summary>
+            <param name="exit"></param>
+            <param name="local"></param>
+            <param name="entry"></param>
+        </member>
         <member name="M:XExten.Profile.Tracing.TracingContext.CreateEntryPartialContext(System.String,XExten.Profile.Abstractions.ICarrierHeaderCollection)">
             <summary>
             创建请求
@@ -322,8 +337,6 @@
             创建退出
             </summary>
             <param name="operationName"></param>
-            <param name="networkAddress"></param>
-            <param name="carrierHeader"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.Profile.Tracing.TracingContext.CreateLocalPartialContext(System.String)">
