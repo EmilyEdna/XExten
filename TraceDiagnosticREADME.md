@@ -1,34 +1,34 @@
-#### Îª·Ö²¼Ê½ÏµÍ³Ìá¹©µÄ¼òµ¥µÄÏµÍ³×·×Ù×é¼ş
+#### ä¸ºåˆ†å¸ƒå¼ç³»ç»Ÿæä¾›çš„ç®€å•çš„ç³»ç»Ÿè¿½è¸ªç»„ä»¶
 [![](https://img.shields.io/badge/build-success-brightgreen.svg)](https://github.com/EmilyEdna/XExten.Profile)
 [![](https://img.shields.io/badge/nuget-v1.0.0-blue.svg)](https://www.nuget.org/packages/XExten.Profile/1.0.0)
-## Ç°ÑÔ
-=============
-Ä¿Ç°¹¦ÄÜÖ§³ÖSQLServer,EFCore,AspNetCore,HttpClient,MethodµÄ¸ú×Ù£¬Ïà¶ÔÇ°Ãæ4¸ö¶øÑÔÊ¹ÓÃÉÏÖ»ĞèÒªÔÚ³ÌĞòStartupÖĞ×¢Èë¼´¿É£¬¶øMethodÔò²»È»¡£
-## Ê¹ÓÃ·½·¨
+## å‰è¨€
 ------------------------------------
-1.ÔÚAspNetCoreÖĞStartupÖĞÀïÃæ×¢²áAPM
+ç›®å‰åŠŸèƒ½æ”¯æŒSQLServer,EFCore,AspNetCore,HttpClient,Methodçš„è·Ÿè¸ªï¼Œç›¸å¯¹å‰é¢4ä¸ªè€Œè¨€ä½¿ç”¨ä¸Šåªéœ€è¦åœ¨ç¨‹åºStartupä¸­æ³¨å…¥å³å¯ï¼Œè€ŒMethodåˆ™ä¸ç„¶ã€‚
+## ä½¿ç”¨æ–¹æ³•
+------------------------------------
+1.åœ¨AspNetCoreä¸­Startupä¸­é‡Œé¢æ³¨å†ŒAPM
 ``` c#
     services.RegistXExtenService();
 ```
-2.ÅäÌ×Ê¹ÓÃUI½çÃæÍ¬ÑùÔÚStartup×¢²á:
+2.é…å¥—ä½¿ç”¨UIç•Œé¢åŒæ ·åœ¨Startupæ³¨å†Œ:
 ``` c#
      app.UseTraceUI();
 ```
-3.HttpÖ»Òªµ÷ÓÃSystem.NetÏà¹Ø¾Í»á×Ô¶¯Ö´ĞĞÀıÈç:
+3.Httpåªè¦è°ƒç”¨System.Netç›¸å…³å°±ä¼šè‡ªåŠ¨æ‰§è¡Œä¾‹å¦‚:
 ``` c#
     HttpMultiClient.HttpMulti.AddNode("https://www.baidu.com").Build().RunString();
 ```
-4.SQLÀàÖ»ÒªÖ´ĞĞSQLÏà¹Ø¾Í»á×Ô¶¯Ö´ĞĞÀıÈç:
+4.SQLç±»åªè¦æ‰§è¡ŒSQLç›¸å…³å°±ä¼šè‡ªåŠ¨æ‰§è¡Œä¾‹å¦‚:
 ```c#
    (new DbContext()).warnInfos.FirstOrDefault();
 ```
-5.¶ÔÓÚÒªÊµÏÖMethodµÄ¸ú×ÙÓĞÁ½ÖÖÄ£Ê½µÚÒ»ÖÖÍ¨¹ı·½Ê½Ò»ÊµÏÖ£¬µÚ¶şÖÖÊÇ×Ô¶¨ÒåproxyÊµÏÖ:
+5.å¯¹äºè¦å®ç°Methodçš„è·Ÿè¸ªæœ‰ä¸¤ç§æ¨¡å¼ç¬¬ä¸€ç§é€šè¿‡æ–¹å¼ä¸€å®ç°ï¼Œç¬¬äºŒç§æ˜¯è‡ªå®šä¹‰proxyå®ç°:
 ```c#
-    //·½Ê½Ò»
+    //æ–¹å¼ä¸€
     TestClass tc = new TestClass();
     var data = ResultProvider.SetValue("Name", new Dictionary<object, object> { { "Key", "Value" } });
     tc.ByTraceInvoke("TestMethods", new object[] { data });
-    //·½Ê½¶şÊÇ¸ù¾İ¿Í»§×Ô¼º×Ô¶¨ÒåµÄ·½Ê½ÊµÏÖÕâÀï²»×÷ÑİÊ¾
+    //æ–¹å¼äºŒæ˜¯æ ¹æ®å®¢æˆ·è‡ªå·±è‡ªå®šä¹‰çš„æ–¹å¼å®ç°è¿™é‡Œä¸ä½œæ¼”ç¤º
 ```
-#UIÏÂÔØµØÖ·
+#UIä¸‹è½½åœ°å€
 https://github.com/EmilyEdna/XExten/releases
