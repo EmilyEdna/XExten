@@ -67,6 +67,13 @@
             <param name="SqlHandle"></param>
             <returns>操作类型</returns>
         </member>
+        <member name="M:XExten.Profile.Core.Common.SqlHandlerTypeExtension.GetSqlParametersSerlized(System.Data.SqlClient.SqlParameterCollection)">
+            <summary>
+            获取SQL参数格式化
+            </summary>
+            <param name="SqlParameters"></param>
+            <returns></returns>
+        </member>
         <member name="P:XExten.Profile.Core.Common.TracingUIExtension.UIHost">
             <summary>
             UI界面地址

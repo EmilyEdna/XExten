@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Text;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using XExten.Profile.Tracing.Entry.Enum;
 using XExten.XCore;
 
@@ -25,5 +27,22 @@ namespace XExten.Profile.Core.Common
                 _ => SqlHandlerType.Onthor.ToDescription(),
             };
         }
+
+        /// <summary>
+        /// 获取SQL参数格式化
+        /// </summary>
+        /// <param name="SqlParameters"></param>
+        /// <returns></returns>
+        public static string GetSqlParametersSerlized(this SqlParameterCollection SqlParameters)
+        {
+            if (SqlParameters.Count <= 0) return null;
+            StringBuilder Sb = new StringBuilder();
+            foreach (SqlParameter Item in SqlParameters)
+            {
+                Sb.Append($"{Item.ParameterName}=[{Item.SqlValue}];");
+            }
+            return Sb.ToString();
+        }
+
     }
 }

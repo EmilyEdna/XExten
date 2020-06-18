@@ -34,6 +34,7 @@ namespace XExten.Profile.AspNetCore
             ExitPartial.Context.Add("Type", sqlCommand.CommandText?.Split(' ')?.FirstOrDefault().GetSqlHandlerType());
             ExitPartial.Context.Add("DbInstance", sqlCommand.Connection.Database);
             ExitPartial.Context.Add("TSQL", sqlCommand.CommandText);
+            ExitPartial.Context.Add("SqlParameters", sqlCommand.Parameters.GetSqlParametersSerlized());
         }
         [DiagnosticName(ProcessorName.SqlAfterExecuteCommand)]
         public void AfterExecuteCommand()

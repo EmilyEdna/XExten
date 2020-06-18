@@ -55,7 +55,7 @@ namespace XExten.Profile.Tracing
         public PartialContext CreateExitPartialContext(string operationName)
         {
             PartialContext Context = GetParentPartialContext(ChannelType.Exit);
-            if (Context == null) throw  new NullReferenceException(nameof(Context));
+            if (Context == null) throw  new NullReferenceException(nameof(PartialContext));
             PartialContext Partial = new PartialContext(GetTraceId(Context), Context.HeaderValue, ChannelType.Exit, operationName);
             if (Context != null)
             {
@@ -85,7 +85,7 @@ namespace XExten.Profile.Tracing
         {
             if (operationName == null) throw new ArgumentNullException(nameof(operationName));
             PartialContext Context = GetParentPartialContext(ChannelType.Local);
-            if (Context == null) throw new NullReferenceException(nameof(Context));
+            if (Context == null) throw new NullReferenceException(nameof(PartialContext));
             PartialContext Partial = new PartialContext(GetTraceId(Context), Context.HeaderValue, ChannelType.Local, operationName);
             if (Context != null)
             {
