@@ -1,6 +1,6 @@
 #### 为分布式系统提供的简单的系统追踪组件
 [![](https://img.shields.io/badge/build-success-brightgreen.svg)](https://github.com/EmilyEdna/XExten.Profile)
-[![](https://img.shields.io/badge/nuget-v1.0.0-blue.svg)](https://www.nuget.org/packages/XExten.Profile/1.0.0)
+[![](https://img.shields.io/badge/nuget-v1.0.3-blue.svg)](https://www.nuget.org/packages/XExten.Profile/1.0.3)
 ## 前言
 ------------------------------------
 目前功能支持SQLServer,EFCore,AspNetCore,HttpClient,Method的跟踪，相对前面4个而言使用上只需要在程序Startup中注入即可，而Method则不然。

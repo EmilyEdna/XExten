@@ -19,7 +19,7 @@ namespace XExten.Profile.AspNetCore.DependencyInject
         /// <param name="services"></param>
         /// <param name="AssemblyName"></param>
         /// <returns>IServiceCollection</returns>
-        public static IServiceCollection RegistXExtenService(this IServiceCollection services, string AssemblyName = "XExten")
+        public static IServiceCollection RegistXExtenService(this IServiceCollection services, string AssemblyName = "XExten.Profile")
         {
             var Ass = XPlusEx.XAssembly(AssemblyName);
             List<Type> DependencyAssembly = Ass.SelectMany(opt => opt.ExportedTypes.Where(t => t.GetInterfaces().Contains(typeof(IDependency)))).ToList();
