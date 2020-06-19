@@ -64,5 +64,9 @@ namespace XExten.Profile.AspNetCore.InvokeTracing
              });
         }
 
+        public static Object? ByTraceInvoke(this MethodInfo method, Object?[]? parameters)
+        {
+            return null;
+        }
     }
 }
