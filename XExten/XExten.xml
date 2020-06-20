@@ -971,23 +971,10 @@
             运行时结果
             </summary>
         </member>
-        <member name="P:XExten.Common.ResultProvider.DictionaryObjectProvider">
-            <summary>
-            字典结果
-            </summary>
-        </member>
         <member name="P:XExten.Common.ResultProvider.DictionaryStringProvider">
             <summary>
             字典结果
             </summary>
-        </member>
-        <member name="M:XExten.Common.ResultProvider.SetValue(System.Object,System.Collections.Generic.Dictionary{System.Object,System.Object})">
-            <summary>
-            设值
-            </summary>
-            <param name="ObjKey"></param>
-            <param name="DicKey"></param>
-            <returns></returns>
         </member>
         <member name="M:XExten.Common.ResultProvider.SetValue(System.Object,System.Collections.Generic.Dictionary{System.String,System.Object})">
             <summary>

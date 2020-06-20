@@ -49,6 +49,11 @@
             <param name="UIHost">可视化界面地址 exp:127.0.0.1:9374</param>
             <returns>IApplicationBuilder</returns>
         </member>
+        <member name="T:XExten.Profile.AspNetCore.InvokeTracing.MethodInvoked">
+            <summary>
+            方法跟踪
+            </summary>
+        </member>
         <member name="M:XExten.Profile.AspNetCore.InvokeTracing.MethodInvoked.ByTraceInvoke``1(``0,System.String,System.Object[])">
             <summary>
             Invoke method with diagnostic and tracing
@@ -56,9 +61,17 @@
             <typeparam name="T"></typeparam>
             <param name="Class"></param>
             <param name="methodName"></param>
-            <param name="obj"></param>
             <param name="parameters"></param>
             <returns>方法的结果对象</returns>
+        </member>
+        <member name="M:XExten.Profile.AspNetCore.InvokeTracing.MethodInvoked.ByTraceInvoke(System.Reflection.MethodInfo,System.Object,System.Object[])">
+            <summary>
+            
+            </summary>
+            <param name="method"></param>
+            <param name="obj"></param>
+            <param name="parameters"></param>
+            <returns></returns>
         </member>
         <member name="M:XExten.Profile.Core.Common.SqlHandlerTypeExtension.GetSqlHandlerType(System.String)">
             <summary>

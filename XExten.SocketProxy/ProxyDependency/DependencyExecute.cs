@@ -28,7 +28,6 @@ namespace XExten.SocketProxy.SocketDependency
             List<Type> SourceType = DependencyLibrary.Dependency.Where(item => item.GetCustomAttribute(typeof(SocketRouteAttribute)) != null).ToList();
             foreach (var Items in SourceType)
             {
-                StringBuilder sb = new StringBuilder();
                 List<string> Route = new List<string>();
                 SocketRouteAttribute SocketRoute = (Items.GetCustomAttribute(typeof(SocketRouteAttribute)) as SocketRouteAttribute);
                 string ControllerName = string.Empty;
@@ -46,7 +45,7 @@ namespace XExten.SocketProxy.SocketDependency
                         SocketUrl = $"{SocketRoute.InternalServer}/{ControllerName}/{SocketMethod.MethodName}";
                     if (!SocketMethod.MethodVersion.IsNullOrEmpty())
                         SocketUrl = SocketUrl + "/" + SocketMethod.MethodVersion;
-                    Route.Add(sb.Append(SocketUrl).ToString().ToLower());
+                    Route.Add(SocketUrl.ToLower());
                 });
                 XPlusEx.XTry(() =>
                 {

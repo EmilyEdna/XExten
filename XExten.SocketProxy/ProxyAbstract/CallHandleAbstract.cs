@@ -49,7 +49,7 @@ namespace XExten.SocketProxy.ProxyAbstract
                                 //1.如果启用了Session需要用户实现ISocketSessionHandler处理
                                 //2.Invoke方法
                                 if (!ExecuteCallSessionHandler(Item, Param.Session))
-                                    return null;
+                                    return new SocketResultDefault { SocketJsonData = ExecuteNoAuthor().ToJson() };
                                 return ExecuteCallDataHandler(Items, Item, Param.MiddleResult);
                             }
                             else
@@ -57,7 +57,7 @@ namespace XExten.SocketProxy.ProxyAbstract
                                 //1.如果启用了Session需要用户实现ISocketSessionHandler处理
                                 //2.Invoke方法
                                 if (!ExecuteCallSessionHandler(Item, Param.Session))
-                                    return null;
+                                    return new SocketResultDefault { SocketJsonData = ExecuteNoAuthor().ToJson() };
                                 else
                                     return ExecuteCallDataHandler(Items, Item, Param.MiddleResult);
                             }
@@ -115,7 +115,16 @@ namespace XExten.SocketProxy.ProxyAbstract
                 Result = ((Task<ActionResult<Object>>)Method.Invoke(Ctrl, null)).Result.Value;
                 if (Result != null) return new SocketResultDefault { SocketJsonData = Result.ToJson() };
             }
-            return null;
+            return ExecuteNoAuthor();
+        }
+
+        /// <summary>
+        /// 返回无权限
+        /// </summary>
+        /// <returns></returns>
+        protected virtual ISocketResult ExecuteNoAuthor()
+        {
+            return new SocketResultDefault { SocketJsonData = (new { Author = "401 NoAuthor" }).ToJson() };
         }
     }
 }

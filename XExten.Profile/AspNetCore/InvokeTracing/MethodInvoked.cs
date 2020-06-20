@@ -10,6 +10,9 @@ using XExten.XCore;
 
 namespace XExten.Profile.AspNetCore.InvokeTracing
 {
+    /// <summary>
+    /// 方法跟踪
+    /// </summary>
     public static class MethodInvoked
     {
         /// <summary>
@@ -18,10 +21,9 @@ namespace XExten.Profile.AspNetCore.InvokeTracing
         /// <typeparam name="T"></typeparam>
         /// <param name="Class"></param>
         /// <param name="methodName"></param>
-        /// <param name="obj"></param>
         /// <param name="parameters"></param>
         /// <returns>方法的结果对象</returns>
-        public static Object? ByTraceInvoke<T>(this T Class,string methodName, Object?[]? parameters)
+        public static Object? ByTraceInvoke<T>(this T Class, string methodName, Object?[]? parameters)
         {
             if (methodName.IsNullOrEmpty()) return null;
             var obj = Class.GetType();
@@ -38,7 +40,7 @@ namespace XExten.Profile.AspNetCore.InvokeTracing
 
             for (int index = 0; index < ParameterNames.Count; index++)
             {
-                keyValues.Add(ParameterNames[index], parameters[index]);
+                keyValues.Add(ParameterNames[index], parameters[index].ToJson());
             }
             MethodHandlerDiagnosticListener.MethodListener.ExecuteCommandMethodStar(keyValues);
             return XPlusEx.XTry<Object>(() =>
@@ -52,7 +54,7 @@ namespace XExten.Profile.AspNetCore.InvokeTracing
                  else
                  {
                      var result = (dynamic)method.Invoke(Class, parameters);
-                     if (((TaskStatus)result.Status) == TaskStatus.Faulted) 
+                     if (((TaskStatus)result.Status) == TaskStatus.Faulted)
                          throw (AggregateException)result.Exception;
                      MethodHandlerDiagnosticListener.MethodListener.ExecuteCommandMethodEnd(result.Result);
                      return result;
@@ -64,5 +66,54 @@ namespace XExten.Profile.AspNetCore.InvokeTracing
              });
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="obj"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public static Object? ByTraceInvoke(this MethodInfo method, Object? obj, Object?[]? parameters)
+        {
+            Dictionary<string, object> keyValues = new Dictionary<string, object>();
+
+            List<string> ParameterNames = method.GetParameters().Select(t => t.Name).ToList();
+
+            if (ParameterNames.Count != parameters?.Length) throw new TargetParameterCountException("The number of parameters does not match");
+
+            keyValues.Add("MethodName", method.Name);
+
+            for (int index = 0; index < ParameterNames.Count; index++)
+            {
+                keyValues.Add(ParameterNames[index], parameters[index].ToJson());
+            }
+            MethodHandlerDiagnosticListener.MethodListener.ExecuteCommandMethodStar(keyValues);
+            return XPlusEx.XTry<Object>(() =>
+            {
+                if (!method.ReturnType.Name.Contains("Task"))
+                {
+                    var result = method.Invoke(obj, parameters);
+                    MethodHandlerDiagnosticListener.MethodListener.ExecuteCommandMethodEnd(result);
+                    return result;
+                }
+                else
+                {
+                    var result = (dynamic)method.Invoke(obj, parameters);
+                    if (((TaskStatus)result.Status) == TaskStatus.Faulted)
+                        throw (AggregateException)result.Exception;
+                    MethodHandlerDiagnosticListener.MethodListener.ExecuteCommandMethodEnd(result.Result);
+                    return result;
+                }
+            }, ex =>
+            {
+                MethodHandlerDiagnosticListener.MethodListener.ExecuteCommandMethodException(ex.InnerException);
+                return null;
+            });
+        }
+
+        private static void t()
+        {
+
+        }
     }
 }

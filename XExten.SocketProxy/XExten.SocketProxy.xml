@@ -26,6 +26,12 @@
             <param name="Method"></param>
             <returns></returns>
         </member>
+        <member name="M:XExten.SocketProxy.ProxyAbstract.CallHandleAbstract.ExecuteNoAuthor">
+            <summary>
+            返回无权限
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:XExten.SocketProxy.ProxyBasic">
             <summary>
             代理基础类
@@ -128,6 +134,41 @@
             <param name="Result"></param>
             <param name="Session"></param>
             <param name="SendPort"></param>
+            <returns></returns>
+        </member>
+        <member name="T:XExten.SocketProxy.SocketConfig.SocketSerializeData">
+            <summary>
+            参数序列化
+            </summary>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketConfig.SocketSerializeData.AppendSerialized(System.String,System.Object)">
+            <summary>
+            添加键值对参数
+            </summary>
+            <param name="Key"></param>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketConfig.SocketSerializeData.AppendSerialized``1(``0)">
+            <summary>
+            添加实体类参数
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketConfig.SocketSerializeData.AppendSerialized(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            添加字典类参数
+            </summary>
+            <param name="Param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.SocketProxy.SocketConfig.SocketSerializeData.AppendRoute(System.String)">
+            <summary>
+            添加请求路由
+            </summary>
+            <param name="Router"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.SocketProxy.SocketConfig.TypeHandler.ReadType(BeetleX.Buffers.PipeStream)">
