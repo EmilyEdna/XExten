@@ -20,8 +20,6 @@ namespace XExten.Profile.AspNetCore.InvokeTracing
             SocketHandlerDiagnosticListener.SocketListener.ExcuteSocketBeginReceive(keyValues);
             XPlusEx.XTry(() =>
             {
-                keyValues.Clear();
-                keyValues.Add("Result", data ?? null);
                 SocketHandlerDiagnosticListener.SocketListener.ExcuteSocketBeginEnd(keyValues);
             }, ex => SocketHandlerDiagnosticListener.SocketListener.ExcuteSocketException(ex));
         }

@@ -11,7 +11,7 @@ namespace XExten.Profile.AspNetCore.Source
 
         static SocketHandlerDiagnosticListener()
         {
-            DiagnosticListener = new DiagnosticListener("MethodHandlerDiagnosticListener");
+            DiagnosticListener = new DiagnosticListener("SocketHandlerDiagnosticListener");
         }
         public static SocketHandlerDiagnosticListener SocketListener => new SocketHandlerDiagnosticListener();
 
