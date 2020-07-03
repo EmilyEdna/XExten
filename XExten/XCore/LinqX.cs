@@ -384,11 +384,18 @@ namespace XExten.XCore
         /// <summary>
         /// 使用MsgPack序列化为Json(DeserializeObject To Json For MessagePack)
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="Param"></param>
+        /// <param name="IsPublic"></param>
         /// <returns></returns>
-        public static String ToMsgJson(this Byte[] Param)
+        public static String ToMsgJson<T>(this T Param, Boolean IsPublic = true)
         {
-            return MessagePackSerializer.SerializeToJson(Param);
+            MessagePackSerializerOptions Options;
+            if (IsPublic)
+                Options = MessagePackSerializerOptions.Standard.WithResolver(ContractlessStandardResolver.Instance);
+            else
+                Options = MessagePackSerializerOptions.Standard.WithResolver(DynamicObjectResolverAllowPrivate.Instance);
+            return MessagePackSerializer.SerializeToJson(Param, Options);
         }
 
         /// <summary>

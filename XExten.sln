@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XExten.Profile", "XExten.Pr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XExten.ProfileTest", "XExten.ProfileTest\XExten.ProfileTest.csproj", "{490B1288-4731-4C60-B5E3-0971248C4F09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XExten.ProfileUI", "XExten.ProfileUI\XExten.ProfileUI.csproj", "{ECBA4742-598B-4DFA-BEBC-A679BB06402F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XExten.ProfileUI", "XExten.ProfileUI\XExten.ProfileUI.csproj", "{ECBA4742-598B-4DFA-BEBC-A679BB06402F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

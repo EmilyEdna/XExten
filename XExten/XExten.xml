@@ -867,6 +867,11 @@
             
              </summary>
         </member>
+        <member name="F:XExten.CacheFactory.RunTimeCache.MemoryCaches.Cache">
+            <summary>
+            MemoryCaches
+            </summary>
+        </member>
         <member name="M:XExten.CacheFactory.RunTimeCache.MemoryCaches.AddCache``1(System.String,``0,System.Int32,System.Boolean)">
             <summary>
             添加缓存
@@ -1072,12 +1077,7 @@
         </member>
         <member name="M:XExten.DynamicType.DynamicTypeBuilder.GetDynamicClass(System.Collections.Generic.IEnumerable{XExten.DynamicType.DynamicProperty},System.Collections.Generic.IEnumerable{XExten.DynamicType.DynamicMethod})">
              <summary>
-            
-             </summary>
-             <param name="properties"></param>
-             <param name="methods"></param>
-             <returns></returns>
-        </member>
+        ber>
         <member name="M:XExten.DynamicType.DynamicTypeBuilder.CreateDynamicClass(XExten.DynamicType.DynamicProperty[],XExten.DynamicType.DynamicMethod[])">
              <summary>
             
@@ -1149,6 +1149,9 @@
         <member name="M:XExten.DynamicType.IDynamicTypeBuilder.Create(System.String,System.Collections.Generic.IEnumerable{XExten.DynamicType.DynamicPropertyValue},System.Collections.Generic.IEnumerable{XExten.DynamicType.DynamicMethod})">
             <summary>
             Create a new instance of the dynamic type.
+            </summary>
+            <param name="typeName">The name of the type.</param>
+            <param name="properties">The collection stance of the dynamic type.
             </summary>
             <param name="typeName">The name of the type.</param>
             <param name="properties">The collection of properties to create in the type.</param>
@@ -2222,11 +2225,7 @@
             Add Cookie
             </summary>
             <param name="name"></param>
-            <param name="value"></param>
-            <param name="path"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.HttpFactory.MultiInterface.INode.Cookie(System.String,System.String,System.String,System.String)">
+            <param name="value"></paratem.String,System.String,System.String,System.String)">
             <summary>
             Add Cookie
             </summary>
@@ -2349,6 +2348,11 @@
             队列数据集合
             </summary>
         </member>
+        <member name="F:XExten.MessageQueue.XQueue.MessageQueueSyncLock">
+            <summary>
+            同步执行锁
+            </summary>
+         </member>
         <member name="F:XExten.MessageQueue.XQueue.MessageQueueSyncLock">
             <summary>
             同步执行锁
@@ -2542,11 +2546,13 @@
             <param name="IsPublic"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ToMsgJson(System.Byte[])">
+        <member name="M:XExten.XCore.LinqX.ToMsgJson``1(``0,System.Boolean)">
             <summary>
             使用MsgPack序列化为Json(DeserializeObject To Json For MessagePack)
             </summary>
+            <typeparam name="T"></typeparam>
             <param name="Param"></param>
+            <param name="IsPublic"></param>
             <returns></returns>
         </member>
         <member name="M:XExten.XCore.LinqX.ToMsgModel``1(System.Byte[],System.Boolean)">
@@ -2705,10 +2711,7 @@
         <member name="M:XExten.XCore.LinqX.ToDesAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
             <summary>
              返回具有标记为描述属性字段的属性值的实体
-             (Returns an entity with a property value marked to describe the property field)
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="Param"></param>
+             (Returns an entitam>
             <param name="Expres"></param>
             <returns></returns>
         </member>
@@ -2797,6 +2800,9 @@
             <returns></returns>
         </member>
         <member name="M:XExten.XCore.LinqX.ToMsgByteAsync``1(``0,System.Boolean)">
+            <summary>
+            使用MsgPack序列化(DeserializeObject For MessagePack)
+       r name="M:XExten.XCore.LinqX.ToMsgByteAsync``1(``0,System.Boolean)">
             <summary>
             使用MsgPack序列化(DeserializeObject For MessagePack)
             </summary>
@@ -3203,12 +3209,7 @@
             GreaterThanOrEqual
             </summary>
         </member>
-        <member name="F:XExten.XExpres.QType.LessThan">
-            <summary>
-            LessThan
-            </summary>
-        </member>
-        <member name="F:XExten.XExpres.QType.LessThanOrEqual">
+        <member name="FThanOrEqual">
             <summary>
             LessThanOrEqual
             </summary>
@@ -3488,6 +3489,11 @@
         </member>
         <member name="M:XExten.XPlus.XPlusEx.XVerifyCode">
             <summary>
+            创建一个验证吗(Create a verification code)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExty>
             创建一个验证吗(Create a verification code)
             </summary>
             <returns></returns>

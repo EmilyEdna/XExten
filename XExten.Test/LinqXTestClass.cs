@@ -172,6 +172,7 @@ namespace XExten.Test
                 PassWord = "emily"
             };
             var bytes = test.ToMsgByte();
+            var json1 = test.ToMsgJson();
             var json = bytes.ToMsgJson();
             var model = bytes.ToMsgModel<object>();
         }

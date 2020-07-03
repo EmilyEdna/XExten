@@ -653,7 +653,7 @@ namespace XExten.XPlus
         {
             List<Assembly> Assemblies = new List<Assembly>();
             var lib = DependencyContext.Default;
-            var libs = lib.CompileLibraries.Where(t=>t.Name.Contains(AssemblyName)).ToList();
+            var libs = lib.CompileLibraries.Where(t => t.Name.Contains(AssemblyName)).ToList();
             foreach (var item in libs)
             {
                 Assembly assembly = AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName(item.Name));
@@ -779,4 +779,5 @@ namespace XExten.XPlus
         }
         #endregion PrivateFunc
     }
+   
 }
