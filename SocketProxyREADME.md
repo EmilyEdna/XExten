@@ -29,16 +29,34 @@
 ```
 3.调用如下:
 ``` c#
-    public class MainController : Controller
+    [Route("Api/[controller]/[action]")]
+    [ApiController]
+    public class SocketTestController : Controller
     {
         [HttpGet]
-        public async Task<ActionResult<object>> Test2()
+        public async Task<ActionResult<string>> SocketTest() 
         {
-            SocketSerializeData SSD = new SocketSerializeData(); ;
-            SSD.AppendRoute("otherapi/other/test1");
-            CallEvent.SendInternalInfo(SSD);
-            var data = CallHandleEventAction.Instance().DelegateResult;
-            //...
+            SocketSerializeData SSD = new SocketSerializeData(); 
+            SSD.AppendRoute("TestApi/other/GetTest")
+                .AppendSerialized("Name", "lzh")
+                .AppendSerialized(new Dictionary<string, object> { { "Age", 26 } })
+                .AppendSerialized(new { Card = 100 });
+            Call.SendInternalInfo(SSD);
+            var data = CallEventAction.Instance().DelegateResult;
+
+
+            SocketSerializeData SSD1 = new SocketSerializeData(); ;
+            SSD1.AppendRoute("TestApi/other/GetTest1").AppendSerialized("Name", "lzh");
+            Call.SendInternalInfo(SSD1, new SocketSessionDefault
+            {
+                SessionAccount = "admin",
+                CustomizeData = "aa",
+                PrimaryKey = "123",
+                SessionRole = "Admin"
+            });
+            var data1 = CallEventAction.Instance().DelegateResult;
+
+            return await Task.FromResult("123");
         }
     }
 ```
@@ -75,10 +93,42 @@
             return base.ExecuteCallDataHandler(Controller, Method, Param);
         }
 ```
-5.实现Session验证
+5.实现Session验证:
 ```c#
     public interface ISocketSessionHandler
     {
         bool Executing(ISocketSession Session);
+    }
+```
+6.处理方式如下:
+```c#
+    [Route("Api/[controller]/[action]")]
+    [ApiController]
+    [SocketRoute("TestApi")]
+    public class OtherController : Controller
+    {
+        [SocketMethod]
+        [SocketAuthor(false)]
+        public async Task<ActionResult<Object>> GetTest(ResultProvider Param)
+        {
+            return await Task.FromResult("我是测测试");
+        }
+
+
+        [SocketMethod]
+        [SocketAuthor(true)]
+        public async Task<ActionResult<Object>> GetTest1(ResultProvider Param)
+        {
+            return await Task.FromResult("我是测测试");
+        }
+    }
+
+    public class SocketSessionHandler : ISocketSessionHandler
+    {
+        public bool Executing(ISocketSession Session)
+        {
+            var ss = Session;
+            return false;
+        }
     }
 ```
