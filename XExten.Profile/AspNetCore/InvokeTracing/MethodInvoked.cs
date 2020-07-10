@@ -67,10 +67,10 @@ namespace XExten.Profile.AspNetCore.InvokeTracing
         }
 
         /// <summary>
-        /// 
+        /// Invoke method with diagnostic and tracing
         /// </summary>
         /// <param name="method"></param>
-        /// <param name="obj"></param>
+        /// <param name="obj">实例</param>
         /// <param name="parameters"></param>
         /// <returns></returns>
         public static Object? ByTraceInvoke(this MethodInfo method, Object? obj, Object?[]? parameters)
