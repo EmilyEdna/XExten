@@ -696,9 +696,12 @@ namespace XExten.XCore
         /// <typeparam name="TAttribute">特性</typeparam>
         /// <param name="Param">指定实体</param>
         /// <param name="FieldName">字段名</param>
+        /// <param name="IsProperty">是否获取属性</param>
         /// <returns>Attribute</returns>
-        public static TAttribute ToAttribute<TSource, TAttribute>(this TSource Param, string FieldName) where TAttribute : Attribute
+        public static TAttribute ToAttribute<TSource, TAttribute>(this TSource Param, string FieldName,bool IsProperty=false) where TAttribute : Attribute
         {
+            if(IsProperty)
+                return (Param.GetType().GetProperty(FieldName).GetCustomAttributes(typeof(TAttribute), false).FirstOrDefault() as TAttribute);
             return (Param.GetType().GetField(FieldName).GetCustomAttributes(typeof(TAttribute), false).FirstOrDefault() as TAttribute);
         }
 
@@ -1052,14 +1055,15 @@ namespace XExten.XCore
         /// <summary>
         /// 获取指定字段的Attribute
         /// </summary>
-        /// <typeparam name="TSource"></typeparam>
-        /// <typeparam name="TAttribute"></typeparam>
-        /// <param name="Param"></param>
+        /// <typeparam name="TSource">指定实体</typeparam>
+        /// <typeparam name="TAttribute">特性</typeparam>
+        /// <param name="Param">指定实体</param>
         /// <param name="FieldName">字段名</param>
-        /// <returns></returns>
-        public static async Task<TAttribute> ToAttributeAsync<TSource, TAttribute>(this TSource Param, string FieldName) where TAttribute : Attribute
+        /// <param name="IsProperty">是否获取属性</param>
+        /// <returns>Attribute</returns>
+        public static async Task<TAttribute> ToAttributeAsync<TSource, TAttribute>(this TSource Param, string FieldName, bool IsProperty = false) where TAttribute : Attribute
         {
-            return await Task.Run(() => ToAttribute<TSource, TAttribute>(Param, FieldName));
+            return await Task.Run(() => ToAttribute<TSource, TAttribute>(Param, FieldName,IsProperty));
         }
 
         #endregion Async

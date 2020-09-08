@@ -916,6 +916,17 @@
             忽略映射(Not Map)
             </summary>
         </member>
+        <member name="P:XExten.Common.IgnoreMappedAttribute.Ingore">
+            <summary>
+            是否忽略
+            </summary>
+        </member>
+        <member name="M:XExten.Common.IgnoreMappedAttribute.#ctor(System.Nullable{System.Boolean})">
+            <summary>
+            构造
+            </summary>
+            <param name="ingore"></param>
+        </member>
         <member name="T:XExten.Common.PageQuery">
             <summary>
             分页查询
@@ -2413,6 +2424,215 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:XExten.Office.Enums.ExcelType">
+            <summary>
+            Excel 类型
+            </summary>
+        </member>
+        <member name="T:XExten.Office.Excel">
+            <summary>
+            Excel导出
+            </summary>
+        </member>
+        <member name="M:XExten.Office.Excel.#ctor(XExten.Office.Enums.ExcelType,System.String)">
+            <summary>
+            构造
+            </summary>
+            <param name="type"></param>
+            <param name="Format"></param>
+        </member>
+        <member name="M:XExten.Office.Excel.CreateWorkBook">
+            <summary>
+            创建工作薄
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.Excel.CreateSheet(System.String)">
+            <summary>
+            创建工作表
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.Excel.CreateRows(System.Int32)">
+            <summary>
+            创建行
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.Excel.CreateCells(System.Int32,System.Object)">
+            <summary>
+            创建单元格
+            </summary>
+            <param name="index"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.Excel.HeadStyle(System.Int32)">
+            <summary>
+            表头样式
+            </summary>
+            <param name="EndCol"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.Excel.BodyStyle(System.Int32,System.Int32)">
+            <summary>
+            内容样式
+            </summary>
+            <param name="EndRow"></param>
+            <param name="EndCol"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.Excel.FootStyle(System.Int32,System.Int32)">
+            <summary>
+            页脚样式
+            </summary>
+            <param name="EndRow"></param>
+            <param name="EndCol"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.Excel.MergeCell(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            合并单元格
+            </summary>
+            <param name="SRI">起始行</param>
+            <param name="ERI">结束行</param>
+            <param name="SCI">起始列</param>
+            <param name="ECI">结束列</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.Excel.WriteStream(System.IO.Stream)">
+            <summary>
+            写入文件流
+            </summary>
+            <param name="st"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.Excel.CheckWorkBook">
+            <summary>
+            检查工作薄是否被创建
+            </summary>
+        </member>
+        <member name="M:XExten.Office.Excel.SetBorderColor(NPOI.SS.UserModel.ICellStyle,System.Boolean)">
+            <summary>
+            创建边框颜色
+            </summary>
+        </member>
+        <member name="M:XExten.Office.Excel.SetAlignment(NPOI.SS.UserModel.ICellStyle)">
+            <summary>
+            创建布局方式
+            </summary>
+        </member>
+        <member name="M:XExten.Office.Excel.SetBorder(NPOI.SS.UserModel.ICellStyle)">
+            <summary>
+            创建边框
+            </summary>
+        </member>
+        <member name="M:XExten.Office.Excel.SetFont(NPOI.SS.UserModel.ICellStyle,System.Boolean)">
+            <summary>
+            设置字体
+            </summary>
+        </member>
+        <member name="M:XExten.Office.Excel.SetStyle(System.Int32,System.Int32,System.Int32,System.Int32,NPOI.SS.UserModel.ICellStyle)">
+            <summary>
+            为当前行设置样式
+            </summary>
+            <param name="StartRowIndex">起始行索引</param>
+            <param name="EndRowIndex">结束行索引</param>
+            <param name="StartColIndex">起始列索引</param>
+            <param name="EndColIndex">结束列索引</param>
+            <param name="Style">单元格样式</param>
+        </member>
+        <member name="T:XExten.Office.ExcelFactory">
+            <summary>
+            Excel工厂
+            </summary>
+        </member>
+        <member name="M:XExten.Office.ExcelFactory.ExportExcel``1(System.Collections.Generic.IEnumerable{``0},XExten.Office.Enums.ExcelType,System.IO.Stream,System.String,System.String)">
+            <summary>
+            导出EXCEL
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Data"></param>
+            <param name="Types"></param>
+            <param name="St"></param>
+            <param name="SheetName"></param>
+            <param name="DateFormat"></param>
+        </member>
+        <member name="T:XExten.Office.IExcel">
+            <summary>
+            Excel导出
+            </summary>
+        </member>
+        <member name="M:XExten.Office.IExcel.CreateWorkBook">
+            <summary>
+            创建工作薄
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.IExcel.CreateSheet(System.String)">
+            <summary>
+            创建工作表
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.IExcel.CreateRows(System.Int32)">
+            <summary>
+            创建行
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.IExcel.CreateCells(System.Int32,System.Object)">
+            <summary>
+            创建单元格
+            </summary>
+            <param name="index"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.IExcel.HeadStyle(System.Int32)">
+            <summary>
+            表头样式
+            </summary>
+            <param name="EndCol"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.IExcel.BodyStyle(System.Int32,System.Int32)">
+            <summary>
+            内容样式
+            </summary>
+            <param name="EndRow"></param>
+            <param name="EndCol"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.IExcel.FootStyle(System.Int32,System.Int32)">
+            <summary>
+            页脚样式
+            </summary>
+            <param name="EndRow"></param>
+            <param name="EndCol"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.IExcel.MergeCell(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            合并单元格
+            </summary>
+            <param name="SRI">起始行</param>
+            <param name="ERI">结束行</param>
+            <param name="SCI">起始列</param>
+            <param name="ECI">结束列</param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.IExcel.WriteStream(System.IO.Stream)">
+            <summary>
+            写入文件流
+            </summary>
+            <param name="st"></param>
+            <returns></returns>
+        </member>
         <member name="T:XExten.XCore.LinqX">
             <summary>
             Linq Extension Class
@@ -2673,7 +2893,7 @@
             <param name="Param"></param>
             <returns>枚举描叙</returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ToAttribute``2(``0,System.String)">
+        <member name="M:XExten.XCore.LinqX.ToAttribute``2(``0,System.String,System.Boolean)">
             <summary>
             获取指定字段的Attribute
             </summary>
@@ -2681,6 +2901,7 @@
             <typeparam name="TAttribute">特性</typeparam>
             <param name="Param">指定实体</param>
             <param name="FieldName">字段名</param>
+            <param name="IsProperty">是否获取属性</param>
             <returns>Attribute</returns>
         </member>
         <member name="M:XExten.XCore.LinqX.ToAutoMapperAsync``1(System.Object)">
@@ -2936,15 +3157,16 @@
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ToAttributeAsync``2(``0,System.String)">
+        <member name="M:XExten.XCore.LinqX.ToAttributeAsync``2(``0,System.String,System.Boolean)">
             <summary>
             获取指定字段的Attribute
             </summary>
-            <typeparam name="TSource"></typeparam>
-            <typeparam name="TAttribute"></typeparam>
-            <param name="Param"></param>
+            <typeparam name="TSource">指定实体</typeparam>
+            <typeparam name="TAttribute">特性</typeparam>
+            <param name="Param">指定实体</param>
             <param name="FieldName">字段名</param>
-            <returns></returns>
+            <param name="IsProperty">是否获取属性</param>
+            <returns>Attribute</returns>
         </member>
         <member name="M:XExten.XCore.LinqX.IsContainsIn(System.String,System.String[])">
             <summary>

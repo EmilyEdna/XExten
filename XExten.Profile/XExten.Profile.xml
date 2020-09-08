@@ -66,10 +66,10 @@
         </member>
         <member name="M:XExten.Profile.AspNetCore.InvokeTracing.MethodInvoked.ByTraceInvoke(System.Reflection.MethodInfo,System.Object,System.Object[])">
             <summary>
-            
+            Invoke method with diagnostic and tracing
             </summary>
             <param name="method"></param>
-            <param name="obj"></param>
+            <param name="obj">实例</param>
             <param name="parameters"></param>
             <returns></returns>
         </member>
