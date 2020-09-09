@@ -135,7 +135,7 @@ namespace XExten.Office
             SetBorderColor(FStyle, false);
             SetAlignment(FStyle);
             SetFont(FStyle, false);
-            SetStyle(EndCol, EndRow, EndCol, EndCol, FStyle);
+            SetStyle(EndRow, EndRow, 0, EndCol, FStyle);
             return this;
         }
         /// <summary>
