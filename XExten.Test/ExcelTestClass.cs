@@ -14,22 +14,28 @@ namespace XExten.Test
         [Fact]
         public void ExcelExportTest()
         {
-            List<TestA> data = new List<TestA> {
-            new TestA
+            List<TestD> data = new List<TestD> {
+            new TestD
             {
                 Id = 1,
                 Name = "张三",
-                PassWord = "123"
+                IsMan = true
             },
-            new TestA
+            new TestD
             {
                 Id = 2,
                 Name = "里斯",
-                PassWord = "456"
+                IsMan = false
             }
         };
-            using var fs = new FileStream("testA.xlsx", FileMode.Create);
-            ExcelFactory.ExportExcel(data, ExcelType.xlsx, fs, "testA");
+            using var fs = new FileStream("TestD.xlsx", FileMode.Create);
+            ExcelFactory.ExportExcel(data, ExcelType.xlsx, fs, "TestD");
+        }
+        [Fact]
+        public void ExcelImportTest()
+        {
+            using var fs = new FileStream("TestD.xlsx", FileMode.Open, FileAccess.Read);
+            var data = ExcelFactory.ImportExcel<TestD>(fs, ExcelType.xlsx,true);
         }
     }
 }

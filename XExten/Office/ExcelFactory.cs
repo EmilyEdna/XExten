@@ -36,55 +36,72 @@ namespace XExten.Office
             //获取忽略字段
             Data.FirstOrDefault().GetType().GetProperties().ToEachs(item =>
             {
-                var Ingore = Data.FirstOrDefault().ToAttribute<T, IgnoreMappedAttribute>(item.Name, true)?.Ingore;
+                var Ingore = Data.FirstOrDefault().ToAttribute<T, OfficeAttribute>(item.Name, true)?.IngoreField;
                 if (Ingore != null && Ingore.Value == true)
                 {
                     Cols -= 1;
                 }
-                else {
+                else
+                {
                     NotIngoreNames.Add(item.Name);
                 }
             });
             if (Cols == 0)
                 return;
             IExcel excel = new Excel(Types, DateFormat);
-            excel.CreateWorkBook().CreateSheet(SheetName);
+            excel.CreateExportWorkBook().CreateExportSheet(SheetName);
             #region 创建头
-            excel.CreateRows(0);
+            excel.CreateExportRows(0);
             for (int Col = 0; Col < Cols; Col++)
             {
                 var First = Data.FirstOrDefault();
                 var Index = NotIngoreNames[Col];
-                var Name = First.ToAttribute<T, DescriptionAttribute>(Index, true).Description;
-                excel.CreateCells(Col, Name);
+                var Name = First.ToAttribute<T, OfficeAttribute>(Index, true).MapperField;
+                excel.CreateExportCells(Col, Name);
             }
-            excel.HeadStyle(Cols - 1);
+            excel.HeadExportStyle(Cols - 1);
             #endregion
             #region 创建内容
             for (int Row = 1; Row <= Rows; Row++)
             {
-                excel.CreateRows(Row);
+                excel.CreateExportRows(Row);
 
                 for (int Col = 0; Col < Cols; Col++)
                 {
                     var First = Data.ToArray()[Row - 1];
                     var Index = NotIngoreNames[Col];
                     var data = First.GetType().GetProperty(Index).GetValue(First);
-                    excel.CreateCells(Col, data).BodyStyle(Row, Cols - 1);
+                    excel.CreateExportCells(Col, data).BodyExportStyle(Row, Cols - 1);
                 }
             }
             #endregion
             #region 创建页脚
-            excel.CreateRows(Rows + 1).CreateCells(0, "页脚");
+            excel.CreateExportRows(Rows + 1).CreateExportCells(0, "页脚");
             var LastCol = Cols - 1;
             var LastRow = Rows + 1;
-            if (LastCol != 0) {
-                excel.MergeCell(Rows + 1, Rows + 1, 0, LastCol).FootStyle(Rows + 1, LastCol);
+            if (LastCol != 0)
+            {
+                excel.MergeExportCell(Rows + 1, Rows + 1, 0, LastCol).FootExportStyle(Rows + 1, LastCol);
             }
             else
-                excel.FootStyle(Rows + 1, LastCol);
+                excel.FootExportStyle(Rows + 1, LastCol);
             #endregion
-            excel.WriteStream(St);
+            excel.WriteExportStream(St);
+        }
+        /// <summary>
+        /// 导入EXCEL
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="fs">流</param>
+        /// <param name="Types">类型</param>
+        /// <param name="HasPageFooter">文档是否有页脚</param>
+        /// <param name="SheetIndex">数据表索引</param>
+        /// <returns></returns>
+        public static List<T> ImportExcel<T>(Stream fs, ExcelType Types,bool HasPageFooter=false, int SheetIndex = 0) where T: new()
+        {
+            IExcel excel = new Excel(fs, Types, HasPageFooter);
+            var data = excel.CreateImportWorkBook().CreateImportSheet(SheetIndex).CreateImportHead<T>().CreateImportBody<T>().ImportData();
+            return data.ToEntities<T>();
         }
     }
 }

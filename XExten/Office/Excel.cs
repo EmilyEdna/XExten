@@ -1,13 +1,15 @@
 ﻿using NPOI.HSSF.UserModel;
-using NPOI.HSSF.Util;
 using NPOI.SS.UserModel;
 using NPOI.SS.Util;
 using NPOI.XSSF.UserModel;
 using XExten.Office.Enums;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
+using System.Data;
+using XExten.XCore;
+using System.Collections.Generic;
+using XExten.Common;
+using System.Linq;
 
 namespace XExten.Office
 {
@@ -26,10 +28,15 @@ namespace XExten.Office
         private ICellStyle FStyle;
         private ExcelType EnumType;
         private string DateFormat;
+        private DataTable Table;
+        private List<int> FullCols;
+        private Stream St;
+        private bool HasFooter;
         #endregion
 
+        #region 导出
         /// <summary>
-        /// 构造
+        /// 导出构造
         /// </summary>
         /// <param name="type"></param>
         /// <param name="Format"></param>
@@ -42,7 +49,7 @@ namespace XExten.Office
         /// 创建工作薄
         /// </summary>
         /// <returns></returns>
-        public IExcel CreateWorkBook()
+        public IExcel CreateExportWorkBook()
         {
             if (Workbook != null) return this;
             if (EnumType == ExcelType.xls)
@@ -56,7 +63,7 @@ namespace XExten.Office
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public IExcel CreateSheet(string name)
+        public IExcel CreateExportSheet(string name)
         {
             CheckWorkBook();
             if (string.IsNullOrEmpty(name))
@@ -69,7 +76,7 @@ namespace XExten.Office
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public IExcel CreateRows(int index)
+        public IExcel CreateExportRows(int index)
         {
             Row = Sheet.GetRow(index) ?? Sheet.CreateRow(index);
             return this;
@@ -80,7 +87,7 @@ namespace XExten.Office
         /// <param name="index"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public IExcel CreateCells(int index, object value)
+        public IExcel CreateExportCells(int index, object value)
         {
             Cell = Row.GetCell(index) ?? Row.CreateCell(index);
             if (value.GetType() == typeof(DateTime))
@@ -96,7 +103,7 @@ namespace XExten.Office
         /// </summary>
         /// <param name="EndCol"></param>
         /// <returns></returns>
-        public IExcel HeadStyle(int EndCol)
+        public IExcel HeadExportStyle(int EndCol)
         {
             HStyle = Workbook.CreateCellStyle();
             SetBorder(HStyle);
@@ -112,7 +119,7 @@ namespace XExten.Office
         /// <param name="EndRow"></param>
         /// <param name="EndCol"></param>
         /// <returns></returns>
-        public IExcel BodyStyle(int EndRow, int EndCol)
+        public IExcel BodyExportStyle(int EndRow, int EndCol)
         {
             BStyle = Workbook.CreateCellStyle();
             SetBorder(BStyle);
@@ -128,7 +135,7 @@ namespace XExten.Office
         /// <param name="EndRow"></param>
         /// <param name="EndCol"></param>
         /// <returns></returns>
-        public IExcel FootStyle(int EndRow, int EndCol)
+        public IExcel FootExportStyle(int EndRow, int EndCol)
         {
             FStyle = Workbook.CreateCellStyle();
             SetBorder(FStyle);
@@ -146,7 +153,7 @@ namespace XExten.Office
         /// <param name="SCI">起始列</param>
         /// <param name="ECI">结束列</param>
         /// <returns></returns>
-        public IExcel MergeCell(int SRI, int ERI, int SCI, int ECI)
+        public IExcel MergeExportCell(int SRI, int ERI, int SCI, int ECI)
         {
             Sheet.AddMergedRegion(new CellRangeAddress(SRI, ERI, SCI, ECI));
             return this;
@@ -156,10 +163,104 @@ namespace XExten.Office
         /// </summary>
         /// <param name="st"></param>
         /// <returns></returns>
-        public IExcel WriteStream(Stream st)
+        public IExcel WriteExportStream(Stream st)
         {
             Workbook.Write(st);
             return this;
         }
+        #endregion
+
+        #region 导入
+        /// <summary>
+        /// 导入构造
+        /// </summary>
+        /// <param name="st"></param>
+        /// <param name="type"></param>
+        /// <param name="HasPageFooter"></param>
+        public Excel(Stream st, ExcelType type, bool HasPageFooter)
+        {
+            St = st;
+            EnumType = type;
+            HasFooter = HasPageFooter;
+            Table = new DataTable();
+        }
+        /// <summary>
+        /// 创建导入工作薄
+        /// </summary>
+        /// <returns></returns>
+        public IExcel CreateImportWorkBook()
+        {
+            if (St == null) return this;
+            if (EnumType == ExcelType.xls)
+                Workbook = new HSSFWorkbook(St);
+            else
+                Workbook = new XSSFWorkbook(St);
+            return this;
+        }
+        /// <summary>
+        /// 获取导入的工作表
+        /// </summary>
+        /// <param name="Index"></param>
+        /// <returns></returns>
+        public IExcel CreateImportSheet(int Index)
+        {
+            Sheet = Workbook.GetSheetAt(Index);
+            return this;
+        }
+        /// <summary>
+        /// 获取导入表格头
+        /// </summary>
+        /// <returns></returns>
+        public IExcel CreateImportHead<T>()
+        {
+            Row = Sheet.GetRow(Sheet.FirstRowNum);
+            Dictionary<string, string> FieldNames = new Dictionary<string, string>();
+            FullCols = new List<int>();
+            typeof(T).GetProperties().ToEachs(item =>
+            {
+                var AttrField = (item.GetCustomAttributes(typeof(OfficeAttribute), false).FirstOrDefault() as OfficeAttribute).MapperField;
+                FieldNames.Add(AttrField, item.Name);
+            });
+            for (int index = 0; index < Row.LastCellNum; index++)
+            {
+                var HeaderKey = Row.GetCell(index).StringCellValue;
+                if (!FieldNames.ContainsKey(HeaderKey))
+                    FieldNames.Remove(HeaderKey);
+                Table.Columns.Add(FieldNames[HeaderKey]);
+                FullCols.Add(index);
+            }
+            return this;
+        }
+        /// <summary>
+        /// 创建导入内容
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public IExcel CreateImportBody<T>()
+        {
+            var SecondRow = Sheet.FirstRowNum + 1;
+            var LastRow = HasFooter ? Sheet.LastRowNum - 1 : Sheet.LastRowNum;//排除页脚
+            for (int index = SecondRow; index <= LastRow; index++)
+            {
+                if (Sheet.GetRow(index) == null)
+                    return this;
+                DataRow DtRow = Table.NewRow();
+                foreach (var item in FullCols)
+                {
+                    DtRow[item] = Sheet.GetRow(index).GetCell(item).StringCellValue;
+                }
+                Table.Rows.Add(DtRow);
+            }
+            return this;
+        }
+        /// <summary>
+        /// 导出数据
+        /// </summary>
+        /// <returns></returns>
+        public DataTable ImportData()
+        {
+            return Table;
+        }
+        #endregion
     }
 }
