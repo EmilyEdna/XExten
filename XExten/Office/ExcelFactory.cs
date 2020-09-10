@@ -10,6 +10,7 @@ using System.Text;
 using XExten.XCore;
 using System.ComponentModel;
 using XExten.Common;
+using XExten.XPlus;
 
 namespace XExten.Office
 {
@@ -56,7 +57,9 @@ namespace XExten.Office
             {
                 var First = Data.FirstOrDefault();
                 var Index = NotIngoreNames[Col];
-                var Name = First.ToAttribute<T, OfficeAttribute>(Index, true).MapperField;
+                var Name = First.ToAttribute<T, OfficeAttribute>(Index, true)?.MapperField;
+                if (Name.IsNullOrEmpty())
+                    throw new NullReferenceException("实体未打上OfficeAttribute特性");
                 excel.CreateExportCells(Col, Name);
             }
             excel.HeadExportStyle(Cols - 1);
@@ -97,7 +100,7 @@ namespace XExten.Office
         /// <param name="HasPageFooter">文档是否有页脚</param>
         /// <param name="SheetIndex">数据表索引</param>
         /// <returns></returns>
-        public static List<T> ImportExcel<T>(Stream fs, ExcelType Types,bool HasPageFooter=false, int SheetIndex = 0) where T: new()
+        public static List<T> ImportExcel<T>(Stream fs, ExcelType Types, bool HasPageFooter = false, int SheetIndex = 0) where T : new()
         {
             IExcel excel = new Excel(fs, Types, HasPageFooter);
             var data = excel.CreateImportWorkBook().CreateImportSheet(SheetIndex).CreateImportHead<T>().CreateImportBody<T>().ImportData();
