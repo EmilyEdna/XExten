@@ -21,5 +21,10 @@ namespace XExten.Common
         /// 映射字段
         /// </summary>
         public string MapperField { get; set; }
+
+        /// <summary>
+        /// 是否枚举
+        /// </summary>
+        public bool IsEnum { get; set; } = false;
     }
 }

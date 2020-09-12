@@ -33,19 +33,21 @@ namespace XExten.Test.TestModel
     }
     public enum TestC
     {
-        [Description("A")]
+        [Description("A等级")]
         A,
-        [Description("B")]
+        [Description("B等级")]
         B
     }
 
     public class TestD
     {
-        [Office(MapperField = "标志", IngoreField = false)]
+        [Office(MapperField = "标志", IngoreField = true)]
         public int Id { get; set; }
-        [Office(MapperField = "是否男", IngoreField = false)]
+        [Office(MapperField = "是否男")]
         public bool IsMan { get; set; }
-        [Office(MapperField = "名称", IngoreField = false)]
+        [Office(MapperField = "名称")]
         public string Name { get; set; }
+        [Office(MapperField = "名称", IsEnum = true)]
+        public TestC Tc { get; set; }
     }
 }

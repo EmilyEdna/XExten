@@ -916,16 +916,25 @@
             忽略映射(Not Map)
             </summary>
         </member>
-        <member name="P:XExten.Common.IgnoreMappedAttribute.Ingore">
+        <member name="T:XExten.Common.OfficeAttribute">
             <summary>
-            是否忽略
+            文档特性
             </summary>
         </member>
-        <member name="M:XExten.Common.IgnoreMappedAttribute.#ctor(System.Nullable{System.Boolean})">
+        <member name="P:XExten.Common.OfficeAttribute.IngoreField">
             <summary>
-            构造
+            忽略导出
             </summary>
-            <param name="ingore"></param>
+        </member>
+        <member name="P:XExten.Common.OfficeAttribute.MapperField">
+            <summary>
+            映射字段
+            </summary>
+        </member>
+        <member name="P:XExten.Common.OfficeAttribute.IsEnum">
+            <summary>
+            是否枚举
+            </summary>
         </member>
         <member name="T:XExten.Common.PageQuery">
             <summary>
@@ -2436,32 +2445,32 @@
         </member>
         <member name="M:XExten.Office.Excel.#ctor(XExten.Office.Enums.ExcelType,System.String)">
             <summary>
-            构造
+            导出构造
             </summary>
             <param name="type"></param>
             <param name="Format"></param>
         </member>
-        <member name="M:XExten.Office.Excel.CreateWorkBook">
+        <member name="M:XExten.Office.Excel.CreateExportWorkBook">
             <summary>
             创建工作薄
             </summary>
             <returns></returns>
         </member>
-        <member name="M:XExten.Office.Excel.CreateSheet(System.String)">
+        <member name="M:XExten.Office.Excel.CreateExportSheet(System.String)">
             <summary>
             创建工作表
             </summary>
             <param name="name"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.Office.Excel.CreateRows(System.Int32)">
+        <member name="M:XExten.Office.Excel.CreateExportRows(System.Int32)">
             <summary>
             创建行
             </summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.Office.Excel.CreateCells(System.Int32,System.Object)">
+        <member name="M:XExten.Office.Excel.CreateExportCells(System.Int32,System.Object)">
             <summary>
             创建单元格
             </summary>
@@ -2469,14 +2478,14 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.Office.Excel.HeadStyle(System.Int32)">
+        <member name="M:XExten.Office.Excel.HeadExportStyle(System.Int32)">
             <summary>
             表头样式
             </summary>
             <param name="EndCol"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.Office.Excel.BodyStyle(System.Int32,System.Int32)">
+        <member name="M:XExten.Office.Excel.BodyExportStyle(System.Int32,System.Int32)">
             <summary>
             内容样式
             </summary>
@@ -2484,7 +2493,7 @@
             <param name="EndCol"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.Office.Excel.FootStyle(System.Int32,System.Int32)">
+        <member name="M:XExten.Office.Excel.FootExportStyle(System.Int32,System.Int32)">
             <summary>
             页脚样式
             </summary>
@@ -2492,7 +2501,7 @@
             <param name="EndCol"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.Office.Excel.MergeCell(System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:XExten.Office.Excel.MergeExportCell(System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
             合并单元格
             </summary>
@@ -2502,11 +2511,51 @@
             <param name="ECI">结束列</param>
             <returns></returns>
         </member>
-        <member name="M:XExten.Office.Excel.WriteStream(System.IO.Stream)">
+        <member name="M:XExten.Office.Excel.WriteExportStream(System.IO.Stream)">
             <summary>
             写入文件流
             </summary>
             <param name="st"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.Excel.#ctor(System.IO.Stream,XExten.Office.Enums.ExcelType,System.Boolean)">
+            <summary>
+            导入构造
+            </summary>
+            <param name="st"></param>
+            <param name="type"></param>
+            <param name="HasPageFooter"></param>
+        </member>
+        <member name="M:XExten.Office.Excel.CreateImportWorkBook">
+            <summary>
+            创建导入工作薄
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.Excel.CreateImportSheet(System.Int32)">
+            <summary>
+            获取导入的工作表
+            </summary>
+            <param name="Index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.Excel.CreateImportHead``1">
+            <summary>
+            获取导入表格头
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.Excel.CreateImportBody``1">
+            <summary>
+            创建导入内容
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.Excel.ImportData">
+            <summary>
+            导出数据
+            </summary>
             <returns></returns>
         </member>
         <member name="M:XExten.Office.Excel.CheckWorkBook">
@@ -2554,38 +2603,49 @@
             导出EXCEL
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="Data"></param>
-            <param name="Types"></param>
-            <param name="St"></param>
-            <param name="SheetName"></param>
-            <param name="DateFormat"></param>
+            <param name="Data">需要被导出的数据</param>
+            <param name="Types">Excel类型</param>
+            <param name="St">流</param>
+            <param name="SheetName">工作表名称</param>
+            <param name="DateFormat">事件格式</param>
+        </member>
+        <member name="M:XExten.Office.ExcelFactory.ImportExcel``1(System.IO.Stream,XExten.Office.Enums.ExcelType,System.Boolean,System.Int32)">
+            <summary>
+            导入EXCEL
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="fs">流</param>
+            <param name="Types">类型</param>
+            <param name="HasPageFooter">文档是否有页脚</param>
+            <param name="SheetIndex">数据表索引</param>
+            <returns></returns>
         </member>
         <member name="T:XExten.Office.IExcel">
             <summary>
             Excel导出
             </summary>
         </member>
-        <member name="M:XExten.Office.IExcel.CreateWorkBook">
+        <member name="M:XExten.Office.IExcel.CreateExportWorkBook">
             <summary>
             创建工作薄
             </summary>
             <returns></returns>
         </member>
-        <member name="M:XExten.Office.IExcel.CreateSheet(System.String)">
+        <member name="M:XExten.Office.IExcel.CreateExportSheet(System.String)">
             <summary>
             创建工作表
             </summary>
             <param name="name"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.Office.IExcel.CreateRows(System.Int32)">
+        <member name="M:XExten.Office.IExcel.CreateExportRows(System.Int32)">
             <summary>
             创建行
             </summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.Office.IExcel.CreateCells(System.Int32,System.Object)">
+        <member name="M:XExten.Office.IExcel.CreateExportCells(System.Int32,System.Object)">
             <summary>
             创建单元格
             </summary>
@@ -2593,14 +2653,14 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.Office.IExcel.HeadStyle(System.Int32)">
+        <member name="M:XExten.Office.IExcel.HeadExportStyle(System.Int32)">
             <summary>
             表头样式
             </summary>
             <param name="EndCol"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.Office.IExcel.BodyStyle(System.Int32,System.Int32)">
+        <member name="M:XExten.Office.IExcel.BodyExportStyle(System.Int32,System.Int32)">
             <summary>
             内容样式
             </summary>
@@ -2608,7 +2668,7 @@
             <param name="EndCol"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.Office.IExcel.FootStyle(System.Int32,System.Int32)">
+        <member name="M:XExten.Office.IExcel.FootExportStyle(System.Int32,System.Int32)">
             <summary>
             页脚样式
             </summary>
@@ -2616,7 +2676,7 @@
             <param name="EndCol"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.Office.IExcel.MergeCell(System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:XExten.Office.IExcel.MergeExportCell(System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
             合并单元格
             </summary>
@@ -2626,11 +2686,43 @@
             <param name="ECI">结束列</param>
             <returns></returns>
         </member>
-        <member name="M:XExten.Office.IExcel.WriteStream(System.IO.Stream)">
+        <member name="M:XExten.Office.IExcel.WriteExportStream(System.IO.Stream)">
             <summary>
             写入文件流
             </summary>
             <param name="st"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.IExcel.CreateImportWorkBook">
+            <summary>
+            创建导入工作薄
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.IExcel.CreateImportSheet(System.Int32)">
+            <summary>
+            获取导入的工作表
+            </summary>
+            <param name="Index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.IExcel.CreateImportHead``1">
+            <summary>
+            获取导入表格头
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.IExcel.CreateImportBody``1">
+            <summary>
+            创建导入内容
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.IExcel.ImportData">
+            <summary>
+            导出数据
+            </summary>
             <returns></returns>
         </member>
         <member name="T:XExten.XCore.LinqX">
