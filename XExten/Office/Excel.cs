@@ -10,6 +10,8 @@ using XExten.XCore;
 using System.Collections.Generic;
 using XExten.Common;
 using System.Linq;
+using System.ComponentModel;
+using System.Collections;
 
 namespace XExten.Office
 {
@@ -28,10 +30,33 @@ namespace XExten.Office
         private ICellStyle FStyle;
         private ExcelType EnumType;
         private string DateFormat;
-        private DataTable Table;
+        private ArrayList Table;
         private List<int> FullCols;
         private Stream St;
         private bool HasFooter;
+        #endregion
+
+        #region 获取对象
+        /// <summary>
+        /// 获取工作薄
+        /// </summary>
+        /// <returns></returns>
+        public IWorkbook GetWorkbook() => Workbook;
+        /// <summary>
+        /// 获取工作表
+        /// </summary>
+        /// <returns></returns>
+        public ISheet GetSheet() => Sheet;
+        /// <summary>
+        /// 获取行
+        /// </summary>
+        /// <returns></returns>
+        public IRow GetRow() => Row;
+        /// <summary>
+        /// 获取列
+        /// </summary>
+        /// <returns></returns>
+        public ICell GetCell() => Cell;
         #endregion
 
         #region 导出
@@ -182,7 +207,7 @@ namespace XExten.Office
             St = st;
             EnumType = type;
             HasFooter = HasPageFooter;
-            Table = new DataTable();
+            Table = new ArrayList();
         }
         /// <summary>
         /// 创建导入工作薄
@@ -226,7 +251,7 @@ namespace XExten.Office
                 var HeaderKey = Row.GetCell(index).StringCellValue;
                 if (!FieldNames.ContainsKey(HeaderKey))
                     FieldNames.Remove(HeaderKey);
-                Table.Columns.Add(FieldNames[HeaderKey]);
+                Table.Add(FieldNames[HeaderKey]);
                 FullCols.Add(index);
             }
             return this;
@@ -236,31 +261,39 @@ namespace XExten.Office
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public IExcel CreateImportBody<T>()
+        public List<T> CreateImportBody<T>() where T : new()
         {
+            List<T> Entitise = new List<T>();
             var SecondRow = Sheet.FirstRowNum + 1;
             var LastRow = HasFooter ? Sheet.LastRowNum - 1 : Sheet.LastRowNum;//排除页脚
             for (int index = SecondRow; index <= LastRow; index++)
             {
                 if (Sheet.GetRow(index) == null)
-                    return this;
-                DataRow DtRow = Table.NewRow();
+                    return null;
+                T Entity = new T();
                 foreach (var item in FullCols)
                 {
-                    DtRow[item] = Sheet.GetRow(index).GetCell(item).StringCellValue;
+                    var Office = typeof(T).GetProperty(Table[item].ToString()).GetCustomAttributes(typeof(OfficeAttribute), false).FirstOrDefault();
+                    if (Office != null)
+                    {
+                        var WasEnum = (Office as OfficeAttribute).IsEnum;
+                        if (WasEnum)
+                        {
+                            var Result = Enum.Parse(typeof(T).GetProperty(Table[item].ToString()).PropertyType, typeof(T).GetProperty(Table[item].ToString()).PropertyType.GetFields()
+                                  .Where(Item => Item.GetCustomAttributes(typeof(DescriptionAttribute), false).FirstOrDefault() != null)
+                                  .Where(Item => ((DescriptionAttribute)Item.GetCustomAttributes(typeof(DescriptionAttribute), false).FirstOrDefault()).Description == Sheet.GetRow(index).GetCell(item).StringCellValue)
+                                  .FirstOrDefault().Name);
+                            Entity.GetType().GetProperty(Table[item].ToString()).SetValue(Entity, Result);
+                        }
+                        else
+                            Entity.GetType().GetProperty(Table[item].ToString()).SetValue(Entity, Sheet.GetRow(index).GetCell(item).StringCellValue);
+                    }
                 }
-                Table.Rows.Add(DtRow);
+                Entitise.Add(Entity);
             }
-            return this;
+            return Entitise;
         }
-        /// <summary>
-        /// 导出数据
-        /// </summary>
-        /// <returns></returns>
-        public DataTable ImportData()
-        {
-            return Table;
-        }
+     
         #endregion
     }
 }

@@ -47,7 +47,7 @@ namespace XExten.Test.TestModel
         public bool IsMan { get; set; }
         [Office(MapperField = "名称")]
         public string Name { get; set; }
-        [Office(MapperField = "名称", IsEnum = true)]
+        [Office(MapperField = "等级", IsEnum = true)]
         public TestC Tc { get; set; }
     }
 }

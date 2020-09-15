@@ -11,6 +11,11 @@ using XExten.XCore;
 using System.ComponentModel;
 using XExten.Common;
 using XExten.XPlus;
+using NPOI.XSSF.UserModel;
+using NPOI.SS.UserModel;
+using System.Reflection;
+using NPOI.SS.Util;
+using NPOI.HSSF.UserModel;
 
 namespace XExten.Office
 {
@@ -73,8 +78,19 @@ namespace XExten.Office
                 {
                     var First = Data.ToArray()[Row - 1];
                     var Index = NotIngoreNames[Col];
-                    var data = First.GetType().GetProperty(Index).GetValue(First);
-                    excel.CreateExportCells(Col, data).BodyExportStyle(Row, Cols - 1);
+                    var Entity = First.GetType().GetProperty(Index);
+                    var data = Entity.GetValue(First);
+                    CreateDropDwonData(excel, Types, First.GetType().GetProperty(Index), Col, Col);
+                    var WasEnum = (Entity.GetCustomAttribute(typeof(OfficeAttribute)) as OfficeAttribute).IsEnum;
+                    if (WasEnum)
+                    {
+                        var Attr = Entity.PropertyType.GetField(data.ToString()).GetCustomAttribute(typeof(DescriptionAttribute));
+                        if (Attr == null) throw new NullReferenceException("导出枚举对象时没有设置对应的DescriptionAttribute");
+                        var result = (Attr as DescriptionAttribute).Description;
+                        excel.CreateExportCells(Col, result).BodyExportStyle(Row, Cols - 1);
+                    }
+                    else
+                        excel.CreateExportCells(Col, data).BodyExportStyle(Row, Cols - 1);
                 }
             }
             #endregion
@@ -103,8 +119,89 @@ namespace XExten.Office
         public static List<T> ImportExcel<T>(Stream fs, ExcelType Types, bool HasPageFooter = false, int SheetIndex = 0) where T : new()
         {
             IExcel excel = new Excel(fs, Types, HasPageFooter);
-            var data = excel.CreateImportWorkBook().CreateImportSheet(SheetIndex).CreateImportHead<T>().CreateImportBody<T>().ImportData();
-            return data.ToEntities<T>();
+            return excel.CreateImportWorkBook().CreateImportSheet(SheetIndex).CreateImportHead<T>().CreateImportBody<T>();
         }
+
+        #region Private Function
+        /// <summary>
+        /// 获取下拉值
+        /// </summary>
+        /// <param name="Info"></param>
+        /// <returns></returns>
+        private static List<string> GetEnumDatas(PropertyInfo Info)
+        {
+            bool? WasEnum = (Info.GetCustomAttributes(typeof(OfficeAttribute), false).FirstOrDefault() as OfficeAttribute)?.IsEnum;
+            if (WasEnum != null && WasEnum.Value == true)
+            {
+                List<string> Datas = new List<string>();
+                Info.PropertyType.GetFields().ToEachs(Item =>
+                {
+                    var Attr = Item.GetCustomAttributes(typeof(DescriptionAttribute), false).FirstOrDefault();
+                    if (Attr != null)
+                    {
+                        var Des = (Attr as DescriptionAttribute).Description;
+                        Datas.Add(Des);
+                    }
+                });
+                return Datas;
+            }
+            return null;
+        }
+        /// <summary>
+        /// EXCEL2007下拉值
+        /// </summary>
+        /// <param name="sheet"></param>
+        /// <param name="data"></param>
+        /// <param name="StarCol"></param>
+        /// <param name="EndCol"></param>
+        private static void CreateDropDwonListForXLSX(XSSFSheet sheet, List<string> data, int StarCol, int EndCol)
+        {
+            XSSFDataValidationHelper Validation = new XSSFDataValidationHelper(sheet);
+            XSSFDataValidationConstraint Constraint = (XSSFDataValidationConstraint)Validation.CreateExplicitListConstraint(data.ToArray());
+            CellRangeAddressList AddressList = new CellRangeAddressList(1, 65535, StarCol, EndCol);
+            var XSSF = Validation.CreateValidation(Constraint, AddressList);
+            sheet.AddValidationData(XSSF);
+        }
+        /// <summary>
+        /// EXCEL2003下拉值
+        /// </summary>
+        /// <param name="sheet"></param>
+        /// <param name="data"></param>
+        /// <param name="StarCol"></param>
+        /// <param name="EndCol"></param>
+        private static void CreateDropDwonListForXLS(HSSFSheet sheet, List<string> data, int StarCol, int EndCol)
+        {
+            HSSFDataValidationHelper Validation = new HSSFDataValidationHelper(sheet);
+            DVConstraint Constraint = (DVConstraint)Validation.CreateExplicitListConstraint(data.ToArray());
+            CellRangeAddressList AddressList = new CellRangeAddressList(1, 65535, StarCol, EndCol);
+            var HSSF = Validation.CreateValidation(Constraint, AddressList);
+            sheet.AddValidationData(HSSF);
+        }
+        /// <summary>
+        /// 创建下拉值
+        /// </summary>
+        /// <param name="excel"></param>
+        /// <param name="type"></param>
+        /// <param name="info"></param>
+        /// <param name="StarCol"></param>
+        /// <param name="EndCol"></param>
+        private static void CreateDropDwonData(IExcel excel, ExcelType type, PropertyInfo info, int StarCol, int EndCol)
+        {
+            if (type == ExcelType.xlsx)
+            {
+                XSSFSheet Sheet = (excel.GetSheet() as XSSFSheet);
+                var data = GetEnumDatas(info);
+                if (data == null) return;
+                CreateDropDwonListForXLSX(Sheet, data, StarCol, EndCol);
+            }
+            else
+            {
+                HSSFSheet Sheet = (excel.GetSheet() as HSSFSheet);
+                var data = GetEnumDatas(info);
+                if (data == null) return;
+                CreateDropDwonListForXLS(Sheet, data, StarCol, EndCol);
+            }
+        }
+        #endregion
     }
 }

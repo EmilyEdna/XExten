@@ -19,13 +19,15 @@ namespace XExten.Test
             {
                 Id = 1,
                 Name = "张三",
-                IsMan = true
+                IsMan = true,
+                Tc=TestC.A
             },
             new TestD
             {
                 Id = 2,
                 Name = "里斯",
-                IsMan = false
+                IsMan = false,
+                Tc=TestC.B
             }
         };
             using var fs = new FileStream("TestD.xlsx", FileMode.Create);

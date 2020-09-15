@@ -1,6 +1,7 @@
-﻿using XExten.Office.Enums;
-using System.IO;
+﻿using System.IO;
 using System.Data;
+using NPOI.SS.UserModel;
+using System.Collections.Generic;
 
 namespace XExten.Office
 {
@@ -9,6 +10,29 @@ namespace XExten.Office
     /// </summary>
     public interface IExcel
     {
+        #region 获取对象
+        /// <summary>
+        /// 获取工作薄
+        /// </summary>
+        /// <returns></returns>
+        IWorkbook GetWorkbook();
+        /// <summary>
+        /// 获取工作表
+        /// </summary>
+        /// <returns></returns>
+        ISheet GetSheet();
+        /// <summary>
+        /// 获取行
+        /// </summary>
+        /// <returns></returns>
+        IRow GetRow();
+        /// <summary>
+        /// 获取列
+        /// </summary>
+        /// <returns></returns>
+        ICell GetCell();
+        #endregion
+        #region 导出
         /// <summary>
         /// 创建工作薄
         /// </summary>
@@ -68,6 +92,8 @@ namespace XExten.Office
         /// <param name="st"></param>
         /// <returns></returns>
         IExcel WriteExportStream(Stream st);
+        #endregion
+        #region 导入
         /// <summary>
         /// 创建导入工作薄
         /// </summary>
@@ -89,11 +115,7 @@ namespace XExten.Office
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        IExcel CreateImportBody<T>();
-        /// <summary>
-        /// 导出数据
-        /// </summary>
-        /// <returns></returns>
-        DataTable ImportData();
+        List<T> CreateImportBody<T>() where T : new();
+        #endregion
     }
 }
