@@ -8,8 +8,9 @@
     <RepositoryUrl>https://github.com/EmilyEdna/XExten</RepositoryUrl>
     <PackageProjectUrl>https://github.com/EmilyEdna/XExten</PackageProjectUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.6</Version>
+    <Version>1.0.6.1</Version>
     <Copyright>EmilyEdna 847432003@qq.com</Copyright>
+    <AssemblyVersion>1.0.6.1</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

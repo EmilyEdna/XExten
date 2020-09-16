@@ -1,18 +1,12 @@
-﻿using Org.BouncyCastle.Crypto.Tls;
-using XExten.Office.Enums;
+﻿using XExten.Office.Enums;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using XExten.XCore;
 using System.ComponentModel;
 using XExten.Common;
-using XExten.XPlus;
 using NPOI.XSSF.UserModel;
-using NPOI.SS.UserModel;
 using System.Reflection;
 using NPOI.SS.Util;
 using NPOI.HSSF.UserModel;
@@ -81,12 +75,20 @@ namespace XExten.Office
                     var Entity = First.GetType().GetProperty(Index);
                     var data = Entity.GetValue(First);
                     CreateDropDwonData(excel, Types, First.GetType().GetProperty(Index), Col, Col);
-                    var WasEnum = (Entity.GetCustomAttribute(typeof(OfficeAttribute)) as OfficeAttribute).IsEnum;
+                    //枚举映射
+                    var WasEnum = (Entity.GetCustomAttribute(typeof(OfficeAttribute)) as OfficeAttribute).Enum;
                     if (WasEnum)
                     {
                         var Attr = Entity.PropertyType.GetField(data.ToString()).GetCustomAttribute(typeof(DescriptionAttribute));
                         if (Attr == null) throw new NullReferenceException("导出枚举对象时没有设置对应的DescriptionAttribute");
                         var result = (Attr as DescriptionAttribute).Description;
+                        excel.CreateExportCells(Col, result).BodyExportStyle(Row, Cols - 1);
+                    }
+                    //Bool映射
+                    else if (Entity.PropertyType == typeof(bool))
+                    {
+                        var result = ((DescriptionAttribute)(Entity.GetCustomAttribute(typeof(OfficeAttribute), false) as OfficeAttribute).BoolEnum
+                             .GetField(data.ToString().ToUpper()).GetCustomAttribute(typeof(DescriptionAttribute), false)).Description;
                         excel.CreateExportCells(Col, result).BodyExportStyle(Row, Cols - 1);
                     }
                     else
@@ -124,26 +126,42 @@ namespace XExten.Office
 
         #region Private Function
         /// <summary>
-        /// 获取下拉值
+        /// 获取下拉值映射
         /// </summary>
         /// <param name="Info"></param>
         /// <returns></returns>
-        private static List<string> GetEnumDatas(PropertyInfo Info)
+        private static List<string> GetDatas(PropertyInfo Info)
         {
-            bool? WasEnum = (Info.GetCustomAttributes(typeof(OfficeAttribute), false).FirstOrDefault() as OfficeAttribute)?.IsEnum;
-            if (WasEnum != null && WasEnum.Value == true)
+            if (Info.PropertyType == typeof(bool))
             {
-                List<string> Datas = new List<string>();
-                Info.PropertyType.GetFields().ToEachs(Item =>
+                List<string> Result = new List<string>();
+                Type BoolEnum = (Info.GetCustomAttribute(typeof(OfficeAttribute), false) as OfficeAttribute).BoolEnum;
+                if (BoolEnum.BaseType != typeof(Enum)) throw new Exception("映射类型为bool的映射类型错误！参考只能使用Enum");
+                BoolEnum.GetFields().ToEachs(Item =>
                 {
-                    var Attr = Item.GetCustomAttributes(typeof(DescriptionAttribute), false).FirstOrDefault();
+                    var Attr = Item.GetCustomAttribute(typeof(DescriptionAttribute), false);
                     if (Attr != null)
                     {
                         var Des = (Attr as DescriptionAttribute).Description;
-                        Datas.Add(Des);
+                        Result.Add(Des);
                     }
                 });
-                return Datas;
+                return Result;
+            }
+            bool? WasEnum = (Info.GetCustomAttributes(typeof(OfficeAttribute), false).FirstOrDefault() as OfficeAttribute)?.Enum;
+            if (WasEnum != null && WasEnum.Value == true)
+            {
+                List<string> Result = new List<string>();
+                Info.PropertyType.GetFields().ToEachs(Item =>
+                {
+                    var Attr = Item.GetCustomAttribute(typeof(DescriptionAttribute), false);
+                    if (Attr != null)
+                    {
+                        var Des = (Attr as DescriptionAttribute).Description;
+                        Result.Add(Des);
+                    }
+                });
+                return Result;
             }
             return null;
         }
@@ -190,14 +208,14 @@ namespace XExten.Office
             if (type == ExcelType.xlsx)
             {
                 XSSFSheet Sheet = (excel.GetSheet() as XSSFSheet);
-                var data = GetEnumDatas(info);
+                var data = GetDatas(info);
                 if (data == null) return;
                 CreateDropDwonListForXLSX(Sheet, data, StarCol, EndCol);
             }
             else
             {
                 HSSFSheet Sheet = (excel.GetSheet() as HSSFSheet);
-                var data = GetEnumDatas(info);
+                var data = GetDatas(info);
                 if (data == null) return;
                 CreateDropDwonListForXLS(Sheet, data, StarCol, EndCol);
             }

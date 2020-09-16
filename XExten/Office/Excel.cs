@@ -12,6 +12,7 @@ using XExten.Common;
 using System.Linq;
 using System.ComponentModel;
 using System.Collections;
+using System.Reflection;
 
 namespace XExten.Office
 {
@@ -243,7 +244,7 @@ namespace XExten.Office
             FullCols = new List<int>();
             typeof(T).GetProperties().ToEachs(item =>
             {
-                var AttrField = (item.GetCustomAttributes(typeof(OfficeAttribute), false).FirstOrDefault() as OfficeAttribute).MapperField;
+                var AttrField = (item.GetCustomAttribute(typeof(OfficeAttribute), false) as OfficeAttribute).MapperField;
                 FieldNames.Add(AttrField, item.Name);
             });
             for (int index = 0; index < Row.LastCellNum; index++)
@@ -273,27 +274,42 @@ namespace XExten.Office
                 T Entity = new T();
                 foreach (var item in FullCols)
                 {
-                    var Office = typeof(T).GetProperty(Table[item].ToString()).GetCustomAttributes(typeof(OfficeAttribute), false).FirstOrDefault();
+                    var Office = typeof(T).GetProperty(Table[item].ToString()).GetCustomAttribute(typeof(OfficeAttribute), false);
                     if (Office != null)
                     {
-                        var WasEnum = (Office as OfficeAttribute).IsEnum;
+                        var WasEnum = (Office as OfficeAttribute).Enum;
                         if (WasEnum)
                         {
                             var Result = Enum.Parse(typeof(T).GetProperty(Table[item].ToString()).PropertyType, typeof(T).GetProperty(Table[item].ToString()).PropertyType.GetFields()
-                                  .Where(Item => Item.GetCustomAttributes(typeof(DescriptionAttribute), false).FirstOrDefault() != null)
-                                  .Where(Item => ((DescriptionAttribute)Item.GetCustomAttributes(typeof(DescriptionAttribute), false).FirstOrDefault()).Description == Sheet.GetRow(index).GetCell(item).StringCellValue)
+                                  .Where(Item => Item.GetCustomAttribute(typeof(DescriptionAttribute), false) != null)
+                                  .Where(Item => ((DescriptionAttribute)Item.GetCustomAttribute(typeof(DescriptionAttribute), false)).Description == Sheet.GetRow(index).GetCell(item).StringCellValue)
                                   .FirstOrDefault().Name);
                             Entity.GetType().GetProperty(Table[item].ToString()).SetValue(Entity, Result);
                         }
                         else
-                            Entity.GetType().GetProperty(Table[item].ToString()).SetValue(Entity, Sheet.GetRow(index).GetCell(item).StringCellValue);
+                        {
+                            var Result = Sheet.GetRow(index).GetCell(item).StringCellValue;
+                            Type EnumType = (Entity.GetType().GetProperty(Table[item].ToString()).GetCustomAttribute(typeof(OfficeAttribute)) as OfficeAttribute)?.BoolEnum;
+                            if (EnumType != null) {
+                                var FieldName = EnumType.GetFields().Where(Item => Item.GetCustomAttribute(typeof(DescriptionAttribute), false) != null)
+                                    .Where(Item => ((DescriptionAttribute)Item.GetCustomAttribute(typeof(DescriptionAttribute), false)).Description == Result).FirstOrDefault()?.Name;
+                                if (!FieldName.IsNullOrEmpty())
+                                {
+                                    if (bool.TryParse(FieldName, out bool BoolRes))
+                                        Entity.GetType().GetProperty(Table[item].ToString()).SetValue(Entity, BoolRes);
+                                    else
+                                        Entity.GetType().GetProperty(Table[item].ToString()).SetValue(Entity, Result);
+                                }
+                            }
+                            else
+                                Entity.GetType().GetProperty(Table[item].ToString()).SetValue(Entity, Result);
+                        }
                     }
                 }
                 Entitise.Add(Entity);
             }
             return Entitise;
         }
-     
         #endregion
     }
 }

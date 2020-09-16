@@ -10,7 +10,7 @@
     <PackageProjectUrl>https://github.com/EmilyEdna/XExten</PackageProjectUrl>
     <RepositoryUrl>https://github.com/EmilyEdna/XExten</RepositoryUrl>
     <Copyright>EmilyEdna 847432003@qq.com</Copyright>
-    <Version>1.0.5</Version>
+    <Version>1.0.5.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

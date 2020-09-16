@@ -1,6 +1,7 @@
 ﻿using ProtoBuf;
 using System.ComponentModel;
 using XExten.Common;
+using XExten.Office.Enums;
 
 namespace XExten.Test.TestModel
 {
@@ -43,11 +44,11 @@ namespace XExten.Test.TestModel
     {
         [Office(MapperField = "标志", IngoreField = true)]
         public int Id { get; set; }
-        [Office(MapperField = "是否男")]
+        [Office(MapperField = "是否男", BoolEnum = typeof(ExcelBoolType))]
         public bool IsMan { get; set; }
         [Office(MapperField = "名称")]
         public string Name { get; set; }
-        [Office(MapperField = "等级", IsEnum = true)]
+        [Office(MapperField = "等级", Enum = true)]
         public TestC Tc { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace XExten.Common
     /// 文档特性
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class OfficeAttribute: Attribute
+    public class OfficeAttribute : Attribute
     {
         /// <summary>
         /// 忽略导出
@@ -23,8 +23,13 @@ namespace XExten.Common
         public string MapperField { get; set; }
 
         /// <summary>
+        /// bool类型映射枚举
+        /// </summary>
+        public Type BoolEnum { get; set; }
+
+        /// <summary>
         /// 是否枚举
         /// </summary>
-        public bool IsEnum { get; set; } = false;
+        public bool Enum { get; set; } = false;
     }
 }
