@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using XExten.Test.TestModel;
 using XExten.XCore;
@@ -7,6 +8,12 @@ namespace XExten.Test
 {
     public class LinqXTestClass
     {
+        [Fact]
+        public void ToDateString_Test()
+        {
+            DateTime.Now.ToFmtDate(4, "yyyy-MM-dd");
+        }
+
         [Fact]
         public void ToUnic_Test()
         {

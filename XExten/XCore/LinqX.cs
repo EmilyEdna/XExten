@@ -130,6 +130,28 @@ namespace XExten.XCore
         #region Sync
 
         /// <summary>
+        /// 时间格式化
+        /// </summary>
+        /// <param name="Date"></param>
+        /// <param name="FmtType">
+        /// 0：customer format
+        /// 1：yyyy-MM-dd HH:mm:ss:ffff
+        /// 2：yyyy年MM月dd日
+        /// </param>
+        /// <param name = "Fmt" ></param>
+        /// <returns></returns>
+        public static String ToFmtDate(this DateTime Date, int FmtType = 0, string Fmt = null)
+        {
+            return FmtType switch
+            {
+                0 => Date.ToString("yyyy-MM-dd HH:mm:ss"),
+                1 => Date.ToString("yyyy-MM-dd HH:mm:ss:ffff"),
+                2 => Date.ToString("yyyy年MM月dd日"),
+                _ => Fmt.IsNullOrEmpty() ? throw new ArgumentNullException("paramter Fmt should't null") : Date.ToString(Fmt),
+            };
+        }
+
+        /// <summary>
         /// 使用AutoMapper将实体映射到另一个实体并返回该实体(Map an entity to another entity and return the entity by AutoMapper)
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -149,7 +171,7 @@ namespace XExten.XCore
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static List<T> ToAutoMapper<K,T>(this Object obj)
+        public static List<T> ToAutoMapper<K, T>(this Object obj)
         {
             if (obj == null) return default;
             IMapper mapper = new MapperConfiguration(t => t.CreateMap(typeof(K), typeof(T))).CreateMapper();
@@ -698,9 +720,9 @@ namespace XExten.XCore
         /// <param name="FieldName">字段名</param>
         /// <param name="IsProperty">是否获取属性</param>
         /// <returns>Attribute</returns>
-        public static TAttribute ToAttribute<TSource, TAttribute>(this TSource Param, string FieldName,bool IsProperty=false) where TAttribute : Attribute
+        public static TAttribute ToAttribute<TSource, TAttribute>(this TSource Param, string FieldName, bool IsProperty = false) where TAttribute : Attribute
         {
-            if(IsProperty)
+            if (IsProperty)
                 return (Param.GetType().GetProperty(FieldName).GetCustomAttributes(typeof(TAttribute), false).FirstOrDefault() as TAttribute);
             return (Param.GetType().GetField(FieldName).GetCustomAttributes(typeof(TAttribute), false).FirstOrDefault() as TAttribute);
         }
@@ -708,6 +730,22 @@ namespace XExten.XCore
         #endregion Sync
 
         #region Async
+
+        /// <summary>
+        /// 时间格式化
+        /// </summary>
+        /// <param name="Date"></param>
+        /// <param name="FmtType">
+        /// 0：customer format
+        /// 1：yyyy-MM-dd HH:mm:ss:ffff
+        /// 2：yyyy年MM月dd日
+        /// </param>
+        /// <param name = "Fmt" ></param>
+        /// <returns></returns>
+        public static async Task<String> ToFmtDateAsync(this DateTime Date, int FmtType = 0, string Fmt = null)
+        {
+            return await Task.Run(() => ToFmtDate(Date, FmtType, Fmt));
+        }
 
         /// <summary>
         /// 使用AutoMapper将实体映射到另一个实体并返回该实体(Map an entity to another entity and return the entity by AutoMapper)
@@ -727,9 +765,9 @@ namespace XExten.XCore
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static async Task<List<T>> ToAutoMapperAsync<K,T>(this Object obj)
+        public static async Task<List<T>> ToAutoMapperAsync<K, T>(this Object obj)
         {
-            return await Task.Run(() => ToAutoMapper<K,T>(obj));
+            return await Task.Run(() => ToAutoMapper<K, T>(obj));
         }
 
         /// <summary>
@@ -1063,7 +1101,7 @@ namespace XExten.XCore
         /// <returns>Attribute</returns>
         public static async Task<TAttribute> ToAttributeAsync<TSource, TAttribute>(this TSource Param, string FieldName, bool IsProperty = false) where TAttribute : Attribute
         {
-            return await Task.Run(() => ToAttribute<TSource, TAttribute>(Param, FieldName,IsProperty));
+            return await Task.Run(() => ToAttribute<TSource, TAttribute>(Param, FieldName, IsProperty));
         }
 
         #endregion Async
@@ -1307,7 +1345,7 @@ namespace XExten.XCore
         /// <param name="Param"></param>
         /// <param name="PrivateKey"></param>
         /// <returns></returns>
-        public static String ToRSADec(this String Param,String PrivateKey)
+        public static String ToRSADec(this String Param, String PrivateKey)
         {
             return RSAEncryption.RSADecrypt(Param, PrivateKey);
         }
@@ -1318,9 +1356,9 @@ namespace XExten.XCore
         /// <param name="Param"></param>
         /// <param name="PublicKey"></param>
         /// <returns></returns>
-        public static String ToRSAEnc(this String Param,String PublicKey)
+        public static String ToRSAEnc(this String Param, String PublicKey)
         {
-            return RSAEncryption.RSAEncrypt(Param,PublicKey);
+            return RSAEncryption.RSAEncrypt(Param, PublicKey);
         }
 
         /// <summary>
@@ -1329,7 +1367,7 @@ namespace XExten.XCore
         /// <param name="Param"></param>
         /// <param name="PrivateKey"></param>
         /// <returns></returns>
-        public static String ToSign(this String Param, String PrivateKey) 
+        public static String ToSign(this String Param, String PrivateKey)
         {
             return RSAEncryption.Sign(Param, PrivateKey);
         }
@@ -1402,7 +1440,7 @@ namespace XExten.XCore
         /// <param name="Param"></param>
         /// <param name="PrivateKey"></param>
         /// <returns></returns>
-        public static async Task<String> ToRSAAsyncDec(this String Param,String PrivateKey)
+        public static async Task<String> ToRSAAsyncDec(this String Param, String PrivateKey)
         {
             return await Task.Run(() => ToRSADec(Param, PrivateKey));
         }

@@ -867,11 +867,6 @@
             
              </summary>
         </member>
-        <member name="F:XExten.CacheFactory.RunTimeCache.MemoryCaches.Cache">
-            <summary>
-            MemoryCaches
-            </summary>
-        </member>
         <member name="M:XExten.CacheFactory.RunTimeCache.MemoryCaches.AddCache``1(System.String,``0,System.Int32,System.Boolean)">
             <summary>
             添加缓存
@@ -931,7 +926,12 @@
             映射字段
             </summary>
         </member>
-        <member name="P:XExten.Common.OfficeAttribute.IsEnum">
+        <member name="P:XExten.Common.OfficeAttribute.BoolEnum">
+            <summary>
+            bool类型映射枚举
+            </summary>
+        </member>
+        <member name="P:XExten.Common.OfficeAttribute.Enum">
             <summary>
             是否枚举
             </summary>
@@ -2433,6 +2433,21 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:XExten.Office.Enums.ExcelBoolType">
+            <summary>
+            bool类型映射值
+            </summary>
+        </member>
+        <member name="F:XExten.Office.Enums.ExcelBoolType.TRUE">
+            <summary>
+            是
+            </summary>
+        </member>
+        <member name="F:XExten.Office.Enums.ExcelBoolType.FALSE">
+            <summary>
+            否
+            </summary>
+        </member>
         <member name="T:XExten.Office.Enums.ExcelType">
             <summary>
             Excel 类型
@@ -2442,6 +2457,30 @@
             <summary>
             Excel导出
             </summary>
+        </member>
+        <member name="M:XExten.Office.Excel.GetWorkbook">
+            <summary>
+            获取工作薄
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.Excel.GetSheet">
+            <summary>
+            获取工作表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.Excel.GetRow">
+            <summary>
+            获取行
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.Excel.GetCell">
+            <summary>
+            获取列
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:XExten.Office.Excel.#ctor(XExten.Office.Enums.ExcelType,System.String)">
             <summary>
@@ -2552,12 +2591,6 @@
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
-        <member name="M:XExten.Office.Excel.ImportData">
-            <summary>
-            导出数据
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:XExten.Office.Excel.CheckWorkBook">
             <summary>
             检查工作薄是否被创建
@@ -2620,10 +2653,69 @@
             <param name="SheetIndex">数据表索引</param>
             <returns></returns>
         </member>
+        <member name="M:XExten.Office.ExcelFactory.GetDatas(System.Reflection.PropertyInfo)">
+            <summary>
+            获取下拉值映射
+            </summary>
+            <param name="Info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.ExcelFactory.CreateDropDwonListForXLSX(NPOI.XSSF.UserModel.XSSFSheet,System.Collections.Generic.List{System.String},System.Int32,System.Int32)">
+            <summary>
+            EXCEL2007下拉值
+            </summary>
+            <param name="sheet"></param>
+            <param name="data"></param>
+            <param name="StarCol"></param>
+            <param name="EndCol"></param>
+        </member>
+        <member name="M:XExten.Office.ExcelFactory.CreateDropDwonListForXLS(NPOI.HSSF.UserModel.HSSFSheet,System.Collections.Generic.List{System.String},System.Int32,System.Int32)">
+            <summary>
+            EXCEL2003下拉值
+            </summary>
+            <param name="sheet"></param>
+            <param name="data"></param>
+            <param name="StarCol"></param>
+            <param name="EndCol"></param>
+        </member>
+        <member name="M:XExten.Office.ExcelFactory.CreateDropDwonData(XExten.Office.IExcel,XExten.Office.Enums.ExcelType,System.Reflection.PropertyInfo,System.Int32,System.Int32)">
+            <summary>
+            创建下拉值
+            </summary>
+            <param name="excel"></param>
+            <param name="type"></param>
+            <param name="info"></param>
+            <param name="StarCol"></param>
+            <param name="EndCol"></param>
+        </member>
         <member name="T:XExten.Office.IExcel">
             <summary>
             Excel导出
             </summary>
+        </member>
+        <member name="M:XExten.Office.IExcel.GetWorkbook">
+            <summary>
+            获取工作薄
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.IExcel.GetSheet">
+            <summary>
+            获取工作表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.IExcel.GetRow">
+            <summary>
+            获取行
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XExten.Office.IExcel.GetCell">
+            <summary>
+            获取列
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:XExten.Office.IExcel.CreateExportWorkBook">
             <summary>
@@ -2717,12 +2809,6 @@
             创建导入内容
             </summary>
             <typeparam name="T"></typeparam>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.Office.IExcel.ImportData">
-            <summary>
-            导出数据
-            </summary>
             <returns></returns>
         </member>
         <member name="T:XExten.XCore.LinqX">
