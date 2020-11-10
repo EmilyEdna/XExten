@@ -9,9 +9,9 @@
 		<RepositoryUrl>https://github.com/EmilyEdna/XExten</RepositoryUrl>
 		<PackageTags>APM</PackageTags>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>1.0.4.4</Version>
-		<AssemblyVersion>1.0.4.4</AssemblyVersion>
-		<FileVersion>1.0.4.4</FileVersion>
+		<Version>1.0.4.5</Version>
+		<AssemblyVersion>1.0.4.5</AssemblyVersion>
+		<FileVersion>1.0.4.5</FileVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -22,12 +22,8 @@
 		<PackageReference Include="AspectCore.Extensions.Reflection" Version="2.1.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.7" />
 		<PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
-		<PackageReference Include="System.Diagnostics.DiagnosticSource" Version="4.7.1" />
-		<PackageReference Include="BeetleX" Version="1.5.3.2" />
+		<PackageReference Include="System.Diagnostics.DiagnosticSource" Version="5.0.0" />
+		<PackageReference Include="BeetleX" Version="1.5.5.3" />
+		<PackageReference Include="XExten" Version="2.2.6.1" />
 	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\XExten\XExten.csproj" />
-	</ItemGroup>
-
 </Project>

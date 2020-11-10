@@ -867,6 +867,11 @@
             
              </summary>
         </member>
+        <member name="F:XExten.CacheFactory.RunTimeCache.MemoryCaches.Cache">
+            <summary>
+            MemoryCaches
+            </summary>
+        </member>
         <member name="M:XExten.CacheFactory.RunTimeCache.MemoryCaches.AddCache``1(System.String,``0,System.Int32,System.Boolean)">
             <summary>
             添加缓存
@@ -1086,10 +1091,7 @@
             <param name="methods">The collection of methods to create in the type.</param>
             <returns>The new instance of the type.</returns>
         </member>
-        <member name="M:XExten.DynamicType.DynamicTypeBuilder.CreateEx(System.String,System.Collections.Generic.IEnumerable{XExten.DynamicType.DynamicProperty},System.Collections.Generic.IEnumerable{XExten.DynamicType.DynamicMethod})">
-            <summary>
-            Create a new instance of the dynamic type.
-            </summary>
+        <member name="M:XExten.DynamicType.DynamicTypeBuilder.CreateEx(System.String,System.Collections.Generic.IEnumerable{XExten.DynamicType.Dyn           </summary>
             <param name="typeName">The name of the type.</param>
             <param name="properties">The collection of properties to create in the type.</param>
             <param name="methods">The collection of methods to create in the type.</param>
@@ -2582,6 +2584,11 @@
             <summary>
             获取导入表格头
             </summary>
+           </member>
+        <member name="M:XExten.Office.Excel.CreateImportHead``1">
+            <summary>
+            获取导入表格头
+            </summary>
             <returns></returns>
         </member>
         <member name="M:XExten.Office.Excel.CreateImportBody``1">
@@ -2816,6 +2823,19 @@
             Linq Extension Class
             </summary>
         </member>
+        <member name="M:XExten.XCore.LinqX.ToFmtDate(System.DateTime,System.Int32,System.String)">
+            <summary>
+            时间格式化
+            </summary>
+            <param name="Date"></param>
+            <param name="FmtType">
+            0：customer format
+            1：yyyy-MM-dd HH:mm:ss:ffff
+            2：yyyy年MM月dd日
+            </param>
+            <param name = "Fmt" ></param>
+            <returns></returns>
+        </member>
         <member name="M:XExten.XCore.LinqX.ToAutoMapper``1(System.Object)">
             <summary>
             使用AutoMapper将实体映射到另一个实体并返回该实体(Map an entity to another entity and return the entity by AutoMapper)
@@ -2861,11 +2881,7 @@
             <param name="Param"></param>
             <returns></returns>
         </member>
-        <member name="M:XExten.XCore.LinqX.ToDicEach``2(System.Collections.Generic.IDictionary{``0,``1},System.Action{``0,``1})">
-            <summary>
-             循环字典(Traversing the dictionary)
-            </summary>
-            <typeparam name="T"></typeparam>
+        <member name="M:XExten.XCore.LinqX.ToDicEach``2(System.Collections.Generic.IDictionary{``0,``1},S
             <typeparam name="K"></typeparam>
             <param name="Param"></param>
             <param name="Selector"></param>
@@ -2959,6 +2975,10 @@
             使用MsgPack反序列化(DeserializeObject For MessagePack)
             </summary>
             <typeparam name="T"></typeparam>
+                <summary>
+            使用MsgPack反序列化(DeserializeObject For MessagePack)
+            </summary>
+            <typeparam name="T"></typeparam>
             <param name="Param"></param>
             <param name="IsPublic"></param>
             <returns></returns>
@@ -3043,11 +3063,7 @@
         <member name="M:XExten.XCore.LinqX.ToUTF8(System.String)">
             <summary>
             转换成UTF8(Return UTF8 string)
-            </summary>
-            <param name="Param"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XCore.LinqX.ToUTF8``1(``0)">
+``0)">
             <summary>
              替换实体中的数据并将其作为UTF8返回(Replace the data in the entity and return it as UTF8)
             </summary>
@@ -3081,6 +3097,19 @@
             <param name="FieldName">字段名</param>
             <param name="IsProperty">是否获取属性</param>
             <returns>Attribute</returns>
+        </member>
+        <member name="M:XExten.XCore.LinqX.ToFmtDateAsync(System.DateTime,System.Int32,System.String)">
+            <summary>
+            时间格式化
+            </summary>
+            <param name="Date"></param>
+            <param name="FmtType">
+            0：customer format
+            1：yyyy-MM-dd HH:mm:ss:ffff
+            2：yyyy年MM月dd日
+            </param>
+            <param name = "Fmt" ></param>
+            <returns></returns>
         </member>
         <member name="M:XExten.XCore.LinqX.ToAutoMapperAsync``1(System.Object)">
             <summary>
@@ -3119,6 +3148,8 @@
             <returns></returns>
         </member>
         <member name="M:XExten.XCore.LinqX.ToDicAsync``1(``0)">
+            <summary>
+            将实体的属性名称和属性值遍历包含到字典中并返回字典   <member name="M:XExten.XCore.LinqX.ToDicAsync``1(``0)">
             <summary>
             将实体的属性名称和属性值遍历包含到字典中并返回字典
             (Wraps an entity's property name and property value traversal into the dictionary and returns the dictionary)
@@ -3294,11 +3325,7 @@
             转换成Unicode(Return Unicode string)
             </summary>
             <param name="Param"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XExten.XCore.LinqX.ToUnicAsync``1(``0)">
-            <summary>
-            替换实体中的数据并将其作为Unicode返回(Replace the data in the entity and return it as Unicode)
+            <returns></returns>��(Replace the data in the entity and return it as Unicode)
             </summary>
             <typeparam name="T"></typeparam>
             <param name="Param"></param>
@@ -3704,6 +3731,10 @@
         <member name="T:XExten.XPlus.XPlusEx">
             <summary>
             Common Extension Class
+            </summary>
+        </member>
+        <member name="M:XExten.XPlus.XPlusEx.XSendMail(System.Action{XExten.Email.EmailViewModel})">
+            <summarylass
             </summary>
         </member>
         <member name="M:XExten.XPlus.XPlusEx.XSendMail(System.Action{XExten.Email.EmailViewModel})">

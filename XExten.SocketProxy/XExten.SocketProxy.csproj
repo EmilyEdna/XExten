@@ -8,9 +8,9 @@
     <RepositoryUrl>https://github.com/EmilyEdna/XExten</RepositoryUrl>
     <PackageProjectUrl>https://github.com/EmilyEdna/XExten</PackageProjectUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.6.1</Version>
+    <Version>1.0.6.2</Version>
     <Copyright>EmilyEdna 847432003@qq.com</Copyright>
-    <AssemblyVersion>1.0.6.1</AssemblyVersion>
+    <AssemblyVersion>1.0.6.2</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -18,18 +18,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BeetleX" Version="1.5.3.2" />
+    <PackageReference Include="BeetleX" Version="1.5.5.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-    <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="3.1.6" />
+    <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="5.0.0" />
     <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
+	  <PackageReference Include="XExten" Version="2.2.6.1" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ProxyConfig\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\XExten\XExten.csproj" />
-  </ItemGroup>
-
 </Project>
