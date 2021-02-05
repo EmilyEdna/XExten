@@ -111,9 +111,5 @@ namespace XExten.Profile.AspNetCore.InvokeTracing
             });
         }
 
-        private static void t()
-        {
-
-        }
     }
 }
