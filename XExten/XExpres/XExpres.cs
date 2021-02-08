@@ -34,7 +34,7 @@ namespace XExten.XExpres
     /// <summary>
     /// Expression Extension Class
     /// </summary>
-    public static class XExp
+    public static class XExpres
     {
         #region Func
 

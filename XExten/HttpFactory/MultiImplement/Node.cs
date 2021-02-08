@@ -81,7 +81,7 @@ namespace XExten.HttpFactory.MultiImplement
         /// <param name="Weight">1~100区间</param>
         /// <returns></returns>
         public INode AddNode(string Path, List<KeyValuePair<String, String>> Param, RequestType Type = RequestType.GET, bool UseCache = false, int Weight = 50) {
-            return XPlusEx.XTry(() =>
+            return XPlus.XPlus.XTry(() =>
             {
                 WeightURL WeightUri = new WeightURL
                 {
@@ -110,7 +110,7 @@ namespace XExten.HttpFactory.MultiImplement
         /// <returns></returns>
         public INode AddNode<T>(string Path, T Param, IDictionary<string, string> MapFied = null, RequestType Type = RequestType.GET, bool UseCache = false, int Weight = 50) where T : class, new()
         {
-            return XPlusEx.XTry(() =>
+            return XPlus.XPlus.XTry(() =>
             {
                 WeightURL WeightUri = new WeightURL
                 {

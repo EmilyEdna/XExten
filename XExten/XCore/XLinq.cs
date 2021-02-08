@@ -22,7 +22,7 @@ namespace XExten.XCore
     /// <summary>
     /// Linq Extension Class
     /// </summary>
-    public static class LinqX
+    public static class XLinq
     {
         #region Func
 
@@ -93,7 +93,7 @@ namespace XExten.XCore
         {
             var Item = Expression.NotEqual(SProperty, Expression.Constant(null, SType));
             //构造回调 Mapper<TSource, TTarget>.Map()
-            var MType = typeof(LinqX).GetMethod("ToMapper", new[] { SType });
+            var MType = typeof(XLinq).GetMethod("ToMapper", new[] { SType });
             var Call = Expression.Call(MType, SProperty);
             return Expression.Condition(Item, Call, Expression.Constant(null, TType));
         }
@@ -102,7 +102,7 @@ namespace XExten.XCore
         {
             //条件p.Item!=null
             var Item = Expression.NotEqual(SProperty, Expression.Constant(null, SType));
-            var MType = typeof(LinqX).GetMethod("ToMappers", new[] { SType });
+            var MType = typeof(XLinq).GetMethod("ToMappers", new[] { SType });
             var Call = Expression.Call(MType, SProperty);
             Expression Exp;
             if (TType == Call.Type)

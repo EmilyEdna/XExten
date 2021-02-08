@@ -18,27 +18,27 @@ namespace XExten.Test
                 { "Name", "李四" }
             };
             TestA A = new TestA();
-            XExp.SetProptertiesValue<TestA>(keyValues, A);
+            XExpres.XExpres.SetProptertiesValue<TestA>(keyValues, A);
         }
 
         [Fact]
         public void GetExpression_Test()
         {
             string[] arr = new[] { "Id", "Name" };
-            var res = XExp.GetExpression<TestA>(arr);
+            var res = XExpres.XExpres.GetExpression<TestA>(arr);
         }
 
         [Fact]
         public void GetExpression_Test1()
         {
             TestA A = new TestA { Id = 10, Name = "测试" };
-            XExp.GetExpression<TestA>("Name", "123", QType.NotLike);
+            XExpres.XExpres.GetExpression<TestA>("Name", "123", QType.NotLike);
         }
 
         [Fact]
         public void GetCombineClass_Test()
         {
-            var res = XExp.CombineClass<TestA, TestB>((t, x) => new { t, x });
+            var res = XExpres.XExpres.CombineClass<TestA, TestB>((t, x) => (new { t, x }));
             var instance = Activator.CreateInstance(res);
             //Instantiate first and assign later
         }
@@ -50,7 +50,7 @@ namespace XExten.Test
             {
                new DynamicPropertyValue("Id",typeof(int),1)
             };
-            var res = XExp.CombineClassWithValue<TestA, TestB>((t, x) => new { t, x }, dynamics);
+            var res = XExpres.XExpres.CombineClassWithValue<TestA, TestB>((t, x) => (new { t, x }), dynamics);
         }
 
         [Fact]

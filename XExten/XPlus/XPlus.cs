@@ -24,7 +24,7 @@ namespace XExten.XPlus
     /// <summary>
     /// Common Extension Class
     /// </summary>
-    public class XPlusEx
+    public class XPlus
     {
         #region Func
 
