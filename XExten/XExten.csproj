@@ -45,7 +45,7 @@
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="5.0.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.11.4" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="NPOI" Version="2.5.1" />
     <PackageReference Include="protobuf-net" Version="3.0.52" />
     <PackageReference Include="QRCoder" Version="1.3.9" />
